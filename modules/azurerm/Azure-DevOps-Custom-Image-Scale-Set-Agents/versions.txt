@@ -1,0 +1,5 @@
+v2.59.0
+naming-convention
+
+------ compared to v2.88.2 ------
+https://github.com/wso2-enterprise/azure-terraform-modules/commit/ca87328aebf68b6cc0ee0ea892a30268458ef905
