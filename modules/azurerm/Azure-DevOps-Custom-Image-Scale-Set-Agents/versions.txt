@@ -1,5 +1,9 @@
+v2.42.0
 v2.59.0
 naming-convention
 
 ------ compared to v2.88.2 ------
+https://github.com/wso2-enterprise/azure-terraform-modules/commit/b7fa37483961f03520c89a654957241a0889379f
+https://github.com/wso2-enterprise/azure-terraform-modules/commit/f9de3ecc4fe5541f8e37045669168c14b3d54c38
+https://github.com/wso2-enterprise/azure-terraform-modules/commit/6551dc25d397634a7af9da9baa9b569ce51fcf97
 https://github.com/wso2-enterprise/azure-terraform-modules/commit/ca87328aebf68b6cc0ee0ea892a30268458ef905
