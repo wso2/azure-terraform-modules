@@ -9,6 +9,17 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "app_name" {}
+variable "project" {
+  description = "The name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "The name of the environment"
+  type        = string
+}
+
+variable "app_name" {
+  description = "The name of the application"
+  type        = string
+}

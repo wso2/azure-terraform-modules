@@ -9,13 +9,19 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "sp_internal_id" {}
+variable "sp_internal_id" {
+  description = "The internal ID of the service principal."
+  type        = string
+}
 
 variable "rotation_time_in_months" {
-  default = 6
+  default     = 6
+  description = "The time in months after which the service principal password will expire."
+  type        = number
 }
 
 variable "display_name" {
-  type    = string
-  default = null
+  default     = null
+  description = "The display name of the service principal."
+  type        = string
 }

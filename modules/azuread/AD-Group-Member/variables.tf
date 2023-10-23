@@ -10,8 +10,10 @@
 # --------------------------------------------------------------------------------------
 
 variable "group_object_id" {
-  description = "AD group object id"
+  description = "The object ID of the group you want to add the member to. Changing this forces a new resource to be created."
+  type        = string
 }
 variable "member_object_id" {
-  description = "User or service principle object id"
+  description = "The object ID of the principal you want to add as a member to the group. Supported object types are Users, Groups or Service Principals. Changing this forces a new resource to be created."
+  type        = string
 }

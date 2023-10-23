@@ -30,9 +30,9 @@ variable "description" {
 }
 
 variable "allow_access" {
+  default     = "false"
   description = "Indicate if this variable group is shared by all pipelines of this project"
   type        = bool
-  default     = "false"
 }
 
 variable "key_vault_name" {

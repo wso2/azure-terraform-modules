@@ -11,5 +11,5 @@
 
 resource "azuread_service_principal" "service_principal" {
   application_id               = var.ad_application_id
-  app_role_assignment_required = false
+  app_role_assignment_required = var.app_role_assignment_required
 }

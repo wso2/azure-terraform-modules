@@ -9,8 +9,27 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project_id" {}
-variable "project" {}
-variable "service_endpoint_name" {}
-variable "description" {}
-variable "github_pat" {}
+variable "project_id" {
+  description = "The ID of the project."
+  type        = string
+}
+
+variable "project" {
+  description = "The name of the project in which the service endpoint will be created."
+  type        = string
+}
+
+variable "service_endpoint_name" {
+  description = "The name you will use to refer to this service connection in task inputs."
+  type        = string
+}
+
+variable "description" {
+  description = "The description of the service endpoint."
+  type        = string
+}
+
+variable "github_pat" {
+  description = "The GitHub personal access token."
+  type        = string
+}

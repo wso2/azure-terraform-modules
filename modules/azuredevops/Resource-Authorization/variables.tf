@@ -9,10 +9,28 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project_id" {}
-variable "resource_id" {}
-variable "definition_id" {}
-variable "authorized" {
-  default = "true"
+variable "project_id" {
+  description = "The ID of the project."
+  type        = string
 }
-variable "authorized_type" {}
+
+variable "resource_id" {
+  description = "The ID of the resource."
+  type        = string
+}
+
+variable "definition_id" {
+  description = "The ID of the definition."
+  type        = string
+}
+
+variable "authorized" {
+  default     = "true"
+  description = "Whether the resource is authorized."
+  type        = bool
+}
+
+variable "authorized_type" {
+  description = "The type of the resource to authorize. Type: string. Valid values: endpoint, queue, variablegroup"
+  type        = string
+}

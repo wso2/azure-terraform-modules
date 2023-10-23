@@ -9,17 +9,60 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project_id" {}
-variable "project" {}
-variable "definition_name" {}
-variable "github_service_connection_id" {}
-variable "github_org_name" {}
-variable "github_repo_name" {}
-variable "yml_path" {}
-variable "branch_name" {}
-variable "agent_pool_name" {
-  default = "Azure Pipelines"
+variable "project_id" {
+  description = "The ID of the project."
+  type        = string
 }
+
+variable "project" {
+  description = "The name of the project in which the service endpoint will be created."
+  type        = string
+}
+
+variable "definition_name" {
+  description = "The name of the build definition."
+  type        = string
+}
+
+variable "github_service_connection_id" {
+  description = "The ID of the GitHub service connection."
+  type        = string
+}
+
+variable "github_org_name" {
+  description = "The name of the GitHub organization."
+  type        = string
+}
+
+variable "github_repo_name" {
+  description = "The name of the GitHub repository."
+  type        = string
+}
+
+variable "yml_path" {
+  description = "The path to the YAML file."
+  type        = string
+}
+
+variable "branch_name" {
+  description = "The name of the branch."
+  type        = string
+}
+
+variable "agent_pool_name" {
+  default     = "Azure Pipelines"
+  description = "The name of the agent pool."
+  type        = string
+}
+
 variable "pipeline_path" {
-  default = "\\"
+  default     = "\\"
+  description = "The path to the pipeline."
+  type        = string
+}
+
+variable "repo_type" {
+  default     = "GitHub"
+  description = "The type of the repository."
+  type        = string
 }

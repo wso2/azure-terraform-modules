@@ -9,22 +9,44 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project_id" {}
+variable "project_id" {
+  description = "Project id"
+  type        = string
+}
 
-variable "project" {}
+variable "project" {
+  description = "Project name"
+  type        = string
+}
 
-variable "name" {}
+variable "name" {
+  description = "Variable group name"
+  type        = string
+}
 
-variable "description" {}
+variable "description" {
+  description = "Variable group description"
+  type        = string
+}
 
 variable "allow_access" {
-  default = "false"
+  default     = "false"
+  description = "Indicate if this variable group is shared by all pipelines of this project"
+  type        = bool
 }
 
 variable "variables_map" {
-  type = list(map(string))
+  description = "Variables map that need to be added to the variable group"
+  type        = list(map(string))
 }
 
 variable "secrets_map" {
-  type = list(map(string))
+  description = "Secrets map that need to be added to the variable group"
+  type        = list(map(string))
+}
+
+variable "is_secret" {
+  default     = "true"
+  description = "Indicate if the variable is a secret"
+  type        = bool
 }

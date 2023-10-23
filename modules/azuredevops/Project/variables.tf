@@ -9,22 +9,37 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
+variable "project" {
+  description = "The name of the project."
+  type        = string
+}
 
-variable "name" {}
+variable "name" {
+  description = "The name of the project."
+  type        = string
+}
 
-variable "description" {}
+variable "description" {
+  description = "The description of the project."
+  type        = string
+}
 
 variable "visibility" {
-  default = "private"
+  default     = "private"
+  description = "Specifies the visibility of the Project. Valid values: private or public."
+  type        = string
 }
 
 variable "version_control" {
-  default = "git"
+  default     = "git"
+  description = "Specifies the version control type of the project. Valid values: git or tfvc."
+  type        = string
 }
 
 variable "work_item_template" {
-  default = "Agile"
+  default     = "Agile"
+  description = "Specifies the work item template of the project. Valid values: Agile, Scrum, or CMMI."
+  type        = string
 }
 
 variable "features" {
@@ -35,4 +50,6 @@ variable "features" {
     "pipelines"    = "enabled"
     "boards"       = "disabled"
   }
+  description = "Specifies the features of the project. Valid values: testplans, artifacts, repositories, pipelines, boards."
+  type        = map(string)
 }

@@ -29,7 +29,7 @@ resource "azuredevops_variable_group" "devops_variable_group" {
     content {
       name         = variable.value["name"]
       secret_value = variable.value["value"]
-      is_secret    = true
+      is_secret    = var.is_secret
     }
   }
 

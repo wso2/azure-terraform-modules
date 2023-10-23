@@ -14,7 +14,7 @@ resource "azuredevops_serviceendpoint_kubernetes" "devops_serviceendpoint_kubern
   project_id            = var.project_id
   service_endpoint_name = join("-", [var.project, var.service_endpoint_name])
   apiserver_url         = var.apiserver_url
-  authorization_type    = "Kubeconfig"
+  authorization_type    = var.authorization_type
   description           = var.description
 
   kubeconfig {

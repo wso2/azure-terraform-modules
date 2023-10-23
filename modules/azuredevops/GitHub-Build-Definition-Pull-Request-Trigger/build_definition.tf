@@ -31,7 +31,7 @@ resource "azuredevops_build_definition" "devops_build_definition" {
 
   repository {
     repo_id               = join("/", [var.github_org_name, var.github_repo_name])
-    repo_type             = "GitHub"
+    repo_type             = var.repo_type
     yml_path              = var.yml_path
     branch_name           = var.branch_name
     service_connection_id = var.github_service_connection_id
