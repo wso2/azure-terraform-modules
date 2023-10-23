@@ -34,7 +34,7 @@ variable "autoscale_configuration_max_capacity" {
 }
 
 variable "autoscale_configuration_min_capacity" {
-  type = number
+  type    = number
   default = 1
 }
 
@@ -198,12 +198,12 @@ variable "network_security_rules" {
 }
 
 variable "default_ns_rule_1_priority" {
-  type = number
+  type    = number
   default = 101
 }
 
 variable "default_ns_rule_2_priority" {
-  type = number
+  type    = number
   default = 102
 }
 

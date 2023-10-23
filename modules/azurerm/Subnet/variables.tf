@@ -53,21 +53,21 @@ variable "default_tags" {
 }
 variable "enforce_private_link_service_network_policies" {
   description = "Enable or Disable network policies for the private link service on the subnet"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 variable "enforce_private_link_endpoint_network_policies" {
   description = "Enable or Disable network policies for the private link endpoint on the subnet"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "delegation" {
   description = "Delegation for the subnet."
   type = list(object({
-    delegation_name = string,
-    service_delegation_name = string,
+    delegation_name            = string,
+    service_delegation_name    = string,
     service_delegation_actions = list(string)
   }))
-  default     = null
+  default = null
 }

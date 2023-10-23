@@ -10,23 +10,23 @@
 # --------------------------------------------------------------------------------------
 variable "private_endpoint_subnet_id" {
   description = "Private Endpoint subnet ID"
-  type = string
+  type        = string
 }
 variable "location" {
   description = "Location of the deployment"
-  type = string
+  type        = string
 }
 variable "resource_group_name" {
-   description = "Resource group name"
-  type = string
+  description = "Resource group name"
+  type        = string
 }
 variable "private_link_service_connection_name" {
   description = "Private Link Service Connection name"
-  type = string
+  type        = string
 }
 variable "private_link_resource_alias" {
   description = "Private Link Service Resources alias"
-  type = string
+  type        = string
 }
 variable "tags" {
   type        = map(string)
@@ -34,21 +34,21 @@ variable "tags" {
 }
 variable "project" {
   description = "The name of the project"
-  type = string
+  type        = string
 }
 variable "connection_request_message" {
   description = "The connection request message to the PLS"
-  type = string
+  type        = string
 }
 variable "workload_name" {
   description = "The workload name of the PLE"
-  type = string
+  type        = string
 }
 variable "environment" {
   description = "The enviroment of the deployment"
-  type = string
+  type        = string
 }
 variable "padding" {
-  description = "Padding for the deployment" 
-  type = string
+  description = "Padding for the deployment"
+  type        = string
 }

@@ -15,5 +15,5 @@ resource "azurerm_automation_webhook" "automation_webhook" {
   automation_account_name = var.automation_account_name
   expiry_time             = var.automation_webhook_expiry_time
   enabled                 = var.automation_webhook_enabled
-  runbook_name            = var.automation_runbook_name 
+  runbook_name            = var.automation_runbook_name
 }

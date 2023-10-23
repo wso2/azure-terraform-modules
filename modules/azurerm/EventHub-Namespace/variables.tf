@@ -30,7 +30,7 @@ variable "padding" {
 }
 
 variable "public_network_access_enabled" {
-  type = string
+  type        = string
   description = "Is public network access enabled for the EventHub Namespace?"
-  default = "Allow"
+  default     = "Allow"
 }

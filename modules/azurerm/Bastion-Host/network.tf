@@ -25,7 +25,7 @@ resource "azurerm_network_security_group" "bastion_host_nsg" {
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_allow_https_internet_inbound" {
-  count                       = var.allow_https_internet_inbound==true ? 1 : 0
+  count                       = var.allow_https_internet_inbound == true ? 1 : 0
   name                        = "AllowHttpsInBound"
   priority                    = 200
   direction                   = "Inbound"
@@ -40,7 +40,7 @@ resource "azurerm_network_security_rule" "network_security_rule_allow_https_inte
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_allow_https_vpn_inbound" {
-  count                       = var.allow_https_internet_inbound==false ? 1 : 0
+  count                       = var.allow_https_internet_inbound == false ? 1 : 0
   name                        = "AllowHttpsInBound"
   priority                    = 200
   direction                   = "Inbound"

@@ -33,6 +33,6 @@ resource "azurerm_mssql_server" "mssql_server" {
     When "azuread_authentication_only" is true, "administrator_login" and "administrator_login_password" properties
     can be omitted as only AD user or group logins are permitted.
     */
-    azuread_authentication_only      = false
+    azuread_authentication_only = false
   }
 }

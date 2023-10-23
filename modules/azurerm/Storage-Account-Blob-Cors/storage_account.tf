@@ -27,10 +27,10 @@ resource "azurerm_storage_account" "storage_account" {
     }
 
     cors_rule {
-      allowed_headers = var.cors_allowed_header_list
-      allowed_methods = var.cors_allowed_methods_list
-      allowed_origins = var.cors_allowed_origins_list
-      exposed_headers = var.cors_exposed_headers_list
+      allowed_headers    = var.cors_allowed_header_list
+      allowed_methods    = var.cors_allowed_methods_list
+      allowed_origins    = var.cors_allowed_origins_list
+      exposed_headers    = var.cors_exposed_headers_list
       max_age_in_seconds = var.cors_max_age_in_seconds
     }
   }

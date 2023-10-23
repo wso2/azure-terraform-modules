@@ -10,27 +10,27 @@
 # --------------------------------------------------------------------------------------
 
 variable "role_definition_name" {
-  type = string
+  type        = string
   description = "The name of the Role Definition."
 }
 
 variable "role_definition_scope" {
-  type = string
+  type        = string
   description = "The scope at which the Role Definition applies to."
 }
 
 variable "description" {
-  type = string
+  type        = string
   description = "A description of the Role Definition."
 }
 
 variable "allowed_actions_list" {
-  type = list(string)
+  type        = list(string)
   description = "List of one or more allowed Actions."
 }
 
 variable "disallowed_actions_list" {
-  type = list(string)
+  type        = list(string)
   description = "List of one or more disallowed Actions."
   default     = []
 }

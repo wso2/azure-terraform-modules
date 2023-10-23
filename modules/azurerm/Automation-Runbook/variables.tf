@@ -38,11 +38,11 @@ variable "filepath" {
 }
 variable "log_verbose" {
   description = "The log verbose boolean"
-  default = true
+  default     = true
 }
 variable "log_progress" {
   description = "The log progress boolean"
-  default = true
+  default     = true
 }
 variable "tags" {
   description = "The tags"

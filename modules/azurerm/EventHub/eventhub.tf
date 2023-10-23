@@ -1,5 +1,5 @@
 resource "azurerm_eventhub" "eventhub" {
-  name                = join("-",
+  name = join("-",
     [
       "evh",
       var.project,

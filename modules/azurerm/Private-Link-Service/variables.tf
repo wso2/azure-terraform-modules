@@ -39,26 +39,26 @@ variable "default_tags" {
 }
 variable "visible_consumer_subscription_ids" {
   description = "List of Subscription IDs which can view this Private Link Service"
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 variable "auto_approved_consumer_subscription_ids" {
   description = "List of Subscription IDs whose Private Endpoint to the PLS would be auto approved"
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 variable "frontend_ip_config_ids" {
   description = "List of Frontend IPs connected to the Private Link Service"
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 variable "nat_ip_configurations" {
   description = "List of NAT IP configurations used for the Private Link Service"
-  type    = list(object({
-    name                    = string
-    primary                 = bool
-    subnet_id               = string
-    private_ip_address      = string
+  type = list(object({
+    name               = string
+    primary            = bool
+    subnet_id          = string
+    private_ip_address = string
   }))
   default = []
 }

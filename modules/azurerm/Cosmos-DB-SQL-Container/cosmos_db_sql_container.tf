@@ -19,7 +19,7 @@ resource "azurerm_cosmosdb_sql_container" "cosmosdb_sql_container" {
   throughput            = var.autoscale_enabled == false ? var.throughput : null
   default_ttl           = var.default_ttl
 
-  dynamic autoscale_settings {
+  dynamic "autoscale_settings" {
     for_each = local.autoscale_setting
     content {
       max_throughput = autoscale_settings.value

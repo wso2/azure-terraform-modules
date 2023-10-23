@@ -10,8 +10,8 @@
 # --------------------------------------------------------------------------------------
 
 variable "group_object_id" {
-    description = "AD group object id"
+  description = "AD group object id"
 }
 variable "member_object_id" {
-    description = "User or service principle object id"
+  description = "User or service principle object id"
 }

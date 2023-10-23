@@ -11,10 +11,10 @@
 
 output "cdn_endpoint" {
   depends_on = [azurerm_cdn_endpoint.cdn_endpoint]
-  value = azurerm_cdn_endpoint.cdn_endpoint.fqdn
+  value      = azurerm_cdn_endpoint.cdn_endpoint.fqdn
 }
 
 output "cdn_endpoint_id" {
   depends_on = [azurerm_cdn_endpoint.cdn_endpoint]
-  value = azurerm_cdn_endpoint.cdn_endpoint.id
+  value      = azurerm_cdn_endpoint.cdn_endpoint.id
 }

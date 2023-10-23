@@ -36,7 +36,7 @@ output "automation_account_dsc_secondary_access_key" {
 
 output "automation_account_managed_identity_id" {
   depends_on = [azurerm_automation_account.automation_account]
-  value = azurerm_automation_account.automation_account.identity[0].principal_id
+  value      = azurerm_automation_account.automation_account.identity[0].principal_id
 }
 
 output "automation_account_hybrid_service_url" {

@@ -10,11 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 output "cosmos_sql_database_name" {
-  depends_on  = [azurerm_cosmosdb_sql_database.cosmos_sql_database]
-  value       = azurerm_cosmosdb_sql_database.cosmos_sql_database.name
+  depends_on = [azurerm_cosmosdb_sql_database.cosmos_sql_database]
+  value      = azurerm_cosmosdb_sql_database.cosmos_sql_database.name
 }
 
 output "cosmos_sql_database_id" {
-  depends_on  = [azurerm_cosmosdb_sql_database.cosmos_sql_database]
-  value       = azurerm_cosmosdb_sql_database.cosmos_sql_database.id
+  depends_on = [azurerm_cosmosdb_sql_database.cosmos_sql_database]
+  value      = azurerm_cosmosdb_sql_database.cosmos_sql_database.id
 }

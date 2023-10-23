@@ -16,7 +16,7 @@ resource "azurerm_firewall_nat_rule_collection" "public_loadbalancer_dnat_rules"
     "internallb",
     var.shortened_environment,
     var.shortened_location,
-    var.shortened_padding])
+  var.shortened_padding])
   azure_firewall_name = azurerm_firewall.azure_firewall.name
   resource_group_name = var.resource_group_name
   priority            = var.dynamic_nat_rule_collection_priority

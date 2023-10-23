@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_eventhub_authorization_rule" "eventhub_authorization_rule" {
-  name                = join("-",
+  name = join("-",
     [
       "evhar",
       var.project,

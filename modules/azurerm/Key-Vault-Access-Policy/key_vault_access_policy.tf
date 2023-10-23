@@ -11,11 +11,11 @@
 
 
 resource "azurerm_key_vault_access_policy" "key_vault_access_policy" {
-  key_vault_id              = var.key_vault_id
-  tenant_id                 = var.vault_access_tenant_id
-  object_id                 = var.vault_access_object_id
-  secret_permissions        = var.vault_access_secret_permissions
-  certificate_permissions   = var.vault_access_certificate_permissions
-  key_permissions           = var.vault_access_key_permissions
-  storage_permissions       = var.vault_access_storage_permissions
+  key_vault_id            = var.key_vault_id
+  tenant_id               = var.vault_access_tenant_id
+  object_id               = var.vault_access_object_id
+  secret_permissions      = var.vault_access_secret_permissions
+  certificate_permissions = var.vault_access_certificate_permissions
+  key_permissions         = var.vault_access_key_permissions
+  storage_permissions     = var.vault_access_storage_permissions
 }

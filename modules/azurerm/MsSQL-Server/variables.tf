@@ -40,16 +40,16 @@ variable "mssql_identity_type" {
 }
 
 variable "azuread_administrator_login_username" {
-  type    = string
+  type        = string
   description = "The login username of the Azure AD Administrator of this SQL Server"
 }
 
 variable "azuread_administrator_object_id" {
-  type    = string
+  type        = string
   description = "The object id of the Azure AD Administrator of this SQL Server"
 }
 
 variable "azuread_administrator_tenant_id" {
-  type    = string
+  type        = string
   description = "The tenant id of the Azure AD Administrator of this SQL Server"
 }

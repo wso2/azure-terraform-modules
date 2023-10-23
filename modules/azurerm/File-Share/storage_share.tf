@@ -14,9 +14,9 @@ resource "azurerm_storage_share" "storage_share" {
   storage_account_name = var.storage_account_name
   quota                = var.file_share_quote
 
-    lifecycle {
-     ignore_changes = [
-       metadata
-     ]
+  lifecycle {
+    ignore_changes = [
+      metadata
+    ]
   }
 }

@@ -11,18 +11,18 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network" "virtual_network" {
-  name                = var.network_mode != "" ? join("-", ["vnet", var.project, var.network_mode, var.application_name, var.environment, var.location, var.padding]): join("-", [ "vnet", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = var.network_mode != "" ? join("-", ["vnet", var.project, var.network_mode, var.application_name, var.environment, var.location, var.padding]) : join("-", ["vnet", var.project, var.application_name, var.environment, var.location, var.padding])
   address_space       = [var.virtual_network_address_space]
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  dynamic ddos_protection_plan {
+  dynamic "ddos_protection_plan" {
     for_each = var.ddos_protection_plan_id == "" ? [] : [var.ddos_protection_plan_id]
     content {
       id     = var.ddos_protection_plan_id
       enable = var.ddos_protection_plan_enable
     }
   }
-  
-  tags                = var.default_tags
+
+  tags = var.default_tags
 }

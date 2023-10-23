@@ -9,6 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals{
-  geo_locations = concat(var.failover_locations, [{"location": var.location, "priority":0, "zone_redundant": var.enable_zone_redundancy_on_primary }])
+locals {
+  geo_locations = concat(var.failover_locations, [{ "location" : var.location, "priority" : 0, "zone_redundant" : var.enable_zone_redundancy_on_primary }])
 }

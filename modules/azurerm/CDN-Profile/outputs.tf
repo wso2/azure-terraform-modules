@@ -11,10 +11,10 @@
 
 output "cdn_profile_name" {
   depends_on = [azurerm_cdn_profile.cdn_profile]
-  value = azurerm_cdn_profile.cdn_profile.name
+  value      = azurerm_cdn_profile.cdn_profile.name
 }
 
 output "cdn_profile_id" {
   depends_on = [azurerm_cdn_profile.cdn_profile]
-  value = azurerm_cdn_profile.cdn_profile.id
+  value      = azurerm_cdn_profile.cdn_profile.id
 }

@@ -9,31 +9,31 @@
 #
 # --------------------------------------------------------------------------------------
 variable "endpoint_name" {
-  type = string
+  type        = string
   description = "Name of the endpoint"
 }
 variable "profile_id" {
-  type = string
+  type        = string
   description = "ID of the traffic manager profile"
 }
 variable "priority" {
-  type = number
+  type        = number
   description = "Priority"
 }
 variable "target" {
-  type = string
+  type        = string
   description = "Target IP or FQDN DNS name"
 }
 variable "header_name" {
-  type = string
+  type        = string
   description = "Name of the custom header"
 }
 variable "header_value" {
-  type = string
+  type        = string
   description = "Value of the custom header"
 }
 variable "enabled" {
-  type = bool
+  type        = bool
   description = "Is the endpoint enabled"
-  default = true
+  default     = true
 }

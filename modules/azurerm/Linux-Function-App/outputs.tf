@@ -11,12 +11,12 @@
 
 output "linux_function_app_id" {
   depends_on = [azurerm_linux_function_app.linux_function_app]
-  value = azurerm_linux_function_app.linux_function_app.id
+  value      = azurerm_linux_function_app.linux_function_app.id
 }
 
 output "linux_function_app_name" {
   depends_on = [azurerm_linux_function_app.linux_function_app]
-  value = azurerm_linux_function_app.linux_function_app.name
+  value      = azurerm_linux_function_app.linux_function_app.name
 }
 
 output "identity_principal_id" {

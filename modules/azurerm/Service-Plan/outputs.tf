@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 output "service_plan_id" {
-  depends_on  = [azurerm_service_plan.service_plan]
-  value       = azurerm_service_plan.service_plan.id
+  depends_on = [azurerm_service_plan.service_plan]
+  value      = azurerm_service_plan.service_plan.id
 }
 
 output "service_plan_name" {
-  depends_on  = [azurerm_service_plan.service_plan]
-  value       = azurerm_service_plan.service_plan.name
+  depends_on = [azurerm_service_plan.service_plan]
+  value      = azurerm_service_plan.service_plan.name
 }
 
 output "service_plan_maximum_elastic_worker_count" {
-  depends_on  = [azurerm_service_plan.service_plan]
-  value       = azurerm_service_plan.service_plan.maximum_elastic_worker_count
+  depends_on = [azurerm_service_plan.service_plan]
+  value      = azurerm_service_plan.service_plan.maximum_elastic_worker_count
 }

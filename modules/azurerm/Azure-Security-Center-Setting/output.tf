@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 output "azure_security_center_setting_id" {
-    depends_on = [azurerm_security_center_subscription_pricing.security_center_subscription_pricing]
-    value = azurerm_security_center_subscription_pricing.security_center_subscription_pricing.id
+  depends_on = [azurerm_security_center_subscription_pricing.security_center_subscription_pricing]
+  value      = azurerm_security_center_subscription_pricing.security_center_subscription_pricing.id
 }

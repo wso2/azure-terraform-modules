@@ -16,6 +16,6 @@ variable "rotation_time_in_months" {
 }
 
 variable "display_name" {
-  type = string
+  type    = string
   default = null
 }

@@ -10,5 +10,5 @@
 # --------------------------------------------------------------------------------------
 
 locals {
-  autoscale_setting = var.autoscale_enabled == false ? toset([]): toset([var.throughput])
+  autoscale_setting = var.autoscale_enabled == false ? toset([]) : toset([var.throughput])
 }

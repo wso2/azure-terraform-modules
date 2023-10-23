@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_cdn_profile" "cdn_profile" {
-  name                = join("-", ["cdnp",local.cdnp_name_without_prefix])
+  name                = join("-", ["cdnp", local.cdnp_name_without_prefix])
   resource_group_name = var.resource_group_name
   location            = var.location
   sku                 = var.cdn_sku_profile

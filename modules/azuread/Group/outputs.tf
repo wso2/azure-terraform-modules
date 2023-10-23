@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 output "group_id" {
-  value       = azuread_group.group.object_id
-  depends_on  = [azuread_group.group]
+  value      = azuread_group.group.object_id
+  depends_on = [azuread_group.group]
 }

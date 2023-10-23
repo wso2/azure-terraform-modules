@@ -25,7 +25,7 @@ resource "azurerm_automation_runbook" "automation_runbook" {
   publish_content_link {
     uri = var.uri
   }
-  tags                = var.tags
+  tags = var.tags
   depends_on = [
     data.local_file.powershell_script
   ]

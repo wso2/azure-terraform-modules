@@ -10,14 +10,14 @@
 # --------------------------------------------------------------------------------------
 
 variable "target_resource_set" {
-    description = "Resource set to enable Azure Defender for. Possible options are 'AppServices', 'ContainerRegistry', 'KeyVaults', 'KubernetesService', 'SqlServers', 'SqlServerVirtualMachines', 'StorageAccounts', 'VirtualMachines', 'Arm' and 'Dns'"
+  description = "Resource set to enable Azure Defender for. Possible options are 'AppServices', 'ContainerRegistry', 'KeyVaults', 'KubernetesService', 'SqlServers', 'SqlServerVirtualMachines', 'StorageAccounts', 'VirtualMachines', 'Arm' and 'Dns'"
 }
 
 variable "pricing_setting" {
-    description = "Pricing option for target resource set. Possible values are 'Free' and 'Standard'"
-    default = "Free"
+  description = "Pricing option for target resource set. Possible values are 'Free' and 'Standard'"
+  default     = "Free"
 }
 
 variable "subplan" {
-    description = "Resource type pricing subplan. Contact your MSFT representative for possible values."
+  description = "Resource type pricing subplan. Contact your MSFT representative for possible values."
 }

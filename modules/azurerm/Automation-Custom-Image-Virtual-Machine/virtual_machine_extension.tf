@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_machine_extension" "azure_monitor_agent_extension" {
-  count                      = var.enable_ama_agent==false ? 0 : 1
+  count                      = var.enable_ama_agent == false ? 0 : 1
   name                       = "AzureMonitorLinuxAgent"
   virtual_machine_id         = azurerm_linux_virtual_machine.automation_linux_virtual_machine.id
   publisher                  = "Microsoft.Azure.Monitor"

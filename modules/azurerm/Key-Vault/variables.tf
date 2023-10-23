@@ -53,11 +53,11 @@ variable "shortened_environment" {}
 variable "shortened_project" {}
 variable "shortened_location" {}
 variable "enabled_for_template_deployment" {
-  default = false
+  default     = false
   description = "Boolean flag to specify whether Azure Resource Manager is permitted to retrieve secrets from the key vault. Defaults to false"
 }
 
 variable "purge_protection_enabled" {
   description = "Indicate if the keyvault is enabled with purge protection"
-  default = true
+  default     = true
 }

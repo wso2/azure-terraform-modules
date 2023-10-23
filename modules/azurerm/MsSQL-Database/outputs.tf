@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 output "mssql_id" {
   depends_on = [azurerm_mssql_database.mssql_database]
-  value = azurerm_mssql_database.mssql_database.id
+  value      = azurerm_mssql_database.mssql_database.id
 }
 
 output "mssql_app_name" {
@@ -23,5 +23,5 @@ output "mssql_workload" {
 
 output "mssql_db_name" {
   depends_on = [azurerm_mssql_database.mssql_database]
-  value = azurerm_mssql_database.mssql_database.name
+  value      = azurerm_mssql_database.mssql_database.name
 }

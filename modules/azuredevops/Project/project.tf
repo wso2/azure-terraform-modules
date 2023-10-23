@@ -10,10 +10,10 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuredevops_project" "devops_project" {
-  name                  = join("-", [var.project, var.name])
-  description           = var.description
-  visibility            = var.visibility
-  version_control       = var.version_control
-  work_item_template    = var.work_item_template
+  name               = join("-", [var.project, var.name])
+  description        = var.description
+  visibility         = var.visibility
+  version_control    = var.version_control
+  work_item_template = var.work_item_template
 
 }

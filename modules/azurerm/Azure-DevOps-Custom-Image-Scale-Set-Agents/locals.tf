@@ -9,5 +9,5 @@
 #
 # --------------------------------------------------------------------------------------
 locals {
-  scale_set_agents_application_name = join("",["scalesetagents", var.name])
+  scale_set_agents_application_name = join("", ["scalesetagents", var.name])
 }

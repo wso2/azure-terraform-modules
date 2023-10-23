@@ -18,10 +18,10 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
   tags                = var.default_tags
   enable_free_tier    = var.enable_free_tier
 
-  public_network_access_enabled   = var.public_network_access_enabled
+  public_network_access_enabled = var.public_network_access_enabled
 
   enable_multiple_write_locations = var.enable_multiple_write_locations
-  enable_automatic_failover = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
+  enable_automatic_failover       = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
 
   dynamic "geo_location" {
     for_each = local.geo_locations
@@ -39,7 +39,7 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
   }
 
   backup {
-    type = var.backup_type
+    type                = var.backup_type
     interval_in_minutes = var.periodic_backup_interval
     retention_in_hours  = var.periodic_backup_retention_in_hours
   }

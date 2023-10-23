@@ -10,36 +10,36 @@
 # --------------------------------------------------------------------------------------
 
 variable "project" {
-    type = string
-    description = "The name of the project"
+  type        = string
+  description = "The name of the project"
 }
 
 variable "environment" {
-    type =  string
-    description = "The name of the environment"
+  type        = string
+  description = "The name of the environment"
 }
 
 variable "location" {
-    type = string
-    description = "The Azure region to deploy"
+  type        = string
+  description = "The Azure region to deploy"
 }
 
 variable "workload" {
-    type =  string
-    description = "Worklaod name for the resource"
+  type        = string
+  description = "Worklaod name for the resource"
 }
 
 variable "padding" {
-    type = string
-    description = "Padding for the deployment"
+  type        = string
+  description = "Padding for the deployment"
 }
 
 variable "resource_group_name" {
-    type = string
-    description = "The name of the Resource Group where the Azure Monitor Private Link Scope should exist"
+  type        = string
+  description = "The name of the Resource Group where the Azure Monitor Private Link Scope should exist"
 }
 
 variable "default_tags" {
-    type = map(string)
-    description = "A mapping of tags which should be assigned to the Azure Monitor Private Link Scope"
+  type        = map(string)
+  description = "A mapping of tags which should be assigned to the Azure Monitor Private Link Scope"
 }

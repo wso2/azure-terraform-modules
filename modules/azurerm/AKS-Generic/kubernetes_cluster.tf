@@ -11,11 +11,11 @@
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
-  name                                = join("-", ["aks", var.project, var.workload, var.environment, var.location, var.padding])
-  location                            = var.location
-  resource_group_name                 = var.aks_resource_group_name
-  dns_prefix                          = join("-", ["aks", var.workload, var.environment])
-  kubernetes_version                  = var.kubernetes_version
+  name                = join("-", ["aks", var.project, var.workload, var.environment, var.location, var.padding])
+  location            = var.location
+  resource_group_name = var.aks_resource_group_name
+  dns_prefix          = join("-", ["aks", var.workload, var.environment])
+  kubernetes_version  = var.kubernetes_version
   #api_server_authorized_ip_ranges     = try(var.api_server_authorized_ip_ranges, null)
   node_resource_group                 = join("-", ["rg", var.project, local.aks_node_pool_workload, var.environment, var.location, var.padding])
   sku_tier                            = var.sku_tier

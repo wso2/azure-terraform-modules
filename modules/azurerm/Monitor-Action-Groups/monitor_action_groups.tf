@@ -23,7 +23,7 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
     }
   }
 
-  dynamic webhook_receiver {
+  dynamic "webhook_receiver" {
     for_each = var.actions_webhook_critical
     content {
       name                    = webhook_receiver.value.name
@@ -32,7 +32,7 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
     }
   }
 
-  dynamic automation_runbook_receiver {
+  dynamic "automation_runbook_receiver" {
     for_each = var.automation_runbooks
     content {
       name                    = automation_runbook_receiver.value.name
@@ -44,6 +44,6 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
       use_common_alert_schema = automation_runbook_receiver.value.use_common_alert_schema
     }
   }
-  
+
   tags = var.default_tags
 }

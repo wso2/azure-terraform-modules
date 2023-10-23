@@ -10,9 +10,9 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuredevops_variable_group" "devops_variable_group" {
-  project_id    = var.project_id
-  name          = join("-", [var.project, var.name])
-  allow_access  = var.allow_access
+  project_id   = var.project_id
+  name         = join("-", [var.project, var.name])
+  allow_access = var.allow_access
 
   dynamic "variable" {
     for_each = var.variables_map
@@ -27,9 +27,9 @@ resource "azuredevops_variable_group" "devops_variable_group" {
     for_each = var.secrets_map
 
     content {
-      name                 = variable.value["name"]
-      secret_value         = variable.value["value"]
-      is_secret            = true
+      name         = variable.value["name"]
+      secret_value = variable.value["value"]
+      is_secret    = true
     }
   }
 }

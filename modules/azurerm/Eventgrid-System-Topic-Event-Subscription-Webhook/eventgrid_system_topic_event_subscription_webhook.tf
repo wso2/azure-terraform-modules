@@ -15,8 +15,8 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "eventgrid_system_t
   included_event_types = var.included_event_types
 
   webhook_endpoint {
-    url = var.webhook_endpoint_url
-    max_events_per_batch = var.webhook_max_events_per_batch
+    url                               = var.webhook_endpoint_url
+    max_events_per_batch              = var.webhook_max_events_per_batch
     preferred_batch_size_in_kilobytes = var.webhook_max_preferred_batch_size_in_kilobytes
   }
 

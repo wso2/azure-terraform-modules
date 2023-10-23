@@ -20,8 +20,8 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   per_site_scaling    = var.per_site_scaling
   zone_redundant      = var.zrs_enabled
   sku {
-    tier      = var.tier
-    size      = var.size
-    capacity  = var.capacity
+    tier     = var.tier
+    size     = var.size
+    capacity = var.capacity
   }
 }

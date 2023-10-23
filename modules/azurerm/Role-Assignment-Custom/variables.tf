@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 variable "resource_id" {
-  type = string
+  type        = string
   description = "The scope at which the Role Assignment applies to."
 }
 
 variable "role_definition_id" {
-  type = string
+  type        = string
   description = "The Scoped-ID of the Role Definition.."
 }
 
 variable "principal_id" {
-  type = string
+  type        = string
   description = "The ID of the Principal (User, Group or Service Principal) to assign the Role Definition to."
 }

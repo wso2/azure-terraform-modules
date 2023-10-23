@@ -35,32 +35,32 @@ resource "azurerm_network_security_rule" "network_security_rule" {
 
 
 resource "azurerm_network_security_rule" "default_network_security_rule" {
-  name                         = "AzureInfrastructureCommunication"
-  priority                     = var.default_ns_rule_1_priority
-  direction                    = "Inbound"
-  access                       = "Allow"
-  protocol                     = "*"
-  source_address_prefix        = "GatewayManager"
-  source_port_range            = "*"
-  destination_address_prefix   = "*"
-  destination_port_range       = "65200-65535"
-  resource_group_name          = var.resource_group_name
-  network_security_group_name  = azurerm_network_security_group.network_security_group.name
+  name                        = "AzureInfrastructureCommunication"
+  priority                    = var.default_ns_rule_1_priority
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_address_prefix       = "GatewayManager"
+  source_port_range           = "*"
+  destination_address_prefix  = "*"
+  destination_port_range      = "65200-65535"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.network_security_group.name
 }
 
 
 resource "azurerm_network_security_rule" "default_network_security_rule_2" {
-  name                         = "AllowTrafficLoadBalancer"
-  priority                     = var.default_ns_rule_2_priority
-  direction                    = "Inbound"
-  access                       = "Allow"
-  protocol                     = "*"
-  source_address_prefix        = "AzureLoadBalancer"
-  source_port_range            = "*"
-  destination_address_prefix   = "*"
-  destination_port_range       = "*"
-  resource_group_name          = var.resource_group_name
-  network_security_group_name  = azurerm_network_security_group.network_security_group.name
+  name                        = "AllowTrafficLoadBalancer"
+  priority                    = var.default_ns_rule_2_priority
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_address_prefix       = "AzureLoadBalancer"
+  source_port_range           = "*"
+  destination_address_prefix  = "*"
+  destination_port_range      = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.network_security_group.name
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_subnet_association" {

@@ -16,7 +16,7 @@ variable "location" {}
 variable "resource_group_name" {}
 
 variable "default_tags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 variable "kind" {
@@ -25,50 +25,50 @@ variable "kind" {
 variable "offer_type" {
   default = "Standard"
 }
-variable "enable_free_tier"{
-  type = bool
+variable "enable_free_tier" {
+  type    = bool
   default = true
 }
 
-variable "public_network_access_enabled"{
-  type = bool
+variable "public_network_access_enabled" {
+  type    = bool
   default = false
 }
-variable "enable_multiple_write_locations"{
-  type = bool
+variable "enable_multiple_write_locations" {
+  type    = bool
   default = true
 }
-variable "enable_zone_redundancy_on_primary"{
-  type = bool
+variable "enable_zone_redundancy_on_primary" {
+  type    = bool
   default = false
 }
 variable "failover_locations" {
-  type = list(map(string))
+  type    = list(map(string))
   default = []
 }
 variable "consistency_policy_level" {}
 variable "consistency_policy_max_interval_in_seconds" {
-  type = number
+  type    = number
   default = 5
 }
 variable "consistency_policy_max_staleness_prefix" {
-  type = number
+  type    = number
   default = 100
 }
 variable "capabilities" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
-variable "is_virtual_network_filter_enabled"{
-  type = bool
+variable "is_virtual_network_filter_enabled" {
+  type    = bool
   default = true
 }
-variable "enable_automatic_failover"{
-  type = bool
+variable "enable_automatic_failover" {
+  type    = bool
   default = true
 }
 variable "virtual_network_rule" {
-  type = list(object({id:string,ignore_missing_vnet_service_endpoint:bool}))
+  type    = list(object({ id : string, ignore_missing_vnet_service_endpoint : bool }))
   default = []
 }
 variable "backup_type" {

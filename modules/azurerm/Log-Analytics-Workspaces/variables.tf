@@ -20,12 +20,12 @@ variable "log_analytics_workspace_sku" {}
 variable "log_retention_in_days" {}
 variable "daily_quota_gb" {}
 variable "internet_ingestion_enabled" {
-    type        = bool
-    description = "Should the Log Analytics Workspace support ingestion over the Public Internet?"
-    default     = true
+  type        = bool
+  description = "Should the Log Analytics Workspace support ingestion over the Public Internet?"
+  default     = true
 }
 variable "internet_query_enabled" {
-    type        = bool
-    description = "Should the Log Analytics Workspace support querying over the Public Internet"
-    default     = true
+  type        = bool
+  description = "Should the Log Analytics Workspace support querying over the Public Internet"
+  default     = true
 }

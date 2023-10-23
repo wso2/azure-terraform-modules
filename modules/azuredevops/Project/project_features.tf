@@ -12,5 +12,5 @@
 resource "azuredevops_project_features" "devops_project_features" {
   project_id = azuredevops_project.devops_project.id
   depends_on = [azuredevops_project.devops_project]
-  features = var.features
+  features   = var.features
 }

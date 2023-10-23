@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 output "vm_extension_id" {
-  value       = azurerm_virtual_machine_extension.generic_extension.id
-  depends_on  = [azurerm_virtual_machine_extension.generic_extension]
+  value      = azurerm_virtual_machine_extension.generic_extension.id
+  depends_on = [azurerm_virtual_machine_extension.generic_extension]
 }

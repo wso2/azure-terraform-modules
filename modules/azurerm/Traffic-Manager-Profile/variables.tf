@@ -19,7 +19,7 @@ variable "ttl" {
   type = number
 }
 variable "endpoint_monitoring_protocol" {
-  type = string
+  type    = string
   default = "https"
 }
 variable "default_tags" {
@@ -42,8 +42,8 @@ variable "tolerated_failures" {
   type        = number
 }
 variable "traffic_view_enabled" {
-  type        = bool
-  default     = false
+  type    = bool
+  default = false
 }
 
 variable "location" {

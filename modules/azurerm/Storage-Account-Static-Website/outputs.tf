@@ -11,21 +11,21 @@
 
 output "storage_account_name" {
   depends_on = [azurerm_storage_account.static_storage]
-  value = azurerm_storage_account.static_storage.name
+  value      = azurerm_storage_account.static_storage.name
 }
 
 output "storage_account_id" {
   depends_on = [azurerm_storage_account.static_storage]
-  value = azurerm_storage_account.static_storage.id
+  value      = azurerm_storage_account.static_storage.id
 }
 
 output "storage_account_primary_web_endpoint" {
   depends_on = [azurerm_storage_account.static_storage]
-  value = azurerm_storage_account.static_storage.primary_web_endpoint
+  value      = azurerm_storage_account.static_storage.primary_web_endpoint
 }
 
 output "storage_account_secondary_web_endpoint" {
   depends_on = [azurerm_storage_account.static_storage]
-  value = azurerm_storage_account.static_storage.secondary_web_endpoint
+  value      = azurerm_storage_account.static_storage.secondary_web_endpoint
 }
 

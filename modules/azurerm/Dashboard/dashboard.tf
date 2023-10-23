@@ -9,9 +9,9 @@
 #
 # --------------------------------------------------------------------------------------
 resource "azurerm_dashboard" "dashboard" {
-  name                = join("-", ["dashb", var.project, var.application_name, var.environment, var.location, var.padding])
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  tags                = var.tags
+  name                 = join("-", ["dashb", var.project, var.application_name, var.environment, var.location, var.padding])
+  resource_group_name  = var.resource_group_name
+  location             = var.location
+  tags                 = var.tags
   dashboard_properties = templatefile(var.template_path, var.template_vars)
 }

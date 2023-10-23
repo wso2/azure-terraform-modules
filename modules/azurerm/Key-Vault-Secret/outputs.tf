@@ -15,11 +15,11 @@ output "id" {
 }
 
 output "version" {
-  value = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["version"])
+  value       = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["version"])
   description = "Key Vault secret version"
 }
 
 output "name" {
-  value = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["name"])
+  value       = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["name"])
   description = "Key Vault secret name"
 }

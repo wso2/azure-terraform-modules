@@ -81,10 +81,10 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   scopes                   = each.value.scopes
   description              = each.value.description
   target_resource_location = var.location
-  window_size          = each.value.window_size
-  frequency            = each.value.frequency
-  severity             = each.value.severity
-  enabled              = var.alert_enabled
+  window_size              = each.value.window_size
+  frequency                = each.value.frequency
+  severity                 = each.value.severity
+  enabled                  = var.alert_enabled
   criteria {
     metric_namespace = each.value.criteria_metric_namespace
     metric_name      = each.value.criteria_metric_name

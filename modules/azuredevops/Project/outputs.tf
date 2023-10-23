@@ -11,5 +11,5 @@
 
 output "project_id" {
   depends_on = [azuredevops_project.devops_project]
-  value = azuredevops_project.devops_project.id
+  value      = azuredevops_project.devops_project.id
 }

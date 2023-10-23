@@ -18,8 +18,8 @@ resource "azurerm_monitor_alert_processing_rule_suppression" "monitor_alert_proc
     time_zone = var.time_zone
     recurrence {
       weekly {
-        start_time = var.start_time
-        end_time   = var.end_time
+        start_time   = var.start_time
+        end_time     = var.end_time
         days_of_week = var.days_of_week
       }
     }

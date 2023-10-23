@@ -50,7 +50,7 @@ variable "allow_nested_items_to_be_public" {
 }
 
 variable "advanced_threat_protection_enabled" {
-  default = true
-  type = bool
+  default     = true
+  type        = bool
   description = "Enable Advance Threat protection for Storage account"
 }

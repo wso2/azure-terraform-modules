@@ -18,7 +18,7 @@ resource "azurerm_frontdoor_firewall_policy" "front_door_waf_policy" {
   mode                              = each.value.mode
   redirect_url                      = each.value.redirect_url
   custom_block_response_status_code = each.value.custom_block_response_status_code
-  custom_block_response_body        = fileexists(each.value.custom_block_response_body) ? base64encode(file(each.value.custom_block_response_body)) : base64encode(each.value.custom_block_response_body)         # Accepts a file path or content
+  custom_block_response_body        = fileexists(each.value.custom_block_response_body) ? base64encode(file(each.value.custom_block_response_body)) : base64encode(each.value.custom_block_response_body) # Accepts a file path or content
 
   dynamic "custom_rule" {
     for_each = each.value.custom_rule

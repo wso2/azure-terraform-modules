@@ -29,10 +29,10 @@ variable "work_item_template" {
 
 variable "features" {
   default = {
-    "testplans"       = "disabled"
-    "artifacts"       = "enabled"
-    "repositories"    = "disabled"
-    "pipelines"       = "enabled"
-    "boards"          = "disabled"
+    "testplans"    = "disabled"
+    "artifacts"    = "enabled"
+    "repositories" = "disabled"
+    "pipelines"    = "enabled"
+    "boards"       = "disabled"
   }
 }

@@ -10,11 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 output "authorization_rule_primary_connection_string" {
-  depends_on  = [azurerm_eventhub_authorization_rule.eventhub_authorization_rule]
-  value       = azurerm_eventhub_authorization_rule.eventhub_authorization_rule.primary_connection_string
+  depends_on = [azurerm_eventhub_authorization_rule.eventhub_authorization_rule]
+  value      = azurerm_eventhub_authorization_rule.eventhub_authorization_rule.primary_connection_string
 }
 
 output "authorization_rule_secondary_connection_string" {
-  depends_on  = [azurerm_eventhub_authorization_rule.eventhub_authorization_rule]
-  value       = azurerm_eventhub_authorization_rule.eventhub_authorization_rule.secondary_connection_string
+  depends_on = [azurerm_eventhub_authorization_rule.eventhub_authorization_rule]
+  value      = azurerm_eventhub_authorization_rule.eventhub_authorization_rule.secondary_connection_string
 }

@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 output "app_service_plan_id" {
-  depends_on  = [azurerm_app_service_plan.app_service_plan]
-  value       = azurerm_app_service_plan.app_service_plan.id
+  depends_on = [azurerm_app_service_plan.app_service_plan]
+  value      = azurerm_app_service_plan.app_service_plan.id
 }
 
 output "app_service_plan_name" {
-  depends_on  = [azurerm_app_service_plan.app_service_plan]
-  value       = azurerm_app_service_plan.app_service_plan.name
+  depends_on = [azurerm_app_service_plan.app_service_plan]
+  value      = azurerm_app_service_plan.app_service_plan.name
 }
 
 output "app_service_maximum_worker_count" {
-  depends_on  = [azurerm_app_service_plan.app_service_plan]
-  value       = azurerm_app_service_plan.app_service_plan.maximum_number_of_workers
+  depends_on = [azurerm_app_service_plan.app_service_plan]
+  value      = azurerm_app_service_plan.app_service_plan.maximum_number_of_workers
 }

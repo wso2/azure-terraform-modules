@@ -34,9 +34,9 @@ resource "azurerm_storage_account" "storage_account" {
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
   storage_account_id = azurerm_storage_account.storage_account.id
 
-  ip_rules                   = var.storage_account_network_rules_ip_rules
-  default_action             = var.default_action
-  bypass                     = ["AzureServices", "Metrics"]
+  ip_rules       = var.storage_account_network_rules_ip_rules
+  default_action = var.default_action
+  bypass         = ["AzureServices", "Metrics"]
 }
 
 resource "azurerm_private_endpoint" "storage_account_private_endpoint" {

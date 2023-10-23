@@ -22,13 +22,13 @@ variable "shortened_padding" {}
 variable "index_document" {}
 variable "error_document" {}
 variable "network_rules_ip_whitelist" {
-    default = []
+  default = []
 }
 variable "network_rules_default_action" {
-    default = "Allow"
+  default = "Allow"
 }
 variable "network_rules_subnet_ids" {
-    default = []
+  default = []
 }
 
 variable "allow_nested_items_to_be_public" {

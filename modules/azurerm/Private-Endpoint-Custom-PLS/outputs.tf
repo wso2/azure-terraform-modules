@@ -11,15 +11,15 @@
 
 output "private_endpoint_id" {
   depends_on = [azurerm_private_endpoint.private_endpoint]
-  value = azurerm_private_endpoint.private_endpoint.id
+  value      = azurerm_private_endpoint.private_endpoint.id
 }
 
 output "network_interface_id" {
   depends_on = [azurerm_private_endpoint.private_endpoint]
-  value = azurerm_private_endpoint.private_endpoint.network_interface[0].id
+  value      = azurerm_private_endpoint.private_endpoint.network_interface[0].id
 }
 
 output "ip_addresses" {
   depends_on = [azurerm_private_endpoint.private_endpoint]
-  value = azurerm_private_endpoint.private_endpoint.private_service_connection[0].private_ip_address
+  value      = azurerm_private_endpoint.private_endpoint.private_service_connection[0].private_ip_address
 }

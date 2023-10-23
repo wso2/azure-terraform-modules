@@ -27,14 +27,14 @@ variable "zones" {}
 
 variable "sku_name" {
   description = "SKU name of the Firewall. Possible values are AZFW_Hub and AZFW_VNet"
-  default = "AZFW_VNet"
-  type = string
+  default     = "AZFW_VNet"
+  type        = string
 }
 
 variable "sku_tier" {
   description = "SKU tier of the Firewall. Possible values are Premium and Standard"
-  default = "Standard"
-  type = string
+  default     = "Standard"
+  type        = string
 }
 
 variable "dynamic_nat_rule_collection_priority" {
@@ -45,11 +45,11 @@ variable "dynamic_nat_rule_collection_priority" {
 variable "dynamic_nat_rules" {
   description = "Map of nat rules"
   type = map(object({
-    public_ip_name = string
-    private_ip_address = string
+    public_ip_name         = string
+    private_ip_address     = string
     nat_rule_name_shortned = string
     fw_ip_association_name = string
-    public_ip_prefix_id = string
+    public_ip_prefix_id    = string
   }))
 }
 
@@ -63,11 +63,11 @@ variable "network_rule_collection_priority" {
 variable "network_rules" {
   description = "Map of Network rules"
   type = map(object({
-    name = string
-    source_addresses = list(string)
-    destination_ports = list(string)
+    name                  = string
+    source_addresses      = list(string)
+    destination_ports     = list(string)
     destination_addresses = list(string)
-    protocols = list(string)
+    protocols             = list(string)
   }))
 }
 
@@ -79,12 +79,12 @@ variable "application_rule_collection_priority" {
 variable "application_rules" {
   description = "Map of Application rules"
   type = map(object({
-    name = string
+    name             = string
     source_addresses = list(string)
-    target_fqdns = list(string)
+    target_fqdns     = list(string)
     protocol = object({
       port = string
-      type =string
+      type = string
     })
   }))
 }

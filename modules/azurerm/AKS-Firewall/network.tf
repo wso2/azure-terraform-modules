@@ -80,17 +80,17 @@ resource "azurerm_network_security_rule" "network_security_rule_allow_https_inbo
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_apgw_allow_https_inbound" {
-  name                                  = "AllowAPGWHTTPS"
-  priority                              = 2050
-  direction                             = "Inbound"
-  access                                = "Allow"
-  protocol                              = "Tcp"
-  source_address_prefix                 = var.application_gateway_subnet_address_prefix
-  source_port_range                     = "*"
-  destination_port_range                = "8443"
-  destination_address_prefix            = "*"
-  resource_group_name                   = var.resource_group_name
-  network_security_group_name           = azurerm_network_security_group.aks_node_pool_subnet_nsg.name
+  name                        = "AllowAPGWHTTPS"
+  priority                    = 2050
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_address_prefix       = var.application_gateway_subnet_address_prefix
+  source_port_range           = "*"
+  destination_port_range      = "8443"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.aks_node_pool_subnet_nsg.name
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_allow_lb_inbound" {

@@ -27,12 +27,12 @@ resource "azurerm_route_table" "aks_node_pool_route_table" {
 }
 
 resource "azurerm_route" "aks_node_pool_route" {
-  for_each            = var.aks_node_pool_subnet_routes
-  name                = each.value.name
-  resource_group_name = local.virtual_network_resource_group_name
-  route_table_name    = azurerm_route_table.aks_node_pool_route_table.name
-  address_prefix      = each.value.address_prefix
-  next_hop_type       = each.value.next_hop_type
+  for_each               = var.aks_node_pool_subnet_routes
+  name                   = each.value.name
+  resource_group_name    = local.virtual_network_resource_group_name
+  route_table_name       = azurerm_route_table.aks_node_pool_route_table.name
+  address_prefix         = each.value.address_prefix
+  next_hop_type          = each.value.next_hop_type
   next_hop_in_ip_address = each.value.next_hop_in_ip_address
 }
 
@@ -55,21 +55,21 @@ resource "azurerm_network_security_rule" "aks_node_pool_subnet_nsg_rules" {
   resource_group_name         = local.virtual_network_resource_group_name
   network_security_group_name = azurerm_network_security_group.aks_node_pool_subnet_nsg.name
 
-  name                         = each.value.name
-  description                  = each.value.description
-  priority                     = each.value.priority
-  direction                    = each.value.direction
-  access                       = each.value.access
-  protocol                     = each.value.protocol
-  source_port_range            = each.value.source_port_range
-  destination_port_range       = each.value.destination_port_range
-  source_address_prefix        = each.value.source_address_prefix
-  destination_address_prefix   = each.value.destination_address_prefix
-  source_port_ranges           = each.value.source_port_ranges
-  destination_port_ranges      = each.value.destination_port_ranges
-  source_address_prefixes      = each.value.source_address_prefixes
-  destination_address_prefixes = each.value.destination_address_prefixes
-  source_application_security_group_ids = each.value.source_application_security_group_ids
+  name                                       = each.value.name
+  description                                = each.value.description
+  priority                                   = each.value.priority
+  direction                                  = each.value.direction
+  access                                     = each.value.access
+  protocol                                   = each.value.protocol
+  source_port_range                          = each.value.source_port_range
+  destination_port_range                     = each.value.destination_port_range
+  source_address_prefix                      = each.value.source_address_prefix
+  destination_address_prefix                 = each.value.destination_address_prefix
+  source_port_ranges                         = each.value.source_port_ranges
+  destination_port_ranges                    = each.value.destination_port_ranges
+  source_address_prefixes                    = each.value.source_address_prefixes
+  destination_address_prefixes               = each.value.destination_address_prefixes
+  source_application_security_group_ids      = each.value.source_application_security_group_ids
   destination_application_security_group_ids = each.value.destination_application_security_group_ids
   depends_on = [
     azurerm_network_security_group.aks_node_pool_subnet_nsg
@@ -80,7 +80,7 @@ resource "azurerm_network_security_rule" "aks_node_pool_subnet_nsg_rules" {
 resource "azurerm_subnet_network_security_group_association" "aks_node_pool_subnet_sec_association" {
   subnet_id                 = azurerm_subnet.aks_node_pool_subnet.id
   network_security_group_id = azurerm_network_security_group.aks_node_pool_subnet_nsg.id
-  depends_on                = [
+  depends_on = [
     azurerm_subnet.aks_node_pool_subnet,
     azurerm_network_security_group.aks_node_pool_subnet_nsg
   ]
@@ -108,21 +108,21 @@ resource "azurerm_network_security_rule" "aks_load_balancer_subnet_nsg_rules" {
   resource_group_name         = local.virtual_network_resource_group_name
   network_security_group_name = azurerm_network_security_group.internal_load_balancer_subnet_nsg.name
 
-  name                         = each.value.name
-  description                  = each.value.description
-  priority                     = each.value.priority
-  direction                    = each.value.direction
-  access                       = each.value.access
-  protocol                     = each.value.protocol
-  source_port_range            = each.value.source_port_range
-  destination_port_range       = each.value.destination_port_range
-  source_address_prefix        = each.value.source_address_prefix
-  destination_address_prefix   = each.value.destination_address_prefix
-  source_port_ranges           = each.value.source_port_ranges
-  destination_port_ranges      = each.value.destination_port_ranges
-  source_address_prefixes      = each.value.source_address_prefixes
-  destination_address_prefixes = each.value.destination_address_prefixes
-  source_application_security_group_ids = each.value.source_application_security_group_ids
+  name                                       = each.value.name
+  description                                = each.value.description
+  priority                                   = each.value.priority
+  direction                                  = each.value.direction
+  access                                     = each.value.access
+  protocol                                   = each.value.protocol
+  source_port_range                          = each.value.source_port_range
+  destination_port_range                     = each.value.destination_port_range
+  source_address_prefix                      = each.value.source_address_prefix
+  destination_address_prefix                 = each.value.destination_address_prefix
+  source_port_ranges                         = each.value.source_port_ranges
+  destination_port_ranges                    = each.value.destination_port_ranges
+  source_address_prefixes                    = each.value.source_address_prefixes
+  destination_address_prefixes               = each.value.destination_address_prefixes
+  source_application_security_group_ids      = each.value.source_application_security_group_ids
   destination_application_security_group_ids = each.value.destination_application_security_group_ids
   depends_on = [
     azurerm_network_security_group.aks_node_pool_subnet_nsg

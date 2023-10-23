@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuread_group" "group" {
-  display_name      = join("-", [var.project, var.environment, var.group_name])
-  description       = var.group_description
-  security_enabled  = true
+  display_name     = join("-", [var.project, var.environment, var.group_name])
+  description      = var.group_description
+  security_enabled = true
 }

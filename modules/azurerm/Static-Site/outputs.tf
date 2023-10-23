@@ -10,31 +10,31 @@
 # --------------------------------------------------------------------------------------
 
 output "static_site_id" {
-  depends_on  = [azurerm_static_site.static_site]
-  value       = azurerm_static_site.static_site.id
+  depends_on = [azurerm_static_site.static_site]
+  value      = azurerm_static_site.static_site.id
 }
 
 output "static_site_api_key" {
-  depends_on  = [azurerm_static_site.static_site]
-  value       = azurerm_static_site.static_site.api_key
+  depends_on = [azurerm_static_site.static_site]
+  value      = azurerm_static_site.static_site.api_key
 }
 
 output "static_site_default_host_name" {
-  depends_on  = [azurerm_static_site.static_site]
-  value       = azurerm_static_site.static_site.default_host_name
+  depends_on = [azurerm_static_site.static_site]
+  value      = azurerm_static_site.static_site.default_host_name
 }
 
 output "static_site_identity" {
-  depends_on  = [azurerm_static_site.static_site]
-  value       = azurerm_static_site.static_site.identity
+  depends_on = [azurerm_static_site.static_site]
+  value      = azurerm_static_site.static_site.identity
 }
 
 output "static_site_custom_domain_id" {
-  depends_on  = [azurerm_static_site_custom_domain.static_site_custom_domain]
-  value       = azurerm_static_site_custom_domain.static_site_custom_domain.0.id
+  depends_on = [azurerm_static_site_custom_domain.static_site_custom_domain]
+  value      = azurerm_static_site_custom_domain.static_site_custom_domain.0.id
 }
 
 output "static_site_custom_domain_validation_token" {
-  depends_on  = [azurerm_static_site_custom_domain.static_site_custom_domain]
-  value       = azurerm_static_site_custom_domain.static_site_custom_domain.0.validation_token
+  depends_on = [azurerm_static_site_custom_domain.static_site_custom_domain]
+  value      = azurerm_static_site_custom_domain.static_site_custom_domain.0.validation_token
 }

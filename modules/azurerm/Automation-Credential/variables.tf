@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 variable "resource_group_name" {
-    description = "The resource group name"
+  description = "The resource group name"
 }
 variable "automation_account_name" {
-    description = "The azure automation account name"
+  description = "The azure automation account name"
 }
 variable "automation_credentials" {
   description = "Collection of automation credentials"
   type = map(object({
-    credential_name             = string
-    username                    = string
-    password                    = string
+    credential_name = string
+    username        = string
+    password        = string
   }))
 }

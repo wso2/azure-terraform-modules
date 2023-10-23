@@ -11,13 +11,13 @@
 
 output "front_door_waf_object" {
   depends_on = [azurerm_frontdoor_firewall_policy.front_door_waf_policy]
-  value = azurerm_frontdoor_firewall_policy.front_door_waf_policy
+  value      = azurerm_frontdoor_firewall_policy.front_door_waf_policy
 }
 
 output "azure_frontdoor_waf_policy_ids" {
   description = "The ID of the FrontDoor Firewall Policy."
-  value       = [
+  value = [
     for front_door_waf_policy in azurerm_frontdoor_firewall_policy.front_door_waf_policy : front_door_waf_policy.id
   ]
-  depends_on  = [azurerm_frontdoor_firewall_policy.front_door_waf_policy]
+  depends_on = [azurerm_frontdoor_firewall_policy.front_door_waf_policy]
 }

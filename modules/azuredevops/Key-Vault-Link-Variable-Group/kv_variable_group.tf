@@ -10,9 +10,9 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuredevops_variable_group" "devops_variable_group" {
-  project_id    = var.project_id
-  name          = join("-", [var.project, var.name])
-  allow_access  = var.allow_access
+  project_id   = var.project_id
+  name         = join("-", [var.project, var.name])
+  allow_access = var.allow_access
 
   key_vault {
     name                = var.key_vault_name
@@ -23,7 +23,7 @@ resource "azuredevops_variable_group" "devops_variable_group" {
     for_each = var.key_vault_secrets_name_list
 
     content {
-      name  = variable.value
+      name = variable.value
     }
   }
 }

@@ -12,44 +12,44 @@
 resource "azurerm_storage_management_policy" "storage_management_policy" {
   storage_account_id = var.storage_account_id
 
-  dynamic rule {
+  dynamic "rule" {
     for_each = var.rules
     content {
-      name = rule.key
+      name    = rule.key
       enabled = rule.value.enabled
       filters {
-        blob_types = rule.value.blob_types
+        blob_types   = rule.value.blob_types
         prefix_match = rule.value.prefix_match
       }
-      actions{
-        dynamic base_blob{
+      actions {
+        dynamic "base_blob" {
           for_each = {
             for s in rule.value.object_rules : s.for_object => s if s.for_object == "blob"
           }
           content {
             tier_to_archive_after_days_since_modification_greater_than = base_blob.value.archive_in
-            tier_to_cool_after_days_since_modification_greater_than = base_blob.value.move_to_cold_tier_in
-            delete_after_days_since_modification_greater_than = base_blob.value.delete_in_days
+            tier_to_cool_after_days_since_modification_greater_than    = base_blob.value.move_to_cold_tier_in
+            delete_after_days_since_modification_greater_than          = base_blob.value.delete_in_days
           }
         }
-        dynamic snapshot{
+        dynamic "snapshot" {
           for_each = {
             for s in rule.value.object_rules : s.for_object => s if s.for_object == "snapshot"
           }
           content {
             change_tier_to_archive_after_days_since_creation = snapshot.value.archive_in
-            change_tier_to_cool_after_days_since_creation = snapshot.value.move_to_cold_tier_in
-            delete_after_days_since_creation_greater_than =  snapshot.value.delete_in_days
+            change_tier_to_cool_after_days_since_creation    = snapshot.value.move_to_cold_tier_in
+            delete_after_days_since_creation_greater_than    = snapshot.value.delete_in_days
           }
         }
-        dynamic version{
+        dynamic "version" {
           for_each = {
             for s in rule.value.object_rules : s.for_object => s if s.for_object == "version"
           }
           content {
-            change_tier_to_archive_after_days_since_creation =  version.value.archive_in
-            change_tier_to_cool_after_days_since_creation = version.value.move_to_cold_tier_in
-            delete_after_days_since_creation =  version.value.delete_in_days
+            change_tier_to_archive_after_days_since_creation = version.value.archive_in
+            change_tier_to_cool_after_days_since_creation    = version.value.move_to_cold_tier_in
+            delete_after_days_since_creation                 = version.value.delete_in_days
           }
         }
       }

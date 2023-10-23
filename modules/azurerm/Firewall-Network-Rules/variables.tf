@@ -11,49 +11,49 @@
 
 variable "resource_group_name" {
   description = "Resource group name"
-  type = string
+  type        = string
 }
 variable "firewall_name" {
   description = "Firewall name"
-  type = string
+  type        = string
 }
 variable "application_name" {
   description = "Application name"
-  type = string
+  type        = string
 }
 variable "shortened_project" {
   description = "Project name"
-  type = string
+  type        = string
 }
 variable "shortened_environment" {
   description = "Environment"
-  type = string
+  type        = string
 }
 variable "shortened_location" {
   description = "Location"
-  type = string
+  type        = string
 }
 variable "shortened_padding" {
   description = "Padding"
-  type = string
+  type        = string
 }
 variable "priority" {
   description = "Priority"
-  type = number
+  type        = number
 }
 variable "action" {
   description = "Name of the action"
-  type = string
-  default = "Allow"
+  type        = string
+  default     = "Allow"
 }
 
 variable "network_rules" {
   description = "Map of Network rules"
   type = map(object({
-    name = string
-    source_addresses = list(string)
-    destination_ports = list(string)
+    name                  = string
+    source_addresses      = list(string)
+    destination_ports     = list(string)
     destination_addresses = list(string)
-    protocols = list(string)
+    protocols             = list(string)
   }))
 }

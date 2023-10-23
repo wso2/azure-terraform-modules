@@ -12,14 +12,14 @@
 resource "random_uuid" "uuid" {}
 
 resource "azurerm_application_insights_workbook" "application_insights_workbook" {
-  name                 = random_uuid.uuid.result
-  resource_group_name  = var.resource_group_name
-  location             = var.location
-  display_name         = join("-", ["wb", var.project, var.application_name, var.environment, var.location, var.padding])
-  source_id            = var.source_resource_id
-  category             = var.category
-  description          = var.description
-  data_json            = var.template_data_json
+  name                = random_uuid.uuid.result
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  display_name        = join("-", ["wb", var.project, var.application_name, var.environment, var.location, var.padding])
+  source_id           = var.source_resource_id
+  category            = var.category
+  description         = var.description
+  data_json           = var.template_data_json
 
   tags = var.default_tags
 }

@@ -11,41 +11,41 @@
 
 variable "project_id" {
   description = "Project id"
-  type = string
+  type        = string
 }
 
 variable "project" {
   description = "Project name"
-  type = string
+  type        = string
 }
 
 variable "name" {
   description = "Variable group name"
-  type = string
+  type        = string
 }
 
 variable "description" {
   description = "Variable group description"
-  type = string
+  type        = string
 }
 
 variable "allow_access" {
   description = "Indicate if this variable group is shared by all pipelines of this project"
-  type = bool
-  default = "false"
+  type        = bool
+  default     = "false"
 }
 
 variable "key_vault_name" {
   description = "Key vault name"
-  type = string
+  type        = string
 }
 
 variable "key_vault_service_endpoint_id" {
   description = "Key vault service connection id"
-  type = string
+  type        = string
 }
 
 variable "key_vault_secrets_name_list" {
   description = "Key vault secrets name list that need to be linked"
-  type = list(string)
+  type        = list(string)
 }

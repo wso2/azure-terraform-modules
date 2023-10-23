@@ -11,10 +11,10 @@
 
 output "recovery_vault_name" {
   depends_on = [azurerm_recovery_services_vault.recovery_services_vault]
-  value = azurerm_recovery_services_vault.recovery_services_vault.name
+  value      = azurerm_recovery_services_vault.recovery_services_vault.name
 }
 
 output "recovery_vault_id" {
   depends_on = [azurerm_recovery_services_vault.recovery_services_vault]
-  value = azurerm_recovery_services_vault.recovery_services_vault.id
+  value      = azurerm_recovery_services_vault.recovery_services_vault.id
 }

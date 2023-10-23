@@ -10,8 +10,8 @@
 # --------------------------------------------------------------------------------------
 
 locals {
-  log_analytics_resource_group_name = var.log_analytics_resource_group_name == null ? var.aks_resource_group_name : var.log_analytics_resource_group_name
+  log_analytics_resource_group_name   = var.log_analytics_resource_group_name == null ? var.aks_resource_group_name : var.log_analytics_resource_group_name
   virtual_network_resource_group_name = var.virtual_network_resource_group_name == null ? var.aks_resource_group_name : var.virtual_network_resource_group_name
-  aks_node_pool_workload   = join("", ["aksnodepool", var.workload])
-  aks_internal_lb_workload = join("", ["aksinternallb", var.workload])
+  aks_node_pool_workload              = join("", ["aksnodepool", var.workload])
+  aks_internal_lb_workload            = join("", ["aksinternallb", var.workload])
 }

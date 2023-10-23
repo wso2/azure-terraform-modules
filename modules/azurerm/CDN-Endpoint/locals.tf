@@ -9,5 +9,5 @@
 #
 # --------------------------------------------------------------------------------------
 locals {
-  cdne_name_without_prefix = join("-",[var.project, var.application_name, var.environment, var.location, var.padding])
+  cdne_name_without_prefix = join("-", [var.project, var.application_name, var.environment, var.location, var.padding])
 }

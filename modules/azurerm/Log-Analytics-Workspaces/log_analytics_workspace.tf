@@ -10,13 +10,13 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
-  name                        = join("-", ["log", var.project, var.application_name,  var.environment, var.location, var.padding])
-  location                    = var.location
-  resource_group_name         = var.resource_group_name
-  sku                         = var.log_analytics_workspace_sku
-  retention_in_days           = var.log_retention_in_days
-  daily_quota_gb              = var.daily_quota_gb
-  internet_ingestion_enabled  = var.internet_ingestion_enabled
-  internet_query_enabled      = var.internet_query_enabled
-  tags = var.default_tags
+  name                       = join("-", ["log", var.project, var.application_name, var.environment, var.location, var.padding])
+  location                   = var.location
+  resource_group_name        = var.resource_group_name
+  sku                        = var.log_analytics_workspace_sku
+  retention_in_days          = var.log_retention_in_days
+  daily_quota_gb             = var.daily_quota_gb
+  internet_ingestion_enabled = var.internet_ingestion_enabled
+  internet_query_enabled     = var.internet_query_enabled
+  tags                       = var.default_tags
 }

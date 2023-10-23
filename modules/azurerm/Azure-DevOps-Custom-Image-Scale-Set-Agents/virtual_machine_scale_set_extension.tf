@@ -10,9 +10,9 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_machine_scale_set_extension" "azure_monitor_agent_extension" {
-  count                        = var.enable_ama_agent==false ? 0 : 1
+  count                        = var.enable_ama_agent == false ? 0 : 1
   name                         = "AzureMonitorLinuxAgent"
-  virtual_machine_scale_set_id =  azurerm_linux_virtual_machine_scale_set.scale_set_agent_linux_virtual_machine_scale_set.id
+  virtual_machine_scale_set_id = azurerm_linux_virtual_machine_scale_set.scale_set_agent_linux_virtual_machine_scale_set.id
   publisher                    = "Microsoft.Azure.Monitor"
   type                         = "AzureMonitorLinuxAgent"
   type_handler_version         = var.ama_type_handler_version

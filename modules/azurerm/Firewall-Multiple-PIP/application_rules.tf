@@ -15,7 +15,7 @@ resource "azurerm_firewall_application_rule_collection" "firewall_application_ru
     "allowed",
     var.shortened_environment,
     var.shortened_location,
-    var.shortened_padding])
+  var.shortened_padding])
   azure_firewall_name = azurerm_firewall.azure_firewall.name
   resource_group_name = var.resource_group_name
   priority            = var.application_rule_collection_priority
@@ -23,9 +23,9 @@ resource "azurerm_firewall_application_rule_collection" "firewall_application_ru
   dynamic "rule" {
     for_each = var.application_rules
     content {
-      name = rule.value.name
+      name             = rule.value.name
       source_addresses = rule.value.source_addresses
-      target_fqdns = rule.value.target_fqdns
+      target_fqdns     = rule.value.target_fqdns
       protocol {
         port = rule.value.protocol.port
         type = rule.value.protocol.type

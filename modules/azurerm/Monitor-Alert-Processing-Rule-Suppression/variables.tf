@@ -10,47 +10,47 @@
 # --------------------------------------------------------------------------------------
 
 variable "location" {
-  type = string
+  type        = string
   description = "Location Identifier for the Azure Region"
 }
 variable "resource_group_name" {
-    type = string
-    description = "Name of the Resource Group"
+  type        = string
+  description = "Name of the Resource Group"
 }
 variable "environment" {
-    type = string
-    description = "Environment Name"
+  type        = string
+  description = "Environment Name"
 }
 variable "project" {
-    type = string
-    description = "Project Name"
+  type        = string
+  description = "Project Name"
 }
 variable "padding" {
-    type = number
-    description = "Padding for the Resource"
+  type        = number
+  description = "Padding for the Resource"
 }
 variable "default_tags" {
-    type = map(string)
-    description = "Default Tags for the Resource"
+  type        = map(string)
+  description = "Default Tags for the Resource"
 }
 variable "start_time" {
-    type = string
-    description = "Start Time for the rule schedule"
+  type        = string
+  description = "Start Time for the rule schedule"
 }
 variable "end_time" {
-    type = string
-    description = "End Time for the rule schedule"
+  type        = string
+  description = "End Time for the rule schedule"
 }
 variable "time_zone" {
-    type = string
-    description = "Time Zone for the rule schedule"
-    default = "Sri Lanka Standard Time"
+  type        = string
+  description = "Time Zone for the rule schedule"
+  default     = "Sri Lanka Standard Time"
 }
 variable "scope" {
-    type = string
-    description = "Scope for the rule"
+  type        = string
+  description = "Scope for the rule"
 }
 variable "days_of_week" {
-    description = "The days of the week the schedule should run"
-    type        = list(string)
+  description = "The days of the week the schedule should run"
+  type        = list(string)
 }

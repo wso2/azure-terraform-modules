@@ -17,14 +17,14 @@ variable "storage_account_id" {
 variable "rules" {
   type = map(
     object({
-      enabled = bool,
+      enabled      = bool,
       prefix_match = list(string),
-      blob_types = list(string),
+      blob_types   = list(string),
       object_rules = list(object({
-        for_object = string
-        delete_in_days = number
+        for_object           = string
+        delete_in_days       = number
         move_to_cold_tier_in = number
-        archive_in = number
+        archive_in           = number
       }))
     })
   )

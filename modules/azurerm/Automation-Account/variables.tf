@@ -10,23 +10,23 @@
 # --------------------------------------------------------------------------------------
 
 variable "project" {
-    description = "The project name"
+  description = "The project name"
 }
 variable "environment" {
-    description = "The enviroment"
+  description = "The enviroment"
 }
 variable "resource_group_name" {
-    description = "The resource group name"
+  description = "The resource group name"
 }
 variable "location" {
-    description = "The cloud region"
+  description = "The cloud region"
 }
 variable "automation_account_name" {
-    description = "The azure automation account name"
+  description = "The azure automation account name"
 }
 variable "automation_account_sku_name" {
-    default = "Basic"
+  default = "Basic"
 }
 variable "tags" {
-    description = "The tags"
+  description = "The tags"
 }

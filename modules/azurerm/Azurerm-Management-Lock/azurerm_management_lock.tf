@@ -10,8 +10,8 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_management_lock" "management_lock" {
-  name       =  var.name
-  scope      =  var.scope_id
-  lock_level =  var.level
-  notes      =  var.notes
+  name       = var.name
+  scope      = var.scope_id
+  lock_level = var.level
+  notes      = var.notes
 }

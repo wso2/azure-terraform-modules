@@ -41,11 +41,11 @@ variable "webhook_endpoint_url" {
   description = " (Required) Specifies the url of the webhook where the Event Subscription will receive events."
 }
 variable "webhook_max_events_per_batch" {
-  default = 1
+  default     = 1
   description = "Maximum number of events per batch."
 }
 variable "webhook_max_preferred_batch_size_in_kilobytes" {
-  default = 64
+  default     = 64
   description = " Preferred batch size in Kilobytes."
 }
 variable "retry_policy_max_delivery_attempts" {

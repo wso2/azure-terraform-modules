@@ -14,12 +14,12 @@ resource "azurerm_cosmosdb_sql_database" "cosmos_sql_database" {
   resource_group_name = var.resource_group_name
   account_name        = var.cosmos_db_account_name
   throughput          = var.is_autoscaled == false ? var.throughput : null
-  
-  dynamic autoscale_settings {
+
+  dynamic "autoscale_settings" {
     for_each = local.autoscale_setting
     content {
       max_throughput = autoscale_settings.value
     }
   }
-  
+
 }

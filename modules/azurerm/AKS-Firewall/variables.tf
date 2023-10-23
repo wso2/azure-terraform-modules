@@ -102,21 +102,21 @@ variable "firewall_private_ip" {}
 
 variable "application_gateway_subnet_address_prefix" {
   description = "Subnet prefix of application gateway"
-  type = string
+  type        = string
 }
 
 variable "aks_azure_rbac_enabled" {
   description = "Role based access control based on azure AD enabled"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "node_pool_name" {
   description = "Default node pool name"
-  type = string
+  type        = string
 }
 
 variable "private_cluster_public_fqdn_enable" {
   description = "Specifies whether a public FQDN for this private cluster should be added."
-  default = false
+  default     = false
 }

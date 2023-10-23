@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 output "traffic_manager_profile_name" {
-  value = azurerm_traffic_manager_profile.traffic_manager_profile.name
+  value      = azurerm_traffic_manager_profile.traffic_manager_profile.name
   depends_on = [azurerm_traffic_manager_profile.traffic_manager_profile]
 }
 
 output "traffic_manager_fqdn" {
-  value = azurerm_traffic_manager_profile.traffic_manager_profile.fqdn
+  value      = azurerm_traffic_manager_profile.traffic_manager_profile.fqdn
   depends_on = [azurerm_traffic_manager_profile.traffic_manager_profile]
 }
 
 output "traffic_manager_id" {
-  value = azurerm_traffic_manager_profile.traffic_manager_profile.id
+  value      = azurerm_traffic_manager_profile.traffic_manager_profile.id
   depends_on = [azurerm_traffic_manager_profile.traffic_manager_profile]
 }

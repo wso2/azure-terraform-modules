@@ -10,11 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 output "id" {
-  value = azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.id
+  value      = azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.id
   depends_on = [azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr]
 }
 
 output "service_endpoint_name" {
-  value = azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.service_endpoint_name
+  value      = azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.service_endpoint_name
   depends_on = [azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr]
 }

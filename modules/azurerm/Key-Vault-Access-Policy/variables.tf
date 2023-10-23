@@ -13,22 +13,22 @@ variable "vault_access_tenant_id" {}
 variable "vault_access_object_id" {}
 
 variable "vault_access_secret_permissions" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "vault_access_certificate_permissions" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "vault_access_key_permissions" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "vault_access_storage_permissions" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 

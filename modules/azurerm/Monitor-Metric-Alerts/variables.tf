@@ -16,7 +16,7 @@ variable "environment" {}
 variable "padding" {}
 variable "project" {}
 variable "alert_enabled" {
-  type = bool
+  type    = bool
   default = true
 }
 variable "metric_alerts_with_2_dimensions" {
@@ -74,7 +74,7 @@ variable "metric_alerts" {
     description               = string
     monitor_action_group_id   = string
     frequency                 = string
-    window_size                = string
+    window_size               = string
     severity                  = string
     target_resource_type      = string
     criteria_metric_namespace = string

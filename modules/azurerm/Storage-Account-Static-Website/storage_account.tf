@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_storage_account" "static_storage" {
-  name                            = join("", ["st",local.st_name_without_prefix])
+  name                            = join("", ["st", local.st_name_without_prefix])
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_kind                    = "StorageV2"
@@ -35,7 +35,7 @@ resource "azurerm_storage_account" "static_storage" {
   }
 
   static_website {
-    index_document = var.index_document
+    index_document     = var.index_document
     error_404_document = var.error_document
   }
 

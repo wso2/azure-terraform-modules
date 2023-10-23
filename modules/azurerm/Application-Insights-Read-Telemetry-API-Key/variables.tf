@@ -10,11 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 variable "application_insights_id" {
-    type = string
-    description = "Application Insights resource ID"
+  type        = string
+  description = "Application Insights resource ID"
 }
 
 variable "name" {
-    type = string
-    description = "Name of the Application Insights read telemetry API key"
+  type        = string
+  description = "Name of the Application Insights read telemetry API key"
 }

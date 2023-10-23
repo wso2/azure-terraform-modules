@@ -35,7 +35,7 @@ variable "project" {
 }
 
 variable "alert_enabled" {
-  type = bool
+  type    = bool
   default = true
 }
 

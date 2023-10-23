@@ -132,11 +132,11 @@ variable "powershell_core_version" {
 
 variable "access_restriction_ip_address" {
   description = "Access restriction for function app using IP address."
-  type        = list(object({
-    priority = number,
-    name = string,
+  type = list(object({
+    priority   = number,
+    name       = string,
     ip_address = string,
-    action = string,
+    action     = string,
     headers = object({
       x_azure_fdid      = list(string),
       x_fd_health_probe = list(string),
@@ -144,16 +144,16 @@ variable "access_restriction_ip_address" {
       x_forwarded_host  = list(string)
     })
   }))
-  default     = []
+  default = []
 }
 
 variable "access_restriction_service_tag" {
   description = "Access restriction for function app using service tags."
-  type        = list(object({
-    priority = number,
-    name = string,
+  type = list(object({
+    priority    = number,
+    name        = string,
     service_tag = string,
-    action = string,
+    action      = string,
     headers = object({
       x_azure_fdid      = list(string),
       x_fd_health_probe = list(string),
@@ -161,16 +161,16 @@ variable "access_restriction_service_tag" {
       x_forwarded_host  = list(string)
     })
   }))
-  default     = []
+  default = []
 }
 
 variable "access_restriction_vnet" {
   description = "Access restriction for function app using VNet subnet."
-  type        = list(object({
-    priority = number,
-    name = string,
+  type = list(object({
+    priority                  = number,
+    name                      = string,
     virtual_network_subnet_id = string,
-    action = string,
+    action                    = string,
     headers = object({
       x_azure_fdid      = list(string),
       x_fd_health_probe = list(string),
@@ -178,7 +178,7 @@ variable "access_restriction_vnet" {
       x_forwarded_host  = list(string)
     })
   }))
-  default     = []
+  default = []
 }
 
 variable "default_tags" {

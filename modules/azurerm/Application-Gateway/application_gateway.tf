@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_application_gateway" "app_gateway" {
-  depends_on          = [
+  depends_on = [
     azurerm_network_security_group.network_security_group,
     azurerm_network_security_rule.default_network_security_rule,
     azurerm_network_security_rule.default_network_security_rule_2,
@@ -85,8 +85,8 @@ resource "azurerm_application_gateway" "app_gateway" {
 
 
   ssl_policy {
-    policy_type        = "Predefined"
-    policy_name        = var.ssl_policy_name
+    policy_type = "Predefined"
+    policy_name = var.ssl_policy_name
   }
 
   enable_http2 = var.enable_http2

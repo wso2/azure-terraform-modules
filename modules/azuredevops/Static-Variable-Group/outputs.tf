@@ -11,5 +11,5 @@
 
 output "variable_group_id" {
   depends_on = [azuredevops_variable_group.devops_variable_group]
-  value = azuredevops_variable_group.devops_variable_group.id
+  value      = azuredevops_variable_group.devops_variable_group.id
 }

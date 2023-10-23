@@ -11,9 +11,9 @@
 
 output "serviceendpoint_id" {
   depends_on = [azuredevops_serviceendpoint_kubernetes.devops_serviceendpoint_kubernetes]
-  value = azuredevops_serviceendpoint_kubernetes.devops_serviceendpoint_kubernetes.id
+  value      = azuredevops_serviceendpoint_kubernetes.devops_serviceendpoint_kubernetes.id
 }
 output "serviceendpoint_name" {
   depends_on = [azuredevops_serviceendpoint_kubernetes.devops_serviceendpoint_kubernetes]
-  value = azuredevops_serviceendpoint_kubernetes.devops_serviceendpoint_kubernetes.service_endpoint_name
+  value      = azuredevops_serviceendpoint_kubernetes.devops_serviceendpoint_kubernetes.service_endpoint_name
 }

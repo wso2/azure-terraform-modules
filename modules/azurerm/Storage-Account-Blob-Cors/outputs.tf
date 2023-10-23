@@ -29,13 +29,13 @@ output "storage_account_primary_access_key" {
 }
 
 output "storage_account_id" {
-  depends_on  = [azurerm_storage_account.storage_account]
-  value       = azurerm_storage_account.storage_account.id
+  depends_on = [azurerm_storage_account.storage_account]
+  value      = azurerm_storage_account.storage_account.id
 }
 
 output "storage_account_primary_connection_string" {
-  depends_on  = [azurerm_storage_account.storage_account]
-  value       = azurerm_storage_account.storage_account.primary_connection_string
+  depends_on = [azurerm_storage_account.storage_account]
+  value      = azurerm_storage_account.storage_account.primary_connection_string
 }
 
 output "storage_account_primary_blob_endpoint" {

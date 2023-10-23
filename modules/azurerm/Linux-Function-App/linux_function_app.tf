@@ -15,16 +15,16 @@ resource "azurerm_linux_function_app" "linux_function_app" {
   location            = var.location
   app_settings        = var.app_settings
 
-  storage_account_name        = var.storage_account_name
-  storage_account_access_key  = var.storage_account_access_key
+  storage_account_name       = var.storage_account_name
+  storage_account_access_key = var.storage_account_access_key
 
-  service_plan_id             = var.service_plan_id
-  virtual_network_subnet_id   = var.function_app_subnet_id
+  service_plan_id           = var.service_plan_id
+  virtual_network_subnet_id = var.function_app_subnet_id
 
   site_config {
-    always_on               = var.is_function_app_always_on
-    vnet_route_all_enabled  = var.is_route_all
-    worker_count            = var.worker_count
+    always_on              = var.is_function_app_always_on
+    vnet_route_all_enabled = var.is_route_all
+    worker_count           = var.worker_count
 
     application_insights_key               = var.application_insights_key
     application_insights_connection_string = var.application_insights_connection_string
@@ -38,60 +38,60 @@ resource "azurerm_linux_function_app" "linux_function_app" {
     }
 
     dynamic "ip_restriction" {
-      for_each      = var.access_restriction_ip_address
+      for_each = var.access_restriction_ip_address
       content {
-        priority    = ip_restriction.value["priority"]
-        name        = ip_restriction.value["name"]
-        ip_address  = ip_restriction.value["ip_address"]
-        action      = ip_restriction.value["action"]
+        priority   = ip_restriction.value["priority"]
+        name       = ip_restriction.value["name"]
+        ip_address = ip_restriction.value["ip_address"]
+        action     = ip_restriction.value["action"]
 
         dynamic "headers" {
-          for_each      = ip_restriction.value["headers"] != null ? ["true"] : []
+          for_each = ip_restriction.value["headers"] != null ? ["true"] : []
           content {
-            x_azure_fdid = ip_restriction.value["headers"].x_azure_fdid
+            x_azure_fdid      = ip_restriction.value["headers"].x_azure_fdid
             x_fd_health_probe = ip_restriction.value["headers"].x_fd_health_probe
-            x_forwarded_for = ip_restriction.value["headers"].x_forwarded_for
-            x_forwarded_host = ip_restriction.value["headers"].x_forwarded_host
+            x_forwarded_for   = ip_restriction.value["headers"].x_forwarded_for
+            x_forwarded_host  = ip_restriction.value["headers"].x_forwarded_host
           }
         }
       }
     }
 
     dynamic "ip_restriction" {
-      for_each      = var.access_restriction_service_tag
+      for_each = var.access_restriction_service_tag
       content {
-        priority    = ip_restriction.value["priority"]
-        name        = ip_restriction.value["name"]
-        ip_address  = ip_restriction.value["ip_address"]
-        action      = ip_restriction.value["action"]
+        priority   = ip_restriction.value["priority"]
+        name       = ip_restriction.value["name"]
+        ip_address = ip_restriction.value["ip_address"]
+        action     = ip_restriction.value["action"]
 
         dynamic "headers" {
-          for_each      = ip_restriction.value["headers"] != null ? ["true"] : []
+          for_each = ip_restriction.value["headers"] != null ? ["true"] : []
           content {
-            x_azure_fdid = ip_restriction.value["headers"].x_azure_fdid
+            x_azure_fdid      = ip_restriction.value["headers"].x_azure_fdid
             x_fd_health_probe = ip_restriction.value["headers"].x_fd_health_probe
-            x_forwarded_for = ip_restriction.value["headers"].x_forwarded_for
-            x_forwarded_host = ip_restriction.value["headers"].x_forwarded_host
+            x_forwarded_for   = ip_restriction.value["headers"].x_forwarded_for
+            x_forwarded_host  = ip_restriction.value["headers"].x_forwarded_host
           }
         }
       }
     }
 
     dynamic "ip_restriction" {
-      for_each      = var.access_restriction_vnet
+      for_each = var.access_restriction_vnet
       content {
-        priority    = ip_restriction.value["priority"]
-        name        = ip_restriction.value["name"]
-        ip_address  = ip_restriction.value["ip_address"]
-        action      = ip_restriction.value["action"]
+        priority   = ip_restriction.value["priority"]
+        name       = ip_restriction.value["name"]
+        ip_address = ip_restriction.value["ip_address"]
+        action     = ip_restriction.value["action"]
 
         dynamic "headers" {
-          for_each      = ip_restriction.value["headers"] != null ? ["true"] : []
+          for_each = ip_restriction.value["headers"] != null ? ["true"] : []
           content {
-            x_azure_fdid = ip_restriction.value["headers"].x_azure_fdid
+            x_azure_fdid      = ip_restriction.value["headers"].x_azure_fdid
             x_fd_health_probe = ip_restriction.value["headers"].x_fd_health_probe
-            x_forwarded_for = ip_restriction.value["headers"].x_forwarded_for
-            x_forwarded_host = ip_restriction.value["headers"].x_forwarded_host
+            x_forwarded_for   = ip_restriction.value["headers"].x_forwarded_for
+            x_forwarded_host  = ip_restriction.value["headers"].x_forwarded_host
           }
         }
       }

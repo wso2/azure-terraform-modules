@@ -32,12 +32,12 @@ variable "ip_version" {
   default = "IPv4"
 }
 
-variable "application_name"{
+variable "application_name" {
   description = "Application name of the public ip prefix"
-  type = string
+  type        = string
 }
 
 variable "padding" {
   description = "Padding"
-  type = string
+  type        = string
 }

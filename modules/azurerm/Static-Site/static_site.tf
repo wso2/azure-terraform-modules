@@ -18,15 +18,15 @@ resource "azurerm_static_site" "static_site" {
   dynamic "identity" {
     for_each = var.identity_type != null ? [1] : []
     content {
-      type = var.identity_type
+      type         = var.identity_type
       identity_ids = var.identity_ids
     }
   }
-  tags                = var.default_tags
+  tags = var.default_tags
 }
 
 resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
-  count = var.custom_domain_name != null ? 1 : 0
+  count           = var.custom_domain_name != null ? 1 : 0
   static_site_id  = azurerm_static_site.static_site.id
   domain_name     = var.custom_domain_name
   validation_type = var.custom_domain_validation_type

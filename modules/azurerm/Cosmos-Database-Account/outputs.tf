@@ -11,30 +11,30 @@
 
 output "cosmos_db_account_id" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value = azurerm_cosmosdb_account.cosmos_db_account.id
+  value      = azurerm_cosmosdb_account.cosmos_db_account.id
 }
 
 output "cosmos_db_account_endpoint" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value = azurerm_cosmosdb_account.cosmos_db_account.endpoint
+  value      = azurerm_cosmosdb_account.cosmos_db_account.endpoint
 }
 
 output "cosmos_db_account_read_endpoints" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value = azurerm_cosmosdb_account.cosmos_db_account.read_endpoints
+  value      = azurerm_cosmosdb_account.cosmos_db_account.read_endpoints
 }
 
 output "cosmos_db_account_write_endpoints" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value = azurerm_cosmosdb_account.cosmos_db_account.write_endpoints
+  value      = azurerm_cosmosdb_account.cosmos_db_account.write_endpoints
 }
 
 output "cosmos_db_account_connection_strings" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value = azurerm_cosmosdb_account.cosmos_db_account.connection_strings
+  value      = azurerm_cosmosdb_account.cosmos_db_account.connection_strings
 }
 
 output "cosmos_db_account_name" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value = azurerm_cosmosdb_account.cosmos_db_account.name
+  value      = azurerm_cosmosdb_account.cosmos_db_account.name
 }

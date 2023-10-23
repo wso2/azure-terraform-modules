@@ -17,7 +17,7 @@ resource "time_rotating" "password_rotating_time" {
 }
 resource "azuread_service_principal_password" "service_principal_password" {
   service_principal_id = var.sp_internal_id
-  display_name = var.display_name
+  display_name         = var.display_name
   rotate_when_changed = {
     rotation = time_rotating.password_rotating_time.id
   }

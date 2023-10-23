@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_eventhub_namespace" "eventhub_namespace" {
-  name                = join("-",
+  name = join("-",
     [
       "evhns",
       var.project,
@@ -20,21 +20,21 @@ resource "azurerm_eventhub_namespace" "eventhub_namespace" {
       var.padding
     ]
   )
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  sku                 = "Standard"
-  capacity            = var.capacity
-  auto_inflate_enabled = true
-  maximum_throughput_units = var.maximum_throughput_units
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  sku                           = "Standard"
+  capacity                      = var.capacity
+  auto_inflate_enabled          = true
+  maximum_throughput_units      = var.maximum_throughput_units
   public_network_access_enabled = var.public_network_access_enabled
 
   lifecycle {
-     ignore_changes = [
-       capacity,
-       zone_redundant,
-     ]
+    ignore_changes = [
+      capacity,
+      zone_redundant,
+    ]
   }
-  zone_redundant      = true
+  zone_redundant = true
 
   dynamic "network_rulesets" {
     for_each = var.network_rules != null ? ["true"] : []
@@ -54,7 +54,7 @@ resource "azurerm_eventhub_namespace" "eventhub_namespace" {
         for_each = var.network_rules.subnet_ids
         iterator = subnet
         content {
-          subnet_id = subnet.value
+          subnet_id                                       = subnet.value
           ignore_missing_virtual_network_service_endpoint = true
         }
       }

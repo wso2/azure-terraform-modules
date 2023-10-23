@@ -8,15 +8,15 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-variable mssql_server_id {}
-variable mssql_storage_account_primary_blob_endpoint {}
-variable mssql_storage_account_primary_access_key {}
-variable retention_in_days {
+variable "mssql_server_id" {}
+variable "mssql_storage_account_primary_blob_endpoint" {}
+variable "mssql_storage_account_primary_access_key" {}
+variable "retention_in_days" {
   default = 30
 }
 
-variable log_monitoring_enabled {
-  default = false
-  type = bool
+variable "log_monitoring_enabled" {
+  default     = false
+  type        = bool
   description = "Enable audit events to Azure Monitor"
 }

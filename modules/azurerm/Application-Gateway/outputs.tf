@@ -11,20 +11,20 @@
 
 output "azurerm_application_gateway_id" {
   depends_on = [azurerm_application_gateway.app_gateway]
-  value = azurerm_application_gateway.app_gateway.id
+  value      = azurerm_application_gateway.app_gateway.id
 }
 
 output "azurerm_network_security_group_id" {
   depends_on = [azurerm_network_security_group.network_security_group]
-  value = azurerm_network_security_group.network_security_group.id
+  value      = azurerm_network_security_group.network_security_group.id
 }
 
 output "azurerm_subnet_id" {
   depends_on = [azurerm_subnet.app_gateway_subnet]
-  value = azurerm_subnet.app_gateway_subnet.id
+  value      = azurerm_subnet.app_gateway_subnet.id
 }
 
 output "azurerm_application_gateway_name" {
   depends_on = [azurerm_application_gateway.app_gateway]
-  value = azurerm_application_gateway.app_gateway.name
+  value      = azurerm_application_gateway.app_gateway.name
 }

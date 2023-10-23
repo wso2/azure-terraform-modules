@@ -10,14 +10,14 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_public_ip" "public_ip" {
-  name                      = join("-", [ "pip", var.project, var.application_name, var.environment, var.location, var.padding])
-  resource_group_name       = var.resource_group_name
-  location                  = var.location
-  allocation_method         = var.allocation_method
-  ip_version                = var.ip_version
-  sku                       = var.sku
-  idle_timeout_in_minutes   = var.idle_timeout_in_minutes
-  zones                     = [1,2,3]
+  name                    = join("-", ["pip", var.project, var.application_name, var.environment, var.location, var.padding])
+  resource_group_name     = var.resource_group_name
+  location                = var.location
+  allocation_method       = var.allocation_method
+  ip_version              = var.ip_version
+  sku                     = var.sku
+  idle_timeout_in_minutes = var.idle_timeout_in_minutes
+  zones                   = [1, 2, 3]
 
   tags = var.default_tags
 }

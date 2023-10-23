@@ -13,7 +13,7 @@ variable "cosmos_sql_database_name" {}
 variable "resource_group_name" {}
 variable "cosmos_db_account_name" {}
 variable "is_autoscaled" {
-  type = bool
+  type    = bool
   default = false
 }
 variable "throughput" {

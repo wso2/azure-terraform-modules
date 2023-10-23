@@ -9,5 +9,5 @@
 #
 # --------------------------------------------------------------------------------------
 locals {
-  st_name_without_prefix = join("", [var.shortened_project,var.application_name,var.shortened_environment, var.shortened_location, var.shortened_padding])
+  st_name_without_prefix = join("", [var.shortened_project, var.application_name, var.shortened_environment, var.shortened_location, var.shortened_padding])
 }

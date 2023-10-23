@@ -11,10 +11,10 @@
 
 output "serviceendpoint_id" {
   depends_on = [azuredevops_serviceendpoint_azurerm.devops_serviceendpoint_azurerm]
-  value = azuredevops_serviceendpoint_azurerm.devops_serviceendpoint_azurerm.id
+  value      = azuredevops_serviceendpoint_azurerm.devops_serviceendpoint_azurerm.id
 }
 
 output "serviceendpoint_name" {
   depends_on = [azuredevops_serviceendpoint_azurerm.devops_serviceendpoint_azurerm]
-  value = azuredevops_serviceendpoint_azurerm.devops_serviceendpoint_azurerm.service_endpoint_name
+  value      = azuredevops_serviceendpoint_azurerm.devops_serviceendpoint_azurerm.service_endpoint_name
 }

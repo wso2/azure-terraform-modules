@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 output "cosmos_db_sql_container_id" {
-  depends_on  = [azurerm_cosmosdb_sql_container.cosmosdb_sql_container]
-  value       = azurerm_cosmosdb_sql_container.cosmosdb_sql_container.id
+  depends_on = [azurerm_cosmosdb_sql_container.cosmosdb_sql_container]
+  value      = azurerm_cosmosdb_sql_container.cosmosdb_sql_container.id
 }

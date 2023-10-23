@@ -10,31 +10,31 @@
 # --------------------------------------------------------------------------------------
 
 variable "resource_group_name" {
-  type = string
+  type        = string
   description = "The name of the resource group in which this is created in."
 }
 
 variable "private_dns_a_record_name" {
-  type = string
+  type        = string
   description = "The name of the DNS A Record."
 }
 
 variable "private_dns_zone_name" {
-  type = string
+  type        = string
   description = "The name of the Private DNS Zone."
 }
 
 variable "default_tags" {
-  type    = map(string)
+  type        = map(string)
   description = "Default tag list"
 }
 
 variable "records" {
-  type = list(string)
+  type        = list(string)
   description = "List of IPv4 Addresses."
 }
 
 variable "time_to_live" {
   description = "The Time To Live (TTL) of the DNS record in seconds."
-  type = string
+  type        = string
 }

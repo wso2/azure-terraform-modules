@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_role_assignment" "role_assignment_custom" {
-  scope                = var.resource_id
-  role_definition_id   = var.role_definition_id
-  principal_id         = var.principal_id
+  scope              = var.resource_id
+  role_definition_id = var.role_definition_id
+  principal_id       = var.principal_id
 }
