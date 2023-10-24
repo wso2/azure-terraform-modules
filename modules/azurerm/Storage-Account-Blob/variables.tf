@@ -44,9 +44,9 @@ variable "resource_group_name" {
 }
 
 variable "account_tier" {
+  default     = "Standard"
   description = "Defines the Tier to use for this storage account"
   type        = string
-  default     = "Standard"
 }
 
 variable "account_replication_type" {
@@ -60,37 +60,37 @@ variable "default_tags" {
 }
 
 variable "default_action" {
+  default     = "Allow"
   description = "The default action of allow or deny when no other rules match"
   type        = string
-  default     = "Allow"
 }
 
 variable "delete_retention_days_policy" {
+  default     = 7
   description = "The number of days that the blob should be retained, between 1 and 365 days"
   type        = number
-  default     = 7
 }
 
 variable "access_tier" {
+  default     = "Hot"
   description = "The access tier for BlobStorage accounts"
   type        = string
-  default     = "Hot"
 }
 
 variable "storage_account_network_rules_ip_rules" {
+  default     = []
   description = "List of public IP or IP ranges in CIDR Format"
   type        = list(string)
-  default     = []
 }
 
 variable "allow_nested_items_to_be_public" {
+  default     = false
   description = "Allow or disallow nested items within this Account to opt into being public"
   type        = bool
-  default     = false
 }
 
 variable "public_network_access_enabled" {
+  default     = true
   description = "Whether the public network access is enabled?"
   type        = bool
-  default     = true
 }

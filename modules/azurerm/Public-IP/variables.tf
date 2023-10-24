@@ -9,22 +9,61 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "location" {}
-variable "application_name" {}
-variable "padding" {}
-variable "default_tags" {}
-variable "resource_group_name" {}
+variable "project" {
+  description = "value of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "value of the environment"
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure Region."
+  type        = string
+}
+
+variable "application_name" {
+  description = "The name of the application."
+  type        = string
+}
+
+variable "padding" {
+  description = "The padding."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the virtual network."
+  type        = map(string)
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the virtual network."
+  type        = string
+}
+
 variable "sku" {
-  default = "Standard"
+  default     = "Standard"
+  description = "The SKU of the Public IP."
+  type        = string
 }
+
 variable "idle_timeout_in_minutes" {
-  default = "4"
+  default     = "4"
+  description = "The idle timeout in minutes."
+  type        = string
 }
+
 variable "ip_version" {
-  default = "IPv4"
+  default     = "IPv4"
+  description = "The IP Version."
+  type        = string
 }
+
 variable "allocation_method" {
-  default = "Static"
+  default     = "Static"
+  description = "The allocation method."
+  type        = string
 }

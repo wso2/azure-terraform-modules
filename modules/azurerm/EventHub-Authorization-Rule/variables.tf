@@ -55,19 +55,19 @@ variable "resource_group_name" {
 }
 
 variable "listen" {
+  default     = false
   description = "Does this Authorization Rule have permissions to Listen to the Event Hub?"
   type        = bool
-  default     = false
 }
 
 variable "send" {
+  default     = false
   description = "Does this Authorization Rule have permissions to Send to the Event Hub?"
   type        = bool
-  default     = false
 }
 
 variable "manage" {
+  default     = false
   description = "Does this Authorization Rule have permissions to Manage to the Event Hub?"
   type        = bool
-  default     = false
 }

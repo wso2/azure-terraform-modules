@@ -49,8 +49,8 @@ variable "display_name" {
 }
 
 variable "enforce" {
-  type        = bool
   default     = true
+  type        = bool
   description = "Specifies if this Policy should be enforced or not? Defaults to true"
 }
 
@@ -68,14 +68,14 @@ variable "non_compliance_message" {
 }
 
 variable "identity_type" {
+  default     = null
   type        = string
   description = "The Type of Managed Identity which should be added to this Policy Definition. Possible values are SystemAssigned, UserAssigned and null"
-  default     = null
 }
 
 variable "identity_ids" {
-  type        = list(string)
   default     = []
+  type        = list(string)
   description = "A list of User Managed Identity IDs which should be assigned to the Policy Definition. This is required when identity_type is set to UserAssigned."
 }
 

@@ -9,7 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-
 resource "azurerm_key_vault_access_policy" "key_vault_access_policy" {
   key_vault_id            = var.key_vault_id
   tenant_id               = var.vault_access_tenant_id

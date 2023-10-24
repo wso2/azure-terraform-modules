@@ -9,6 +9,17 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "resource_id" {}
-variable "role_definition_name" {}
-variable "principal_id" {}
+variable "resource_id" {
+  description = "Azure resource ID for target resource to assign role"
+  type        = string
+}
+
+variable "role_definition_name" {
+  description = "Name of the role definition to assign"
+  type        = string
+}
+
+variable "principal_id" {
+  description = "Azure AD principal ID to assign role"
+  type        = string
+}

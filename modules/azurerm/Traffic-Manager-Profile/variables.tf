@@ -10,40 +10,67 @@
 # --------------------------------------------------------------------------------------
 
 variable "routing_method" {
-  default = "Performance"
+  default     = "Performance"
+  description = "The routing method of the Traffic Manager Profile."
+  type        = string
+
 }
-variable "resource_group_name" {}
-variable "environment" {}
-variable "project" {}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Traffic Manager Profile."
+  type        = string
+}
+
+variable "environment" {
+  description = "The environment to deploy the Traffic Manager Profile."
+  type        = string
+}
+
+variable "project" {
+  description = "The project name to deploy the Traffic Manager Profile."
+  type        = string
+}
+
 variable "ttl" {
-  type = number
+  description = "The Time-To-Live (TTL), in seconds."
+  type        = number
 }
+
 variable "endpoint_monitoring_protocol" {
-  type    = string
-  default = "https"
+  default     = "https"
+  description = "value for endpoint_monitoring_protocol"
+  type        = string
 }
+
 variable "default_tags" {
-  default = {}
+  default     = {}
+  description = "Default tags for the resource"
+  type        = map(string)
 }
-variable "health_check_path" {}
+
+variable "health_check_path" {
+  description = "Health Check path"
+  type        = string
+}
 variable "health_check_interval" {
-  description = "Health Check frequency in seconds"
   default     = 30
+  description = "Health Check frequency in seconds"
   type        = number
 }
 variable "health_check_timeout" {
-  description = "Health Check timeout in seconds"
   default     = 10
+  description = "Health Check timeout in seconds"
   type        = number
 }
 variable "tolerated_failures" {
-  description = "Number of consecutive failures to deem as degraded"
   default     = 3
+  description = "Number of consecutive failures to deem as degraded"
   type        = number
 }
 variable "traffic_view_enabled" {
-  type    = bool
-  default = false
+  default     = false
+  description = "Enable or Disable traffic view for the Traffic Manager Profile"
+  type        = bool
 }
 
 variable "location" {

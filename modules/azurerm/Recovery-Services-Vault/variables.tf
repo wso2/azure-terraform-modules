@@ -9,14 +9,38 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "rs_vault_sku" {
-  default = "Standard"
+variable "project" {
+  description = "value of the project"
+  type        = string
 }
-variable "default_tags" {}
+
+variable "environment" {
+  description = "value of the environment"
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure Region in which all resources in this example should be created."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Recovery Services Vault."
+  type        = string
+}
+
+variable "rs_vault_sku" {
+  default     = "Standard"
+  description = "The SKU of the Recovery Services Vault."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Recovery Services Vault."
+  type        = map(string)
+}
+
 variable "padding" {
-  type = string
+  description = "The padding."
+  type        = string
 }

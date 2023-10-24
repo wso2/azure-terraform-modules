@@ -9,38 +9,90 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "default_tags" {}
-variable "project" {}
-variable "environment" {}
-variable "resource_group_name" {}
-variable "location" {}
+variable "default_tags" {
+  description = "Default tags for the Azure SQL Elastic Pool."
+  type        = map(string)
+}
 
-variable "application_name" {}
-variable "workload" {}
-variable "mssql_server_name" {}
-variable "elastic_pool_license_type" {
-  default = "LicenseIncluded"
-}
-variable "elastic_pool_max_size_gb" {
-  default = 756
-}
-variable "elastic_pool_sku_name" {
-  default = "GP_Gen5"
-}
-variable "elastic_pool_sku_family" {
-  description = "The family of hardware Gen4, Gen5, Fsv2 or DC"
-  default     = "Gen5"
+variable "project" {
+  description = "The name of the project"
   type        = string
 }
+
+variable "environment" {
+  description = "The name of the environment"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Azure SQL Elastic Pool."
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure region to deploy"
+  type        = string
+}
+
+variable "application_name" {
+  description = "The name of the application"
+  type        = string
+}
+
+variable "workload" {
+  description = "Worklaod name for the resource"
+  type        = string
+}
+
+variable "mssql_server_name" {
+  description = "The name of the SQL Server on which to create the Elastic Pool."
+  type        = string
+}
+
+variable "elastic_pool_license_type" {
+  default     = "LicenseIncluded"
+  description = "The license type to apply for this Elastic Pool."
+  type        = string
+}
+
+variable "elastic_pool_max_size_gb" {
+  default     = 756
+  description = "The maximum size in GB that the database can reach before it is stopped."
+  type        = number
+}
+
+variable "elastic_pool_sku_name" {
+  default     = "GP_Gen5"
+  description = "The name of the Elastic Pool SKU."
+  type        = string
+}
+
+variable "elastic_pool_sku_family" {
+  default     = "Gen5"
+  description = "The family of hardware Gen4, Gen5, Fsv2 or DC"
+  type        = string
+}
+
 variable "elastic_pool_sku_tier" {
-  default = "GeneralPurpose"
+  default     = "GeneralPurpose"
+  description = "The tier of the Elastic Pool."
+  type        = string
 }
+
 variable "elastic_pool_sku_capacity" {
-  default = 4
+  default     = 4
+  description = "The capacity of the Elastic Pool."
+  type        = number
 }
+
 variable "elastic_pool_per_database_settings_min_capacity" {
-  default = 0.25
+  default     = 0.25
+  description = "The minimum capacity all databases are guaranteed."
+  type        = number
 }
+
 variable "elastic_pool_per_database_settings_max_capacity" {
-  default = 4
+  default     = 4
+  description = "The maximum capacity any one database can consume."
+  type        = number
 }

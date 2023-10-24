@@ -9,13 +9,52 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "resource_group_name" {}
-variable "default_tags" {}
-variable "storage_account_name" {}
-variable "scope" {}
-variable "file_share_quote" {}
-variable "recovery_services_vault_name" {}
-variable "backup_container_storage_account_id" {}
-variable "backup_policy_file_share_id" {}
+variable "project" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of the environment"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the File Share."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the File Share."
+  type        = map(string)
+}
+
+variable "storage_account_name" {
+  description = "The name of the storage account in which to create the File Share."
+  type        = string
+}
+
+variable "scope" {
+  description = "The scope at which the File Share should be created."
+  type        = string
+}
+
+variable "file_share_quote" {
+  description = "The maximum size of the File Share in GB."
+  type        = number
+}
+
+variable "recovery_services_vault_name" {
+  description = "The name of the Recovery Services Vault in which to create the Backup Policy."
+  type        = string
+}
+
+variable "backup_container_storage_account_id" {
+  description = "The ID of the Storage Account in which to create the Backup Container."
+  type        = string
+}
+
+variable "backup_policy_file_share_id" {
+  description = "The ID of the File Share for which to create the Backup Policy."
+  type        = string
+}

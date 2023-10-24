@@ -60,31 +60,32 @@ variable "destination_la_workspace_resource_id" {
 }
 
 variable "data_sources_syslog_name" {
+  default     = null
   description = "The name which should be used for this data source"
   type        = string
-  default     = null
 }
 
 variable "data_sources_syslog_facility_names" {
+  default     = null
   description = "Specifies a list of facility names"
   type        = list(string)
-  default     = null
 }
 
 variable "data_sources_syslog_log_levels" {
+  default     = null
   description = "Specifies a list of log levels"
   type        = list(string)
-  default     = null
 }
 
 variable "kind" {
-  description = "The kind of the Data Collection Endpoint. Possible values are Linux and Windows"
   default     = "Linux"
+  description = "The kind of the Data Collection Endpoint. Possible values are Linux and Windows"
   type        = string
 }
 
 variable "default_tags" {
   description = "A mapping of tags which should be assigned to the Data Collection Endpoint"
+  type        = map(string)
 }
 
 variable "data_collection_endpoint_id" {
@@ -103,9 +104,9 @@ variable "data_flow_output_stream" {
 }
 
 variable "stream_declaration_name" {
+  default     = null
   description = "The name of the custom stream. This name should be unique across"
   type        = string
-  default     = null
 }
 
 variable "stream_declaration_columns" {

@@ -11,10 +11,10 @@
 
 output "private_endpoint_subnet_id" {
   depends_on = [azurerm_subnet.private_endpoint_subnet]
-  value = azurerm_subnet.private_endpoint_subnet.id
+  value      = azurerm_subnet.private_endpoint_subnet.id
 }
 
 output "private_endpoint_subnet_nsg_id" {
   depends_on = [azurerm_network_security_group.private_network_security_group]
-  value = azurerm_network_security_group.private_network_security_group.id
+  value      = azurerm_network_security_group.private_network_security_group.id
 }

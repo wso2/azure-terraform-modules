@@ -35,31 +35,31 @@ variable "partition_key_path" {
 }
 
 variable "partition_key_version" {
+  default     = 1
   description = "Partition key version."
   type        = number
-  default     = 1
 }
 
 variable "autoscale_enabled" {
+  default     = false
   description = "Is auto scale enable for the container."
   type        = bool
-  default     = false
 }
 
 variable "throughput" {
+  default     = 400
   description = "Throughput of the partition."
   type        = number
-  default     = 400
 }
 
 variable "unique_key_paths" {
+  default     = []
   description = "A list of unique key path lists."
   type        = list(list(string))
-  default     = []
 }
 
 variable "default_ttl" {
+  default     = -1
   description = "The default time to live of SQL container."
   type        = number
-  default     = -1
 }

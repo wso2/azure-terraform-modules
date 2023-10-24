@@ -10,49 +10,75 @@
 # --------------------------------------------------------------------------------------
 variable "project" {
   description = "The project in which this resource is deployed"
+  type        = string
 }
+
 variable "environment" {
   description = "The environment of the project in which this resource is deployed"
+  type        = string
 }
+
 variable "resource_group_name" {
   description = "(Required) The name of the Resource Group where the Event Subscription should exist. Changing this forces a new Event Subscription to be created."
+  type        = string
 }
+
 variable "location" {
   description = "(Required) The Azure Region where the Event Subscription should exist. Changing this forces a new Event Subscription to be created."
+  type        = string
 }
+
 variable "padding" {
   description = "Padding for this resource"
+  type        = string
 }
+
 variable "application_name" {
   description = "(Required)The application name which should be used for this Event Subscription. Changing this forces a newEvent Subscription to be created."
+  type        = string
 }
+
 variable "event_delivery_schema" {
-  description = "(Optional) Specifies the event delivery schema for the event subscription."
   default     = "EventGridSchema"
+  description = "(Optional) Specifies the event delivery schema for the event subscription."
+  type        = string
 }
+
 variable "system_topic" {
   description = "(Required) The System Topic where the Event Subscription should be created in. Changing this forces a new Event Subscription to be created."
+  type        = string
 }
+
 variable "included_event_types" {
   description = "(Optional) A list of applicable event types that need to be part of the event subscription."
   type        = list(string)
 }
+
 variable "webhook_endpoint_url" {
   description = " (Required) Specifies the url of the webhook where the Event Subscription will receive events."
+  type        = string
 }
+
 variable "webhook_max_events_per_batch" {
   default     = 1
   description = "Maximum number of events per batch."
+  type        = number
 }
+
 variable "webhook_max_preferred_batch_size_in_kilobytes" {
   default     = 64
   description = " Preferred batch size in Kilobytes."
+  type        = number
 }
+
 variable "retry_policy_max_delivery_attempts" {
   default     = 30
   description = "(Required) Specifies the maximum number of delivery retry attempts for events."
+  type        = number
 }
+
 variable "event_time_to_live" {
   default     = 1440
   description = "(Required) Specifies the time to live (in minutes) for events. Supported range is 1 to 1440."
+  type        = number
 }

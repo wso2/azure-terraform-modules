@@ -10,45 +10,45 @@
 # --------------------------------------------------------------------------------------
 
 variable "role_definition_name" {
-  type        = string
   description = "The name of the Role Definition."
+  type        = string
 }
 
 variable "role_definition_scope" {
-  type        = string
   description = "The scope at which the Role Definition applies to."
+  type        = string
 }
 
 variable "description" {
-  type        = string
   description = "A description of the Role Definition."
+  type        = string
 }
 
 variable "allowed_actions_list" {
-  type        = list(string)
   description = "List of one or more allowed Actions."
+  type        = list(string)
 }
 
 variable "disallowed_actions_list" {
-  type        = list(string)
-  description = "List of one or more disallowed Actions."
   default     = []
+  description = "List of one or more disallowed Actions."
+  type        = list(string)
 }
 
 variable "allowed_data_actions_list" {
-  type        = list(string)
-  description = "List of one or more allowed Data Actions."
   default     = []
+  description = "List of one or more allowed Data Actions."
+  type        = list(string)
 }
 
 variable "disallowed_data_actions_list" {
-  type        = list(string)
-  description = "List of one or more disallowed Data Actions."
   default     = []
+  description = "List of one or more disallowed Data Actions."
+  type        = list(string)
 }
 
 variable "assignable_scopes" {
-  description = "List of assignable scopes"
   default     = []
+  description = "List of assignable scopes"
   type        = list(string)
 }

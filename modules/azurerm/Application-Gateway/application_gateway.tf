@@ -83,7 +83,6 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-
   ssl_policy {
     policy_type = "Predefined"
     policy_name = var.ssl_policy_name

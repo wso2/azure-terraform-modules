@@ -9,30 +9,86 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "shortened_project" {}
-variable "application_name" {}
-variable "shortened_environment" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "account_tier" {}
-variable "account_replication_type" {}
-variable "storage_account_tags" {}
-variable "shortened_location" {}
-variable "shortened_padding" {}
-variable "index_document" {}
-variable "error_document" {}
+variable "shortened_project" {
+  description = "Shortened project name"
+  type        = string
+}
+
+variable "application_name" {
+  description = "Name of the resource"
+  type        = string
+}
+
+variable "shortened_environment" {
+  description = "Shortened name for environment of the project in which this resource is deployed"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure location where the resource exists"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Name of the resource group in which the EventHub Namespace exists"
+  type        = string
+}
+
+variable "account_tier" {
+  description = "Defines the Tier to use for this storage account"
+  type        = string
+}
+
+variable "account_replication_type" {
+  description = "Defines the type of replication to use for this storage account"
+  type        = string
+}
+
+variable "storage_account_tags" {
+  description = "Default tags to be used in resources"
+  type        = map(string)
+}
+
+variable "shortened_location" {
+  description = "Shortened name for the Azure location where the resource exists"
+  type        = string
+}
+
+variable "shortened_padding" {
+  description = "Shortened padding for the resource name"
+  type        = string
+}
+
+variable "index_document" {
+  description = "The name of the index document."
+  type        = string
+}
+
+variable "error_document" {
+  description = "The name of the error document."
+  type        = string
+}
+
 variable "network_rules_ip_whitelist" {
-  default = []
+  default     = []
+  description = "List of IP addresses or ranges to whitelist for storage account via firewall. Defaults to []"
+  type        = list(string)
 }
+
 variable "network_rules_default_action" {
-  default = "Allow"
+  default     = "Allow"
+  description = "The default action of allow or deny when no other rules match"
+  type        = string
 }
+
 variable "network_rules_subnet_ids" {
-  default = []
+  default     = []
+  description = "List of subnet IDs to whitelist for storage account via firewall. Defaults to []"
+  type        = list(string)
 }
 
 variable "allow_nested_items_to_be_public" {
+  default     = false
   description = "Allow or disallow nested items within this Account to opt into being public"
   type        = bool
-  default     = false
 }

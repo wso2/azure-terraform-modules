@@ -40,9 +40,9 @@ variable "resource_group_name" {
 }
 
 variable "os_type" {
+  default     = "Linux"
   type        = string
   description = "OS type of the service plan."
-  default     = "Linux"
 }
 
 variable "sku_name" {
@@ -56,9 +56,9 @@ variable "availability_zone_enabled" {
 }
 
 variable "maximum_elastic_worker_count" {
+  default     = null
   type        = number
   description = "Maximum elastic worker count when scaling out."
-  default     = null
 }
 
 variable "worker_count" {
@@ -67,7 +67,7 @@ variable "worker_count" {
 }
 
 variable "default_tags" {
+  default     = {}
   type        = map(string)
   description = "Tags for the resource."
-  default     = {}
 }

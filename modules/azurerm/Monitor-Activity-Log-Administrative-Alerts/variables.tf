@@ -10,33 +10,34 @@
 # --------------------------------------------------------------------------------------
 
 variable "resource_group_name" {
-  type        = string
   description = "Name of the resource group."
+  type        = string
 }
 
 variable "default_tags" {
-  type        = map(string)
   description = "Map of default tags."
+  type        = map(string)
 }
 
 variable "environment" {
-  type        = string
   description = "Name of the environment."
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "The padding value."
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "Name of the project."
+  type        = string
 }
 
 variable "alert_enabled" {
-  type    = bool
-  default = true
+  default     = true
+  description = "Enable or disable the alert."
+  type        = bool
 }
 
 variable "activity_log_administrative_alerts" {

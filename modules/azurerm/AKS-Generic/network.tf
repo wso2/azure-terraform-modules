@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "aks_node_pool_subnet" {
-  name                                           = join("-", ["snet", local.aks_node_pool_workload, var.padding])
-  resource_group_name                            = local.virtual_network_resource_group_name
-  virtual_network_name                           = var.virtual_network_name
-  address_prefixes                               = [var.aks_node_pool_subnet_address_prefix]
-  service_endpoints                              = var.aks_nodepool_subnet_allowed_service_endpoints
-  enforce_private_link_endpoint_network_policies = true
+  name                                      = join("-", ["snet", local.aks_node_pool_workload, var.padding])
+  resource_group_name                       = local.virtual_network_resource_group_name
+  virtual_network_name                      = var.virtual_network_name
+  address_prefixes                          = [var.aks_node_pool_subnet_address_prefix]
+  service_endpoints                         = var.aks_nodepool_subnet_allowed_service_endpoints
+  private_endpoint_network_policies_enabled = true
 }
 
 resource "azurerm_route_table" "aks_node_pool_route_table" {
@@ -87,12 +87,12 @@ resource "azurerm_subnet_network_security_group_association" "aks_node_pool_subn
 }
 
 resource "azurerm_subnet" "internal_load_balancer_subnet" {
-  name                                           = join("-", ["snet", local.aks_internal_lb_workload, var.padding])
-  resource_group_name                            = local.virtual_network_resource_group_name
-  virtual_network_name                           = var.virtual_network_name
-  address_prefixes                               = [var.internal_loadbalancer_subnet_address_prefix]
-  service_endpoints                              = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
-  enforce_private_link_endpoint_network_policies = false
+  name                                      = join("-", ["snet", local.aks_internal_lb_workload, var.padding])
+  resource_group_name                       = local.virtual_network_resource_group_name
+  virtual_network_name                      = var.virtual_network_name
+  address_prefixes                          = [var.internal_loadbalancer_subnet_address_prefix]
+  service_endpoints                         = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
+  private_endpoint_network_policies_enabled = false
 }
 
 resource "azurerm_network_security_group" "internal_load_balancer_subnet_nsg" {

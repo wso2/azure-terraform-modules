@@ -33,26 +33,27 @@ variable "resource_group_name" {
   type        = string
 }
 variable "default_tags" {
+  default     = {}
   description = "The default tags."
   type        = map(string)
-  default     = {}
 }
 variable "visible_consumer_subscription_ids" {
+  default     = []
   description = "List of Subscription IDs which can view this Private Link Service"
   type        = list(string)
-  default     = []
 }
 variable "auto_approved_consumer_subscription_ids" {
+  default     = []
   description = "List of Subscription IDs whose Private Endpoint to the PLS would be auto approved"
   type        = list(string)
-  default     = []
 }
 variable "frontend_ip_config_ids" {
+  default     = []
   description = "List of Frontend IPs connected to the Private Link Service"
   type        = list(string)
-  default     = []
 }
 variable "nat_ip_configurations" {
+  default     = []
   description = "List of NAT IP configurations used for the Private Link Service"
   type = list(object({
     name               = string
@@ -60,5 +61,4 @@ variable "nat_ip_configurations" {
     subnet_id          = string
     private_ip_address = string
   }))
-  default = []
 }

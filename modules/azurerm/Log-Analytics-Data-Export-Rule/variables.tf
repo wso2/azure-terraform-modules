@@ -10,28 +10,28 @@
 # --------------------------------------------------------------------------------------
 
 variable "log_analytics_data_export_rule_name" {
-  type        = string
   description = "The name of the Log Analytics Data Export Rule"
+  type        = string
 }
 variable "resource_group_name" {
-  type        = string
   description = "The name of the Resource Group where the Log Analytics Data Export should exist"
+  type        = string
 }
 variable "workspace_resource_id" {
-  type        = string
   description = "The resource ID of the workspace"
+  type        = string
 }
 variable "destination_resource_id" {
-  type        = string
   description = "The destination resource ID. It should be a storage account, an event hub namespace or an event hub."
+  type        = string
 }
 variable "table_names" {
-  type        = list(any)
-  description = "A list of table names to export to the destination resource"
   default     = []
+  description = "A list of table names to export to the destination resource"
+  type        = list(any)
 }
 variable "log_analytics_data_export_rule_enabled" {
-  type        = bool
-  description = "Is this Log Analytics Data Export Rule enabled? Possible values include true or false"
   default     = true
+  description = "Is this Log Analytics Data Export Rule enabled? Possible values include true or false"
+  type        = bool
 }

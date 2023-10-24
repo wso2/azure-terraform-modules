@@ -10,43 +10,43 @@
 # --------------------------------------------------------------------------------------
 
 variable "application_name" {
-  type        = string
   description = "The name of the application."
+  type        = string
 }
 
 variable "location" {
-  type        = string
   description = "The Azure Region in which the CDN endpoint should be created."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type        = string
   description = "The name of the resource group in which to create the CDN endpoint."
+  type        = string
 }
 
 variable "cdne_tags" {
-  type        = map(string)
   description = "A mapping of tags to assign to the resource."
+  type        = string
 }
 
 variable "origin_name" {
-  type        = string
   description = "The name of the origin."
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The name of the project."
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The name of the environment."
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "The padding to be used for the CDN endpoint."
+  type        = string
 }
 
 variable "cdn_delivery_rules" {
@@ -64,21 +64,21 @@ variable "cdn_delivery_rules" {
 }
 
 variable "cdn_profile_name" {
-  type        = string
   description = "The CDN Profile to which to attach the CDN Endpoint."
+  type        = string
 }
 
 variable "origin_host_header" {
-  type        = string
   description = "The origin host header that CDN provider will send along with content requests to origins."
+  type        = string
 }
 
 variable "querystring_caching_behaviour" {
-  type        = string
   description = "The query string caching behavior. Valid values are IgnoreQueryString, BypassCaching, and UseQueryString."
+  type        = string
 }
 
 variable "origin_host_name" {
-  type        = string
   description = "A string that determines the hostname/IP address of the origin server."
+  type        = string
 }

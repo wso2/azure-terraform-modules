@@ -11,64 +11,64 @@
 
 variable "project" {
   description = "The project name"
-  type = string
+  type        = string
 }
 
 variable "environment" {
   description = "The enviroment"
-  type = string
+  type        = string
 }
 
 variable "resource_group_name" {
   description = "The resource group name"
-  type = string
+  type        = string
 }
 
 variable "location" {
   description = "The cloud region"
-  type = string
+  type        = string
 }
 
 variable "automation_account_name" {
   description = "The azure automation account name"
-  type = string
+  type        = string
 }
 
 variable "automation_runbook_name" {
   description = "The azure automation runbook name"
-  type = string
+  type        = string
 }
 
 variable "uri" {
   description = "The URI od the external automation runbook"
-  type = string
+  type        = string
 }
 
 variable "runbook_type" {
-  default = "PowerShell"
+  default     = "PowerShell"
   description = "The runbook type"
-  type = string
+  type        = string
 }
 
 variable "filepath" {
   description = "The local file path of the automation runbook"
-  type = string
+  type        = string
 }
 
 variable "log_verbose" {
   default     = true
   description = "The log verbose boolean"
-  type = bool
+  type        = bool
 }
 
 variable "log_progress" {
   default     = true
   description = "The log progress boolean"
-  type = bool
-  
+  type        = bool
+
 }
 
 variable "tags" {
   description = "The tags"
-  type = map(string)
+  type        = map(string)
 }

@@ -8,49 +8,105 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-variable "application_name" {}
-variable "shortened_project" {}
-variable "shortened_environment" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "account_tier" {}
-variable "account_replication_type" {}
-variable "default_tags" {}
-variable "recovery_vault_name" {}
-variable "daily_backup_time" {
-  default = "23:00"
+variable "application_name" {
+  description = "Name of the application."
+  type        = string
 }
+
+variable "shortened_project" {
+  description = "The shortened project name"
+  type        = string
+}
+
+variable "shortened_environment" {
+  description = "Shortened name for environment of the project in which this resource is deployed"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure location where the resource exists"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Name of the resource group in which the EventHub Namespace exists"
+  type        = string
+}
+
+variable "account_tier" {
+  description = "Defines the Tier to use for this storage account"
+  type        = string
+}
+
+variable "account_replication_type" {
+  description = "Defines the type of replication to use for this storage account"
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags to be used in resources"
+  type        = map(string)
+}
+
+variable "recovery_vault_name" {
+  description = "Name of the Recovery Vault"
+  type        = string
+}
+
+variable "daily_backup_time" {
+  default     = "23:00"
+  description = "Time of the day when the backup should be taken"
+  type        = string
+}
+
 variable "daily_retention" {
-  default = "7"
+  default     = "7"
+  description = "Number of days to retain the backup"
+  type        = string
 }
 
 variable "storage_account_network_rules_default_action" {
-  default = "Allow"
+  default     = "Allow"
+  description = "The default action of allow or deny when no other rules match"
+  type        = string
 }
 
 variable "storage_account_network_rules_bypass" {
-  default = ["AzureServices", "Metrics"]
+  default     = ["AzureServices", "Metrics"]
+  description = "Specifies which traffic can bypass the network rules"
+  type        = list(string)
 }
 
 variable "storage_account_network_rules_ip_rules" {
-  default = []
+  default     = []
+  description = "List of public IP or IP ranges in CIDR format"
+  type        = list(string)
 }
 
 variable "storage_account_network_rules_virtual_network_subnet_ids" {
-  default = []
+  default     = []
+  description = "List of virtual network subnet IDs"
+  type        = list(string)
 }
 
-variable "shortened_location" {}
-variable "shortened_padding" {}
+variable "shortened_location" {
+  description = "Shortened name for the Azure location where the resource exists"
+  type        = string
+}
+
+variable "shortened_padding" {
+  description = "Shortened padding for the resource name"
+  type        = string
+}
 
 variable "allow_nested_items_to_be_public" {
+  default     = false
   description = "Allow or disallow nested items within this Account to opt into being public"
   type        = bool
-  default     = false
 }
 
 variable "advanced_threat_protection_enabled" {
   default     = true
-  type        = bool
   description = "Enable Advance Threat protection for Storage account"
+  type        = bool
 }

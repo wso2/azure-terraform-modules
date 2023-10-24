@@ -9,12 +9,33 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "location" {}
-variable "resource_group_name" {}
-variable "environment" {}
-variable "padding" {}
-variable "project" {}
+variable "location" {
+  description = "The location where the Log Analytics Workspace should be created"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the Resource Group"
+  type        = string
+}
+
+variable "environment" {
+  description = "The name of the environment"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding for the deployment"
+  type        = string
+}
+
+variable "project" {
+  description = "The name of the project"
+  type        = string
+}
+
 variable "query_rules_alert" {
+  description = "Map of query rules alert"
   type = map(object({
     action_group_id_list       = list(string)
     reason                     = string
@@ -35,6 +56,7 @@ variable "query_rules_alert" {
 }
 
 variable "count_trigger_query_rules_alert" {
+  description = "Map of count trigger query rules alert"
   type = map(object({
     action_group_id_list       = list(string)
     reason                     = string

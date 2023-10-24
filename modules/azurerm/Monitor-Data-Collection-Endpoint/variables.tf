@@ -40,17 +40,18 @@ variable "resource_group_name" {
 }
 
 variable "public_network_access_enabled" {
-  description = "Whether network access from public internet to the Data Collection Endpoint are allowed"
   default     = true
+  description = "Whether network access from public internet to the Data Collection Endpoint are allowed"
   type        = bool
 }
 
 variable "kind" {
-  description = "The kind of the Data Collection Endpoint. Possible values are Linux and Windows"
   default     = "Linux"
+  description = "The kind of the Data Collection Endpoint. Possible values are Linux and Windows"
   type        = string
 }
 
 variable "default_tags" {
   description = "A mapping of tags which should be assigned to the Data Collection Endpoint"
+  type        = map(string)
 }

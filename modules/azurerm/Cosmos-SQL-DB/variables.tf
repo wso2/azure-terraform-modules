@@ -9,13 +9,28 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "cosmos_sql_database_name" {}
-variable "resource_group_name" {}
-variable "cosmos_db_account_name" {}
-variable "is_autoscaled" {
-  type    = bool
-  default = false
+variable "cosmos_sql_database_name" {
+  description = "Name of the Cosmos SQL Database."
+  type        = string
 }
+
+variable "resource_group_name" {
+  description = "Name of the resource group to deploy the Cosmos SQL Database in."
+  type        = string
+}
+
+variable "cosmos_db_account_name" {
+  description = "Cosmos DB account name in which the Cosmos SQL Database will be deployed."
+  type        = string
+}
+
+variable "is_autoscaled" {
+  default     = false
+  description = "Is auto scale enable for the Cosmos SQL Database."
+  type        = bool
+}
+
 variable "throughput" {
-  type = number
+  description = "Throughput of the Cosmos SQL Database."
+  type        = number
 }

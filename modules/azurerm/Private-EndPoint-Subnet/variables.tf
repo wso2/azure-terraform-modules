@@ -9,12 +9,47 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "location" {}
-variable "application_name" {}
-variable "padding" {}
-variable "resource_group_name" {}
-variable "virtual_network_name" {}
-variable "address_prefixes" {}
-variable "default_tags" {}
+variable "project" {
+  description = "value of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "value of the environment"
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure Region in which all resources in this example should be created."
+  type        = string
+}
+
+variable "application_name" {
+  description = "The name of the application."
+  type        = string
+}
+
+variable "padding" {
+  description = "The padding to be used for indenting the generated HCL code."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the virtual network."
+  type        = string
+}
+
+variable "virtual_network_name" {
+  description = "The name of the virtual network."
+  type        = string
+}
+
+variable "address_prefixes" {
+  description = "The address prefixes to use for the virtual network."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the virtual network."
+  type        = map(string)
+}

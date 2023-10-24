@@ -9,47 +9,98 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "default_tags" {}
-variable "project" {}
-variable "application_name" {}
-variable "padding" {}
-variable "environment" {}
-variable "resource_group_name" {}
-variable "location" {}
+variable "default_tags" {
+  description = "Default tags for the SQL Server"
+  type        = map(string)
+}
+
+variable "project" {
+  description = "The name of the project"
+  type        = string
+}
+
+variable "application_name" {
+  description = "The name of the application"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding for the deployment"
+  type        = string
+}
+
+variable "environment" {
+  description = "The name of the environment"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the SQL Server."
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure region to deploy"
+  type        = string
+}
+
 variable "db_server_version" {
-  default = "12.0"
+  default     = "12.0"
+  description = "The version of the database engine to use."
+  type        = string
 }
-variable "db_server_administrator_login" {}
-variable "db_server_administrator_login_password" {}
+
+variable "db_server_administrator_login" {
+  description = "The administrator login name for the SQL Server."
+  type        = string
+}
+
+variable "db_server_administrator_login_password" {
+  description = "The administrator login password for the SQL Server."
+  type        = string
+}
+
 variable "db_server_minimum_tls_version" {
-  default = "1.2"
+  default     = "1.2"
+  description = "The minimum TLS version to support on the server."
+  type        = string
 }
+
 variable "db_server_public_network_access_enabled" {
-  default = false
+  default     = false
+  description = "Whether or not public network access is allowed for this server."
+  type        = bool
 }
+
 variable "extended_auditing_policy_storage_account_access_key_is_secondary" {
-  default = true
+  default     = true
+  description = "Whether or not the storage account access key is secondary."
+  type        = bool
 }
+
 variable "extended_auditing_policy_retention_in_days" {
-  default = 6
+  default     = 6
+  description = "The number of days to retain audit logs."
+  type        = number
 }
 
 variable "mssql_identity_type" {
-  type    = string
-  default = "SystemAssigned"
+  default     = "SystemAssigned"
+  description = "The type of identity used for the SQL Server."
+  type        = string
 }
 
 variable "azuread_administrator_login_username" {
-  type        = string
   description = "The login username of the Azure AD Administrator of this SQL Server"
+  type        = string
 }
 
 variable "azuread_administrator_object_id" {
-  type        = string
   description = "The object id of the Azure AD Administrator of this SQL Server"
+  type        = string
 }
 
 variable "azuread_administrator_tenant_id" {
-  type        = string
   description = "The tenant id of the Azure AD Administrator of this SQL Server"
+  type        = string
 }

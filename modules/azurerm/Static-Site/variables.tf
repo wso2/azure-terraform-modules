@@ -40,43 +40,43 @@ variable "resource_group_name" {
 }
 
 variable "sku_tier" {
+  default     = "Free"
   type        = string
   description = "SKU tier which is used for the static site."
-  default     = "Free"
 }
 
 variable "sku_size" {
+  default     = "Free"
   type        = string
   description = "SKU size which is used for the static site."
-  default     = "Free"
 }
 
 variable "identity_type" {
+  default     = null
   type        = string
   description = "Static site identity type."
-  default     = null
 }
 
 variable "identity_ids" {
+  default     = null
   type        = list(string)
   description = "Static site identity IDs."
-  default     = null
 }
 
 variable "default_tags" {
+  default     = {}
   type        = map(string)
   description = "Tags for the resource."
-  default     = {}
 }
 
 variable "custom_domain_name" {
+  default     = null
   type        = string
   description = "Custom domain name for the static site."
-  default     = null
 }
 
 variable "custom_domain_validation_type" {
+  default     = null
   type        = string
   description = "Custom domain validation type."
-  default     = null
 }

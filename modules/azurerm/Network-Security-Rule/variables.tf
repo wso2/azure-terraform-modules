@@ -38,42 +38,42 @@ variable "protocol" {
   type        = string
 }
 variable "source_port_range" {
+  default     = null
   description = "Source port for considered traffic"
   type        = string
-  default     = null
 }
 variable "destination_port_range" {
+  default     = null
   description = "Destination port for considered traffic"
   type        = string
-  default     = null
 }
 variable "source_port_ranges" {
+  default     = null
   description = "List of source ports for considered traffic"
   type        = list(string)
-  default     = null
 }
 variable "destination_port_ranges" {
+  default     = null
   description = "List of destination ports for considered traffic"
   type        = list(string)
-  default     = null
 }
 variable "source_address_prefix" {
+  default     = null
   description = "Source Address range for considered traffic"
   type        = string
-  default     = null
 }
 variable "destination_address_prefix" {
+  default     = null
   description = "Destination Address range for considered traffic"
   type        = string
-  default     = null
 }
 variable "destination_address_prefixes" {
+  default     = null
   description = "List destination address ranges for considered traffic"
   type        = list(string)
-  default     = null
 }
 variable "source_address_prefixes" {
+  default     = null
   description = "List source address range for considered traffic"
   type        = list(string)
-  default     = null
 }

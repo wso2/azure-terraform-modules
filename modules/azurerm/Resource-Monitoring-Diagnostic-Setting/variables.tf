@@ -9,23 +9,26 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "log_setting_name" {}
+variable "log_setting_name" {
+  description = "Name of the Diagnostic Setting"
+  type        = string
+}
 
 variable "target_resource_id" {
-  type        = string
   description = "Azure resource ID for target resource to extract logs"
+  type        = string
 }
 
 variable "archival_locations" {
-  type = object({
-    archival_storage_account_id = string,
-    log_analytics_workspace_id  = string
-  })
-  description = "Locations to extract Log files to keep empty if not required"
   default = {
     archival_storage_account_id = "",
     log_analytics_workspace_id  = ""
   }
+  description = "Locations to extract Log files to keep empty if not required"
+  type = object({
+    archival_storage_account_id = string,
+    log_analytics_workspace_id  = string
+  })
   validation {
     condition     = var.archival_locations.archival_storage_account_id != "" || var.archival_locations.log_analytics_workspace_id != ""
     error_message = "Please specify at least one locations to send Logs."
@@ -33,51 +36,53 @@ variable "archival_locations" {
 }
 
 variable "sub_service_id" {
-  type        = string
-  description = "Path to access Sub service (OPTIONAL)"
   default     = ""
+  description = "Path to access Sub service (OPTIONAL)"
+  type        = string
 }
 
 variable "required_metric_categories" {
+  default     = []
+  description = "Metrics to be extracted from the resource"
   type = list(object(
     {
       category_name : string,
       retention_period : number
     }
   ))
-  description = "Metrics to be extracted from the resource"
-  default     = []
 }
 
 variable "required_log_categories" {
+  default     = []
+  description = "Logs to be extracted from the resource"
   type = list(object(
     {
       category_name : string,
       retention_period : number
     }
   ))
-  description = "Logs to be extracted from the resource"
-  default     = []
 }
 
 variable "all_log_types_enabled" {
+  default     = { enabled : false, retention_period : 0 }
+  description = "Allow or Disallow all log types to be extracted from the resource"
   type = object({
     enabled : bool,
     retention_period : number
   })
-  default     = { enabled : false, retention_period : 0 }
-  description = "Allow or Disallow all log types to be extracted from the resource"
 }
 
 variable "all_metrics_enabled" {
+  default     = { enabled : false, retention_period : 0 }
+  description = "Allow or Disallow all metrics to be extracted from the resource"
   type = object({
     enabled : bool,
     retention_period : number
   })
-  default     = { enabled : false, retention_period : 0 }
-  description = "Allow or Disallow all metrics to be extracted from the resource"
 }
 
 variable "log_analytics_destination_type" {
-  default = null
+  default     = null
+  description = "Destination type for Log Analytics Workspace"
+  type        = string
 }

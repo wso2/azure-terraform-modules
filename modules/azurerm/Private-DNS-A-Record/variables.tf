@@ -35,6 +35,6 @@ variable "records" {
 }
 
 variable "time_to_live" {
-  description = "The Time To Live (TTL) of the DNS record in seconds."
   type        = string
+  description = "The Time To Live (TTL) of the DNS record in seconds."
 }

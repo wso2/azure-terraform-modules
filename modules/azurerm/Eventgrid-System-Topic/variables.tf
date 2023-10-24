@@ -10,28 +10,45 @@
 # --------------------------------------------------------------------------------------
 variable "project" {
   description = "The project in which this resource is deployed"
+  type        = string
 }
+
 variable "environment" {
   description = "The environment of the project in which this resource is deployed"
+  type        = string
 }
+
 variable "resource_group_name" {
   description = "(Required) The name of the Resource Group where the Event Grid System Topic should exist. Changing this forces a new Event Grid System Topic to be created."
+  type        = string
 }
+
 variable "location" {
   description = "(Required) The Azure Region where the Event Grid System Topic should exist. Changing this forces a new Event Grid System Topic to be created."
+  type        = string
 }
+
 variable "default_tags" {
   default = "Tags associated with this resource."
+  type    = map(string)
 }
+
 variable "padding" {
   description = "Padding for this resource"
+  type        = string
 }
+
 variable "application_name" {
   description = "The application name which should be used for this Event Grid System Topic"
+  type        = string
 }
+
 variable "source_arm_resource_id" {
   description = "(Required) The ID of the Event Grid System Topic ARM Source. Changing this forces a new Event Grid System Topic to be created."
+  type        = string
 }
+
 variable "topic_type" {
   description = "(Required) The Topic Type of the Event Grid System Topic. Changing this forces a new Event Grid System Topic to be created."
+  type        = string
 }

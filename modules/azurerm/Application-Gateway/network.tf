@@ -33,7 +33,6 @@ resource "azurerm_network_security_rule" "network_security_rule" {
   network_security_group_name  = azurerm_network_security_group.network_security_group.name
 }
 
-
 resource "azurerm_network_security_rule" "default_network_security_rule" {
   name                        = "AzureInfrastructureCommunication"
   priority                    = var.default_ns_rule_1_priority
@@ -47,7 +46,6 @@ resource "azurerm_network_security_rule" "default_network_security_rule" {
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.network_security_group.name
 }
-
 
 resource "azurerm_network_security_rule" "default_network_security_rule_2" {
   name                        = "AllowTrafficLoadBalancer"

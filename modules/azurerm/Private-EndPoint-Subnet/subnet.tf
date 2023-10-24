@@ -10,10 +10,10 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "private_endpoint_subnet" {
-  name                 = join("-", ["snet-private-endpoint", var.padding])
-  resource_group_name  = var.resource_group_name
-  virtual_network_name = var.virtual_network_name
-  address_prefixes     = [var.address_prefixes]
-  service_endpoints    = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
-  enforce_private_link_endpoint_network_policies = true
+  name                                      = join("-", ["snet-private-endpoint", var.padding])
+  resource_group_name                       = var.resource_group_name
+  virtual_network_name                      = var.virtual_network_name
+  address_prefixes                          = [var.address_prefixes]
+  service_endpoints                         = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
+  private_endpoint_network_policies_enabled = true
 }

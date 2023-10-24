@@ -9,31 +9,56 @@
 #
 # --------------------------------------------------------------------------------------
 variable "private_endpoint_subnet_id" {
-  type = string
+  description = "The ID of the subnet to associate with the private endpoint."
+  type        = string
 }
-variable "location" {}
-variable "resource_group_name" {}
-variable "private_connection_resource_id" {}
+
+variable "location" {
+  description = "The Azure Region in which the private endpoint should be created."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the private endpoint."
+  type        = string
+}
+
+variable "private_connection_resource_id" {
+  description = "The ID of the resource to connect to the private endpoint."
+  type        = string
+}
+
 variable "private_dns_zone_ids" {
-  type = list(string)
+  description = "The IDs of the private DNS zones to link to the private endpoint."
+  type        = list(string)
 }
+
 variable "subresource_names" {
-  type = list(string)
+  description = "The names of the subresources to link to the private endpoint."
+  type        = list(string)
 }
-variable "tags" {}
+
+variable "tags" {
+  description = "Tags for the private endpoint."
+  type        = map(string)
+}
 
 variable "project" {
-  type = string
+  description = "value of the project"
+  type        = string
 }
 
 variable "workload_name" {
-  type = string
+  description = "value of the workload name"
+  type        = string
 }
 
 variable "environment" {
-  type = string
+  description = "value of the environment"
+  type        = string
 }
 
 variable "padding" {
-  type = string
+  description = "Padding to differentiate between resources"
+  type        = string
 }

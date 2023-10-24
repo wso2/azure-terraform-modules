@@ -10,88 +10,88 @@
 # --------------------------------------------------------------------------------------
 
 variable "project" {
-  type        = string
   description = "Name of the project in which these resources are created."
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "Name of the environment for the resource."
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "Padding used for naming conventions."
+  type        = string
 }
 
 variable "location" {
-  type        = string
   description = "Region to deploy Azure function app."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type        = string
   description = "Resource group name to deploy Azure function app in."
+  type        = string
 }
 
 variable "application_name" {
-  type        = string
   description = "Application name for the function app."
+  type        = string
 }
 
 variable "storage_account_name" {
-  type        = string
   description = "Storage account name which is used to host the function app."
+  type        = string
 }
 
 variable "storage_account_access_key" {
-  type        = string
   description = "Access key of the storage account created to host the function app."
+  type        = string
 }
 
 variable "application_insights_key" {
-  type        = string
-  description = "Application insight key to integrate Application Insight"
   default     = null
+  description = "Application insight key to integrate Application Insight"
+  type        = string
 }
 
 variable "application_insights_connection_string" {
-  type        = string
-  description = "Application insight connection string to integrate Application Insight"
   default     = null
+  description = "Application insight connection string to integrate Application Insight"
+  type        = string
 }
 
 variable "service_plan_id" {
-  type        = string
   description = "Service plan ID of the function app."
+  type        = string
 }
 
 variable "function_app_subnet_id" {
-  type        = string
   description = "ID of the subnet where function app will be created in."
+  type        = string
 }
 
 variable "is_function_app_always_on" {
-  type        = bool
-  description = "Whether the function app is always on or not."
   default     = true
+  description = "Whether the function app is always on or not."
+  type        = bool
 }
 
 variable "is_route_all" {
-  type        = bool
-  description = "Whether Route All enabled or not."
   default     = true
+  description = "Whether Route All enabled or not."
+  type        = bool
 }
 
 variable "worker_count" {
-  type        = number
   description = "Number of workers to the function app."
+  type        = number
 }
 
 variable "app_settings" {
-  type        = map(string)
-  description = "A map of key-value pairs for App Settings and custom values."
   default     = null
+  description = "A map of key-value pairs for App Settings and custom values."
+  type        = map(string)
 }
 
 variable "java_version" {
@@ -101,36 +101,37 @@ variable "java_version" {
 }
 
 variable "dotnet_version" {
-  type        = number
-  description = ".NET version to be used in the function app."
   default     = null
+  description = ".NET version to be used in the function app."
+  type        = number
 }
 
 variable "managed_identity_type" {
-  type        = string
-  description = "Specifies the identity type of the Function App. Possible values are SystemAssigned, UserAssigned"
   default     = "SystemAssigned"
+  description = "Specifies the identity type of the Function App. Possible values are SystemAssigned, UserAssigned"
+  type        = string
 }
 
 variable "node_version" {
-  type        = number
-  description = "Node version to be used in the function app."
   default     = null
+  description = "Node version to be used in the function app."
+  type        = number
 }
 
 variable "python_version" {
-  type        = number
-  description = "Python version to be used in the function app."
   default     = null
+  description = "Python version to be used in the function app."
+  type        = number
 }
 
 variable "powershell_core_version" {
-  type        = number
-  description = "Java version to be used in the function app."
   default     = null
+  description = "Java version to be used in the function app."
+  type        = number
 }
 
 variable "access_restriction_ip_address" {
+  default     = []
   description = "Access restriction for function app using IP address."
   type = list(object({
     priority   = number,
@@ -144,10 +145,10 @@ variable "access_restriction_ip_address" {
       x_forwarded_host  = list(string)
     })
   }))
-  default = []
 }
 
 variable "access_restriction_service_tag" {
+  default     = []
   description = "Access restriction for function app using service tags."
   type = list(object({
     priority    = number,
@@ -161,10 +162,10 @@ variable "access_restriction_service_tag" {
       x_forwarded_host  = list(string)
     })
   }))
-  default = []
 }
 
 variable "access_restriction_vnet" {
+  default     = []
   description = "Access restriction for function app using VNet subnet."
   type = list(object({
     priority                  = number,
@@ -178,10 +179,9 @@ variable "access_restriction_vnet" {
       x_forwarded_host  = list(string)
     })
   }))
-  default = []
 }
 
 variable "default_tags" {
-  type        = map(string)
   description = "Tags used for the resource."
+  type        = map(string)
 }

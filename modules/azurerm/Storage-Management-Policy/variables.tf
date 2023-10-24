@@ -12,9 +12,11 @@
 
 variable "storage_account_id" {
   description = "Specifies the id of the storage account to apply the management policy to"
+  type        = string
 }
 
 variable "rules" {
+  description = "Specifies the rules for the management policy"
   type = map(
     object({
       enabled      = bool,
@@ -28,14 +30,4 @@ variable "rules" {
       }))
     })
   )
-  description = <<EOT
-    rules = {
-      enabled : "Boolean to specify whether the rule is enabled"
-      prefix_match : "An array of strings for prefixes to be matched"
-      blob_types : "An array of predefined values. Valid options are blockBlob and appendBlob"
-      delete_in_days : "The age in days after last modification to delete the blob. Must be between 0 and 99999"
-      move_to_cold_tier_in : "The age in days after last modification to tier blobs to cool storage. Supports blob currently at Hot tier. Must be between 0 and 99999"
-      archive_in : "The age in days after last modification to tier blobs to archive storage. Supports blob currently at Hot or Cool tier. Must be between 0 and 99999."
-    }
-  EOT
 }

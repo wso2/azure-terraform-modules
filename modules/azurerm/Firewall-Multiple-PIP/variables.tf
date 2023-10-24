@@ -9,37 +9,97 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "resource_group_name" {}
-variable "location" {}
-variable "default_tags" {}
-variable "virtual_network_name" {}
-variable "subnet_address_prefixes" {}
-variable "application_name" {}
-variable "padding" {}
-variable "shortened_project" {}
-variable "shortened_environment" {}
-variable "shortened_location" {}
-variable "shortened_padding" {}
-variable "virtual_network_address_space" {}
-variable "zones" {}
+variable "project" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of the environment"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group."
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure Region."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Firewall."
+  type        = map(string)
+}
+
+variable "virtual_network_name" {
+  description = "The name of the Virtual Network in which to create the Firewall."
+  type        = string
+}
+
+variable "subnet_address_prefixes" {
+  description = "The address prefixes to use for the subnet."
+  type        = list(string)
+}
+
+variable "application_name" {
+  description = "Name of the application"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding for the resource name"
+  type        = string
+}
+
+variable "shortened_project" {
+  description = "Shortened project name"
+  type        = string
+}
+
+variable "shortened_environment" {
+  description = "Shortened environment name"
+  type        = string
+}
+
+variable "shortened_location" {
+  description = "Shortened location name"
+  type        = string
+}
+
+variable "shortened_padding" {
+  description = "Shortened padding name"
+  type        = string
+}
+
+variable "virtual_network_address_space" {
+  description = "The address space to use for the Virtual Network."
+  type        = list(string)
+}
+
+variable "zones" {
+  description = "The Availability Zones in which to create the Firewall."
+  type        = list(string)
+}
 
 variable "sku_name" {
-  description = "SKU name of the Firewall. Possible values are AZFW_Hub and AZFW_VNet"
   default     = "AZFW_VNet"
+  description = "SKU name of the Firewall. Possible values are AZFW_Hub and AZFW_VNet"
   type        = string
 }
 
 variable "sku_tier" {
-  description = "SKU tier of the Firewall. Possible values are Premium and Standard"
   default     = "Standard"
+  description = "SKU tier of the Firewall. Possible values are Premium and Standard"
   type        = string
 }
 
 variable "dynamic_nat_rule_collection_priority" {
-  description = "Priority of DNat rule collection"
   default     = 100
+  description = "Priority of DNat rule collection"
+  type        = number
 }
 
 variable "dynamic_nat_rules" {
@@ -53,11 +113,15 @@ variable "dynamic_nat_rules" {
   }))
 }
 
-variable "public_ip_prefix_length" {}
+variable "public_ip_prefix_length" {
+  description = "Length of the public ip prefix"
+  type        = number
+}
 
 variable "network_rule_collection_priority" {
-  description = "Priority of Network rule collection"
   default     = 100
+  description = "Priority of Network rule collection"
+  type        = number
 }
 
 variable "network_rules" {
@@ -72,8 +136,9 @@ variable "network_rules" {
 }
 
 variable "application_rule_collection_priority" {
-  description = "Priority of Application rule collection"
   default     = 100
+  description = "Priority of Application rule collection"
+  type        = number
 }
 
 variable "application_rules" {

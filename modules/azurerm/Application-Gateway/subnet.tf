@@ -10,10 +10,10 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "app_gateway_subnet" {
-  name                                           = join("-", ["snet", var.application_name, var.padding])
-  resource_group_name                            = var.resource_group_name
-  virtual_network_name                           = var.virtual_network_name
-  address_prefixes                               = var.address_prefixes
-  service_endpoints                              = var.service_endpoints
-  enforce_private_link_endpoint_network_policies = true
+  name                                      = join("-", ["snet", var.application_name, var.padding])
+  resource_group_name                       = var.resource_group_name
+  virtual_network_name                      = var.virtual_network_name
+  address_prefixes                          = var.address_prefixes
+  service_endpoints                         = var.service_endpoints
+  private_endpoint_network_policies_enabled = true
 }

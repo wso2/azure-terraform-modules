@@ -8,12 +8,47 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-variable "project" {}
-variable "environment" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "workload" {}
-variable "tags" {}
-variable "subnet_id" {}
-variable "padding" {}
-variable "firewall_private_ip" {}
+variable "project" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of the environment"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+}
+
+variable "workload" {
+  description = "Name of the workload"
+  type        = string
+}
+
+variable "tags" {
+  description = "Tags for the resource"
+  type        = map(string)
+}
+
+variable "subnet_id" {
+  description = "ID of the subnet"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding for the subnet"
+  type        = number
+}
+
+variable "firewall_private_ip" {
+  description = "Private IP of the firewall"
+  type        = string
+}

@@ -9,12 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-###############
-#
-# SRC PEER CONF
-#
-###############
-
 variable "vnet_src_id" {
   description = "ID of the src vnet to peer"
   type        = string
@@ -49,12 +43,6 @@ variable "custom_peering_src_name" {
   type        = string
   default     = ""
 }
-
-################
-#
-# DEST PEER CONF
-#
-################
 
 variable "vnet_dest_id" {
   description = "ID of the dest vnet to peer"

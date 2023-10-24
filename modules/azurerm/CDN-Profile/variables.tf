@@ -10,41 +10,41 @@
 # --------------------------------------------------------------------------------------
 
 variable "application_name" {
-  type        = string
   description = "The name of the application."
+  type        = string
 }
 
 variable "location" {
-  type        = string
   description = "The Azure Region in which the CDN endpoint should be created."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type        = string
   description = "The name of the resource group in which to create the CDN endpoint."
+  type        = string
 }
 
 variable "cdn_tags" {
-  type        = map(string)
   description = "A mapping of tags to assign to the resource."
+  type        = map(string)
 }
 
 variable "cdn_sku_profile" {
-  type        = string
   description = "The pricing related information of current CDN profile."
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The name of the project."
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The name of the environment."
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "The padding to be used for the CDN endpoint."
+  type        = string
 }

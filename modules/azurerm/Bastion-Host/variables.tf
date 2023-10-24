@@ -10,104 +10,104 @@
 # --------------------------------------------------------------------------------------
 
 variable "location" {
-  type        = string
   description = "Specifies the supported Azure location where the resource exists"
+  type        = string
 }
 
 variable "resource_group_name" {
-  type        = string
   description = "The name of the resource group in which to create the Bastion Host"
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The environment"
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The project"
+  type        = string
 }
 
 variable "application_name" {
-  type        = string
   description = "The name of the Bastion Host. Changing this forces a new resource to be created"
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "The padding"
+  type        = string
 }
 
 variable "copy_paste_enabled" {
-  type        = bool
   default     = true
   description = "Is Copy/Paste feature enabled for the Bastion Host"
+  type        = bool
 }
 
 variable "file_copy_enabled" {
-  type        = bool
   default     = false
   description = "Is File Copy feature enabled for the Bastion Host"
+  type        = bool
 }
 
 variable "ip_connect_enabled" {
-  type        = bool
   default     = false
   description = "Is IP Connect feature enabled for the Bastion Host"
+  type        = bool
 }
 
 variable "shareable_link_enabled" {
-  type        = bool
   default     = false
   description = "Is Shareable Link feature enabled for the Bastion Host"
+  type        = bool
 }
 
 variable "scale_units" {
-  type        = number
   default     = 2
   description = "The number of scale units with which to provision the Bastion Host"
+  type        = number
 }
 
 variable "tunneling_enabled" {
-  type        = bool
   default     = false
   description = "Is Tunneling feature enabled for the Bastion Host"
+  type        = bool
 }
 
 variable "sku" {
-  type        = string
   description = "The SKU of the Bastion Host. Accepted values are Basic and Standard"
+  type        = string
 }
 
 variable "default_tags" {
-  type        = map(string)
   description = "The default tags"
+  type        = map(string)
 }
 
 variable "virtual_network_name" {
-  type        = string
   description = "The Virtual Network name where the subnet of Bastion Host needs to be created"
+  type        = string
 }
 
 variable "subnet_address_prefixes" {
-  type        = string
   description = "Bastion host subnet address spaces"
+  type        = string
 }
 
 variable "public_address_prefixes" {
-  type        = list(string)
   description = "Public address spaces allowed for the Bastion host subnet"
+  type        = list(string)
 }
 
 variable "public_ip_zones" {
-  type        = list(string)
   default     = ["1", "2", "3"]
   description = "A collection containing the availability zone to allocate the Public IP in"
+  type        = list(string)
 }
 
 variable "allow_https_internet_inbound" {
-  type        = bool
   default     = true
   description = "Specify whether to allow HTTPS Inbound internet traffic or not"
+  type        = bool
 }

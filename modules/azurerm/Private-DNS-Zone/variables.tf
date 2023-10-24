@@ -9,6 +9,17 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "resource_group_name" {}
-variable "private_dns_zone_name" {}
-variable "default_tags" {}
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
+variable "private_dns_zone_name" {
+  description = "Private DNS Zone name"
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Private DNS Zone."
+  type        = map(string)
+}

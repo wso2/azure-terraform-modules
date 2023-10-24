@@ -10,26 +10,38 @@
 # --------------------------------------------------------------------------------------
 
 variable "project" {
-  type = string
+  description = "value of the project"
+  type        = string
 }
 variable "environment" {
-  type = string
+  description = "value of the environment"
+  type        = string
 }
 variable "location" {
-  type = string
+  description = "The Azure Region."
+  type        = string
 }
 variable "prefix_length" {
-  type = number
+  description = "The prefix length of the Public IP Prefix."
+  type        = number
 }
-variable "default_tags" {}
+variable "default_tags" {
+  description = "Default tags for the Public IP Prefix."
+  type        = map(string)
+}
 variable "resource_group_name" {
-  type = string
+  description = "The name of the resource group in which to create the Public IP Prefix."
+  type        = string
 }
 variable "sku" {
-  default = "Standard"
+  default     = "Standard"
+  description = "The SKU of the Public IP Prefix."
+  type        = string
 }
 variable "ip_version" {
-  default = "IPv4"
+  default     = "IPv4"
+  description = "The IP version of the Public IP Prefix."
+  type        = string
 }
 
 variable "application_name" {

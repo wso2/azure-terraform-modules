@@ -9,23 +9,64 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "environment" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "project" {}
-variable "application_name" {}
-variable "padding" {}
-variable "default_tags" {}
-variable "log_analytics_workspace_sku" {}
-variable "log_retention_in_days" {}
-variable "daily_quota_gb" {}
-variable "internet_ingestion_enabled" {
-  type        = bool
-  description = "Should the Log Analytics Workspace support ingestion over the Public Internet?"
-  default     = true
+variable "environment" {
+  description = "value of the environment"
+  type        = string
 }
-variable "internet_query_enabled" {
-  type        = bool
-  description = "Should the Log Analytics Workspace support querying over the Public Internet"
+
+variable "location" {
+  description = "value of the location"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Log Analytics Workspace."
+  type        = string
+}
+
+variable "project" {
+  description = "value of the project"
+  type        = string
+}
+
+variable "application_name" {
+  description = "value of the application"
+  type        = string
+}
+
+variable "padding" {
+  description = "value of the padding"
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Log Analytics Workspace."
+  type        = map(string)
+}
+
+variable "log_analytics_workspace_sku" {
+  description = "The SKU used for this Log Analytics Workspace."
+  type        = string
+}
+
+variable "log_retention_in_days" {
+  description = "The retention period for the logs in days."
+  type        = number
+}
+
+variable "daily_quota_gb" {
+  description = "The daily quota for the logs in GB."
+  type        = number
+}
+
+variable "internet_ingestion_enabled" {
   default     = true
+  description = "Should the Log Analytics Workspace support ingestion over the Public Internet?"
+  type        = bool
+}
+
+variable "internet_query_enabled" {
+  default     = true
+  description = "Should the Log Analytics Workspace support querying over the Public Internet"
+  type        = bool
 }

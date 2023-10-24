@@ -29,8 +29,8 @@ variable "private_link_resource_alias" {
   type        = string
 }
 variable "tags" {
-  type        = map(string)
   description = "The default tags."
+  type        = map(string)
 }
 variable "project" {
   description = "The name of the project"

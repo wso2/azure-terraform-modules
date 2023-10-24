@@ -9,14 +9,35 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "resource_group_name" {}
-variable "default_tags" {}
-variable "environment" {}
-variable "padding" {}
-variable "project" {}
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Log Alerts"
+  type        = map(string)
+}
+
+variable "environment" {
+  description = "Environment"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding"
+  type        = string
+}
+
+variable "project" {
+  description = "Project"
+  type        = string
+}
+
 variable "alert_enabled" {
-  type    = bool
-  default = true
+  default     = true
+  description = "Enable or disable the alert."
+  type        = bool
 }
 variable "recommendation_alerts" {
   description = "Map of Azure recommendation alerts"

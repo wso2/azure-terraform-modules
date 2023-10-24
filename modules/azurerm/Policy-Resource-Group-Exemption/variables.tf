@@ -9,58 +9,58 @@
 #
 # --------------------------------------------------------------------------------------
 variable "project_short_name" {
-  type        = string
   description = "The short name  of project to which the policy exemption is created"
+  type        = string
 }
 
 variable "environment_short_name" {
-  type        = string
   description = "The short name of the environment to which the policy exemption is created"
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The project to which the policy exemption is created"
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The environment to which the policy exemption is created"
+  type        = string
 }
 
 variable "purpose" {
-  type        = string
   description = "The purpose of the policy exemption. Changing this forces a new resource to be created"
+  type        = string
 }
 
 variable "resource_group_id" {
-  type        = string
   description = "The Resource group ID where the Policy Exemption should be applied. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "exemption_category" {
-  type        = string
-  description = "The category of this policy exemption. Possible values are Waiver and Mitigated. Default is 'Waiver'."
   default     = "Waiver"
+  description = "The category of this policy exemption. Possible values are Waiver and Mitigated. Default is 'Waiver'."
+  type        = string
 }
 
 variable "policy_assignment_id" {
-  type        = string
   description = "The ID of the Policy Assignment to be exempted at the specified Scope. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "description" {
-  type        = string
   description = "The description of the policy exemption."
+  type        = string
 }
 
 variable "display_name" {
-  type        = string
   description = "A friendly display name to use for this Policy Exemption."
+  type        = string
 }
 
 variable "policy_definition_reference_ids" {
-  type        = list(string)
   default     = []
   description = "The policy definition reference ID list when the associated policy assignment is an assignment of a policy set definition."
+  type        = list(string)
 }

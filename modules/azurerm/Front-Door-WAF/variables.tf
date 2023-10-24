@@ -9,11 +9,27 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "resource_group_name" {}
-variable "default_tags" {}
+variable "project" {
+  description = "value of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "value of the environment"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Front Door WAF Object."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Front Door WAF Object."
+  type        = map(string)
+}
 
 variable "front_door_waf_object" {
-  description = "(Required) Front Door WAF Object configuration"
+  description = "Front Door WAF Object configuration"
+  type        = string
 }

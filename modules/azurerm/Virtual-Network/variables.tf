@@ -9,21 +9,66 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "location" {}
-variable "padding" {}
-variable "virtual_network_address_space" {}
-variable "resource_group_name" {}
-variable "environment" {}
-variable "project" {}
-variable "application_name" {}
-variable "network_mode" {
-  default = ""
+variable "location" {
+  description = "The Azure Region in which all resources in this example should be created."
+  type        = string
 }
-variable "default_tags" {}
+
+variable "padding" {
+  description = "The number of IP addresses to reserve for the subnet."
+  type        = number
+}
+
+variable "virtual_network_address_space" {
+  description = "The address space that is used the virtual network."
+  type        = list(string)
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the virtual network."
+  type        = string
+}
+
+variable "environment" {
+  description = "The name of the environment."
+  type        = string
+}
+
+variable "project" {
+  description = "The name of the project."
+  type        = string
+}
+
+variable "application_name" {
+  description = "The name of the application."
+  type        = string
+}
+
+variable "network_mode" {
+  default     = ""
+  description = "The network mode to use for the container instances in the container group."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags to be used in resources"
+  type        = map(string)
+}
+
 variable "private_dns_zones" {
+  default     = []
   description = "Private DNS zone map"
   type        = list(map(string))
-  default     = []
 }
-variable "ddos_protection_plan_id" { default = "" }
-variable "ddos_protection_plan_enable" { default = false }
+
+variable "ddos_protection_plan_id" {
+  default     = ""
+  description = "The ID of the DDoS protection plan to associate with the public IP address."
+  type        = string
+}
+
+variable "ddos_protection_plan_enable" {
+  default     = false
+  description = "Enable DDoS protection plan"
+  type        = bool
+}

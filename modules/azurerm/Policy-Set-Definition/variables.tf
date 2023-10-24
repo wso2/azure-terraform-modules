@@ -9,67 +9,61 @@
 #
 # --------------------------------------------------------------------------------------
 variable "project_short_name" {
-  type        = string
   description = "The short name  of project to which the policy set definition is created"
+  type        = string
 }
 
 variable "environment_short_name" {
-  type        = string
   description = "The short name of the environment to which the policy set definition is created"
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The project to which the policy set definition is created"
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The environment to which the policy set definition is created"
+  type        = string
 }
 
 variable "purpose" {
-  type        = string
   description = "The purpose of the policy set definition. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "policy_type" {
-  type        = string
   description = "The policy set type. Possible values are BuiltIn, Custom, NotSpecified and Static. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "display_name" {
-  type        = string
   description = "The display name of the policy set definition."
+  type        = string
 }
 
 variable "description" {
-  type        = string
   description = "The description of the policy definition."
+  type        = string
 }
 
 variable "metadata" {
-  type        = string
-  description = "The metadata for the policy set definition. This is a JSON object representing additional metadata that should be stored with the policy definition."
   default     = ""
+  description = "The metadata for the policy set definition. This is a JSON object representing additional metadata that should be stored with the policy definition."
+  type        = string
 }
 
 variable "policy_definition_reference" {
+  description = "The policy definition reference block."
   type = list(object({
     policy_definition_id = string
     parameter_values     = string
     reference_id         = string
   }))
-  description = <<EOT
-    policy_definition_reference = {
-      policy_definition_id : "The ID of the policy definition that will be included in this policy set definition."
-      parameter_values : "Parameter values for the referenced policy rule. This field is a JSON string that allows you to assign parameters to this policy rule."
-      reference_id : "A unique ID within this policy set definition for this policy definition reference."
-    }
-   EOT
 }
 
 variable "parameters" {
-  type        = string
   description = "Parameters for the policy set definition. This field is a JSON object that allows you to parameterize your policy definition."
+  type        = string
 }

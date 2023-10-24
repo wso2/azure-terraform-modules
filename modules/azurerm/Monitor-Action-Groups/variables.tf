@@ -9,13 +9,41 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "resource_group_name" {}
-variable "default_tags" {}
-variable "environment" {}
-variable "short_name" {}
-variable "severity" {}
-variable "padding" {}
-variable "project" {}
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the Action Group."
+  type        = map(string)
+}
+
+variable "environment" {
+  description = "value of the environment"
+  type        = string
+}
+
+variable "short_name" {
+  description = "Short name"
+  type        = string
+}
+
+variable "severity" {
+  description = "Severity"
+  type        = string
+}
+
+variable "padding" {
+  description = "value of the padding"
+  type        = string
+}
+
+variable "project" {
+  description = "value of the project"
+  type        = string
+}
+
 variable "email_receivers" {
   description = "List of email receivers for the action group"
   type = list(object({
@@ -26,6 +54,7 @@ variable "email_receivers" {
 }
 
 variable "actions_webhook_critical" {
+  description = "List of webhook receivers for the action group"
   type = list(object({
     name                    = string
     service_uri             = string
@@ -34,6 +63,7 @@ variable "actions_webhook_critical" {
 }
 
 variable "automation_runbooks" {
+  description = "List of automation runbooks for the action group"
   type = list(object({
     name                    = string
     automation_account_id   = string

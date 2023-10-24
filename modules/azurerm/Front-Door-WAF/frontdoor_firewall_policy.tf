@@ -51,7 +51,6 @@ resource "azurerm_frontdoor_firewall_policy" "front_door_waf_policy" {
       type    = managed_rule.value.type
       version = managed_rule.value.version
 
-
       dynamic "exclusion" {
         for_each = managed_rule.value.exclusion
         content {

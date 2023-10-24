@@ -9,16 +9,42 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "resource_group_name" {}
-variable "default_tags" {}
-variable "location" {}
-variable "environment" {}
-variable "padding" {}
-variable "project" {}
-variable "alert_enabled" {
-  type    = bool
-  default = true
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
 }
+
+variable "default_tags" {
+  description = "Default tags for the resource group"
+  type        = map(string)
+}
+
+variable "location" {
+  description = "Location of the resource group"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment of the resource group"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding for the resource group"
+  type        = string
+}
+
+variable "project" {
+  description = "Project of the resource group"
+  type        = string
+}
+
+variable "alert_enabled" {
+  default     = true
+  description = "Enable or disable the alert."
+  type        = bool
+}
+
 variable "metric_alerts_with_2_dimensions" {
   description = "Map of Azure metric alerts with 2 dimensions"
   type = map(object({

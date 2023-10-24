@@ -9,9 +9,32 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "location" {}
-variable "project" {}
-variable "environment" {}
-variable "padding" {}
-variable "default_tags" {}
-variable "application_name" {}
+variable "location" {
+  description = "The location/region where the resource group will be created."
+  type        = string
+}
+
+variable "project" {
+  description = "value of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "value of the environment"
+  type        = string
+}
+
+variable "padding" {
+  description = "The padding to be used for indenting the generated HCL code."
+  type        = string
+}
+
+variable "default_tags" {
+  description = "Default tags for the resource group."
+  type        = map(string)
+}
+
+variable "application_name" {
+  description = "The name of the application."
+  type        = string
+}

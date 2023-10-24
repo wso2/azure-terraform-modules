@@ -9,52 +9,52 @@
 #
 # --------------------------------------------------------------------------------------
 variable "project_short_name" {
-  type        = string
   description = "The short name  of project to which the policy definition is created"
+  type        = string
 }
 
 variable "environment_short_name" {
-  type        = string
   description = "The short name of the environment to which the policy definition is created"
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The project to which the policy definition is created"
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The environment to which the policy definition is created"
+  type        = string
 }
 
 variable "purpose" {
-  type        = string
   description = "The purpose of the policy definition. Changing this forces a new resource to be created"
+  type        = string
 }
 
 variable "policy_type" {
-  type        = string
   description = "The policy type. Possible values are BuiltIn, Custom, NotSpecified and Static. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "display_name" {
-  type        = string
   description = "The display name of the policy definition."
+  type        = string
 }
 
 variable "mode" {
-  type        = string
   default     = "Indexed"
   description = "The policy resource manager mode that allows you to specify which resource types will be evaluated. Possible values are All, Indexed, Microsoft.ContainerService.Data, Microsoft.CustomerLockbox.Data, Microsoft.DataCatalog.Data, Microsoft.KeyVault.Data, Microsoft.Kubernetes.Data, Microsoft.MachineLearningServices.Data, Microsoft.Network.Data and Microsoft.Synapse.Data."
+  type        = string
 }
 
 variable "description" {
-  type        = string
   description = "The description of the policy definition."
+  type        = string
 }
 
 variable "raw_policy_definition_path" {
-  type        = string
   description = "The path to the policy definition. The policy should to constructed according to the JSON schema https://schema.management.azure.com/schemas/2020-10-01/policyDefinition.json"
+  type        = string
 }

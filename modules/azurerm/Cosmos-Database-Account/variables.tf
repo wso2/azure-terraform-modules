@@ -9,76 +9,134 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "environment" {}
-variable "project" {}
-variable "application_name" {}
-variable "location" {}
-variable "resource_group_name" {}
+variable "environment" {
+  description = "The environment"
+  type        = string
+}
+
+variable "project" {
+  description = "The project"
+  type        = string
+}
+
+variable "application_name" {
+  description = "The name of the application."
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure Region in which the Cosmos DB account should be created."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Cosmos DB account."
+  type        = string
+}
 
 variable "default_tags" {
-  type    = map(string)
-  default = {}
+  default     = {}
+  description = "The default tags to assign to the resource."
+  type        = map(string)
 }
+
 variable "kind" {
-  default = "GlobalDocumentDB"
+  default     = "GlobalDocumentDB"
+  description = "The kind of Cosmos DB account to create."
+  type        = string
 }
+
 variable "offer_type" {
-  default = "Standard"
+  default     = "Standard"
+  description = "The offer type for the Cosmos DB account."
+  type        = string
 }
+
 variable "enable_free_tier" {
-  type    = bool
-  default = true
+  default     = true
+  description = "Enable free tier for Cosmos DB account."
+  type        = bool
 }
 
 variable "public_network_access_enabled" {
-  type    = bool
-  default = false
+  default     = false
+  description = "Whether or not public network access is allowed for the Cosmos DB account."
+  type        = bool
 }
+
 variable "enable_multiple_write_locations" {
-  type    = bool
-  default = true
+  default     = false
+  description = "Whether or not multiple write locations are enabled for the Cosmos DB account."
+  type        = bool
 }
+
 variable "enable_zone_redundancy_on_primary" {
-  type    = bool
-  default = false
+  default     = false
+  description = "Whether or not zone redundancy is enabled for the Cosmos DB account."
+  type        = bool
 }
+
 variable "failover_locations" {
-  type    = list(map(string))
-  default = []
+  default     = []
+  description = "A list of failover locations for the Cosmos DB account."
+  type        = list(map(string))
 }
-variable "consistency_policy_level" {}
+
+variable "consistency_policy_level" {
+  description = "The consistency policy level for the Cosmos DB account."
+  type        = string
+}
+
 variable "consistency_policy_max_interval_in_seconds" {
-  type    = number
-  default = 5
+  default     = 5
+  description = "The maximum consistency policy interval for the Cosmos DB account."
+  type        = number
 }
+
 variable "consistency_policy_max_staleness_prefix" {
-  type    = number
-  default = 100
+  default     = 100
+  description = "The maximum consistency policy staleness prefix for the Cosmos DB account."
+  type        = number
 }
+
 variable "capabilities" {
-  type    = list(string)
-  default = []
+  default     = []
+  description = "A list of capabilities for the Cosmos DB account."
+  type        = list(string)
 }
+
 variable "is_virtual_network_filter_enabled" {
-  type    = bool
-  default = true
+  default     = true
+  description = "Whether or not virtual network filtering is enabled for the Cosmos DB account."
+  type        = bool
 }
+
 variable "enable_automatic_failover" {
-  type    = bool
-  default = true
+  default     = true
+  description = "Whether or not automatic failover is enabled for the Cosmos DB account."
+  type        = bool
 }
+
 variable "virtual_network_rule" {
-  type    = list(object({ id : string, ignore_missing_vnet_service_endpoint : bool }))
-  default = []
+  default     = []
+  description = "A list of virtual network rules for the Cosmos DB account."
+  type        = list(object({ id : string, ignore_missing_vnet_service_endpoint : bool }))
 }
+
 variable "backup_type" {
-  default = "Periodic"
+  default     = "Periodic"
+  description = "The backup type for the Cosmos DB account."
+  type        = string
 }
+
 variable "periodic_backup_interval" {
-  type    = number
-  default = 60
+  default     = 60
+  description = "The periodic backup interval for the Cosmos DB account."
+  type        = number
 }
+
 variable "periodic_backup_retention_in_hours" {
-  type    = number
-  default = 8
+  default     = 8
+  description = "The periodic backup retention in hours for the Cosmos DB account."
+  type        = number
 }

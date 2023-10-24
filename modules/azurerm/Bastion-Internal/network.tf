@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "bastion_subnet" {
-  name                                           = join("-", ["snet-bastion", var.padding])
-  resource_group_name                            = var.resource_group_name
-  virtual_network_name                           = var.virtual_network_name
-  address_prefixes                               = [var.subnet_address_prefix]
-  service_endpoints                              = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.Storage"]
-  enforce_private_link_endpoint_network_policies = true
+  name                                      = join("-", ["snet-bastion", var.padding])
+  resource_group_name                       = var.resource_group_name
+  virtual_network_name                      = var.virtual_network_name
+  address_prefixes                          = [var.subnet_address_prefix]
+  service_endpoints                         = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.Storage"]
+  private_endpoint_network_policies_enabled = true
 }
 
 resource "azurerm_route_table" "bastion_route_table" {

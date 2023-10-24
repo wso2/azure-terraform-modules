@@ -38,6 +38,6 @@ variable "private_dns_zone_name" {
   description = "Existing Private DNS Zone name"
 }
 variable "virtual_network_id" {
-  description = "Existing Virtual Network ID"
   type        = string
+  description = "Existing Virtual Network ID"
 }

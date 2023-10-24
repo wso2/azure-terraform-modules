@@ -33,7 +33,7 @@ variable "header_value" {
   description = "Value of the custom header"
 }
 variable "enabled" {
+  default     = true
   type        = bool
   description = "Is the endpoint enabled"
-  default     = true
 }
