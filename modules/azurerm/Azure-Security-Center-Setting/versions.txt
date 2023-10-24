@@ -1,6 +1,0 @@
-v2.3.0
-v2.69.0
-
------- compared to v2.88.2 ------
-https://github.com/wso2-enterprise/azure-terraform-modules/commit/f33e444a8bbeceab2e56fe17877392da4c7251f2
-https://github.com/wso2-enterprise/azure-terraform-modules/commit/a4026a93b6f2342a5c02ecfaec6e6f3e761b2093
