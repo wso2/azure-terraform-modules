@@ -10,116 +10,120 @@
 # --------------------------------------------------------------------------------------
 
 variable "resource_group_name" {
-  type        = string
   description = "The name of the Resource Group in which the Linux Virtual Machine Scale Set should be exist."
+  type        = string
 }
+
 variable "location" {
-  type        = string
   description = "The Azure location where the Linux Virtual Machine Scale Set should exist."
+  type        = string
 }
+
 variable "sku" {
-  type        = string
   description = "The Virtual Machine SKU for the Scale Set, such as Standard_F2."
+  type        = string
 }
+
 variable "padding" {
-  type        = string
   description = "The padding value."
-}
-variable "name" {
   type        = string
+}
+
+variable "name" {
   description = "The name of the Linux Virtual Machine Scale Set."
+  type        = string
 }
 
 variable "instances_count" {
-  type        = number
   default     = 2
   description = "The number of Virtual Machines in the Scale Set."
+  type        = number
 }
 
 variable "admin_username" {
-  type        = string
   description = "The username of the local administrator on each Virtual Machine Scale Set instance."
+  type        = string
 }
 
 variable "admin_ssh_public_key" {
-  type        = string
   description = "The Public Key which should be used for authentication, which needs to be at least 2048-bit and in ssh-rsa format."
+  type        = string
 }
 
 variable "source_image_id" {
-  type        = string
   description = "The ID of an Image which each Virtual Machine in this Scale Set should be based on."
+  type        = string
 }
 
 variable "network_interface_is_primary" {
-  type        = bool
   default     = true
   description = "Is this the Primary IP Configuration for this Network Interface?"
+  type        = bool
 }
 
 variable "network_interface_ip_configuration_name" {
-  type        = string
   default     = "internal"
   description = "The Name which should be used for this Network Interface."
+  type        = string
 }
 
 variable "network_interface_ip_configuration_is_primary" {
-  type        = bool
   default     = true
   description = "Is this the Primary IP Configuration?"
+  type        = bool
 }
 
 variable "virtual_network_name" {
-  type        = string
   description = "The name of the virtual network to which to attach the subnet."
+  type        = string
 }
 
 variable "subnet_address_prefixes" {
-  type        = list(string)
   description = "The address prefixes to use for the subnet."
+  type        = list(string)
 }
 
 variable "project" {
-  type        = string
   description = "The name of the project. Eg: asgardeo"
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The name of the environment. Eg: dev"
+  type        = string
 }
 
 variable "tags" {
-  type        = map(string)
   description = "The default tags."
+  type        = map(string)
 }
 
 variable "enable_ama_agent" {
-  type        = bool
-  description = "Specifies to enable Azure Monitoring Agent"
   default     = false
+  description = "Specifies to enable Azure Monitoring Agent"
+  type        = bool
 }
 
 variable "ama_type_handler_version" {
-  type        = string
-  description = "Specifies the version of the extension to use"
   default     = "1.0"
+  description = "Specifies the version of the extension to use"
+  type        = string
 }
 
 variable "ama_auto_upgrade_minor_version" {
-  type        = bool
-  description = "Should the latest version of the Extension be used at Deployment Time, if one is available"
   default     = true
+  description = "Should the latest version of the Extension be used at Deployment Time, if one is available"
+  type        = bool
 }
 
 variable "ama_automatic_upgrade_enabled" {
-  type        = bool
-  description = "Should the Extension be automatically updated whenever the Publisher releases a new version of this VM Extension"
   default     = false
+  description = "Should the Extension be automatically updated whenever the Publisher releases a new version of this VM Extension"
+  type        = bool
 }
 
 variable "service_endpoints" {
+  default     = null
   description = "The list of Service endpoints to associate with the subnet."
   type        = list(string)
-  default     = null
 }

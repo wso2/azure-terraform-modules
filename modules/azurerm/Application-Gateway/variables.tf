@@ -9,175 +9,217 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {}
-variable "environment" {}
-variable "location" {}
-variable "name" {}
-variable "resource_group_name" {}
-variable "virtual_network_name" {}
-variable "address_prefixes" {
-  type = list(string)
+variable "project" {
+  description = "Project name"
+  type        = string
 }
-variable "appgw_private_ip" {}
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
+}
+
+variable "name" {
+  description = "Name of the resource"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
+variable "virtual_network_name" {
+  description = "Name of the virtual network"
+  type        = string
+}
+
+variable "address_prefixes" {
+  description = "Address prefixes of the virtual network"
+  type        = list(string)
+}
+
+variable "appgw_private_ip" {
+  description = "Application gateway's private IP address"
+  type        = string
+}
+
 variable "appgw_zones" {
+  default     = ["1", "2", "3"]
   description = "Application gateway's Zones to use"
   type        = list(string)
-  default     = ["1", "2", "3"]
 }
 
 variable "service_endpoints" {
-  default = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
+  default     = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
+  description = "Service endpoints to enable"
+  type        = list(string)
 }
 
 variable "autoscale_configuration_max_capacity" {
-  type = number
+  description = "Maximum number of instances in the autoscale configuration"
+  type        = number
 }
 
 variable "autoscale_configuration_min_capacity" {
-  type    = number
-  default = 1
+  default     = 1
+  description = "Minimum number of instances in the autoscale configuration"
+  type        = number
 }
 
 variable "appgw_public_ip_id" {
-  type = string
+  description = "Application gateway's public IP address ID"
+  type        = string
 }
 
 variable "frontend_port_settings" {
-  description = "Appgw frontent port settings"
-  type        = list(map(string))
   default = [{
     fake = "fake"
   }]
+  description = "Appgw frontent port settings"
+  type        = list(map(string))
 }
 
 variable "enable_http2" {
-  description = "Enable Http 2"
   default     = true
+  description = "Enable Http 2"
   type        = bool
 }
 
-variable "waf_enabled" {}
+variable "waf_enabled" {
+  description = "Appgw WAF enabled"
+  type        = bool
+}
+
 variable "waf_file_upload_limit_mb" {
+  default     = 750
   description = "WAF configuration of the file upload limit in MB"
   type        = number
-  default     = 750
 }
+
 variable "waf_firewall_mode" {
-  description = "Appgw WAF mode"
-  type        = string
   default     = "Prevention"
+  description = "Appgw WAF mode. Valid values are Detection, Prevention."
+  type        = string
 }
+
 variable "waf_max_request_body_size_kb" {
-  description = "WAF configuration of the max request body size in KB"
   default     = 128
+  description = "WAF configuration of the max request body size in KB"
   type        = number
 }
+
 variable "waf_request_body_check" {
-  description = "WAF should check the request body"
   default     = true
+  description = "WAF should check the request body"
   type        = bool
 }
 
 variable "waf_rule_set_type" {
-  description = "WAF rules set type"
   default     = "OWASP"
+  description = "WAF rules set type. Valid values are OWASP, CRS."
   type        = string
 }
 
 variable "waf_rule_set_version" {
-  description = "WAF rules set version"
   default     = "3.1"
+  description = "WAF rules set version"
   type        = string
 }
 
 variable "waf_disabled_rule_group_settings" {
+  default     = []
   description = "Appgw WAF rules group to disable."
   type = list(object({
     rule_group_name = string
     rules           = list(string)
   }))
-  default = []
 }
 
 variable "waf_exclusion_settings" {
+  default     = []
   description = "Appgw WAF exclusion settings"
   type        = list(map(string))
-  default     = []
 }
 
 variable "ssl_policy_name" {
+  default     = "AppGwSslPolicy20170401S"
   description = "Name of the SSLPolicy to use with Appgw"
   type        = string
-  default     = "AppGwSslPolicy20170401S"
 }
 
 variable "appgw_backend_http_settings" {
-  type        = any
-  description = "List of maps including backend http settings configurations"
   default     = [{ fake = "fake" }]
+  description = "List of maps including backend http settings configurations"
+  type        = list(map(string))
 }
 
 variable "appgw_http_listeners" {
-  type        = list(map(string))
-  description = "List of maps including http listeners configurations"
   default     = [{ fake = "fake" }]
+  description = "List of maps including http listeners configurations"
+  type        = list(map(string))
 }
 
 variable "appgw_backend_pools" {
-  type        = any
-  description = "List of maps including backend pool configurations"
   default     = [{ fake = "fake" }]
+  description = "List of maps including backend pool configurations"
+  type        = list(map(string))
 }
 
 variable "ssl_certificates_configs" {
-  type        = list(map(string))
-  description = "List of maps including ssl certificates configurations"
   default     = []
+  description = "List of maps including ssl certificates configurations"
+  type        = list(map(string))
 }
 
 variable "authentication_certificate_configs" {
-  type        = list(map(string))
-  description = "List of maps including authentication certificate configurations"
   default     = []
+  description = "List of maps including authentication certificate configurations"
+  type        = list(map(string))
 }
 
 variable "trusted_root_certificate_configs" {
-  type        = list(map(string))
-  description = "Trusted root certificate configurations"
   default     = []
+  description = "Trusted root certificate configurations"
+  type        = list(map(string))
 }
 
 variable "appgw_routings" {
-  type        = list(map(string))
-  description = "List of maps including request routing rules configurations"
   default     = [{ fake = "fake" }]
+  description = "List of maps including request routing rules configurations"
+  type        = list(map(string))
 }
 
 variable "appgw_rewrite_rule_set" {
-  type        = any
-  description = "Application gateway's rewrite rules"
   default     = []
+  description = "Application gateway's rewrite rules"
+  type        = list(map(string))
 }
 
 variable "appgw_probes" {
-  type        = any
-  description = "List of maps including request probes configurations"
   default = [
     {
       fake = "fake"
   }]
+  description = "List of maps including request probes configurations"
+  type        = list(map(string))
 }
 
 variable "appgw_url_path_map" {
-  type        = any
-  description = "List of maps including url path map configurations"
   default     = []
+  description = "List of maps including url path map configurations"
+  type        = list(map(string))
 }
 
 variable "appgw_redirect_configuration" {
-  type        = list(map(string))
-  description = "List of maps including redirect configurations"
   default     = []
+  description = "List of maps including redirect configurations"
+  type        = list(map(string))
 }
 
 variable "network_security_rules" {
@@ -198,17 +240,29 @@ variable "network_security_rules" {
 }
 
 variable "default_ns_rule_1_priority" {
-  type    = number
-  default = 101
+  default     = 101
+  description = "Default network security rule 1 priority"
+  type        = number
 }
 
 variable "default_ns_rule_2_priority" {
-  type    = number
-  default = 102
+  default     = 102
+  description = "value of the default network security rule 2 priority"
+  type        = number
 }
 
-variable "default_tags" {}
+variable "default_tags" {
+  default     = {}
+  description = "Default tags to be used in the resource tags"
+  type        = map(string)
+}
 
-variable "padding" {}
+variable "padding" {
+  description = "Padding to differentiate between resources"
+  type        = string
+}
 
-variable "application_name" {}
+variable "application_name" {
+  description = "Application name"
+  type        = string
+}

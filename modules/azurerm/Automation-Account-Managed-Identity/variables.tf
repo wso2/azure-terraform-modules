@@ -11,22 +11,36 @@
 
 variable "project" {
   description = "The project name"
+  type        = string
 }
+
 variable "environment" {
   description = "The enviroment"
+  type        = string
 }
+
 variable "resource_group_name" {
   description = "The resource group name"
+  type        = string
 }
+
 variable "location" {
   description = "The cloud region"
+  type        = string
 }
+
 variable "automation_account_name" {
   description = "The azure automation account name"
+  type        = string
 }
+
 variable "automation_account_sku_name" {
-  default = "Basic"
+  default     = "Basic"
+  description = "The azure automation account sku name. Default is Basic"
+  type        = string
 }
+
 variable "tags" {
   description = "The tags"
+  type        = map(string)
 }

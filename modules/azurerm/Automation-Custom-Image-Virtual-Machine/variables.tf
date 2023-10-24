@@ -10,77 +10,77 @@
 # --------------------------------------------------------------------------------------
 
 variable "location" {
-  type        = string
   description = "The location of the resource need to be created."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type        = string
   description = "The name of the resource group in which the vm is created in."
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The name of the environment. Eg: dev"
+  type        = string
 }
 
 variable "project" {
-  type        = string
   description = "The name of the project. Eg: asgardeo"
+  type        = string
 }
 
 variable "application_name" {
-  type        = string
   description = "The name of the application."
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "The padding value."
+  type        = string
 }
 
 variable "virtual_network_name" {
-  type        = string
   description = "The name of the virtual network to be created"
+  type        = string
 }
 
 variable "size" {
-  type        = string
   description = "The VM size that need to be created"
+  type        = string
 }
 
 variable "os_disk_size_gb" {
-  type        = string
   description = "The OS disk size of the VM"
+  type        = string
 }
 
 variable "admin_username" {
-  type        = string
   description = "The admin username of the VM"
+  type        = string
 }
 
 variable "public_key_path" {
-  type        = string
   description = "The VM public key path"
+  type        = string
 }
 
 variable "default_tags" {
-  type        = map(string)
   description = "Default tag list"
+  type        = map(string)
 }
 
 variable "subnet_id" {
-  type        = string
   description = "Id of the subnet which VM is going to be created"
+  type        = string
 }
 
 variable "source_image_id" {
-  type        = string
   description = "The ID of an Image which each virtual machine should be based on."
+  type        = string
 }
 
 variable "enable_ama_agent" {
-  type        = bool
-  description = "Specifies to enable Azure Monitoring Agent"
   default     = false
+  description = "Specifies to enable Azure Monitoring Agent"
+  type        = bool
 }

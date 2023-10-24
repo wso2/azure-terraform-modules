@@ -11,19 +11,23 @@
 
 variable "scope_id" {
   description = "Scope at which the management lock should be created"
+  type        = string
 }
 
 variable "name" {
   default     = "azure_resource_lock"
   description = "Specifies the name of the management lock"
+  type        = string
 }
 
 variable "level" {
   default     = "CanNotDelete"
   description = "Specifies the the level to be used for this Lock"
+  type        = string
 }
 
 variable "notes" {
   default     = "Resource locked to prevent accidental deletions"
   description = "Specifies some notes about the lock."
+  type        = string
 }

@@ -10,49 +10,60 @@
 # --------------------------------------------------------------------------------------
 
 variable "project" {
-  type        = string
   description = "The project"
+  type        = string
 }
+
 variable "application_name" {
-  type        = string
   description = "The name of the Workbook"
+  type        = string
 }
+
 variable "environment" {
-  type        = string
   description = "The environment"
+  type        = string
 }
+
 variable "padding" {
-  type        = string
   description = "The padding"
+  type        = string
 }
+
 variable "template_data_json" {
-  type        = string
   description = "Template details"
+  type        = string
 }
+
 variable "resource_group_name" {
-  type        = string
   description = "Resource group to store the workbook"
+  type        = string
 }
+
 variable "location" {
-  type        = string
   description = "Location of the workbook"
+  type        = string
 }
+
 variable "source_resource_id" {
-  type        = string
-  description = "An optional resource id to associate the workbook with, defaults to Azure Monitor"
   default     = "azure monitor"
+  description = "An optional resource id to associate the workbook with, defaults to Azure Monitor"
+  type        = string
 }
+
 variable "category" {
-  type        = string
-  description = "Category of the workbook. workbook or sentinel"
   default     = "workbook"
-}
-variable "default_tags" {
-  type        = map(string)
-  description = "List of tags to be used with the workbook"
-  default     = {}
-}
-variable "description" {
+  description = "Category of the workbook. workbook or sentinel"
   type        = string
+}
+
+variable "default_tags" {
+  default     = {}
+  description = "List of tags to be used with the workbook"
+  type        = map(string)
+
+}
+
+variable "description" {
   description = "Description of the Workbook"
+  type        = string
 }

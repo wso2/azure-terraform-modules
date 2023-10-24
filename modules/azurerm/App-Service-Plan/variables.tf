@@ -9,36 +9,83 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "environment" {}
-variable "project" {}
-variable "application_name" {}
-variable "padding" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "tier" {}
-variable "size" {}
-variable "capacity" {}
+variable "environment" {
+  description = "Environment name"
+  type        = string
+}
+
+variable "project" {
+  description = "Project name"
+  type        = string
+}
+
+variable "application_name" {
+  description = "Application name"
+  type        = string
+}
+
+variable "padding" {
+  description = "Padding to differentiate between resources"
+  type        = string
+}
+
+variable "location" {
+  description = "Location identifier"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
+variable "tier" {
+  description = "Tier of the resource"
+  type        = string
+}
+
+variable "size" {
+  description = "Size of the resource"
+  type        = string
+}
+
+variable "capacity" {
+  description = "Capacity of the resource"
+  type        = number
+}
+
 variable "resource_abbreviation" {
-  type    = string
-  default = "asp"
+  default     = "asp"
+  description = "Abbreviation of the resource"
+  type        = string
 }
+
 variable "app_service_plan_kind" {
-  type    = string
-  default = "Linux"
+  default     = "Linux"
+  description = "Kind of the app service plan"
+  type        = string
 }
+
 variable "default_tags" {
-  type    = map(string)
-  default = {}
+  default     = {}
+  description = "Default tags to be used in the resource tags"
+  type        = map(string)
 }
+
 variable "per_site_scaling" {
-  type    = bool
-  default = false
+  default     = false
+  description = "Per site scaling of the app service plan"
+  type        = bool
 }
+
 variable "zrs_enabled" {
-  type    = bool
-  default = false
+  default     = false
+  description = "ZRS enabled of the app service plan"
+  type        = bool
 }
+
 variable "reserved" {
-  type    = bool
-  default = true
+  default     = true
+  description = "Whether the app service plan is reserved or not"
+  type        = bool
 }

@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
 #
 # This software is the property of WSO2 LLC. and its suppliers, if any.
 # Dissemination of any information or reproduction of any material contained
@@ -10,36 +10,36 @@
 # --------------------------------------------------------------------------------------
 
 variable "project" {
-  type        = string
   description = "The name of the project"
+  type        = string
 }
 
 variable "environment" {
-  type        = string
   description = "The name of the environment"
+  type        = string
 }
 
 variable "location" {
-  type        = string
   description = "The Azure region to deploy"
+  type        = string
 }
 
 variable "workload" {
-  type        = string
   description = "Worklaod name for the resource"
+  type        = string
 }
 
 variable "padding" {
-  type        = string
   description = "Padding for the deployment"
+  type        = string
 }
 
 variable "resource_group_name" {
-  type        = string
   description = "The name of the Resource Group where the Azure Monitor Private Link Scope should exist"
+  type        = string
 }
 
 variable "default_tags" {
-  type        = map(string)
   description = "A mapping of tags which should be assigned to the Azure Monitor Private Link Scope"
+  type        = map(string)
 }

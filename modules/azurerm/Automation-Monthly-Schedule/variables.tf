@@ -25,9 +25,9 @@ variable "automation_account_name" {
 }
 
 variable "automation_monthly_schedule_frequency" {
+  default     = "Week"
   description = "The frequency of the schedule"
   type        = string
-  default     = "Week"
 }
 
 variable "automation_monthly_schedule_intervel" {

@@ -10,68 +10,85 @@
 # --------------------------------------------------------------------------------------
 
 variable "node_pool_name" {
-  type = string
+  description = "Name of the node pool"
+  type        = string
 }
 
 variable "node_pool_count" {
-  type = number
+  description = "Number of nodes in the node pool"
+  type        = number
 }
 
 variable "node_pool_vm_size" {
-  type = string
+  description = "Size of the VMs in the node pool"
+  type        = string
 }
 
 variable "node_pool_availability_zones" {
-  description = "Zones to use"
-  type        = list(string)
   default     = ["1", "2", "3"]
+  description = "Availability zones of the node pool"
+  type        = list(string)
 }
 
 variable "node_pool_os_disk_size_gb" {
-  type = string
+  description = "Size of the OS disk in the node pool"
+  type        = string
 }
 
 variable "node_pool_os_disk_type" {
-  type    = string
-  default = "Ephemeral"
+  default     = "Ephemeral"
+  description = "Type of the OS disk in the node pool. Valid values are Ephemeral and Managed"
+  type        = string
 }
 
 variable "node_pool_enable_auto_scaling" {
-  type = string
+  description = "Enable auto scaling for the node pool"
+  type        = bool
 }
 
 variable "aks_subnet_id" {
-  type = string
+  description = "Subnet ID of the AKS cluster"
+  type        = string
 }
 
 variable "aks_cluster_id" {
-  type = string
+  description = "ID of the AKS cluster"
+  type        = string
 }
 
 variable "node_pool_max_count" {
-  type = number
+  description = "Maximum number of nodes in the node pool"
+  type        = number
 }
 
 variable "node_pool_min_count" {
-  type = number
+  description = "Minimum number of nodes in the node pool"
+  type        = number
 }
 
 variable "node_pool_max_pods" {
-  type = number
+  description = "Maximum number of pods in the node pool"
+  type        = number
 }
 
 variable "node_pool_orchestrator_version" {
-  type = string
+  description = "Kubernetes version of the node pool"
+  type        = string
 }
 
 variable "node_pool_mode" {
-  type    = string
-  default = "User"
+  default     = "User"
+  description = "Mode of the node pool. Valid values are System and User"
+  type        = string
 }
 
 variable "node_pool_os_type" {
-  type    = string
-  default = "Linux"
+  default     = "Linux"
+  description = "OS type of the node pool. Valid values are Linux and Windows"
+  type        = string
 }
 
-variable "default_tags" {}
+variable "default_tags" {
+  description = "Default tags to be used in the resource tags"
+  type        = map(string)
+}
