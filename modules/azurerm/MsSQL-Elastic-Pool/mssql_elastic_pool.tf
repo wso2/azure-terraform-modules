@@ -29,7 +29,6 @@ resource "azurerm_mssql_elasticpool" "mssql_elasticpool" {
     max_capacity = var.elastic_pool_per_database_settings_max_capacity
   }
 
-  # suspecting this is related https://github.com/terraform-providers/terraform-provider-azurerm/issues/8346
   lifecycle {
     ignore_changes  = [license_type, ]
     prevent_destroy = true

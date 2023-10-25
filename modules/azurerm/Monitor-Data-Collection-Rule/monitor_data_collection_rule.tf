@@ -25,6 +25,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
   }
 
   destinations {
+
     log_analytics {
       name                  = var.destination_la_name
       workspace_resource_id = var.destination_la_workspace_resource_id
@@ -33,7 +34,9 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
   dynamic "data_sources" {
     for_each = var.data_sources_syslog_name != null ? [1] : []
+
     content {
+
       syslog {
         name           = var.data_sources_syslog_name
         facility_names = var.data_sources_syslog_facility_names
@@ -44,11 +47,13 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
   dynamic "stream_declaration" {
     for_each = var.stream_declaration_name != null ? [1] : []
+
     content {
       stream_name = var.stream_declaration_name
 
       dynamic "column" {
         for_each = var.stream_declaration_columns
+
         content {
           name = column.value["name"]
           type = column.value["type"]

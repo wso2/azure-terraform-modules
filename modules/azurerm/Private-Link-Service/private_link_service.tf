@@ -20,6 +20,7 @@ resource "azurerm_private_link_service" "private_link_service" {
 
   dynamic "nat_ip_configuration" {
     for_each = var.nat_ip_configurations
+
     content {
       name               = nat_ip_configuration.value.name
       primary            = nat_ip_configuration.value.primary

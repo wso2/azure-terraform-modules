@@ -24,7 +24,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "cdn_tags" {
+variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
 }

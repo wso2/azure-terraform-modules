@@ -21,6 +21,7 @@ resource "azurerm_key_vault" "key_vault" {
   enabled_for_disk_encryption     = var.enabled_for_disk_encryption
   enabled_for_template_deployment = var.enabled_for_template_deployment
   tags                            = var.tags
+
   network_acls {
     default_action             = var.network_acls_default_action
     bypass                     = var.network_acls_bypass

@@ -20,16 +20,15 @@ resource "azurerm_bastion_host" "bastion_host" {
   shareable_link_enabled = var.shareable_link_enabled
   tunneling_enabled      = var.tunneling_enabled
   sku                    = var.sku
-  tags                   = var.tags
+  tags                   = var.tags  
+  depends_on = [
+    azurerm_subnet.bastion_host_subnet,
+    azurerm_public_ip.bastion_host_public_ip
+  ]
 
   ip_configuration {
     name                 = "configuration"
     subnet_id            = azurerm_subnet.bastion_host_subnet.id
     public_ip_address_id = azurerm_public_ip.bastion_host_public_ip.id
   }
-
-  depends_on = [
-    azurerm_subnet.bastion_host_subnet,
-    azurerm_public_ip.bastion_host_public_ip
-  ]
 }

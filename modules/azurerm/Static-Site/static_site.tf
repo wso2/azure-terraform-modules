@@ -15,14 +15,16 @@ resource "azurerm_static_site" "static_site" {
   location            = var.location
   sku_tier            = var.sku_tier
   sku_size            = var.sku_size
+  tags = var.tags
+
   dynamic "identity" {
     for_each = var.identity_type != null ? [1] : []
+
     content {
       type         = var.identity_type
       identity_ids = var.identity_ids
     }
   }
-  tags = var.tags
 }
 
 resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {

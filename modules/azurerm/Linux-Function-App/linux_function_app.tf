@@ -10,22 +10,20 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_linux_function_app" "linux_function_app" {
-  name                = join("-", ["func", var.project, var.application_name, var.environment, var.location, var.padding])
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  app_settings        = var.app_settings
-
+  name                       = join("-", ["func", var.project, var.application_name, var.environment, var.location, var.padding])
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  app_settings               = var.app_settings
   storage_account_name       = var.storage_account_name
   storage_account_access_key = var.storage_account_access_key
-
-  service_plan_id           = var.service_plan_id
-  virtual_network_subnet_id = var.function_app_subnet_id
+  service_plan_id            = var.service_plan_id
+  virtual_network_subnet_id  = var.function_app_subnet_id
+  tags                       = var.tags
 
   site_config {
-    always_on              = var.is_function_app_always_on
-    vnet_route_all_enabled = var.is_route_all
-    worker_count           = var.worker_count
-
+    always_on                              = var.is_function_app_always_on
+    vnet_route_all_enabled                 = var.is_route_all
+    worker_count                           = var.worker_count
     application_insights_key               = var.application_insights_key
     application_insights_connection_string = var.application_insights_connection_string
 
@@ -39,6 +37,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
 
     dynamic "ip_restriction" {
       for_each = var.access_restriction_ip_address
+
       content {
         priority   = ip_restriction.value["priority"]
         name       = ip_restriction.value["name"]
@@ -47,6 +46,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
 
         dynamic "headers" {
           for_each = ip_restriction.value["headers"] != null ? ["true"] : []
+
           content {
             x_azure_fdid      = ip_restriction.value["headers"].x_azure_fdid
             x_fd_health_probe = ip_restriction.value["headers"].x_fd_health_probe
@@ -59,6 +59,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
 
     dynamic "ip_restriction" {
       for_each = var.access_restriction_service_tag
+
       content {
         priority   = ip_restriction.value["priority"]
         name       = ip_restriction.value["name"]
@@ -67,6 +68,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
 
         dynamic "headers" {
           for_each = ip_restriction.value["headers"] != null ? ["true"] : []
+
           content {
             x_azure_fdid      = ip_restriction.value["headers"].x_azure_fdid
             x_fd_health_probe = ip_restriction.value["headers"].x_fd_health_probe
@@ -79,6 +81,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
 
     dynamic "ip_restriction" {
       for_each = var.access_restriction_vnet
+
       content {
         priority   = ip_restriction.value["priority"]
         name       = ip_restriction.value["name"]
@@ -87,6 +90,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
 
         dynamic "headers" {
           for_each = ip_restriction.value["headers"] != null ? ["true"] : []
+
           content {
             x_azure_fdid      = ip_restriction.value["headers"].x_azure_fdid
             x_fd_health_probe = ip_restriction.value["headers"].x_fd_health_probe
@@ -109,6 +113,4 @@ resource "azurerm_linux_function_app" "linux_function_app" {
       tags["hidden-link: /app-insights-resource-id"]
     ]
   }
-
-  tags = var.tags
 }

@@ -21,17 +21,20 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_2_dimensions"
   target_resource_type = each.value.target_resource_type
   window_size          = each.value.window_size
   enabled              = var.alert_enabled
+
   criteria {
     metric_namespace = each.value.criteria_metric_namespace
     metric_name      = each.value.criteria_metric_name
     aggregation      = each.value.criteria_aggregation
     operator         = each.value.criteria_operator
     threshold        = each.value.criteria_threshold
+
     dimension {
       name     = each.value.dimension_1_name
       operator = each.value.dimension_1_operator
       values   = each.value.dimension_1_values
     }
+
     dimension {
       name     = each.value.dimension_2_name
       operator = each.value.dimension_2_operator
@@ -56,12 +59,14 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_1_dimension" 
   target_resource_type = each.value.target_resource_type
   window_size          = each.value.window_size
   enabled              = var.alert_enabled
+
   criteria {
     metric_namespace = each.value.criteria_metric_namespace
     metric_name      = each.value.criteria_metric_name
     aggregation      = each.value.criteria_aggregation
     operator         = each.value.criteria_operator
     threshold        = each.value.criteria_threshold
+
     dimension {
       name     = each.value.dimension_1_name
       operator = each.value.dimension_1_operator
@@ -86,6 +91,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   frequency                = each.value.frequency
   severity                 = each.value.severity
   enabled                  = var.alert_enabled
+
   criteria {
     metric_namespace = each.value.criteria_metric_namespace
     metric_name      = each.value.criteria_metric_name

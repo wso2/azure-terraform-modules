@@ -155,7 +155,6 @@ resource "azurerm_network_security_rule" "network_security_rule_allow_get_sessio
 resource "azurerm_subnet_network_security_group_association" "bastion_host_sec_association" {
   subnet_id                 = azurerm_subnet.bastion_host_subnet.id
   network_security_group_id = azurerm_network_security_group.bastion_host_nsg.id
-
   depends_on = [
     azurerm_subnet.bastion_host_subnet,
     azurerm_network_security_group.bastion_host_nsg

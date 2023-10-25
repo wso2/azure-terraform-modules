@@ -15,6 +15,7 @@ resource "azurerm_traffic_manager_external_endpoint" "priority_external_endpoint
   priority   = var.priority
   target     = var.target
   enabled    = var.enabled
+
   custom_header {
     name  = var.header_name
     value = var.header_value

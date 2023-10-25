@@ -10,10 +10,10 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_network_security_group" "network_security_group" {
-  depends_on          = [azurerm_subnet.app_gateway_subnet]
   location            = var.location
   name                = join("-", ["nsg", var.project, var.name, var.environment, var.location, var.padding])
   resource_group_name = var.resource_group_name
+  depends_on          = [azurerm_subnet.app_gateway_subnet]
 }
 
 resource "azurerm_network_security_rule" "network_security_rule" {

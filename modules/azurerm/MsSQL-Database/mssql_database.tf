@@ -21,10 +21,12 @@ resource "azurerm_mssql_database" "mssql_database" {
   auto_pause_delay_in_minutes    = var.auto_pause_delay_in_minutes
   zone_redundant                 = var.zone_redundant
   maintenance_configuration_name = var.maintenance_configuration_name
+  tags                           = var.tags
+
   short_term_retention_policy {
     retention_days = var.short_term_retention_policy_retention_days
   }
-  tags = var.tags
+
   lifecycle {
     prevent_destroy = true
   }

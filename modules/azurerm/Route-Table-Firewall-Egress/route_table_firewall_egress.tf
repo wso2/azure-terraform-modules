@@ -13,6 +13,7 @@ resource "azurerm_route_table" "route_table_firewall_egress" {
   name                = join("-", ["route", var.project, join("", ["firewallegress", var.workload]), var.environment, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
+  tags = var.tags
 
   route {
     name                   = "ToFirewall"
@@ -20,11 +21,10 @@ resource "azurerm_route_table" "route_table_firewall_egress" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = var.firewall_private_ip
   }
-  tags = var.tags
 }
 
 resource "azurerm_subnet_route_table_association" "aks_node_pool_subnet_rt_association" {
-  depends_on     = [azurerm_route_table.route_table_firewall_egress]
   subnet_id      = var.subnet_id
   route_table_id = azurerm_route_table.route_table_firewall_egress.id
+  depends_on     = [azurerm_route_table.route_table_firewall_egress]
 }

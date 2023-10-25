@@ -10,14 +10,17 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_application_gateway" "app_gateway" {
+  location            = var.location
+  name                = local.appgw_name
+  resource_group_name = var.resource_group_name
+  zones               = var.appgw_zones
+  enable_http2        = var.enable_http2
+  tags                = var.tags
   depends_on = [
     azurerm_network_security_group.network_security_group,
     azurerm_network_security_rule.default_network_security_rule,
     azurerm_network_security_rule.default_network_security_rule_2,
   ]
-  location            = var.location
-  name                = local.appgw_name
-  resource_group_name = var.resource_group_name
 
   sku {
     name = "WAF_v2"
@@ -28,8 +31,6 @@ resource "azurerm_application_gateway" "app_gateway" {
     min_capacity = var.autoscale_configuration_min_capacity
     max_capacity = var.autoscale_configuration_max_capacity
   }
-
-  zones = var.appgw_zones
 
   frontend_ip_configuration {
     name                 = local.frontend_public_ip_configuration_name
@@ -45,6 +46,7 @@ resource "azurerm_application_gateway" "app_gateway" {
 
   dynamic "frontend_port" {
     for_each = var.frontend_port_settings
+
     content {
       name = lookup(frontend_port.value, "name", "dummy")
       port = lookup(frontend_port.value, "port", 80)
@@ -67,6 +69,7 @@ resource "azurerm_application_gateway" "app_gateway" {
 
     dynamic "disabled_rule_group" {
       for_each = var.waf_disabled_rule_group_settings
+
       content {
         rule_group_name = lookup(disabled_rule_group.value, "rule_group_name")
         rules           = lookup(disabled_rule_group.value, "rules")
@@ -75,6 +78,7 @@ resource "azurerm_application_gateway" "app_gateway" {
 
     dynamic "exclusion" {
       for_each = var.waf_exclusion_settings
+
       content {
         match_variable          = lookup(exclusion.value, "match_variable")
         selector                = lookup(exclusion.value, "selector")
@@ -88,19 +92,13 @@ resource "azurerm_application_gateway" "app_gateway" {
     policy_name = var.ssl_policy_name
   }
 
-  enable_http2 = var.enable_http2
-
-  #
-  # Backend HTTP settings
-  #
-
   dynamic "backend_http_settings" {
     for_each = var.appgw_backend_http_settings
-    content {
-      name       = lookup(backend_http_settings.value, "name", "dummy")
-      path       = lookup(backend_http_settings.value, "path", "/")
-      probe_name = lookup(backend_http_settings.value, "probe_name", "dummy")
 
+    content {
+      name                                = lookup(backend_http_settings.value, "name", "dummy")
+      path                                = lookup(backend_http_settings.value, "path", "/")
+      probe_name                          = lookup(backend_http_settings.value, "probe_name", "dummy")
       affinity_cookie_name                = "ApplicationGatewayAffinity"
       cookie_based_affinity               = lookup(backend_http_settings.value, "cookie_based_affinity", "Disabled")
       pick_host_name_from_backend_address = lookup(backend_http_settings.value, "pick_host_name_from_backend_address", false)
@@ -112,12 +110,9 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # HTTP listener
-  #
-
   dynamic "http_listener" {
     for_each = var.appgw_http_listeners
+
     content {
       name                           = lookup(http_listener.value, "name", "dummy")
       frontend_ip_configuration_name = lookup(http_listener.value, "frontend_ip_configuration_name", local.frontend_private_ip_configuration_name)
@@ -129,24 +124,18 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # Backend address pool
-  #
-
   dynamic "backend_address_pool" {
     for_each = var.appgw_backend_pools
+
     content {
       name  = lookup(backend_address_pool.value, "name", "dummy")
       fqdns = lookup(backend_address_pool.value, "fqdns", ["dummy"])
     }
   }
 
-  #
-  # SSL certificate
-  #
-
   dynamic "ssl_certificate" {
     for_each = var.ssl_certificates_configs
+
     content {
       name     = lookup(ssl_certificate.value, "name")
       data     = filebase64(lookup(ssl_certificate.value, "data"))
@@ -154,40 +143,30 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # Authentication certificate
-  #
-
   dynamic "authentication_certificate" {
     for_each = var.authentication_certificate_configs
+
     content {
       name = lookup(authentication_certificate.value, "name")
       data = filebase64(lookup(authentication_certificate.value, "data"))
     }
   }
 
-  #
-  # Trusted root certificate
-  #
-
   dynamic "trusted_root_certificate" {
     for_each = var.trusted_root_certificate_configs
+
     content {
       name = lookup(trusted_root_certificate.value, "name")
       data = filebase64(lookup(trusted_root_certificate.value, "data"))
     }
   }
 
-  #
-  # Request routing rule
-  #
-
   dynamic "request_routing_rule" {
     for_each = var.appgw_routings
-    content {
-      name      = lookup(request_routing_rule.value, "name", "dummy")
-      rule_type = lookup(request_routing_rule.value, "rule_type", "Basic")
 
+    content {
+      name                        = lookup(request_routing_rule.value, "name", "dummy")
+      rule_type                   = lookup(request_routing_rule.value, "rule_type", "Basic")
       http_listener_name          = lookup(request_routing_rule.value, "http_listener_name", lookup(request_routing_rule.value, "name", "dummy"))
       backend_address_pool_name   = lookup(request_routing_rule.value, "backend_address_pool_name", lookup(request_routing_rule.value, "name", "dummy"))
       backend_http_settings_name  = lookup(request_routing_rule.value, "backend_http_settings_name", lookup(request_routing_rule.value, "name", "dummy"))
@@ -198,16 +177,15 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # Rewrite rule set
-  #
-
   dynamic "rewrite_rule_set" {
     for_each = var.appgw_rewrite_rule_set
+
     content {
       name = lookup(rewrite_rule_set.value, "name", null)
+
       dynamic "rewrite_rule" {
         for_each = lookup(rewrite_rule_set.value, "rewrite_rule")
+
         content {
           name          = lookup(rewrite_rule.value, "name")
           rule_sequence = lookup(rewrite_rule.value, "rule_sequence")
@@ -228,12 +206,9 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # Probe
-  #
-
   dynamic "probe" {
     for_each = var.appgw_probes
+
     content {
       host                = lookup(probe.value, "host", "dummy")
       interval            = lookup(probe.value, "interval", 30)
@@ -242,6 +217,7 @@ resource "azurerm_application_gateway" "app_gateway" {
       protocol            = lookup(probe.value, "protocol", "Http")
       timeout             = lookup(probe.value, "timeout", 30)
       unhealthy_threshold = lookup(probe.value, "unhealthy_threshold", 3)
+
       match {
         body        = lookup(probe.value, "match_body", "")
         status_code = lookup(probe.value, "match_status_code", ["200"])
@@ -249,12 +225,9 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # URL path map
-  #
-
   dynamic "url_path_map" {
     for_each = var.appgw_url_path_map
+
     content {
       name                               = lookup(url_path_map.value, "name")
       default_backend_address_pool_name  = lookup(url_path_map.value, "default_backend_address_pool_name")
@@ -262,6 +235,7 @@ resource "azurerm_application_gateway" "app_gateway" {
 
       dynamic "path_rule" {
         for_each = lookup(url_path_map.value, "path_rule")
+
         content {
           name                       = lookup(path_rule.value, "path_rule_name")
           backend_address_pool_name  = lookup(path_rule.value, "backend_address_pool_name", lookup(path_rule.value, "path_rule_name"))
@@ -272,12 +246,9 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  #
-  # Redirect configuration
-  #
-
   dynamic "redirect_configuration" {
     for_each = var.appgw_redirect_configuration
+
     content {
       name                 = lookup(redirect_configuration.value, "name")
       redirect_type        = lookup(redirect_configuration.value, "redirect_type", "Permanent")
@@ -287,9 +258,6 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  tags = local.appgw_tags
-
-  // Ignore most changes as they should be managed by AKS ingress controller
   lifecycle {
     ignore_changes = [
       backend_address_pool,

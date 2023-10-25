@@ -14,5 +14,5 @@ resource "azurerm_cdn_profile" "cdn_profile" {
   resource_group_name = var.resource_group_name
   location            = var.location
   sku                 = var.cdn_sku_profile
-  tags                = var.cdn_tags
+  tags                = var.tags
 }

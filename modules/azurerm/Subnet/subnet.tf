@@ -20,6 +20,7 @@ resource "azurerm_subnet" "subnet" {
 
   dynamic "delegation" {
     for_each = var.delegation
+
     content {
       name = delegation.value["delegation_name"]
 

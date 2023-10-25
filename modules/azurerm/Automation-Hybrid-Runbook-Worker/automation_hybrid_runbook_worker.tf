@@ -9,8 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "random_uuid" "random_uuid_worker_id" {
-}
+resource "random_uuid" "random_uuid_worker_id" {}
 
 resource "azurerm_automation_hybrid_runbook_worker" "hybrid_runbook_worker" {
   resource_group_name     = var.resource_group_name

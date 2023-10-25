@@ -52,7 +52,7 @@ variable "vm_extension_protected_settings" {
   type        = string
 }
 
-variable "vm_extension_tags" {
+variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
 }

@@ -24,9 +24,9 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "cdne_tags" {
+variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type        = string
+  type        = map(string)
 }
 
 variable "origin_name" {

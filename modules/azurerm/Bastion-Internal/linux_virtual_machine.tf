@@ -17,7 +17,6 @@ resource "azurerm_linux_virtual_machine" "bastion_linux_virtual_machine" {
   admin_username      = var.admin_username
   computer_name       = join("", ["vmbastion", var.project, var.application_name, var.environment, var.padding])
   source_image_id     = var.source_image_id
-
   network_interface_ids = [
     azurerm_network_interface.bastion_nic.id
   ]

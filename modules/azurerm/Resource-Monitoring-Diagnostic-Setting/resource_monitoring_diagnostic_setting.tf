@@ -19,13 +19,14 @@ resource "azurerm_monitor_diagnostic_setting" "resource_monitoring_diagnostic_se
   log_analytics_workspace_id     = var.archival_locations.log_analytics_workspace_id != "" ? var.archival_locations.log_analytics_workspace_id : null
   storage_account_id             = var.archival_locations.archival_storage_account_id != "" ? var.archival_locations.archival_storage_account_id : null
   log_analytics_destination_type = var.log_analytics_destination_type
+
   dynamic "log" {
     for_each = local.all_logs_settings
+
     content {
       category = log.key
       enabled  = log.value == 0 ? false : true
 
-      # Only applies to Archived logs sent to storage
       retention_policy {
         enabled = log.value == 0 ? false : true
         days    = log.value
@@ -35,11 +36,11 @@ resource "azurerm_monitor_diagnostic_setting" "resource_monitoring_diagnostic_se
 
   dynamic "metric" {
     for_each = local.all_metrics_settings
+
     content {
       category = metric.key
       enabled  = metric.value == 0 ? false : true
 
-      # Only applies to Archived logs sent to storage
       retention_policy {
         enabled = metric.value == 0 ? false : true
         days    = metric.value

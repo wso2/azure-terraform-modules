@@ -17,6 +17,7 @@ resource "azurerm_cosmosdb_sql_database" "cosmos_sql_database" {
 
   dynamic "autoscale_settings" {
     for_each = local.autoscale_setting
+
     content {
       max_throughput = autoscale_settings.value
     }

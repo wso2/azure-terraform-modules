@@ -20,6 +20,5 @@ resource "azurerm_application_insights_workbook" "application_insights_workbook"
   category            = var.category
   description         = var.description
   data_json           = var.template_data_json
-
   tags = var.tags
 }

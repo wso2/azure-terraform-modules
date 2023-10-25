@@ -11,7 +11,6 @@
 
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
   storage_account_id = azurerm_storage_account.storage_account.id
-
   default_action             = var.storage_account_network_rules_default_action
   bypass                     = var.storage_account_network_rules_bypass
   ip_rules                   = var.storage_account_network_rules_ip_rules

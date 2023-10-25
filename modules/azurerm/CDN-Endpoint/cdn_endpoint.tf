@@ -16,7 +16,8 @@ resource "azurerm_cdn_endpoint" "cdn_endpoint" {
   resource_group_name           = var.resource_group_name
   origin_host_header            = var.origin_host_header
   querystring_caching_behaviour = var.querystring_caching_behaviour
-  tags                          = var.cdne_tags
+  tags                          = var.tags
+
   origin {
     name      = var.origin_name
     host_name = var.origin_host_name
@@ -24,9 +25,11 @@ resource "azurerm_cdn_endpoint" "cdn_endpoint" {
 
   dynamic "delivery_rule" {
     for_each = var.cdn_delivery_rules
+
     content {
       name  = delivery_rule.value.name
       order = delivery_rule.value.order
+
       url_path_condition {
         match_values = delivery_rule.value.match_condition
         operator     = delivery_rule.value.operator

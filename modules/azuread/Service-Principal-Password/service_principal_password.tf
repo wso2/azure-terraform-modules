@@ -11,16 +11,19 @@
 
 resource "time_rotating" "password_rotating_time" {
   rotation_months = var.rotation_time_in_months
+
   lifecycle {
     create_before_destroy = true
   }
 }
+
 resource "azuread_service_principal_password" "service_principal_password" {
   service_principal_id = var.sp_internal_id
   display_name         = var.display_name
   rotate_when_changed = {
     rotation = time_rotating.password_rotating_time.id
   }
+
   lifecycle {
     create_before_destroy = true
   }

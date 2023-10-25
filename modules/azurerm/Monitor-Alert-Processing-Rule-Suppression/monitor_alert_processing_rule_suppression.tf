@@ -13,10 +13,13 @@ resource "azurerm_monitor_alert_processing_rule_suppression" "monitor_alert_proc
   name                = join("-", ["apr", var.project, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = [var.scope]
+  tags = var.tags
 
   schedule {
     time_zone = var.time_zone
+
     recurrence {
+
       weekly {
         start_time   = var.start_time
         end_time     = var.end_time
@@ -24,6 +27,4 @@ resource "azurerm_monitor_alert_processing_rule_suppression" "monitor_alert_proc
       }
     }
   }
-
-  tags = var.tags
 }

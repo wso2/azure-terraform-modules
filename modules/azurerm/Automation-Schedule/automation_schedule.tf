@@ -19,4 +19,3 @@ resource "azurerm_automation_schedule" "automation_schedule" {
   start_time              = var.automation_schedule_start_time
   description             = var.automation_schedule_description
 }
-

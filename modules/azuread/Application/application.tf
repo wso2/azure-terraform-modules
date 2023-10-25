@@ -11,6 +11,7 @@
 
 resource "azuread_application" "ad_application" {
   display_name = join("-", [var.project, var.environment, var.app_name])
+
   lifecycle {
     create_before_destroy = true
   }

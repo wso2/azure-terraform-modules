@@ -41,7 +41,7 @@ variable "virtual_network_name" {
 
 variable "subnet_address_prefixes" {
   description = "The address prefixes to use for the subnet."
-  type        = list(string)
+  type        = string
 }
 
 variable "application_name" {

@@ -22,11 +22,12 @@ resource "azurerm_automation_runbook" "automation_runbook" {
   log_verbose             = var.log_verbose
   log_progress            = var.log_progress
   content                 = data.local_file.powershell_script.content
-  publish_content_link {
-    uri = var.uri
-  }
   tags = var.tags
   depends_on = [
     data.local_file.powershell_script
   ]
+
+  publish_content_link {
+    uri = var.uri
+  }
 }

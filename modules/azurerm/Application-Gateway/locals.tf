@@ -14,5 +14,4 @@ locals {
   gateway_ip_configuration_name          = join("-", [var.project, var.environment, var.name, "gw-ip-config"])
   frontend_public_ip_configuration_name  = join("-", [var.project, var.environment, var.name, "public-ip-config"])
   frontend_private_ip_configuration_name = join("-", [var.project, var.environment, var.name, "private-ip-config"])
-  appgw_tags                             = var.tags
 }

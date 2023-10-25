@@ -19,21 +19,19 @@ resource "azurerm_mssql_server" "mssql_server" {
   minimum_tls_version           = var.db_server_minimum_tls_version
   public_network_access_enabled = var.db_server_public_network_access_enabled
   tags                          = var.tags
+
   lifecycle {
     prevent_destroy = true
   }
+
   identity {
     type = var.mssql_identity_type
   }
 
   azuread_administrator {
-    login_username = var.azuread_administrator_login_username
-    object_id      = var.azuread_administrator_object_id
-    tenant_id      = var.azuread_administrator_tenant_id
-    /*
-    When "azuread_authentication_only" is true, "administrator_login" and "administrator_login_password" properties
-    can be omitted as only AD user or group logins are permitted.
-    */
+    login_username              = var.azuread_administrator_login_username
+    object_id                   = var.azuread_administrator_object_id
+    tenant_id                   = var.azuread_administrator_tenant_id
     azuread_authentication_only = false
   }
 }

@@ -18,6 +18,5 @@ resource "azurerm_public_ip" "public_ip" {
   sku                     = var.sku
   idle_timeout_in_minutes = var.idle_timeout_in_minutes
   zones                   = [1, 2, 3]
-
   tags = var.tags
 }

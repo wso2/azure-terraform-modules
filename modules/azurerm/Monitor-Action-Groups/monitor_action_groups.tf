@@ -13,9 +13,11 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
   name                = join("-", ["ag", var.project, var.severity, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   short_name          = var.short_name
+  tags = var.tags
 
   dynamic "email_receiver" {
     for_each = var.email_receivers
+
     content {
       name                    = email_receiver.value.name
       email_address           = email_receiver.value.email_address
@@ -25,6 +27,7 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
 
   dynamic "webhook_receiver" {
     for_each = var.actions_webhook_critical
+
     content {
       name                    = webhook_receiver.value.name
       service_uri             = webhook_receiver.value.service_uri
@@ -34,6 +37,7 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
 
   dynamic "automation_runbook_receiver" {
     for_each = var.automation_runbooks
+
     content {
       name                    = automation_runbook_receiver.value.name
       automation_account_id   = automation_runbook_receiver.value.automation_account_id
@@ -44,6 +48,4 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
       use_common_alert_schema = automation_runbook_receiver.value.use_common_alert_schema
     }
   }
-
-  tags = var.tags
 }

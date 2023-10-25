@@ -13,4 +13,3 @@ output "id" {
   depends_on = [azurerm_resource_group_policy_exemption.policy_exemption]
   value      = azurerm_resource_group_policy_exemption.policy_exemption.id
 }
-

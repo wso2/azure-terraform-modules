@@ -44,7 +44,7 @@ variable "account_replication_type" {
   type        = string
 }
 
-variable "storage_account_tags" {
+variable "tags" {
   description = "Tags to be used in resources"
   type        = map(string)
 }
