@@ -217,6 +217,7 @@ variable "node_pool_name" {
 }
 
 variable "private_cluster_public_fqdn_enable" {
-  description = "Specifies whether a public FQDN for this private cluster should be added."
   default     = false
+  description = "Specifies whether a public FQDN for this private cluster should be added."
+  type        = bool
 }
