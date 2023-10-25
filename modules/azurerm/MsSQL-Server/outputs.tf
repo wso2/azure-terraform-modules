@@ -25,6 +25,5 @@ output "azurerm_mssql_server_name" {
 }
 
 output "azurerm_mssql_server_identity_object_id" {
-  value = azurerm_mssql_server.mssql_server.identity.0.principal_id
+  value = azurerm_mssql_server.mssql_server.identity[0].principal_id
 }
-

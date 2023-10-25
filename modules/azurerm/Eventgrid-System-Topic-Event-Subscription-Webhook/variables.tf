@@ -39,12 +39,6 @@ variable "application_name" {
   type        = string
 }
 
-variable "event_delivery_schema" {
-  default     = "EventGridSchema"
-  description = "(Optional) Specifies the event delivery schema for the event subscription."
-  type        = string
-}
-
 variable "system_topic" {
   description = "(Required) The System Topic where the Event Subscription should be created in. Changing this forces a new Event Subscription to be created."
   type        = string

@@ -9,11 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "tags" {
-  description = "Tags for the Azure SQL Elastic Pool."
-  type        = map(string)
-}
-
 variable "project" {
   description = "The name of the project"
   type        = string

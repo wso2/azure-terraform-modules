@@ -44,11 +44,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "tags" {
-  description = "A mapping of tags which should be assigned to the Azure Monitor Private Link Scope"
-  type        = map(string)
-}
-
 variable "linked_resource_id" {
   description = "The ID of the linked resource"
   type        = string

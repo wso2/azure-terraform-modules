@@ -30,8 +30,8 @@ variable "location" {
 }
 
 variable "tags" {
-  default = "Tags associated with this resource."
-  type    = map(string)
+  description = "Tags associated with this resource."
+  type        = map(string)
 }
 
 variable "padding" {

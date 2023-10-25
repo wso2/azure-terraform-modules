@@ -9,24 +9,9 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
-  type        = string
-}
-
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the File Share."
   type        = string
-}
-
-variable "tags" {
-  description = "Tags for the File Share."
-  type        = map(string)
 }
 
 variable "storage_account_name" {

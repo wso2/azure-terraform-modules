@@ -176,11 +176,6 @@ variable "kubernetes_version" {
   type        = string
 }
 
-variable "api_server_authorized_ip_ranges" {
-  description = "IP ranges authorized to access the API Server"
-  type        = string
-}
-
 variable "service_cidr" {
   description = "CIDR block for allocating K8S Services"
   type        = string
@@ -205,12 +200,6 @@ variable "private_cluster_public_fqdn_enable" {
 variable "http_application_routing_enabled" {
   default     = false
   description = "Flag to enable HTTP Application routing"
-  type        = bool
-}
-
-variable "ingress_application_gateway_enabled" {
-  default     = false
-  description = "Flag to enable Application Gateway Ingress"
   type        = bool
 }
 
@@ -293,17 +282,6 @@ variable "default_node_pool_max_pods" {
 variable "default_node_pool_name" {
   description = "Default node pool name"
   type        = string
-}
-
-# Add Ons configuration
-variable "oms_agent_enabled" {
-  description = "Flag to enable OMS Agent on the Cluster"
-  type        = bool
-}
-
-variable "kube_dashboard_enabled" {
-  description = "Flag to enable the Dashboard on the Cluster"
-  type        = bool
 }
 
 variable "azure_policy_enabled" {

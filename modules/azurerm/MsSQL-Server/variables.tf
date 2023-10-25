@@ -72,18 +72,6 @@ variable "db_server_public_network_access_enabled" {
   type        = bool
 }
 
-variable "extended_auditing_policy_storage_account_access_key_is_secondary" {
-  default     = true
-  description = "Whether or not the storage account access key is secondary."
-  type        = bool
-}
-
-variable "extended_auditing_policy_retention_in_days" {
-  default     = 6
-  description = "The number of days to retain audit logs."
-  type        = number
-}
-
 variable "mssql_identity_type" {
   default     = "SystemAssigned"
   description = "The type of identity used for the SQL Server."

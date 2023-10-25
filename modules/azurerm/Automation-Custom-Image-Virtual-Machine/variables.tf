@@ -39,11 +39,6 @@ variable "padding" {
   type        = string
 }
 
-variable "virtual_network_name" {
-  description = "The name of the virtual network to be created"
-  type        = string
-}
-
 variable "size" {
   description = "The VM size that need to be created"
   type        = string

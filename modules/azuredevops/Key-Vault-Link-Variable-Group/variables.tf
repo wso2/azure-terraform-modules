@@ -24,11 +24,6 @@ variable "name" {
   type        = string
 }
 
-variable "description" {
-  description = "Variable group description"
-  type        = string
-}
-
 variable "allow_access" {
   default     = "false"
   description = "Indicate if this variable group is shared by all pipelines of this project"

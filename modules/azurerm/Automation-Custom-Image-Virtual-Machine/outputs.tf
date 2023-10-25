@@ -21,7 +21,7 @@ output "network_interface_id" {
 
 output "automation_vm_identity_object_id" {
   depends_on = [azurerm_linux_virtual_machine.automation_linux_virtual_machine]
-  value      = azurerm_linux_virtual_machine.automation_linux_virtual_machine.identity.0.principal_id
+  value      = azurerm_linux_virtual_machine.automation_linux_virtual_machine.identity[0].principal_id
 }
 
 output "vm_private_ip" {

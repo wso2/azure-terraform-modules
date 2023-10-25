@@ -132,16 +132,6 @@ variable "default_node_pool_max_pods" {
   type        = number
 }
 
-variable "oms_agent_enabled" {
-  description = "Enable OMS agent"
-  type        = bool
-}
-
-variable "kube_dashboard_enabled" {
-  description = "Enable Kubernetes dashboard"
-  type        = bool
-}
-
 variable "api_server_authorized_ip_ranges" {
   description = "List of authorized IP ranges for the Kubernetes API server"
   type        = list(string)
@@ -159,11 +149,6 @@ variable "dns_service_ip" {
 
 variable "docker_bridge_cidr" {
   description = "Docker bridge CIDR"
-  type        = string
-}
-
-variable "aks_node_pool_subnet_nsg_bastion_asg_id" {
-  description = "Network security group id of bastion subnet"
   type        = string
 }
 
@@ -185,12 +170,6 @@ variable "azure_policy_enabled" {
 variable "http_application_routing_enabled" {
   default     = false
   description = "Enable HTTP application routing"
-  type        = bool
-}
-
-variable "ingress_application_gateway_enabled" {
-  default     = false
-  description = "Enable ingress application gateway"
   type        = bool
 }
 

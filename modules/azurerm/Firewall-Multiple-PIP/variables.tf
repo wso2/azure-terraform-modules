@@ -74,11 +74,6 @@ variable "shortened_padding" {
   type        = string
 }
 
-variable "virtual_network_address_space" {
-  description = "The address space to use for the Virtual Network."
-  type        = list(string)
-}
-
 variable "zones" {
   description = "The Availability Zones in which to create the Firewall."
   type        = list(string)
