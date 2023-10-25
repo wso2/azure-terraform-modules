@@ -29,8 +29,8 @@ variable "vault_access_tenant_id" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Key Vault."
+variable "tags" {
+  description = "Tags for the Key Vault."
   type        = map(string)
 }
 

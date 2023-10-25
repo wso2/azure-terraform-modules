@@ -18,5 +18,5 @@ resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
   daily_quota_gb             = var.daily_quota_gb
   internet_ingestion_enabled = var.internet_ingestion_enabled
   internet_query_enabled     = var.internet_query_enabled
-  tags                       = var.default_tags
+  tags                       = var.tags
 }

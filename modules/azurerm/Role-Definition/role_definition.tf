@@ -14,6 +14,7 @@ resource "azurerm_role_definition" "role_definition" {
   scope             = var.role_definition_scope
   description       = var.description
   assignable_scopes = var.assignable_scopes
+
   permissions {
     actions          = var.allowed_actions_list
     not_actions      = var.disallowed_actions_list

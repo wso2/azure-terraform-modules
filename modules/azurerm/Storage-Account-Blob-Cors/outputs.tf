@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "storage_account_name" {
   depends_on = [azurerm_storage_account.storage_account]
   value      = azurerm_storage_account.storage_account.name

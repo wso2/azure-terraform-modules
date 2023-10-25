@@ -14,8 +14,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Log Alerts"
+variable "tags" {
+  description = "Tags for the Log Alerts"
   type        = map(string)
 }
 
@@ -39,6 +39,7 @@ variable "alert_enabled" {
   description = "Enable or disable the alert."
   type        = bool
 }
+
 variable "recommendation_alerts" {
   description = "Map of Azure recommendation alerts"
   type = map(object({

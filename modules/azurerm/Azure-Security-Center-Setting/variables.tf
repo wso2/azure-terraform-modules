@@ -18,7 +18,6 @@ variable "pricing_setting" {
   default     = "Free"
   description = "Pricing option for target resource set. Possible values are 'Free' and 'Standard'"
   type        = string
-
 }
 
 variable "subplan" {

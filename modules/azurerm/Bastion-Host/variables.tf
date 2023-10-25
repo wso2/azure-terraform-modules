@@ -80,8 +80,8 @@ variable "sku" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "The default tags"
+variable "tags" {
+  description = "The tags"
   type        = map(string)
 }
 

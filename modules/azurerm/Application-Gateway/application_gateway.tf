@@ -305,5 +305,4 @@ resource "azurerm_application_gateway" "app_gateway" {
       trusted_root_certificate
     ]
   }
-
 }

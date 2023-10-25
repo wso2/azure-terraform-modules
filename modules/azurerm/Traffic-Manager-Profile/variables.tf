@@ -13,7 +13,6 @@ variable "routing_method" {
   default     = "Performance"
   description = "The routing method of the Traffic Manager Profile."
   type        = string
-
 }
 
 variable "resource_group_name" {
@@ -42,9 +41,9 @@ variable "endpoint_monitoring_protocol" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   default     = {}
-  description = "Default tags for the resource"
+  description = "Tags for the resource"
   type        = map(string)
 }
 
@@ -52,21 +51,25 @@ variable "health_check_path" {
   description = "Health Check path"
   type        = string
 }
+
 variable "health_check_interval" {
   default     = 30
   description = "Health Check frequency in seconds"
   type        = number
 }
+
 variable "health_check_timeout" {
   default     = 10
   description = "Health Check timeout in seconds"
   type        = number
 }
+
 variable "tolerated_failures" {
   default     = 3
   description = "Number of consecutive failures to deem as degraded"
   type        = number
 }
+
 variable "traffic_view_enabled" {
   default     = false
   description = "Enable or Disable traffic view for the Traffic Manager Profile"

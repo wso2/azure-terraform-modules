@@ -16,7 +16,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   kind                = var.app_service_plan_kind
   is_xenon            = var.app_service_plan_kind == "xenon" ? true : false
   reserved            = var.reserved
-  tags                = var.default_tags
+  tags                = var.tags
   per_site_scaling    = var.per_site_scaling
   zone_redundant      = var.zrs_enabled
   sku {

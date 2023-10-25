@@ -20,7 +20,7 @@ resource "azurerm_bastion_host" "bastion_host" {
   shareable_link_enabled = var.shareable_link_enabled
   tunneling_enabled      = var.tunneling_enabled
   sku                    = var.sku
-  tags                   = var.default_tags
+  tags                   = var.tags
 
   ip_configuration {
     name                 = "configuration"

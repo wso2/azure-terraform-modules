@@ -29,8 +29,8 @@ variable "location" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Firewall."
+variable "tags" {
+  description = "Tags for the Firewall."
   type        = map(string)
 }
 

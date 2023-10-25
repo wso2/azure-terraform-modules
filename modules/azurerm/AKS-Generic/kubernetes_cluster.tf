@@ -76,7 +76,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     outbound_type      = var.outbound_type
   }
 
-  tags = var.default_tags
+  tags = var.tags
 
   depends_on = [
     azurerm_log_analytics_solution.aks_las,
@@ -91,5 +91,4 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
       default_node_pool[0].orchestrator_version,
     ]
   }
-
 }

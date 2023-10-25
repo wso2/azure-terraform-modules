@@ -13,7 +13,7 @@ resource "azurerm_firewall" "azure_firewall" {
   name                = join("-", ["fw", var.project, var.application_name, var.environment, var.location, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  tags                = var.default_tags
+  tags                = var.tags
   zones               = var.zones
   sku_name            = var.sku_name
   sku_tier            = var.sku_tier

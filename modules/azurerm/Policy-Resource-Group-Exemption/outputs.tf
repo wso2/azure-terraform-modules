@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "id" {
   depends_on = [azurerm_resource_group_policy_exemption.policy_exemption]
   value      = azurerm_resource_group_policy_exemption.policy_exemption.id

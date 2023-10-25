@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_policy_set_definition" "policy_set_definition" {
   name = join("-", [
     var.project_short_name,

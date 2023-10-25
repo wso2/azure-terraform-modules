@@ -14,8 +14,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Action Group."
+variable "tags" {
+  description = "Tags for the Action Group."
   type        = map(string)
 }
 

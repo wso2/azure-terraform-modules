@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "default_tags" {
-  description = "Default tags for the SQL Server"
+variable "tags" {
+  description = "Tags for the SQL Server"
   type        = map(string)
 }
 

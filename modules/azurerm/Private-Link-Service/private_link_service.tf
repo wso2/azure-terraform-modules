@@ -13,7 +13,7 @@ resource "azurerm_private_link_service" "private_link_service" {
   name                                        = join("-", ["pls", var.project, var.application_name, var.environment, var.location, var.padding])
   resource_group_name                         = var.resource_group_name
   location                                    = var.location
-  tags                                        = var.default_tags
+  tags                                        = var.tags
   auto_approval_subscription_ids              = var.auto_approved_consumer_subscription_ids
   visibility_subscription_ids                 = var.visible_consumer_subscription_ids
   load_balancer_frontend_ip_configuration_ids = var.frontend_ip_config_ids

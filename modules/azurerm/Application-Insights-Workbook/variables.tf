@@ -56,11 +56,10 @@ variable "category" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   default     = {}
   description = "List of tags to be used with the workbook"
   type        = map(string)
-
 }
 
 variable "description" {

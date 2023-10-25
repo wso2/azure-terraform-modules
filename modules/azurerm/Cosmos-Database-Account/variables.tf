@@ -34,9 +34,9 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   default     = {}
-  description = "The default tags to assign to the resource."
+  description = "The tags to assign to the resource."
   type        = map(string)
 }
 

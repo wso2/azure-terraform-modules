@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 locals {
   st_name_without_prefix = join("", [var.shortened_project, var.application_name, var.shortened_environment, var.shortened_location, var.shortened_padding])
 }

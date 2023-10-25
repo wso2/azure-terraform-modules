@@ -27,5 +27,5 @@ resource "azurerm_application_insights" "application_insights" {
   retention_in_days                     = var.retention_in_days
   disable_ip_masking                    = var.disable_ip_masking
 
-  tags = var.default_tags
+  tags = var.tags
 }

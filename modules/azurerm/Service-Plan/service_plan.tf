@@ -20,5 +20,5 @@ resource "azurerm_service_plan" "service_plan" {
   maximum_elastic_worker_count = var.maximum_elastic_worker_count
   worker_count                 = var.worker_count
 
-  tags = var.default_tags
+  tags = var.tags
 }

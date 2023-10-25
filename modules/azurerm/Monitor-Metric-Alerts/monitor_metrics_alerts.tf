@@ -8,11 +8,12 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_2_dimensions" {
   for_each             = var.metric_alerts_with_2_dimensions
   name                 = join("-", ["ma", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name  = var.resource_group_name
-  tags                 = var.default_tags
+  tags                 = var.tags
   scopes               = each.value.scopes
   description          = each.value.description
   frequency            = each.value.frequency
@@ -47,7 +48,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_1_dimension" 
   for_each             = var.metric_alerts_with_1_dimension
   name                 = join("-", ["ma", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name  = var.resource_group_name
-  tags                 = var.default_tags
+  tags                 = var.tags
   scopes               = each.value.scopes
   description          = each.value.description
   frequency            = each.value.frequency
@@ -77,7 +78,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   for_each                 = var.metric_alerts
   name                     = join("-", ["ma", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name      = var.resource_group_name
-  tags                     = var.default_tags
+  tags                     = var.tags
   scopes                   = each.value.scopes
   description              = each.value.description
   target_resource_location = var.location

@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 locals {
   raw_policy_data = jsondecode(file(var.raw_policy_definition_path))
   parameters      = jsonencode(local.raw_policy_data.properties.parameters)

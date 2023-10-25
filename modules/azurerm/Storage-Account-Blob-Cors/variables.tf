@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 variable "shortened_project" {
   description = "The shortened project name"
   type        = string
@@ -54,8 +55,8 @@ variable "account_replication_type" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags to be used in resources"
+variable "tags" {
+  description = "Tags to be used in resources"
   type        = map(string)
 }
 

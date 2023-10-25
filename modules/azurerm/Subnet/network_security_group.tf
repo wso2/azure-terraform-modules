@@ -13,7 +13,7 @@ resource "azurerm_network_security_group" "network_security_group" {
   name                = join("-", ["nsg", var.project, var.application_name, var.environment, var.location, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  tags                = var.default_tags
+  tags                = var.tags
 }
 
 resource "azurerm_subnet_network_security_group_association" "network_security_group_association" {

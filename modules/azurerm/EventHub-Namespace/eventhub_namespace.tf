@@ -61,5 +61,5 @@ resource "azurerm_eventhub_namespace" "eventhub_namespace" {
     }
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

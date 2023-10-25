@@ -15,7 +15,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
   location                    = var.location
   kind                        = var.kind
   data_collection_endpoint_id = var.data_collection_endpoint_id
-  tags                        = var.default_tags
+  tags                        = var.tags
 
   data_flow {
     destinations  = var.data_flow_destinations

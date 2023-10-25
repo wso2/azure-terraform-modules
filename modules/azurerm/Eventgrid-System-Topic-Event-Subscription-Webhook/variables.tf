@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 variable "project" {
   description = "The project in which this resource is deployed"
   type        = string

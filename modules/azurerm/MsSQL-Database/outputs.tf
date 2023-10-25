@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "mssql_id" {
   depends_on = [azurerm_mssql_database.mssql_database]
   value      = azurerm_mssql_database.mssql_database.id

@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 locals {
   aks_node_pool_workload   = join("", ["aksnodepool", var.workload])
   aks_internal_lb_workload = join("", ["aksinternallb", var.workload])

@@ -24,8 +24,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Front Door WAF Object."
+variable "tags" {
+  description = "Tags for the Front Door WAF Object."
   type        = map(string)
 }
 

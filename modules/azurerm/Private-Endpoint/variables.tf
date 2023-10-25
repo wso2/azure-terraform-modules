@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 variable "private_endpoint_subnet_id" {
   description = "The ID of the subnet to associate with the private endpoint."
   type        = string

@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtual_machine_scale_set" {
   depends_on = [azurerm_subnet.scale_set_agent_subnet]
   lifecycle {

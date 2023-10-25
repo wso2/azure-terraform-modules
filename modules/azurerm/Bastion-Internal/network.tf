@@ -23,7 +23,7 @@ resource "azurerm_route_table" "bastion_route_table" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_route" "internet_route" {
@@ -55,7 +55,7 @@ resource "azurerm_network_security_group" "bastion_nsg" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 # Create network interface
@@ -64,7 +64,7 @@ resource "azurerm_network_interface" "bastion_nic" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  tags = var.default_tags
+  tags = var.tags
 
   ip_configuration {
     name                          = join("-", ["nic-bastion", var.project, var.application_name, var.environment, var.location, var.padding])
@@ -93,7 +93,7 @@ resource "azurerm_application_security_group" "bastion_application_security_grou
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_network_interface_application_security_group_association" "bastion_asg_association" {

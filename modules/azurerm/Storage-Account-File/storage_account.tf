@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_storage_account" "storage_account" {
   name                            = join("", ["st", local.st_name_without_prefix])
   resource_group_name             = var.resource_group_name
@@ -19,7 +20,7 @@ resource "azurerm_storage_account" "storage_account" {
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_advanced_threat_protection" "storage_account_advanced_threat_protection" {

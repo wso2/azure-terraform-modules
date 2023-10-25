@@ -28,5 +28,5 @@ resource "azurerm_storage_account" "storage_account" {
     }
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

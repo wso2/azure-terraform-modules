@@ -8,12 +8,13 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_traffic_manager_profile" "traffic_manager_profile" {
   name                   = local.traffic_manager_name
   resource_group_name    = var.resource_group_name
   traffic_routing_method = var.routing_method
   traffic_view_enabled   = var.traffic_view_enabled
-  tags                   = var.default_tags
+  tags                   = var.tags
   dns_config {
     relative_name = local.traffic_manager_name
     ttl           = var.ttl

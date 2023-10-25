@@ -14,27 +14,33 @@ variable "project" {
   description = "Project name"
   type        = string
 }
+
 variable "environment" {
   description = "Environment name"
   type        = string
 }
+
 variable "location" {
   description = "Location identifier"
   type        = string
 }
+
 variable "aks_resource_group_name" {
   description = "Resource group to deploy the AKS Cluster"
   type        = string
 }
+
 variable "workload" {
   description = "Purpose of the cluster within the project"
   type        = string
 }
+
 variable "padding" {
   description = "Padding to differentiate between resources"
   type        = string
 }
-variable "default_tags" {
+
+variable "tags" {
   default     = {}
   description = "Tags of the AKS cluster"
   type        = map(string)

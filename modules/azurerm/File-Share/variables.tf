@@ -24,8 +24,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the File Share."
+variable "tags" {
+  description = "Tags for the File Share."
   type        = map(string)
 }
 

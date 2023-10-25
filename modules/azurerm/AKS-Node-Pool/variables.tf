@@ -88,7 +88,7 @@ variable "node_pool_os_type" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags to be used in the resource tags"
+variable "tags" {
+  description = "Tags to be used in the resource tags"
   type        = map(string)
 }

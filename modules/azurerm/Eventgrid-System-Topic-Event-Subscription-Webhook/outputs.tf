@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "eventgrid_system_topic_event_subscription_id" {
   depends_on = [azurerm_eventgrid_system_topic_event_subscription.eventgrid_system_topic_event_subscription]
   value      = azurerm_eventgrid_system_topic_event_subscription.eventgrid_system_topic_event_subscription.id

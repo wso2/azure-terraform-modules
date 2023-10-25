@@ -50,8 +50,8 @@ variable "network_mode" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags to be used in resources"
+variable "tags" {
+  description = "Tags to be used in resources"
   type        = map(string)
 }
 

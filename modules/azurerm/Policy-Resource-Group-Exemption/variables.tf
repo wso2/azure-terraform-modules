@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 variable "project_short_name" {
   description = "The short name  of project to which the policy exemption is created"
   type        = string

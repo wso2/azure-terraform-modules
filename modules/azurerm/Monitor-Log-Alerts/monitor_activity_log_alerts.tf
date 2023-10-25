@@ -8,9 +8,10 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_monitor_activity_log_alert" "monitor_recommendation_alert" {
   for_each            = var.recommendation_alerts
-  tags                = var.default_tags
+  tags                = var.tags
   name                = join("-", ["ala", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = each.value.scopes
@@ -29,7 +30,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_recommendation_alert" {
 
 resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_alert" {
   for_each            = var.activity_log_alerts
-  tags                = var.default_tags
+  tags                = var.tags
   name                = join("-", ["ala", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = each.value.scopes
@@ -48,7 +49,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_alert" {
 
 resource "azurerm_monitor_activity_log_alert" "monitor_resource_health_alert" {
   for_each            = var.resource_health_alerts
-  tags                = var.default_tags
+  tags                = var.tags
   name                = join("-", ["ala", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = each.value.scopes
@@ -76,7 +77,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_resource_health_alert" {
 
 resource "azurerm_monitor_activity_log_alert" "monitor_service_health_alert" {
   for_each            = var.service_health_alerts
-  tags                = var.default_tags
+  tags                = var.tags
   name                = join("-", ["ala", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = each.value.scopes
@@ -99,7 +100,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_service_health_alert" {
 
 resource "azurerm_monitor_activity_log_alert" "monitor_specific_service_health_alert" {
   for_each            = var.specific_service_health_alerts
-  tags                = var.default_tags
+  tags                = var.tags
   name                = join("-", ["ala", var.project, each.value.reason, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = each.value.scopes

@@ -49,7 +49,7 @@ variable "address_prefixes" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the virtual network."
+variable "tags" {
+  description = "Tags for the virtual network."
   type        = map(string)
 }

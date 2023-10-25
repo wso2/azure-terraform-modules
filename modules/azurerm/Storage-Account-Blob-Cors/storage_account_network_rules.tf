@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
   storage_account_id = azurerm_storage_account.storage_account.id
 

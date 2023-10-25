@@ -87,5 +87,5 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     outbound_type      = "userDefinedRouting"
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

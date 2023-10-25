@@ -15,7 +15,7 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
   resource_group_name = var.resource_group_name
   offer_type          = var.offer_type
   kind                = var.kind
-  tags                = var.default_tags
+  tags                = var.tags
   enable_free_tier    = var.enable_free_tier
 
   public_network_access_enabled = var.public_network_access_enabled

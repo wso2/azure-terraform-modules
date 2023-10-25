@@ -13,7 +13,7 @@ resource "azurerm_frontdoor_firewall_policy" "front_door_waf_policy" {
   for_each                          = var.front_door_waf_object
   name                              = join("", ["fdwafp", var.project, each.value.app_name, each.value.workload, var.environment, each.value.padding])
   resource_group_name               = var.resource_group_name
-  tags                              = var.default_tags
+  tags                              = var.tags
   enabled                           = each.value.enabled
   mode                              = each.value.mode
   redirect_url                      = each.value.redirect_url
@@ -92,8 +92,6 @@ resource "azurerm_frontdoor_firewall_policy" "front_door_waf_policy" {
           }
         }
       }
-
     }
   }
-
 }

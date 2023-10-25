@@ -20,5 +20,5 @@ resource "azurerm_network_interface" "automation_vm_nic" {
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
   }
-  tags = var.default_tags
+  tags = var.tags
 }

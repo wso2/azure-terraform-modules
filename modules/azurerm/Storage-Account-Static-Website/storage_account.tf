@@ -38,5 +38,4 @@ resource "azurerm_storage_account" "static_storage" {
     index_document     = var.index_document
     error_404_document = var.error_document
   }
-
 }

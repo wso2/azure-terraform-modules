@@ -25,5 +25,5 @@ resource "azurerm_monitor_alert_processing_rule_suppression" "monitor_alert_proc
     }
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

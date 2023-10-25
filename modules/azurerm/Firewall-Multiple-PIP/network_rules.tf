@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_firewall_network_rule_collection" "allowed_rule_collection" {
   name = join("-", ["fwnatrc",
     var.shortened_project,
@@ -34,5 +35,4 @@ resource "azurerm_firewall_network_rule_collection" "allowed_rule_collection" {
       protocols = rule.value.protocols
     }
   }
-
 }

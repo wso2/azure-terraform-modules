@@ -22,7 +22,7 @@ resource "azurerm_static_site" "static_site" {
       identity_ids = var.identity_ids
     }
   }
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {

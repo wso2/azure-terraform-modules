@@ -44,8 +44,8 @@ variable "retention_in_days" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags"
+variable "tags" {
+  description = "Tags"
   type        = map(string)
 }
 

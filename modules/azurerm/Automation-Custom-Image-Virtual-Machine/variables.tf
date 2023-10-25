@@ -64,7 +64,7 @@ variable "public_key_path" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   description = "Default tag list"
   type        = map(string)
 }

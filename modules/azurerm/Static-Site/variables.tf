@@ -63,7 +63,7 @@ variable "identity_ids" {
   description = "Static site identity IDs."
 }
 
-variable "default_tags" {
+variable "tags" {
   default     = {}
   type        = map(string)
   description = "Tags for the resource."

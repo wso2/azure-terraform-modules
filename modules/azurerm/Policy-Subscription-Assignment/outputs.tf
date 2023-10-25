@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "id" {
   depends_on = [azurerm_subscription_policy_assignment.subscription_policy_assignment]
   value      = azurerm_subscription_policy_assignment.subscription_policy_assignment.id

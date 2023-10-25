@@ -26,7 +26,7 @@ resource "azurerm_route_table" "private_endpoint_route_table" {
     next_hop_type  = "VnetLocal"
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_subnet_route_table_association" "private_endpoint_subnet_rt_association" {

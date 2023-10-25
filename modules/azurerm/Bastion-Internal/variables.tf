@@ -93,7 +93,6 @@ variable "os_disk_size_gb" {
 variable "managed_disk_size_gb" {
   description = "Specifies the size of the managed disk to create in gigabytes"
   type        = string
-
 }
 
 variable "admin_username" {
@@ -106,8 +105,8 @@ variable "public_key_path" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "The default tags"
+variable "tags" {
+  description = "The tags"
   type        = map(string)
 }
 

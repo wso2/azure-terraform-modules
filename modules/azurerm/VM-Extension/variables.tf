@@ -33,6 +33,7 @@ variable "vm_extension_type_handler_version" {
   description = "The type handler version of the VM Extension."
   type        = string
 }
+
 variable "vm_extension_auto_upgrade_minor_version" {
   default     = "true"
   description = "Whether the VM Extension should auto upgrade minor version."

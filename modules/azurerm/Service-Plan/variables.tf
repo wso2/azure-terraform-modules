@@ -66,7 +66,7 @@ variable "worker_count" {
   description = "Number of worker node to be in the service plan."
 }
 
-variable "default_tags" {
+variable "tags" {
   default     = {}
   type        = map(string)
   description = "Tags for the resource."

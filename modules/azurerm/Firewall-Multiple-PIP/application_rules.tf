@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_firewall_application_rule_collection" "firewall_application_rule_collection" {
   name = join("-", ["fwapprc",
     var.shortened_project,
@@ -32,5 +33,4 @@ resource "azurerm_firewall_application_rule_collection" "firewall_application_ru
       }
     }
   }
-
 }

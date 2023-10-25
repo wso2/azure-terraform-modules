@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_private_endpoint" "private_endpoint" {
   name                = join("-", ["pvtep", var.project, var.workload_name, var.environment, var.location, var.padding])
   location            = var.location

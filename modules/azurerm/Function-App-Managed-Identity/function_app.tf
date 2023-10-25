@@ -41,5 +41,5 @@ resource "azurerm_function_app" "function_app_with_managed_identity" {
     ]
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

@@ -35,8 +35,8 @@ variable "rs_vault_sku" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Recovery Services Vault."
+variable "tags" {
+  description = "Tags for the Recovery Services Vault."
   type        = map(string)
 }
 

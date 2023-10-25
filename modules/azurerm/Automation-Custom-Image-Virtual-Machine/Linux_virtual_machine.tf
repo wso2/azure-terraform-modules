@@ -17,7 +17,7 @@ resource "azurerm_linux_virtual_machine" "automation_linux_virtual_machine" {
   admin_username      = var.admin_username
   computer_name       = join("", ["vm", var.project, var.application_name, var.environment, var.padding])
   source_image_id     = var.source_image_id
-  tags                = var.default_tags
+  tags                = var.tags
   network_interface_ids = [
     azurerm_network_interface.automation_vm_nic.id
   ]

@@ -181,7 +181,7 @@ variable "access_restriction_vnet" {
   }))
 }
 
-variable "default_tags" {
+variable "tags" {
   description = "Tags used for the resource."
   type        = map(string)
 }

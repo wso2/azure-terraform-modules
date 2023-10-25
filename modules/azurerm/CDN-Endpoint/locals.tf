@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 locals {
   cdne_name_without_prefix = join("-", [var.project, var.application_name, var.environment, var.location, var.padding])
 }

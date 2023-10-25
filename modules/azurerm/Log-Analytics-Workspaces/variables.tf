@@ -39,8 +39,8 @@ variable "padding" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Log Analytics Workspace."
+variable "tags" {
+  description = "Tags for the Log Analytics Workspace."
   type        = map(string)
 }
 

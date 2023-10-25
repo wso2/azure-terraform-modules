@@ -65,7 +65,6 @@ variable "log_progress" {
   default     = true
   description = "The log progress boolean"
   type        = bool
-
 }
 
 variable "tags" {

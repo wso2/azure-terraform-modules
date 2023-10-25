@@ -34,8 +34,8 @@ variable "padding" {
   type        = number
 }
 
-variable "default_tags" {
-  description = "Default Tags for the Resource"
+variable "tags" {
+  description = "Tags for the Resource"
   type        = map(string)
 }
 

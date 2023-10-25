@@ -28,7 +28,7 @@ resource "azurerm_storage_account" "storage_account" {
     }
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
@@ -44,7 +44,7 @@ resource "azurerm_private_endpoint" "storage_account_private_endpoint" {
   location            = var.location
   resource_group_name = var.resource_group_name
   subnet_id           = var.private_endpoint_subnet_id
-  tags                = var.default_tags
+  tags                = var.tags
 
   private_service_connection {
     name                           = join("-", ["pvtsc", var.project, local.private_endpoint_workload_name, var.environment, var.location, var.padding])

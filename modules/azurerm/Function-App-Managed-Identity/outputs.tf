@@ -13,14 +13,17 @@ output "function_app_name" {
   depends_on = [azurerm_function_app.function_app_with_managed_identity]
   value      = azurerm_function_app.function_app_with_managed_identity.name
 }
+
 output "function_app_id" {
   depends_on = [azurerm_function_app.function_app_with_managed_identity]
   value      = azurerm_function_app.function_app_with_managed_identity.id
 }
+
 output "identity_principal_id" {
   depends_on = [azurerm_function_app.function_app_with_managed_identity]
   value      = azurerm_function_app.function_app_with_managed_identity.identity.0.principal_id
 }
+
 output "identity_tenant_id" {
   depends_on = [azurerm_function_app.function_app_with_managed_identity]
   value      = azurerm_function_app.function_app_with_managed_identity.identity.0.tenant_id

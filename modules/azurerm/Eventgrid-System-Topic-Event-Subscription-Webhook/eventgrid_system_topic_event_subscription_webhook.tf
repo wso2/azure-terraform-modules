@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_eventgrid_system_topic_event_subscription" "eventgrid_system_topic_event_subscription" {
   name                 = join("-", ["evgs", var.project, var.application_name, var.environment, var.location, var.padding])
   system_topic         = var.system_topic

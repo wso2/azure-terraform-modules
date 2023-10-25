@@ -51,7 +51,7 @@ variable "kind" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   description = "A mapping of tags which should be assigned to the Data Collection Endpoint"
   type        = map(string)
 }

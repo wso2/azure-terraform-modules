@@ -44,8 +44,8 @@ variable "network_rules" {
   type        = object({ ip_rules = list(string), subnet_ids = list(string) })
 }
 
-variable "default_tags" {
-  description = "Default tags for the EventHub Namespace."
+variable "tags" {
+  description = "Tags for the EventHub Namespace."
   type        = map(string)
 }
 

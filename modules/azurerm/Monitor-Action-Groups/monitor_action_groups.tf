@@ -45,5 +45,5 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
     }
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

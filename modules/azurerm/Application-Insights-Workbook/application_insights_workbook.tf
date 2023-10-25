@@ -21,5 +21,5 @@ resource "azurerm_application_insights_workbook" "application_insights_workbook"
   description         = var.description
   data_json           = var.template_data_json
 
-  tags = var.default_tags
+  tags = var.tags
 }

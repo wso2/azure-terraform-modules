@@ -18,7 +18,7 @@ resource "azurerm_public_ip_prefix" "public_ip_prefix_fw" {
   prefix_length       = var.public_ip_prefix_length
   zones               = [1, 2, 3]
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_public_ip" "firewall_public_ip" {
@@ -31,7 +31,7 @@ resource "azurerm_public_ip" "firewall_public_ip" {
   public_ip_prefix_id = null == var.dynamic_nat_rules[each.key].public_ip_prefix_id ? azurerm_public_ip_prefix.public_ip_prefix_fw.id : var.dynamic_nat_rules[each.key].public_ip_prefix_id
   zones               = [1, 2, 3]
 
-  tags = var.default_tags
+  tags = var.tags
 
   depends_on = [
     azurerm_public_ip_prefix.public_ip_prefix_fw

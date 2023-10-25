@@ -12,5 +12,5 @@
 resource "azurerm_resource_group" "resource_group" {
   name     = join("-", ["rg", var.project, var.application_name, var.environment, var.location, var.padding])
   location = var.location
-  tags     = var.default_tags
+  tags     = var.tags
 }

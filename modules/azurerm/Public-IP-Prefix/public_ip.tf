@@ -18,5 +18,5 @@ resource "azurerm_public_ip_prefix" "public_ip_prefix" {
   prefix_length       = var.prefix_length
   zones               = [1, 2, 3]
 
-  tags = var.default_tags
+  tags = var.tags
 }

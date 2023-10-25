@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "scale_set_agent_linux_virtual_machine_scale_set_id" {
   value = azurerm_linux_virtual_machine_scale_set.scale_set_agent_linux_virtual_machine_scale_set.id
 }

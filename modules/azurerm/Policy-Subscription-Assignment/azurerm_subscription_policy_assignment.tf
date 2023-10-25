@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_subscription_policy_assignment" "subscription_policy_assignment" {
   name = join("-", [
     var.project_short_name,

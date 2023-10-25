@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 variable "project" {
   description = "The project in which this resource is deployed"
   type        = string
@@ -28,7 +29,7 @@ variable "location" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   default = "Tags associated with this resource."
   type    = map(string)
 }

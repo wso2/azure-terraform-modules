@@ -21,5 +21,4 @@ resource "azurerm_cosmosdb_sql_database" "cosmos_sql_database" {
       max_throughput = autoscale_settings.value
     }
   }
-
 }

@@ -24,5 +24,5 @@ resource "azurerm_virtual_network" "virtual_network" {
     }
   }
 
-  tags = var.default_tags
+  tags = var.tags
 }

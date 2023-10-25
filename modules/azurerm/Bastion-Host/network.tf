@@ -21,7 +21,7 @@ resource "azurerm_network_security_group" "bastion_host_nsg" {
   name                = join("-", ["nsg-bastion-host", var.project, var.application_name, var.environment, var.location, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  tags                = var.default_tags
+  tags                = var.tags
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_allow_https_internet_inbound" {

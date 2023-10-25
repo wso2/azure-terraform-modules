@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 locals {
   public_ip_names = tolist(keys(var.dynamic_nat_rules))
 }

@@ -19,7 +19,7 @@ variable "private_dns_zone_name" {
   type        = string
 }
 
-variable "default_tags" {
-  description = "Default tags for the Private DNS Zone."
+variable "tags" {
+  description = "Tags for the Private DNS Zone."
   type        = map(string)
 }

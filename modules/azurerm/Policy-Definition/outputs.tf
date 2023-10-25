@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "role_definition_ids" {
   depends_on = [azurerm_policy_definition.policy_definition]
   value      = azurerm_policy_definition.policy_definition.role_definition_ids

@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_mssql_server" "mssql_server" {
   name                          = join("-", ["sql", var.project, var.application_name, var.environment, var.location, var.padding])
   resource_group_name           = var.resource_group_name
@@ -17,7 +18,7 @@ resource "azurerm_mssql_server" "mssql_server" {
   administrator_login_password  = var.db_server_administrator_login_password
   minimum_tls_version           = var.db_server_minimum_tls_version
   public_network_access_enabled = var.db_server_public_network_access_enabled
-  tags                          = var.default_tags
+  tags                          = var.tags
   lifecycle {
     prevent_destroy = true
   }

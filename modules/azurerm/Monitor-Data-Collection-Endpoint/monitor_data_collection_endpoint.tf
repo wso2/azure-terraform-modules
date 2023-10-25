@@ -15,5 +15,5 @@ resource "azurerm_monitor_data_collection_endpoint" "data_collection_endpoint" {
   location                      = var.location
   kind                          = var.kind
   public_network_access_enabled = var.public_network_access_enabled
-  tags                          = var.default_tags
+  tags                          = var.tags
 }

@@ -66,9 +66,9 @@ variable "app_service_plan_kind" {
   type        = string
 }
 
-variable "default_tags" {
+variable "tags" {
   default     = {}
-  description = "Default tags to be used in the resource tags"
+  description = "Tags to be used in the resource tags"
   type        = map(string)
 }
 

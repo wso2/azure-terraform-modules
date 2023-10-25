@@ -23,7 +23,7 @@ resource "azurerm_route_table" "aks_node_pool_route_table" {
   location            = var.location
   resource_group_name = local.virtual_network_resource_group_name
 
-  tags = var.default_tags
+  tags = var.tags
 }
 
 resource "azurerm_route" "aks_node_pool_route" {

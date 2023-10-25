@@ -34,6 +34,5 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
   mode                  = var.node_pool_mode
   os_type               = var.node_pool_os_type
 
-  tags = var.default_tags
-
+  tags = var.tags
 }

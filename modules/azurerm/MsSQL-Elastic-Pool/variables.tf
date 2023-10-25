@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "default_tags" {
-  description = "Default tags for the Azure SQL Elastic Pool."
+variable "tags" {
+  description = "Tags for the Azure SQL Elastic Pool."
   type        = map(string)
 }
 
