@@ -20,7 +20,7 @@ resource "azurerm_storage_account" "storage_account" {
   account_kind                    = "StorageV2"
   enable_https_traffic_only       = true
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  tags = var.tags
+  tags                            = var.tags
 
   blob_properties {
 

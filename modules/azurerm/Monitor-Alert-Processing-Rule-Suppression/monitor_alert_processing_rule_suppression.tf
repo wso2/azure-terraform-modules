@@ -13,7 +13,7 @@ resource "azurerm_monitor_alert_processing_rule_suppression" "monitor_alert_proc
   name                = join("-", ["apr", var.project, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   scopes              = [var.scope]
-  tags = var.tags
+  tags                = var.tags
 
   schedule {
     time_zone = var.time_zone

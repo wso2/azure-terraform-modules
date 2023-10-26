@@ -19,7 +19,7 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only       = true
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  tags = var.tags
+  tags                            = var.tags
 }
 
 resource "azurerm_advanced_threat_protection" "storage_account_advanced_threat_protection" {

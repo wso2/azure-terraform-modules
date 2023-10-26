@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_firewall_network_rule_collection" "allowed_rule_collection" {
-  name = join("-", ["fwnatrc", var.shortened_project, var.application_name, "allowed", var.shortened_environment, var.shortened_location, var.shortened_padding])
+  name                = join("-", ["fwnatrc", var.shortened_project, var.application_name, "allowed", var.shortened_environment, var.shortened_location, var.shortened_padding])
   azure_firewall_name = azurerm_firewall.azure_firewall.name
   resource_group_name = var.resource_group_name
   priority            = var.network_rule_collection_priority
@@ -20,11 +20,11 @@ resource "azurerm_firewall_network_rule_collection" "allowed_rule_collection" {
     for_each = var.network_rules
 
     content {
-      name = rule.value.name
-      source_addresses = rule.value.source_addresses
-      destination_ports = rule.value.destination_ports
+      name                  = rule.value.name
+      source_addresses      = rule.value.source_addresses
+      destination_ports     = rule.value.destination_ports
       destination_addresses = rule.value.destination_addresses
-      protocols = rule.value.protocols
+      protocols             = rule.value.protocols
     }
   }
 }

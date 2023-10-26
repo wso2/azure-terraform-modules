@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only       = true
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   public_network_access_enabled   = var.public_network_access_enabled
-  tags = var.tags
+  tags                            = var.tags
 
   blob_properties {
 
@@ -33,9 +33,9 @@ resource "azurerm_storage_account" "storage_account" {
 
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
   storage_account_id = azurerm_storage_account.storage_account.id
-  ip_rules       = var.storage_account_network_rules_ip_rules
-  default_action = var.default_action
-  bypass         = ["AzureServices", "Metrics"]
+  ip_rules           = var.storage_account_network_rules_ip_rules
+  default_action     = var.default_action
+  bypass             = ["AzureServices", "Metrics"]
 }
 
 resource "azurerm_private_endpoint" "storage_account_private_endpoint" {

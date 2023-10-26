@@ -13,7 +13,7 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
   name                = join("-", ["ag", var.project, var.severity, var.environment, var.padding])
   resource_group_name = var.resource_group_name
   short_name          = var.short_name
-  tags = var.tags
+  tags                = var.tags
 
   dynamic "email_receiver" {
     for_each = var.email_receivers

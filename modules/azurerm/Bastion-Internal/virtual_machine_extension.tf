@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine_extension" "data_disk_attachment" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
-  settings = <<SETTINGS
+  settings             = <<SETTINGS
     {
         "script": "${base64encode(replace(file(module.sre-task-automation-repository.mount_vm_data_disk_shell_script), "disk_lun_value", local.bastion_vm_managed_disk_attachment_lun))}"
     }

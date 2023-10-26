@@ -13,7 +13,7 @@ resource "azurerm_route_table" "route_table_firewall_egress" {
   name                = join("-", ["route", var.project, join("", ["firewallegress", var.workload]), var.environment, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  tags = var.tags
+  tags                = var.tags
 
   route {
     name                   = "ToFirewall"

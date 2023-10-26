@@ -22,7 +22,7 @@ resource "azurerm_route_table" "aks_node_pool_route_table" {
   name                = join("-", ["route", var.project, local.aks_node_pool_workload, var.environment, var.padding])
   location            = var.location
   resource_group_name = local.virtual_network_resource_group_name
-  tags = var.tags
+  tags                = var.tags
 }
 
 resource "azurerm_route" "aks_node_pool_route" {
@@ -48,9 +48,9 @@ resource "azurerm_network_security_group" "aks_node_pool_subnet_nsg" {
 }
 
 resource "azurerm_network_security_rule" "aks_node_pool_subnet_nsg_rules" {
-  for_each = var.aks_node_pool_subnet_nsg_rules
-  resource_group_name         = local.virtual_network_resource_group_name
-  network_security_group_name = azurerm_network_security_group.aks_node_pool_subnet_nsg.name
+  for_each                                   = var.aks_node_pool_subnet_nsg_rules
+  resource_group_name                        = local.virtual_network_resource_group_name
+  network_security_group_name                = azurerm_network_security_group.aks_node_pool_subnet_nsg.name
   name                                       = each.value.name
   description                                = each.value.description
   priority                                   = each.value.priority
@@ -98,9 +98,9 @@ resource "azurerm_network_security_group" "internal_load_balancer_subnet_nsg" {
 }
 
 resource "azurerm_network_security_rule" "aks_load_balancer_subnet_nsg_rules" {
-  for_each = var.aks_load_balancer_subnet_nsg_rules
-  resource_group_name         = local.virtual_network_resource_group_name
-  network_security_group_name = azurerm_network_security_group.internal_load_balancer_subnet_nsg.name
+  for_each                                   = var.aks_load_balancer_subnet_nsg_rules
+  resource_group_name                        = local.virtual_network_resource_group_name
+  network_security_group_name                = azurerm_network_security_group.internal_load_balancer_subnet_nsg.name
   name                                       = each.value.name
   description                                = each.value.description
   priority                                   = each.value.priority

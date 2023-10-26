@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_firewall_network_rule_collection" "network_rule_collection" {
-  name = join("-", ["fwnatrc", var.shortened_project, var.application_name, lower(var.action), var.shortened_environment, var.shortened_location, var.shortened_padding])
+  name                = join("-", ["fwnatrc", var.shortened_project, var.application_name, lower(var.action), var.shortened_environment, var.shortened_location, var.shortened_padding])
   azure_firewall_name = var.firewall_name
   resource_group_name = var.resource_group_name
   priority            = var.priority

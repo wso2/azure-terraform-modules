@@ -24,11 +24,11 @@ resource "azurerm_frontdoor_firewall_policy" "front_door_waf_policy" {
     for_each = each.value.custom_rule
 
     content {
-      name     = custom_rule.value.name
-      action   = custom_rule.value.action
-      enabled  = custom_rule.value.enabled
-      priority = custom_rule.value.priority
-      type     = custom_rule.value.type      
+      name                           = custom_rule.value.name
+      action                         = custom_rule.value.action
+      enabled                        = custom_rule.value.enabled
+      priority                       = custom_rule.value.priority
+      type                           = custom_rule.value.type
       rate_limit_duration_in_minutes = custom_rule.value.rate_limit_duration_in_minutes
       rate_limit_threshold           = custom_rule.value.rate_limit_threshold
 

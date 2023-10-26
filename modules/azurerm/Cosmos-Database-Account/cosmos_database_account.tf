@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_cosmosdb_account" "cosmos_db_account" {
-  name                = join("-", ["cosmos", var.project, var.application_name, var.environment, var.location])
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  offer_type          = var.offer_type
-  kind                = var.kind
-  tags                = var.tags
-  enable_free_tier    = var.enable_free_tier
-  public_network_access_enabled = var.public_network_access_enabled
-  enable_multiple_write_locations = var.enable_multiple_write_locations
-  enable_automatic_failover       = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
+  name                              = join("-", ["cosmos", var.project, var.application_name, var.environment, var.location])
+  location                          = var.location
+  resource_group_name               = var.resource_group_name
+  offer_type                        = var.offer_type
+  kind                              = var.kind
+  tags                              = var.tags
+  enable_free_tier                  = var.enable_free_tier
+  public_network_access_enabled     = var.public_network_access_enabled
+  enable_multiple_write_locations   = var.enable_multiple_write_locations
+  enable_automatic_failover         = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
   is_virtual_network_filter_enabled = var.is_virtual_network_filter_enabled
 
   dynamic "geo_location" {

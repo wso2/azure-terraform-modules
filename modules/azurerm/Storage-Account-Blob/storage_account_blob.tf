@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only       = true
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   public_network_access_enabled   = var.public_network_access_enabled
-  tags = var.tags
+  tags                            = var.tags
 
   blob_properties {
 

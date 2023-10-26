@@ -22,7 +22,7 @@ resource "azurerm_route_table" "aks_node_pool_route_table" {
   name                = join("-", ["route", var.project, local.aks_node_pool_workload, var.environment, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  tags = var.tags
+  tags                = var.tags
 
   route {
     name                   = "ToFirewall"

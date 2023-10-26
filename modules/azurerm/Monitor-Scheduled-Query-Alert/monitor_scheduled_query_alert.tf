@@ -14,13 +14,13 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "scheduled_query_rules_al
   name                = join("-", ["sqra", var.project, each.value.reason, var.environment, var.location, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  data_source_id = each.value.log_analytics_workspace_id
-  description    = each.value.description
-  enabled        = each.value.query_enabled
-  query = each.value.query
-  severity    = each.value.severity
-  frequency   = each.value.frequency
-  time_window = each.value.time_window
+  data_source_id      = each.value.log_analytics_workspace_id
+  description         = each.value.description
+  enabled             = each.value.query_enabled
+  query               = each.value.query
+  severity            = each.value.severity
+  frequency           = each.value.frequency
+  time_window         = each.value.time_window
 
   action {
     action_group = each.value.action_group_id_list
@@ -44,13 +44,13 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "count_trigger_scheduled_
   name                = join("-", ["sqra", var.project, each.value.reason, var.environment, var.location, var.padding])
   location            = var.location
   resource_group_name = var.resource_group_name
-  data_source_id = each.value.log_analytics_workspace_id
-  description    = each.value.description
-  enabled        = each.value.query_enabled
-  query = each.value.query
-  severity    = each.value.severity
-  frequency   = each.value.frequency
-  time_window = each.value.time_window
+  data_source_id      = each.value.log_analytics_workspace_id
+  description         = each.value.description
+  enabled             = each.value.query_enabled
+  query               = each.value.query
+  severity            = each.value.severity
+  frequency           = each.value.frequency
+  time_window         = each.value.time_window
 
   action {
     action_group = each.value.action_group_id_list

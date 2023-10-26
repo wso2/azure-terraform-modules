@@ -10,13 +10,13 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuredevops_serviceendpoint_azurerm" "devops_serviceendpoint_azurerm" {
-  project_id            = var.project_id
-  service_endpoint_name = join("-", [var.project, var.service_endpoint_name])
+  project_id                = var.project_id
+  service_endpoint_name     = join("-", [var.project, var.service_endpoint_name])
   azurerm_spn_tenantid      = var.tenant_id
   azurerm_subscription_id   = var.subscription_id
   azurerm_subscription_name = var.subscription_name
   description               = var.description
-  
+
   credentials {
     serviceprincipalid  = var.service_principal_id
     serviceprincipalkey = var.service_principal_key

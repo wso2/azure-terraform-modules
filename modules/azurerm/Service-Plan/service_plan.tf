@@ -10,13 +10,13 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_service_plan" "service_plan" {
-  name                = join("-", ["asp", var.project, var.application_name, var.environment, var.padding])
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  os_type             = var.os_type
-  sku_name            = var.sku_name
+  name                         = join("-", ["asp", var.project, var.application_name, var.environment, var.padding])
+  location                     = var.location
+  resource_group_name          = var.resource_group_name
+  os_type                      = var.os_type
+  sku_name                     = var.sku_name
   zone_balancing_enabled       = var.availability_zone_enabled
   maximum_elastic_worker_count = var.maximum_elastic_worker_count
   worker_count                 = var.worker_count
-  tags = var.tags
+  tags                         = var.tags
 }
