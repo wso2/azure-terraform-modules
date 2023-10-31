@@ -31,5 +31,5 @@ variable "tags" {
 
 variable "front_door_waf_object" {
   description = "Front Door WAF Object configuration"
-  type        = map(string)
+  type        = object({})
 }

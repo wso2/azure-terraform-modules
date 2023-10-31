@@ -36,7 +36,7 @@ variable "template_path" {
 
 variable "template_vars" {
   description = "The variables to pass to the dashboard template."
-  type        = map(string)
+  type        = any
 }
 
 variable "project" {
