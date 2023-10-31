@@ -63,6 +63,7 @@ variable "actions_webhook_critical" {
 }
 
 variable "automation_runbooks" {
+  default     = []
   description = "List of automation runbooks for the action group"
   type = list(object({
     name                    = string
