@@ -14,3 +14,15 @@ output "id" {
   value      = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["id"])
   sensitive  = true
 }
+
+output "version" {
+  value       = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["version"])
+  description = "Key Vault secret version"
+  sensitive  = true
+}
+
+output "name" {
+  value       = zipmap(keys(azurerm_key_vault_secret.key_vault_secret), values(azurerm_key_vault_secret.key_vault_secret)[*]["name"])
+  description = "Key Vault secret name"
+  sensitive  = true
+}
