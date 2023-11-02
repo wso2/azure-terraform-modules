@@ -15,8 +15,8 @@ variable "location" {
 }
 
 variable "padding" {
-  description = "The number of IP addresses to reserve for the subnet."
-  type        = number
+  description = "The padding for the vnet"
+  type        = string
 }
 
 variable "virtual_network_address_space" {

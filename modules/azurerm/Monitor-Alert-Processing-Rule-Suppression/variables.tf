@@ -26,7 +26,7 @@ variable "project" {
 
 variable "padding" {
   description = "Padding for the Resource"
-  type        = number
+  type        = string
 }
 
 variable "tags" {

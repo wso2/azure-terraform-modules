@@ -46,7 +46,7 @@ variable "subnet_id" {
 
 variable "padding" {
   description = "Padding for the subnet"
-  type        = number
+  type        = string
 }
 
 variable "firewall_private_ip" {
