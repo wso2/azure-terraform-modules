@@ -78,6 +78,7 @@ variable "appgw_public_ip_id" {
 }
 
 variable "frontend_port_settings" {
+  default     = [{}]
   description = "Appgw frontent port settings"
   type        = list(map(string))
 }
@@ -151,16 +152,19 @@ variable "ssl_policy_name" {
 }
 
 variable "appgw_backend_http_settings" {
+  default     = [{}]
   description = "List of maps including backend http settings configurations"
   type        = list(map(string))
 }
 
 variable "appgw_http_listeners" {
+  default     = [{}]
   description = "List of maps including http listeners configurations"
   type        = list(map(string))
 }
 
 variable "appgw_backend_pools" {
+  default     = [{}]
   description = "List of maps including backend pool configurations"
   type        = list(map(string))
 }
@@ -184,6 +188,7 @@ variable "trusted_root_certificate_configs" {
 }
 
 variable "appgw_routings" {
+  default     = [{}]
   description = "List of maps including request routing rules configurations"
   type        = list(map(string))
 }
@@ -195,6 +200,7 @@ variable "appgw_rewrite_rule_set" {
 }
 
 variable "appgw_probes" {
+  default     = []
   description = "List of maps including request probes configurations"
   type        = list(map(string))
 }
