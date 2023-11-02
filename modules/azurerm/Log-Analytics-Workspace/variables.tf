@@ -55,6 +55,7 @@ variable "log_retention_in_days" {
 }
 
 variable "daily_quota_gb" {
+  default = -1
   description = "The daily quota for the logs in GB."
   type        = number
 }
