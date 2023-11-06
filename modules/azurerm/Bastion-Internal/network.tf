@@ -15,7 +15,7 @@ resource "azurerm_subnet" "bastion_subnet" {
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = [var.subnet_address_prefix]
   service_endpoints                         = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.Storage"]
-  private_endpoint_network_policies_enabled = true
+  private_endpoint_network_policies_enabled = var.bastion_subnet_enforce_private_link_endpoint_network_policies
 }
 
 resource "azurerm_route_table" "bastion_route_table" {

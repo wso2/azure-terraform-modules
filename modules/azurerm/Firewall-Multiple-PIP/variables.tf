@@ -148,3 +148,9 @@ variable "application_rules" {
     })
   }))
 }
+
+variable "firewall_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the firewall subnet"
+  type        = bool
+}

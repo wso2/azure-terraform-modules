@@ -14,5 +14,5 @@ resource "azurerm_subnet" "firewall_subnet" {
   resource_group_name                       = var.resource_group_name
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = [var.subnet_address_prefixes]
-  private_endpoint_network_policies_enabled = true
+  private_endpoint_network_policies_enabled = var.firewall_subnet_enforce_private_link_endpoint_network_policies
 }

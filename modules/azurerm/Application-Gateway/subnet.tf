@@ -15,5 +15,5 @@ resource "azurerm_subnet" "app_gateway_subnet" {
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = var.address_prefixes
   service_endpoints                         = var.service_endpoints
-  private_endpoint_network_policies_enabled = true
+  private_endpoint_network_policies_enabled = var.app_gateway_subnet_enforce_private_link_endpoint_network_policies
 }

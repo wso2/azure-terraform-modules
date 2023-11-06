@@ -53,3 +53,9 @@ variable "tags" {
   description = "Tags for the virtual network."
   type        = map(string)
 }
+
+variable "private_endpoint_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the private endpoint subnet"
+  type        = bool
+}

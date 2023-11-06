@@ -221,3 +221,15 @@ variable "private_cluster_public_fqdn_enable" {
   description = "Specifies whether a public FQDN for this private cluster should be added."
   type        = bool
 }
+
+variable "aks_nodepool_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the aks nodepool subnet"
+  type        = bool
+}
+
+variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
+  type        = bool
+}

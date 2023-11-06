@@ -15,5 +15,5 @@ resource "azurerm_subnet" "private_endpoint_subnet" {
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = [var.address_prefixes]
   service_endpoints                         = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
-  private_endpoint_network_policies_enabled = true
+  private_endpoint_network_policies_enabled = var.private_endpoint_subnet_enforce_private_link_endpoint_network_policies
 }
