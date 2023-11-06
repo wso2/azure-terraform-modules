@@ -14,7 +14,7 @@ resource "azurerm_subnet" "bastion_host_subnet" {
   resource_group_name                       = var.resource_group_name
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = [var.subnet_address_prefixes]
-  private_endpoint_network_policies_enabled = true
+  private_endpoint_network_policies_enabled = var.bastion_host_subnet_enforce_private_link_endpoint_network_policies
 }
 
 resource "azurerm_network_security_group" "bastion_host_nsg" {

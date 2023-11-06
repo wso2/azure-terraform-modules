@@ -178,3 +178,9 @@ variable "private_dns_zone_ids" {
   description = "List of Private DNS Zone IDs to add to the Private DNS Zone Group of the Storage Account"
   type        = list(string)
 }
+
+variable "bastion_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the bastion subnet"
+  type        = bool
+}

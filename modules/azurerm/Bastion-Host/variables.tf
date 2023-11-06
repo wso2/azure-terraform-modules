@@ -111,3 +111,9 @@ variable "allow_https_internet_inbound" {
   description = "Specify whether to allow HTTPS Inbound internet traffic or not"
   type        = bool
 }
+
+variable "bastion_host_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the bastion host subnet"
+  type        = bool
+}

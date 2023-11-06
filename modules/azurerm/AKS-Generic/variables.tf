@@ -288,3 +288,15 @@ variable "azure_policy_enabled" {
   description = "Flag to enable Azure policies for the cluster"
   type        = bool
 }
+
+variable "aks_nodepool_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the aks nodepool subnet"
+  type        = bool
+}
+
+variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies" {
+  default     = false
+  description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
+  type        = bool
+}
