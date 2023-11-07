@@ -152,9 +152,9 @@ variable "ssl_policy_name" {
 }
 
 variable "appgw_backend_http_settings" {
-  default     = [{}]
+  default     = [{ default = "default" }]
   description = "List of maps including backend http settings configurations"
-  type        = list(map(string))
+  type        = any
 }
 
 variable "appgw_http_listeners" {
@@ -164,9 +164,9 @@ variable "appgw_http_listeners" {
 }
 
 variable "appgw_backend_pools" {
-  default     = [{}]
+  default     = [{ default = "default" }]
   description = "List of maps including backend pool configurations"
-  type        = list(map(string))
+  type        = any
 }
 
 variable "ssl_certificates_configs" {
