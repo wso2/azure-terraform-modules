@@ -9,13 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "value of the project"
+variable "private_endpoint_subnet_network_security_group_name" {
+  description = "The name of the network security group for the private endpoint subnet."
   type        = string
 }
 
-variable "environment" {
-  description = "value of the environment"
+variable "private_endpoint_subnet_name" {
+  description = "The name of the private endpoint subnet."
   type        = string
 }
 
@@ -24,13 +24,8 @@ variable "location" {
   type        = string
 }
 
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding to be used for indenting the generated HCL code."
+variable "private_endpoint_subnet_route_table_name" {
+  description = "The name of the route table for the private endpoint subnet."
   type        = string
 }
 

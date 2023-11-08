@@ -9,28 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project. Eg: asgardeo"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment. Eg: dev"
+variable "private_link_service_name" {
+  description = "The name of the Private Link Service."
   type        = string
 }
 
 variable "location" {
   description = "The location of the resource need to be created."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding value."
   type        = string
 }
 

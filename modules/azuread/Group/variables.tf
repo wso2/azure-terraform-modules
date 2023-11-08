@@ -9,16 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment"
-  type        = string
-}
-
 variable "group_name" {
   description = "The name of the group."
   type        = string

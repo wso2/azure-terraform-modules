@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_application_insights_api_key" "application_insights_read_telemetry_api_key" {
-  name                    = var.name
+  name                    = var.app_insight_api_key_name
   application_insights_id = var.application_insights_id
   read_permissions        = ["aggregate", "api", "draft", "extendqueries", "search"]
 }

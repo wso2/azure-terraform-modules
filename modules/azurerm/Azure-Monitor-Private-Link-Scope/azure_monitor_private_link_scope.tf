@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_private_link_scope" "monitor_private_link_scope" {
-  name                = join("-", ["ampls", var.project, var.workload, var.environment, var.location, var.padding])
+  name                = join("-", ["ampls", var.monitor_private_link_scope_name])
   resource_group_name = var.resource_group_name
   tags                = var.tags
 }

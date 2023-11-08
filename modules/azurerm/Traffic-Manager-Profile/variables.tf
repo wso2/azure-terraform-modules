@@ -20,13 +20,13 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "environment" {
-  description = "The environment to deploy the Traffic Manager Profile."
+variable "traffic_manager_profile_dns_config_relative_name" {
+  description = "The relative DNS name of the Traffic Manager Profile."
   type        = string
 }
 
-variable "project" {
-  description = "The project name to deploy the Traffic Manager Profile."
+variable "traffic_manager_profile_name" {
+  description = "The name of the Traffic Manager Profile."
   type        = string
 }
 
@@ -76,12 +76,3 @@ variable "traffic_view_enabled" {
   type        = bool
 }
 
-variable "location" {
-  description = "The Azure region to deploy"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the deployment"
-  type        = string
-}

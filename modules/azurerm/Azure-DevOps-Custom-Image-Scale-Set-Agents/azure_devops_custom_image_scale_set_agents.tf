@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtual_machine_scale_set" {
-  name                        = join("-", ["vmss", var.project, local.scale_set_agents_application_name, var.environment, var.location, var.padding])
+  name                        = join("-", ["vmss", var.virtual_machine_scale_set_name])
   resource_group_name         = var.resource_group_name
   location                    = var.location
   sku                         = var.sku
@@ -41,7 +41,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtua
   }
 
   network_interface {
-    name    = join("-", ["nic", var.project, local.scale_set_agents_application_name, var.environment, var.location, var.padding])
+    name    = join("-", ["nic", var.virtual_machine_scale_set_nic_name])
     primary = var.network_interface_is_primary
 
     ip_configuration {

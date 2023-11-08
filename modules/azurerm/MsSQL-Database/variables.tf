@@ -9,6 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "mssql_database_name" {
+  description = "The name of the Azure SQL Database."
+  type        = string
+}
+
 variable "collation" {
   default     = "SQL_Latin1_General_CP1_CI_AS"
   description = "The collation of the database"
@@ -36,26 +41,6 @@ variable "short_term_retention_policy_retention_days" {
   default     = 7
   description = "The number of days to retain backups for"
   type        = number
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "workload" {
-  description = "The workload type for the Key Vault."
-  type        = string
-}
-
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
-  type        = string
 }
 
 variable "tags" {

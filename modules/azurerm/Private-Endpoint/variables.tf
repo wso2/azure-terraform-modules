@@ -44,22 +44,12 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "project" {
-  description = "value of the project"
+variable "private_endpoint_service_connection_name" {
+  description = "The name of the private endpoint service connection to create."
   type        = string
 }
 
-variable "workload_name" {
-  description = "value of the workload name"
-  type        = string
-}
-
-variable "environment" {
-  description = "value of the environment"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding to differentiate between resources"
+variable "private_endpoint_name" {
+  description = "The name of the private endpoint to create."
   type        = string
 }

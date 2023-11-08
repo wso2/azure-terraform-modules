@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_bastion_host" "bastion_host" {
-  name                   = join("-", ["bastion", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                   = join("-", ["bastion", var.bastion_host_name])
   resource_group_name    = var.resource_group_name
   location               = var.location
   copy_paste_enabled     = var.copy_paste_enabled

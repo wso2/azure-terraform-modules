@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project name"
-  type        = string
-}
-
-variable "environment" {
-  description = "The enviroment"
+variable "automation_runbook_name" {
+  description = "The azure automation runbook name"
   type        = string
 }
 

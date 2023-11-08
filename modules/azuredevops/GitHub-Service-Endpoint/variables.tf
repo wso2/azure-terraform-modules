@@ -9,18 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "github_service_endpoint_name" {
+  description = "The github service endpoint name."
+  type        = string
+}
+
 variable "project_id" {
   description = "The ID of the project."
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project in which the service endpoint will be created."
-  type        = string
-}
-
-variable "service_endpoint_name" {
-  description = "The name you will use to refer to this service connection in task inputs."
   type        = string
 }
 

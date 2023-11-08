@@ -15,7 +15,7 @@ resource "azurerm_application_insights_workbook" "application_insights_workbook"
   name                = random_uuid.uuid.result
   resource_group_name = var.resource_group_name
   location            = var.location
-  display_name        = join("-", ["wb", var.project, var.application_name, var.environment, var.location, var.padding])
+  display_name        = join("-", ["wb", var.application_insighs_workbook_display_name])
   source_id           = var.source_resource_id
   category            = var.category
   description         = var.description

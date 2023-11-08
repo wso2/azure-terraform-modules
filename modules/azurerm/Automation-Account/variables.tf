@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project name"
-  type        = string
-}
-
-variable "environment" {
-  description = "The enviroment"
+variable "automation_account_name" {
+  description = "The azure automation account name"
   type        = string
 }
 
@@ -26,11 +21,6 @@ variable "resource_group_name" {
 
 variable "location" {
   description = "The cloud region"
-  type        = string
-}
-
-variable "automation_account_name" {
-  description = "The azure automation account name"
   type        = string
 }
 

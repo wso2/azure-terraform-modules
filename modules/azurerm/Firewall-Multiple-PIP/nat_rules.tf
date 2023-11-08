@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_firewall_nat_rule_collection" "public_loadbalancer_dnat_rules" {
-  name                = join("-", ["fwnatrc", var.shortened_project, var.application_name, "internallb", var.shortened_environment, var.shortened_location, var.shortened_padding])
+  name                = join("-", ["fwnatrc", var.firewall_nat_rule_collection_name])
   azure_firewall_name = azurerm_firewall.azure_firewall.name
   resource_group_name = var.resource_group_name
   priority            = var.dynamic_nat_rule_collection_priority

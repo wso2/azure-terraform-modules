@@ -11,7 +11,7 @@
 
 resource "azuredevops_serviceendpoint_azurecr" "serviceendpoint_azurecr" {
   project_id                = var.project_id
-  service_endpoint_name     = join("-", [var.project, var.service_endpoint_name])
+  service_endpoint_name     = var.azure_acr_service_endpoint_name
   resource_group            = var.acr_rg_name
   description               = var.description
   azurecr_spn_tenantid      = var.acr_spn_tenant_id

@@ -11,7 +11,7 @@
 
 resource "azuredevops_variable_group" "devops_variable_group" {
   project_id   = var.project_id
-  name         = join("-", [var.project, var.name])
+  name         = var.variable_group_name
   allow_access = var.allow_access
 
   key_vault {

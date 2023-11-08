@@ -9,23 +9,38 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Project name"
+variable "application_gateway_name" {
+  description = "Name of the application gateway"
   type        = string
 }
 
-variable "environment" {
-  description = "Environment name"
+variable "application_gateway_ip_configuration_name" {
+  description = "Name of the application gateway ip configuration"
+  type        = string
+}
+
+variable "frontend_public_ip_configuration_name" {
+  description = "Name of the frontend public ip configuration"
+  type        = string
+}
+
+variable "frontend_private_ip_configuration_name" {
+  description = "Name of the frontend private ip configuration"
+  type        = string
+}
+
+variable "application_gateway_network_security_group_name" {
+  description = "Name of the network security group"
+  type        = string
+}
+
+variable "application_gateway_subnet_name" {
+  description = "Name of the application gateway subnet"
   type        = string
 }
 
 variable "location" {
   description = "Azure region"
-  type        = string
-}
-
-variable "name" {
-  description = "Name of the resource"
   type        = string
 }
 
@@ -250,16 +265,6 @@ variable "tags" {
   default     = {}
   description = "Tags to be used in the resource tags"
   type        = map(string)
-}
-
-variable "padding" {
-  description = "Padding to differentiate between resources"
-  type        = string
-}
-
-variable "application_name" {
-  description = "Application name"
-  type        = string
 }
 
 variable "app_gateway_subnet_enforce_private_link_endpoint_network_policies" {

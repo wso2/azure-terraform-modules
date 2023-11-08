@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_network_security_rule" "network_security_rule" {
-  name                         = join("", [var.access, var.scope])
+  name                         = var.network_security_rule_name
   priority                     = var.priority
   direction                    = var.direction
   access                       = var.access

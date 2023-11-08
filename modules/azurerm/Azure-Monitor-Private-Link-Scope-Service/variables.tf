@@ -9,28 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment"
-  type        = string
-}
-
-variable "location" {
-  description = "The Azure region to deploy"
-  type        = string
-}
-
-variable "workload" {
-  description = "Worklaod name for the resource"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the deployment"
+variable "monitor_private_link_scoped_service_name" {
+  description = "The name of the Azure Monitor Private Link Scoped Service."
   type        = string
 }
 

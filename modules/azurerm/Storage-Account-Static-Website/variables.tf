@@ -9,18 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "shortened_project" {
-  description = "Shortened project name"
-  type        = string
-}
-
-variable "application_name" {
-  description = "Name of the resource"
-  type        = string
-}
-
-variable "shortened_environment" {
-  description = "Shortened name for environment of the project in which this resource is deployed"
+variable "storage_account_name" {
+  description = "Name of the storage account"
   type        = string
 }
 
@@ -47,16 +37,6 @@ variable "account_replication_type" {
 variable "tags" {
   description = "Tags to be used in resources"
   type        = map(string)
-}
-
-variable "shortened_location" {
-  description = "Shortened name for the Azure location where the resource exists"
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "Shortened padding for the resource name"
-  type        = string
 }
 
 variable "index_document" {

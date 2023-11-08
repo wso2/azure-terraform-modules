@@ -30,7 +30,7 @@ resource "azurerm_virtual_machine_extension" "data_disk_attachment" {
   type_handler_version = "2.0"
   settings             = <<SETTINGS
     {
-        "script": "${base64encode(replace(file(module.sre-task-automation-repository.mount_vm_data_disk_shell_script), "disk_lun_value", local.bastion_vm_managed_disk_attachment_lun))}"
+        "script": "${base64encode(replace(file(module.sre-task-automation-repository.mount_vm_data_disk_shell_script), "disk_lun_value", var.bastion_vm_managed_disk_attachment_lun))}"
     }
 SETTINGS
   depends_on = [

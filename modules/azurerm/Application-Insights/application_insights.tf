@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_application_insights" "application_insights" {
-  name                                  = join("-", ["appi", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                                  = join("-", ["appi", var.application_insights_name])
   location                              = var.location
   resource_group_name                   = var.resource_group_name
   application_type                      = var.application_type

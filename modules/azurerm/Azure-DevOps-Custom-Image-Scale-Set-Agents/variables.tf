@@ -9,6 +9,26 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "virtual_machine_scale_set_name" {
+  description = "The name of the Linux Virtual Machine Scale Set."
+  type        = string
+}
+
+variable "virtual_machine_scale_set_nic_name" {
+  description = "The name of the Network Interface which should be attached to each Virtual Machine in the Scale Set."
+  type        = string
+}
+
+variable "virtual_machine_scale_set_subnet_name" {
+  description = "The virtual machine scaleset subnet name."
+  type        = string
+}
+
+variable "virtual_machine_scale_set_network_security_group_name" {
+  description = "The virtual machine scaleset network security group name."
+  type        = string
+}
+
 variable "resource_group_name" {
   description = "The name of the Resource Group in which the Linux Virtual Machine Scale Set should be exist."
   type        = string
@@ -21,16 +41,6 @@ variable "location" {
 
 variable "sku" {
   description = "The Virtual Machine SKU for the Scale Set, such as Standard_F2."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding value."
-  type        = string
-}
-
-variable "name" {
-  description = "The name of the Linux Virtual Machine Scale Set."
   type        = string
 }
 
@@ -81,16 +91,6 @@ variable "virtual_network_name" {
 variable "subnet_address_prefixes" {
   description = "The address prefixes to use for the subnet."
   type        = list(string)
-}
-
-variable "project" {
-  description = "The name of the project. Eg: asgardeo"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment. Eg: dev"
-  type        = string
 }
 
 variable "tags" {

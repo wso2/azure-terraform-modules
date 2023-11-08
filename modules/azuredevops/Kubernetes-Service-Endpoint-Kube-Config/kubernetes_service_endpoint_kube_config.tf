@@ -11,7 +11,7 @@
 
 resource "azuredevops_serviceendpoint_kubernetes" "devops_serviceendpoint_kubernetes" {
   project_id            = var.project_id
-  service_endpoint_name = join("-", [var.project, var.service_endpoint_name])
+  service_endpoint_name = var.kubernetes_service_endpoint_name
   apiserver_url         = var.apiserver_url
   authorization_type    = var.authorization_type
   description           = var.description

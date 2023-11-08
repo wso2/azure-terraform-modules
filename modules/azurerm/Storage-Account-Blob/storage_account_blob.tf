@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_storage_account" "storage_account" {
-  name                            = join("", ["st", local.st_name_without_prefix])
+  name                            = join("", ["st", var.storage_account_name])
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_tier                    = var.account_tier

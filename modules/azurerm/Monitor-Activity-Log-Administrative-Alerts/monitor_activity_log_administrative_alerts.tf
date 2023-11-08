@@ -12,7 +12,7 @@
 resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_administrative_alert" {
   for_each            = var.activity_log_administrative_alerts
   tags                = var.tags
-  name                = join("-", ["ala", var.project, each.value.reason, var.environment, var.padding])
+  name                = join("-", ["ala", each.value.monitor_activity_log_alert_name])
   resource_group_name = var.resource_group_name
   scopes              = each.value.scopes
   description         = each.value.description

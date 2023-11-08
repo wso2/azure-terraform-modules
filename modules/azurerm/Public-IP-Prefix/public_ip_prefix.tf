@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_public_ip_prefix" "public_ip_prefix" {
-  name                = join("-", ["pipp", var.project, var.application_name, var.environment, var.padding])
+  name                = join("-", ["pipp", var.public_ip_prefix_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   ip_version          = var.ip_version

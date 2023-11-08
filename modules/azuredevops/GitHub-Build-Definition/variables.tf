@@ -9,18 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "build_definition_name" {
+  description = "The name of the build definition."
+  type        = string
+}
+
 variable "project_id" {
   description = "The ID of the project."
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project in which the service endpoint will be created."
-  type        = string
-}
-
-variable "definition_name" {
-  description = "The name of the build definition."
   type        = string
 }
 

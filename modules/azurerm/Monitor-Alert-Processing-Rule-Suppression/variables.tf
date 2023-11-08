@@ -14,18 +14,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "environment" {
-  description = "Environment Name"
-  type        = string
-}
-
-variable "project" {
-  description = "Project Name"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the Resource"
+variable "monitor_alert_processing_rule_suppression_name" {
+  description = "Name of the Monitor Alert Processing Rule Suppression"
   type        = string
 }
 

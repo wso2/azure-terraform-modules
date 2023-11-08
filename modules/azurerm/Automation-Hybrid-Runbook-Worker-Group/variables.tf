@@ -9,6 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "automation_hybrid_runbook_worker_group_name" {
+  description = "The name of the Automation Hybrid Runbook Worker Group"
+  type        = string
+}
+
 variable "resource_group_name" {
   description = "The name of the Resource Group where the Automation should exist"
   type        = string
@@ -16,15 +21,5 @@ variable "resource_group_name" {
 
 variable "automation_account_name" {
   description = "The name of the automation account in which the Hybrid Worker is created"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment"
-  type        = string
-}
-
-variable "name" {
-  description = "The name which should be used for this Automation Account Runbook Worker Group"
   type        = string
 }

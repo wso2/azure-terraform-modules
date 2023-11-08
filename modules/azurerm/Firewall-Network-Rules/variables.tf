@@ -19,28 +19,8 @@ variable "firewall_name" {
   type        = string
 }
 
-variable "application_name" {
-  description = "Application name"
-  type        = string
-}
-
-variable "shortened_project" {
-  description = "Project name"
-  type        = string
-}
-
-variable "shortened_environment" {
-  description = "Environment"
-  type        = string
-}
-
-variable "shortened_location" {
-  description = "Location"
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "Padding"
+variable "firewall_network_rule_collection_name" {
+  description = "Firewall network rule collection name"
   type        = string
 }
 

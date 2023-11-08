@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_firewall_application_rule_collection" "firewall_application_rule_collection" {
-  name                = join("-", ["fwapprc", var.shortened_project, var.application_name, "allowed", var.shortened_environment, var.shortened_location, var.shortened_padding])
+  name                = join("-", ["fwapprc", var.firewall_application_rule_collection_name])
   azure_firewall_name = azurerm_firewall.azure_firewall.name
   resource_group_name = var.resource_group_name
   priority            = var.application_rule_collection_priority

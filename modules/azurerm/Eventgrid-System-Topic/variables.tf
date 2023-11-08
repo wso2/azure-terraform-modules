@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project in which this resource is deployed"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment of the project in which this resource is deployed"
+variable "eventgrid_system_topic_name" {
+  description = "The name of the Event Grid System Topic"
   type        = string
 }
 
@@ -32,16 +27,6 @@ variable "location" {
 variable "tags" {
   description = "Tags associated with this resource."
   type        = map(string)
-}
-
-variable "padding" {
-  description = "Padding for this resource"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The application name which should be used for this Event Grid System Topic"
-  type        = string
 }
 
 variable "source_arm_resource_id" {

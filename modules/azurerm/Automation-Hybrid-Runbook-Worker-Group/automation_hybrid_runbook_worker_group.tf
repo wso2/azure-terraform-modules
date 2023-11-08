@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_automation_hybrid_runbook_worker_group" "hybrid_runbook_worker_group" {
-  name                    = join("-", ["hwg", var.environment, var.name])
+  name                    = join("-", ["hwg", var.automation_hybrid_runbook_worker_group_name])
   resource_group_name     = var.resource_group_name
   automation_account_name = var.automation_account_name
 }
