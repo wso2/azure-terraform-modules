@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "github_service_endpoint_name" {
-  description = "The github service endpoint name."
+variable "service_endpoint_name" {
+  description = "The service endpoint name."
   type        = string
 }
 

@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "azure_acr_service_endpoint_name" {
-  description = "The azure acr service endpoint name."
+variable "service_endpoint_name" {
+  description = "The name of the service endpoint."
   type        = string
 }
 

@@ -14,7 +14,7 @@ variable "application_insights_id" {
   type        = string
 }
 
-variable "app_insight_api_key_name" {
+variable "name" {
   description = "Name of the Application Insights read telemetry API key"
   type        = string
 }

@@ -9,27 +9,27 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "virtual_machine_name" {
+variable "vm_name" {
   description = "The name of the virtual machine."
   type        = string
 }
 
-variable "virtual_machine_computer_name" {
+variable "computer_name" {
   description = "The computer name of the virtual machine."
   type        = string
 }
 
-variable "virtual_machine_os_disk_name" {
+variable "os_disk_name" {
   description = "The name of the OS disk."
   type        = string
 }
 
-variable "virtual_machine_nic_name" {
+variable "nic_name" {
   description = "Virtual machine network interface name."
   type        = string
 }
 
-variable "virtual_machine_nic_ip_configuration_name" {
+variable "nic_ip_configuration_name" {
   description = "Virtual machine network interface ip configuration name."
   type        = string
 }

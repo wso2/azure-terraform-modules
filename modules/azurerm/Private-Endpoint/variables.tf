@@ -53,3 +53,8 @@ variable "private_endpoint_name" {
   description = "The name of the private endpoint to create."
   type        = string
 }
+
+variable "private_endpoint_dns_zone_group_name" {
+  description = "The name of the private DNS zone group to create."
+  type        = string
+}

@@ -11,13 +11,13 @@
 
 # Create network interface
 resource "azurerm_network_interface" "automation_vm_nic" {
-  name                = join("-", ["nic", var.virtual_machine_nic_name])
+  name                = join("-", ["nic", var.nic_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
 
   ip_configuration {
-    name                          = join("-", ["nic", var.virtual_machine_nic_ip_configuration_name])
+    name                          = join("-", ["nic", var.nic_ip_configuration_name])
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
   }

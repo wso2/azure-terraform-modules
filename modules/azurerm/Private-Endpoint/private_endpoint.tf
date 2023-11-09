@@ -24,7 +24,7 @@ resource "azurerm_private_endpoint" "private_endpoint" {
   }
 
   private_dns_zone_group {
-    name                 = join("-", ["pvtdns", private_endpoint_dns_zone_group_name])
+    name                 = join("-", ["pvtdns", var.private_endpoint_dns_zone_group_name])
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 }

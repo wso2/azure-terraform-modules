@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "automation_hybrid_runbook_worker_group_name" {
+variable "hybrid_worker_group_name" {
   description = "The name of the Automation Hybrid Runbook Worker Group"
   type        = string
 }

@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_insighs_workbook_display_name" {
+variable "workbook_display_name" {
   description = "The display name of the Workbook"
   type        = string
 }

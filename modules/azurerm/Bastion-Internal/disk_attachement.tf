@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_managed_disk" "bastion_vm_managed_disk" {
-  name                 = join("", ["diskbastion", var.bastion_vm_managed_disk_name])
+  name                 = join("", ["diskbastion", var.managed_disk_name])
   location             = var.location
   resource_group_name  = var.resource_group_name
   storage_account_type = "Standard_LRS"
@@ -21,7 +21,7 @@ resource "azurerm_managed_disk" "bastion_vm_managed_disk" {
 resource "azurerm_virtual_machine_data_disk_attachment" "bastion_vm_managed_disk_attachment" {
   managed_disk_id    = azurerm_managed_disk.bastion_vm_managed_disk.id
   virtual_machine_id = azurerm_linux_virtual_machine.bastion_linux_virtual_machine.id
-  lun                = var.bastion_vm_managed_disk_attachment_lun
+  lun                = var.managed_disk_attachment_lun
   caching            = "ReadWrite"
   depends_on         = [azurerm_linux_virtual_machine.bastion_linux_virtual_machine, azurerm_managed_disk.bastion_vm_managed_disk]
 }

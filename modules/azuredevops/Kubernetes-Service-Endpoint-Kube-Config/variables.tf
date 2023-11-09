@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "kubernetes_service_endpoint_name" {
-  description = "Kubernetes service endpoint name."
+variable "service_endpoint_name" {
+  description = "The service endpoint name."
   type        = string
 }
 

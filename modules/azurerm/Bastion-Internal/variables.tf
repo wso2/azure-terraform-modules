@@ -9,77 +9,77 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "bastion_vm_name" {
+variable "vm_name" {
   description = "The name of the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_computer_name" {
+variable "computer_name" {
   description = "The computer name of the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_os_disk_name" {
+variable "os_disk_name" {
   description = "The name of the OS Disk for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_managed_disk_name" {
+variable "managed_disk_name" {
   description = "The name of the Managed Disk for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_route_table_name" {
+variable "route_table_name" {
   description = "The name of the Route Table to create for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_subnet_name" {
+variable "subnet_name" {
   description = "The name of the subnet where the Bastion VM should be created"
   type        = string
 }
 
-variable "bastion_vm_network_security_group_name" {
+variable "network_security_group_name" {
   description = "The name of the Network Security Group to create for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_nic_name" {
+variable "nic_name" {
   description = "The name of the Network Interface Card to create for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_ip_configuration_name" {
+variable "ip_configuration_name" {
   description = "The name of the IP Configuration to create for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_application_security_group_name" {
+variable "application_security_group_name" {
   description = "The name of the Application Security Group to create for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_storage_account_name" {
+variable "storage_account_name" {
   description = "The name of the Storage Account to create for the Bastion VM"
   type        = string
 }
 
-variable "bastion_vm_storage_account_private_endpoint_name" {
+variable "storage_account_private_endpoint_name" {
   description = "The name of the Private Endpoint for the Storage Account"
   type        = string
 }
 
-variable "bastion_vm_storage_account_private_endpoint_service_connection_name" {
+variable "storage_account_private_endpoint_service_connection_name" {
   description = "The name of the Private Endpoint Service Connection for the Storage Account"
   type        = string
 }
 
-variable "bastion_vm_storage_account_private_endpoint_private_dns_zone_group_name" {
+variable "storage_account_private_endpoint_private_dns_zone_group_name" {
   description = "The name of the Private DNS Zone Group for the Storage Account"
   type        = string
 }
 
-variable "bastion_vm_managed_disk_attachment_lun" {
+variable "managed_disk_attachment_lun" {
   default     = 10
   description = "The LUN of the managed disk attachment"
   type        = number

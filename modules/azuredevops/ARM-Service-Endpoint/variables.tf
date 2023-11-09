@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "azurerm_service_endpoint_name" {
+variable "service_endpoint_name" {
   description = "The name of the service endpoint."
   type        = string
 }
