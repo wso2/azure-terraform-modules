@@ -29,11 +29,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "private_dns_zone_vnet_link_name" {
-  description = "The name of the private DNS zone virtual network link."
-  type        = string
-}
-
 variable "tags" {
   description = "Tags to be used in resources"
   type        = map(string)

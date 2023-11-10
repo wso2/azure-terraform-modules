@@ -29,11 +29,6 @@ variable "automation_account_name" {
   type        = string
 }
 
-variable "automation_runbook_name" {
-  description = "The azure automation runbook name"
-  type        = string
-}
-
 variable "uri" {
   description = "The URI od the external automation runbook"
   type        = string
