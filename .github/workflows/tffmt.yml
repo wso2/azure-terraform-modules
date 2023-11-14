@@ -1,9 +1,8 @@
 name: TF Formatting Check
 on:
-  push:
-    branches-ignore: [master, main]
   pull_request:
-    branches: [master, main]
+    branches: 
+        - main
 
 jobs:
   build:
