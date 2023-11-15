@@ -24,7 +24,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   http_application_routing_enabled    = var.http_application_routing_enabled
   tags                                = var.tags
   depends_on = [
-    azurerm_log_analytics_solution.aks_las,
     azurerm_subnet.aks_node_pool_subnet
   ]
 

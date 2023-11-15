@@ -35,20 +35,8 @@ variable "tags" {
   type        = map(string)
 }
 
-# Log analytics details
-variable "log_analytics_resource_group_name" {
-  default     = null
-  description = "Resource group of the Log analytics workspace"
-  type        = string
-}
-
 variable "log_analytics_workspace_id" {
   description = "Log Analytics Workspace Resource id"
-  type        = string
-}
-
-variable "log_analytics_workspace_name" {
-  description = "Log Analytics Workspace Resource name"
   type        = string
 }
 

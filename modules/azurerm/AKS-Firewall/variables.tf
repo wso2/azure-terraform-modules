@@ -177,11 +177,6 @@ variable "log_analytics_workspace_id" {
   type        = string
 }
 
-variable "log_analytics_workspace_name" {
-  description = "Log analytics workspace name"
-  type        = string
-}
-
 variable "azure_policy_enabled" {
   description = "Enable Azure policy"
   type        = bool

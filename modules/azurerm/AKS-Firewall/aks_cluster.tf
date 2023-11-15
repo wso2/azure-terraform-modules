@@ -24,7 +24,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   azure_policy_enabled                = var.azure_policy_enabled
   http_application_routing_enabled    = var.http_application_routing_enabled
   tags                                = var.tags
-  depends_on                          = [azurerm_log_analytics_solution.aks_las, azurerm_subnet.aks_node_pool_subnet]
+  depends_on                          = [azurerm_subnet.aks_node_pool_subnet]
 
   lifecycle {
     ignore_changes = [
