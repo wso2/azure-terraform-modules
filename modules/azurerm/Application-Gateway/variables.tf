@@ -215,7 +215,7 @@ variable "appgw_rewrite_rule_set" {
 }
 
 variable "appgw_probes" {
-  default     = []
+  default     = [{ default = "default" }]
   description = "List of maps including request probes configurations"
   type        = list(map(string))
 }
