@@ -19,8 +19,8 @@ variable "firewall_name" {
   type        = string
 }
 
-variable "firewall_network_rule_collection_name" {
-  description = "Firewall network rule collection name"
+variable "firewall_application_rule_collection_name" {
+  description = "Firewall application rule collection name"
   type        = string
 }
 
@@ -35,8 +35,8 @@ variable "action" {
   type        = string
 }
 
-variable "network_rules" {
-  description = "Map of Network rules"
+variable "application_rules" {
+  description = "Map of Application rules"
   type = map(object({
     name             = string
     source_addresses = list(string)
