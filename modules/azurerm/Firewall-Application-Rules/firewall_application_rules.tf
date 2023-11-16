@@ -23,7 +23,11 @@ resource "azurerm_firewall_application_rule_collection" "application_rule_collec
       name             = rule.value.name
       source_addresses = rule.value.source_addresses
       target_fqdns     = rule.value.target_fqdns
-      protocols        = rule.value.protocol
+      protocol {
+        port = rule.value.protocol.port
+        type = rule.value.protocol.type
+      }
+
     }
   }
 }
