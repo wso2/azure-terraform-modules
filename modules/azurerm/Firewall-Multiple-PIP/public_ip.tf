@@ -20,7 +20,7 @@ resource "azurerm_public_ip_prefix" "public_ip_prefix_fw" {
 
 resource "azurerm_public_ip" "firewall_public_ip" {
   for_each            = var.dynamic_nat_rules
-  name                = join("-", ["pip", each.key])
+  name                = join("-", ["pip", each.value.public_ip_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
