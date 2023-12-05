@@ -9,38 +9,19 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project_short_name" {
-  description = "The short name  of project to which the policy definition is created"
+
+variable "display_name" {
+  description = "The display name of the policy definition."
   type        = string
 }
 
-variable "environment_short_name" {
-  description = "The short name of the environment to which the policy definition is created"
-  type        = string
-}
-
-variable "project" {
-  description = "The project to which the policy definition is created"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment to which the policy definition is created"
-  type        = string
-}
-
-variable "purpose" {
-  description = "The purpose of the policy definition. Changing this forces a new resource to be created"
+variable "policy_definition_name" {
+  description = "The name of the policy definition."
   type        = string
 }
 
 variable "policy_type" {
   description = "The policy type. Possible values are BuiltIn, Custom, NotSpecified and Static. Changing this forces a new resource to be created."
-  type        = string
-}
-
-variable "display_name" {
-  description = "The display name of the policy definition."
   type        = string
 }
 

@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_alert_processing_rule_suppression" "monitor_alert_processing_rule_suppression" {
-  name                = join("-", ["apr", var.project, var.environment, var.padding])
+  name                = join("-", ["apr", var.monitor_alert_processing_rule_suppression_name])
   resource_group_name = var.resource_group_name
   scopes              = [var.scope]
   tags                = var.tags

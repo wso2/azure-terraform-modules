@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "value of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "value of the environment"
+variable "public_ip_prefix_name" {
+  description = "The name of the Public IP Prefix."
   type        = string
 }
 
@@ -48,15 +43,5 @@ variable "sku" {
 variable "ip_version" {
   default     = "IPv4"
   description = "The IP version of the Public IP Prefix."
-  type        = string
-}
-
-variable "application_name" {
-  description = "Application name of the public ip prefix"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding"
   type        = string
 }

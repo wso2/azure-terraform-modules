@@ -9,33 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project in which this resource is deployed"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment of the project in which this resource is deployed"
+variable "eventgrid_system_topic_event_subscription_name" {
+  description = "Event grid system topic event subscription name"
   type        = string
 }
 
 variable "resource_group_name" {
   description = "(Required) The name of the Resource Group where the Event Subscription should exist. Changing this forces a new Event Subscription to be created."
-  type        = string
-}
-
-variable "location" {
-  description = "(Required) The Azure Region where the Event Subscription should exist. Changing this forces a new Event Subscription to be created."
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for this resource"
-  type        = string
-}
-
-variable "application_name" {
-  description = "(Required)The application name which should be used for this Event Subscription. Changing this forces a newEvent Subscription to be created."
   type        = string
 }
 

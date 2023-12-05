@@ -14,14 +14,6 @@ output "mssql_id" {
   value      = azurerm_mssql_database.mssql_database.id
 }
 
-output "mssql_app_name" {
-  value = var.application_name
-}
-
-output "mssql_workload" {
-  value = var.workload
-}
-
 output "mssql_db_name" {
   depends_on = [azurerm_mssql_database.mssql_database]
   value      = azurerm_mssql_database.mssql_database.name

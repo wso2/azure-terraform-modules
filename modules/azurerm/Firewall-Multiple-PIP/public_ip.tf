@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_public_ip_prefix" "public_ip_prefix_fw" {
-  name                = join("-", ["pipp", var.project, join("", ["fw", var.application_name]), var.environment, var.padding])
+  name                = join("-", ["pipp", var.firewall_public_ip_prefix_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   prefix_length       = var.public_ip_prefix_length
@@ -20,7 +20,7 @@ resource "azurerm_public_ip_prefix" "public_ip_prefix_fw" {
 
 resource "azurerm_public_ip" "firewall_public_ip" {
   for_each            = var.dynamic_nat_rules
-  name                = join("-", ["pip", var.project, join("", ["fw", var.application_name, each.key]), var.environment, var.location, var.padding])
+  name                = join("-", ["pip", each.value.public_ip_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"

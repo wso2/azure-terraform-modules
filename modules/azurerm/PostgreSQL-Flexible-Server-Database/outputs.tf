@@ -9,6 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  scale_set_agents_application_name = join("", ["scalesetagents", var.name])
+output "postgresql_db_id" {
+  value      = azurerm_postgresql_flexible_server_database.postgresql_database.id
+  depends_on = [azurerm_postgresql_flexible_server_database.postgresql_database]
 }

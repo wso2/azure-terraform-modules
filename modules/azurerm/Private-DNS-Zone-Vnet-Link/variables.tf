@@ -9,12 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "padding" {
-  type        = string
-  description = "Padding to differentiate between resources"
-}
-
-variable "vnet_link_name" {
+variable "private_dns_zone_vnet_link_name" {
   type        = string
   description = "VNet Link name for the Private DNS Zone"
 }
@@ -22,21 +17,6 @@ variable "vnet_link_name" {
 variable "resource_group_name" {
   type        = string
   description = "Resource group name of Private DNS Zone"
-}
-
-variable "environment" {
-  type        = string
-  description = "Environment name"
-}
-
-variable "project" {
-  type        = string
-  description = "Project name"
-}
-
-variable "application_name" {
-  type        = string
-  description = "Name of the application"
 }
 
 variable "private_dns_zone_name" {

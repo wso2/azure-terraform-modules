@@ -9,6 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  cdne_name_without_prefix = join("-", [var.project, var.application_name, var.environment, var.location, var.padding])
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 2.89.0"
+    }
+  }
 }

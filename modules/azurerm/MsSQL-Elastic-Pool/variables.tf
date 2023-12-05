@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment"
+variable "mssql_elasticpool_name" {
+  description = "The name of the Azure SQL Elastic Pool."
   type        = string
 }
 
@@ -26,16 +21,6 @@ variable "resource_group_name" {
 
 variable "location" {
   description = "The Azure region to deploy"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application"
-  type        = string
-}
-
-variable "workload" {
-  description = "Worklaod name for the resource"
   type        = string
 }
 

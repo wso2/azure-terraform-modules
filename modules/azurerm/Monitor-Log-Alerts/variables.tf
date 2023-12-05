@@ -19,21 +19,6 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "environment" {
-  description = "Environment"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding"
-  type        = string
-}
-
-variable "project" {
-  description = "Project"
-  type        = string
-}
-
 variable "alert_enabled" {
   default     = true
   description = "Enable or disable the alert."
@@ -44,7 +29,7 @@ variable "recommendation_alerts" {
   description = "Map of Azure recommendation alerts"
   type = map(object({
     scopes                  = list(string)
-    reason                  = string
+    alert_name              = string
     description             = string
     recommendation_impact   = string
     monitor_action_group_id = string
@@ -55,7 +40,7 @@ variable "activity_log_alerts" {
   description = "Map of Azure Activity Log alerts"
   type = map(object({
     scopes                  = list(string)
-    reason                  = string
+    alert_name              = string
     description             = string
     monitor_action_group_id = string
     criteriaLevel           = string
@@ -67,7 +52,7 @@ variable "resource_health_alerts" {
   description = "Map of Azure resource health alerts"
   type = map(object({
     scopes                  = list(string)
-    reason                  = string
+    alert_name              = string
     description             = string
     monitor_action_group_id = string
     criteriaLevel           = string
@@ -87,7 +72,7 @@ variable "service_health_alerts" {
   description = "Map of Azure service health alerts"
   type = map(object({
     scopes                  = list(string)
-    reason                  = string
+    alert_name              = string
     description             = string
     monitor_action_group_id = string
     query_enabled           = bool
@@ -102,7 +87,7 @@ variable "specific_service_health_alerts" {
   description = "Map of Azure service health alerts"
   type = map(object({
     scopes                  = list(string)
-    reason                  = string
+    alert_name              = string
     description             = string
     monitor_action_group_id = string
     query_enabled           = bool

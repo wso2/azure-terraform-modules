@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_name" {
-  description = "The name of the application."
+variable "cdn_profile_name" {
+  description = "The name of the CDN profile."
   type        = string
 }
 
@@ -31,20 +31,5 @@ variable "tags" {
 
 variable "cdn_sku_profile" {
   description = "The pricing related information of current CDN profile."
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project."
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding to be used for the CDN endpoint."
   type        = string
 }

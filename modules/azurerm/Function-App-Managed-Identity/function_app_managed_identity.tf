@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_function_app" "function_app_with_managed_identity" {
-  name                       = join("-", [var.project, var.application_name, var.environment, var.location, var.padding])
+  name                       = var.function_app_name
   location                   = var.location
   resource_group_name        = var.resource_group_name
   app_service_plan_id        = var.app_service_plan_id

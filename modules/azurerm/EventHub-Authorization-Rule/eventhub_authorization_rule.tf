@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_eventhub_authorization_rule" "eventhub_authorization_rule" {
-  name                = join("-", ["evhar", var.project, var.application_name, var.workload_name, var.environment, var.location, var.padding])
+  name                = join("-", ["evhar", var.eventhub_authorization_rule_name])
   namespace_name      = var.eventhub_namespace_name
   eventhub_name       = var.eventhub_name
   resource_group_name = var.resource_group_name

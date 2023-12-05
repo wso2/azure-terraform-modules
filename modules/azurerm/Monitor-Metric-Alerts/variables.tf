@@ -24,21 +24,6 @@ variable "location" {
   type        = string
 }
 
-variable "environment" {
-  description = "Environment of the resource group"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the resource group"
-  type        = string
-}
-
-variable "project" {
-  description = "Project of the resource group"
-  type        = string
-}
-
 variable "alert_enabled" {
   default     = true
   description = "Enable or disable the alert."
@@ -49,7 +34,7 @@ variable "metric_alerts_with_2_dimensions" {
   description = "Map of Azure metric alerts with 2 dimensions"
   type = map(object({
     scopes                    = list(string)
-    reason                    = string
+    alert_name                = string
     description               = string
     monitor_action_group_id   = string
     frequency                 = string
@@ -74,7 +59,7 @@ variable "metric_alerts_with_1_dimension" {
   description = "Map of Azure metric alerts with 1 dimensions"
   type = map(object({
     scopes                    = list(string)
-    reason                    = string
+    alert_name                = string
     description               = string
     monitor_action_group_id   = string
     frequency                 = string
@@ -96,7 +81,7 @@ variable "metric_alerts" {
   description = "Map of Azure metric alerts"
   type = map(object({
     scopes                    = list(string)
-    reason                    = string
+    alert_name                = string
     description               = string
     monitor_action_group_id   = string
     frequency                 = string

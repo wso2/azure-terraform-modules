@@ -19,28 +19,13 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "environment" {
-  description = "value of the environment"
+variable "montior_action_group_name" {
+  description = "Name of the Action Group."
   type        = string
 }
 
 variable "short_name" {
   description = "Short name"
-  type        = string
-}
-
-variable "severity" {
-  description = "Severity"
-  type        = string
-}
-
-variable "padding" {
-  description = "value of the padding"
-  type        = string
-}
-
-variable "project" {
-  description = "value of the project"
   type        = string
 }
 

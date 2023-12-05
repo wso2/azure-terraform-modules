@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_cosmosdb_account" "cosmos_db_account" {
-  name                              = join("-", ["cosmos", var.project, var.application_name, var.environment, var.location])
+  name                              = join("-", ["cosmos", var.cosmosdb_account_name])
   location                          = var.location
   resource_group_name               = var.resource_group_name
   offer_type                        = var.offer_type

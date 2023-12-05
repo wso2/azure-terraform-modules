@@ -9,18 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "variable_group_name" {
+  description = "Variable group name"
+  type        = string
+}
+
 variable "project_id" {
   description = "Project id"
-  type        = string
-}
-
-variable "project" {
-  description = "Project name"
-  type        = string
-}
-
-variable "name" {
-  description = "Variable group name"
   type        = string
 }
 

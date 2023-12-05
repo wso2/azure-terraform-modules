@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_data_collection_rule_association" "data_collection_rule_association" {
-  name                    = join("-", ["dcra", var.project, var.association_name, var.environment])
+  name                    = join("-", ["dcra", var.data_collection_rule_association_name])
   data_collection_rule_id = var.data_collection_rule_id
   target_resource_id      = var.target_resource_id
 }

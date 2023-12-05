@@ -9,6 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  st_name_without_prefix = join("", [var.shortened_project, var.application_name, var.shortened_environment, var.shortened_location, var.shortened_padding])
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.52.0"
+    }
+  }
 }

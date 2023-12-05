@@ -9,18 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "environment" {
-  description = "The environment"
-  type        = string
-}
-
-variable "project" {
-  description = "The project"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application."
+variable "cosmosdb_account_name" {
+  description = "The name of the Cosmos DB account."
   type        = string
 }
 

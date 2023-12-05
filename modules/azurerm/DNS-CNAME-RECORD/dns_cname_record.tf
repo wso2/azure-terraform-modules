@@ -9,6 +9,10 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  cdnp_name_without_prefix = join("-", [var.project, var.application_name, var.environment, var.location, var.padding])
+resource "azurerm_dns_cname_record" "example" {
+  name                = var.record_name
+  zone_name           = var.dns_zone_name
+  resource_group_name = var.resource_group_name
+  ttl                 = var.ttl
+  record              = var.record
 }

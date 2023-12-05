@@ -9,9 +9,27 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  appgw_name                             = join("-", ["agw", var.project, var.environment, var.location, var.padding])
-  gateway_ip_configuration_name          = join("-", [var.project, var.environment, var.name, "gw-ip-config"])
-  frontend_public_ip_configuration_name  = join("-", [var.project, var.environment, var.name, "public-ip-config"])
-  frontend_private_ip_configuration_name = join("-", [var.project, var.environment, var.name, "private-ip-config"])
+variable "record_name" {
+  description = "The name of the CNAME record."
+  type        = string
+}
+
+variable "dns_zone_name" {
+  description = "The name of the DNS zone in which the record should be created."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which the DNS zone exists."
+  type        = string
+}
+
+variable "ttl" {
+  description = "The Time To Live (TTL) of the DNS record in seconds."
+  type        = number
+}
+
+variable "record" {
+  description = "The value of the CNAME record."
+  type        = string
 }

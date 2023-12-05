@@ -9,28 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "value of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "value of the environment"
+variable "public_ip_name" {
+  description = "The name of the Public IP."
   type        = string
 }
 
 variable "location" {
   description = "The Azure Region."
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding."
   type        = string
 }
 

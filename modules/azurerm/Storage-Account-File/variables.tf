@@ -9,18 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_name" {
-  description = "Name of the application."
+variable "storage_account_name" {
+  description = "The name of the storage account"
   type        = string
 }
 
-variable "shortened_project" {
-  description = "The shortened project name"
-  type        = string
-}
-
-variable "shortened_environment" {
-  description = "Shortened name for environment of the project in which this resource is deployed"
+variable "backup_policy_file_share_name" {
+  description = "The name of the backup policy for file share"
   type        = string
 }
 
@@ -88,16 +83,6 @@ variable "storage_account_network_rules_virtual_network_subnet_ids" {
   default     = []
   description = "List of virtual network subnet IDs"
   type        = list(string)
-}
-
-variable "shortened_location" {
-  description = "Shortened name for the Azure location where the resource exists"
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "Shortened padding for the resource name"
-  type        = string
 }
 
 variable "allow_nested_items_to_be_public" {

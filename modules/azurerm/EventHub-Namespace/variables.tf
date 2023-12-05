@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
+variable "eventhub_namespace_name" {
+  description = "The name of the EventHub Namespace."
   type        = string
 }
 
@@ -47,16 +42,6 @@ variable "network_rules" {
 variable "tags" {
   description = "Tags for the EventHub Namespace."
   type        = map(string)
-}
-
-variable "application_name" {
-  description = "Name of the application"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the resource name"
-  type        = string
 }
 
 variable "public_network_access_enabled" {

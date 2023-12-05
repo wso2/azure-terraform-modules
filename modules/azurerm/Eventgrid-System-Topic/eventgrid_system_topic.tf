@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_eventgrid_system_topic" "eventgrid_system_topic" {
-  name                   = join("-", ["evgt", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                   = join("-", ["evgt", var.eventgrid_system_topic_name])
   location               = var.location
   resource_group_name    = var.resource_group_name
   source_arm_resource_id = var.source_arm_resource_id

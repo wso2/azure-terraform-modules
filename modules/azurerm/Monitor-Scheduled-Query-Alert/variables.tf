@@ -19,26 +19,11 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "environment" {
-  description = "The name of the environment"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the deployment"
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project"
-  type        = string
-}
-
 variable "query_rules_alert" {
   description = "Map of query rules alert"
   type = map(object({
     action_group_id_list       = list(string)
-    reason                     = string
+    alert_name                 = string
     log_analytics_workspace_id = string
     description                = string
     query_enabled              = bool
@@ -59,7 +44,7 @@ variable "count_trigger_query_rules_alert" {
   description = "Map of count trigger query rules alert"
   type = map(object({
     action_group_id_list       = list(string)
-    reason                     = string
+    alert_name                 = string
     log_analytics_workspace_id = string
     description                = string
     query_enabled              = bool

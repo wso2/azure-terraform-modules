@@ -9,6 +9,21 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "bastion_host_name" {
+  description = "The name of the Bastion Host."
+  type        = string
+}
+
+variable "network_security_group_name" {
+  description = "The name of the Network Security Group for the Bastion Host"
+  type        = string
+}
+
+variable "public_ip_name" {
+  description = "The name of the Public IP address for the Bastion Host"
+  type        = string
+}
+
 variable "location" {
   description = "Specifies the supported Azure location where the resource exists"
   type        = string
@@ -16,26 +31,6 @@ variable "location" {
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the Bastion Host"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment"
-  type        = string
-}
-
-variable "project" {
-  description = "The project"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the Bastion Host. Changing this forces a new resource to be created"
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding"
   type        = string
 }
 

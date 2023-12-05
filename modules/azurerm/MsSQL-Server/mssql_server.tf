@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_mssql_server" "mssql_server" {
-  name                          = join("-", ["sql", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                          = join("-", ["sql", var.mssql_server_name])
   resource_group_name           = var.resource_group_name
   location                      = var.location
   version                       = var.db_server_version

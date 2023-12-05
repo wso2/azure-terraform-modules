@@ -9,28 +9,18 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_name" {
-  description = "The name of the application."
+variable "subnet_name" {
+  description = "The name of the subnet."
   type        = string
 }
 
-variable "project" {
-  description = "The name of the project. Eg: asgardeo"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment. Eg: dev"
+variable "network_security_group_name" {
+  description = "The name of the network security group."
   type        = string
 }
 
 variable "location" {
   description = "The location of the resource need to be created."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding value."
   type        = string
 }
 

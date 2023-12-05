@@ -9,6 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "key_vault_name" {
+  description = "The name of the Key Vault."
+  type        = string
+}
+
 variable "location" {
   description = "value of the location"
   type        = string
@@ -32,22 +37,6 @@ variable "vault_access_tenant_id" {
 variable "tags" {
   description = "Tags for the Key Vault."
   type        = map(string)
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "The padding value."
-  type        = string
-}
-
-variable "workload" {
-  default     = ""
-  description = "The workload type for the Key Vault."
-  type        = string
 }
 
 variable "network_acls_default_action" {
@@ -90,21 +79,6 @@ variable "soft_delete_retention_days" {
   default     = 7
   description = "The number of days that items should be retained for once soft-deleted. Defaults to 7"
   type        = number
-}
-
-variable "shortened_environment" {
-  description = "The shortened environment name."
-  type        = string
-}
-
-variable "shortened_project" {
-  description = "The shortened project name."
-  type        = string
-}
-
-variable "shortened_location" {
-  description = "The shortened location name."
-  type        = string
 }
 
 variable "enabled_for_template_deployment" {

@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                                = join("-", ["aks", var.project, var.workload, var.environment, var.location, var.padding])
+  name                                = join("-", ["aks", var.aks_cluster_name])
   location                            = var.location
   resource_group_name                 = var.aks_resource_group_name
-  dns_prefix                          = join("-", ["aks", var.workload, var.environment])
+  dns_prefix                          = join("-", ["aks", var.aks_cluster_dns_prefix])
   kubernetes_version                  = var.kubernetes_version
-  node_resource_group                 = join("-", ["rg", var.project, local.aks_node_pool_workload, var.environment, var.location, var.padding])
+  node_resource_group                 = join("-", ["rg", var.aks_node_pool_resource_group_name])
   sku_tier                            = var.sku_tier
   private_cluster_enabled             = var.private_cluster_enabled
   private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enable
@@ -24,7 +24,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   http_application_routing_enabled    = var.http_application_routing_enabled
   tags                                = var.tags
   depends_on = [
-    azurerm_log_analytics_solution.aks_las,
     azurerm_subnet.aks_node_pool_subnet
   ]
 

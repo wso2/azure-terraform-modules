@@ -11,7 +11,7 @@
 
 resource "azuredevops_build_definition" "devops_build_definition" {
   project_id      = var.project_id
-  name            = join("-", [var.project, var.definition_name])
+  name            = var.build_definition_name
   path            = var.pipeline_path
   agent_pool_name = var.agent_pool_name
 

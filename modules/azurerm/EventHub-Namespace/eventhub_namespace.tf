@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_eventhub_namespace" "eventhub_namespace" {
-  name                          = join("-", ["evhns", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                          = join("-", ["evhns", var.eventhub_namespace_name])
   location                      = var.location
   resource_group_name           = var.resource_group_name
   sku                           = "Standard"

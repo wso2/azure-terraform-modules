@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The name of the project. Eg: asgardeo"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment."
+variable "function_app_name" {
+  description = "The name of the Function App."
   type        = string
 }
 
@@ -26,16 +21,6 @@ variable "location" {
 
 variable "resource_group_name" {
   description = "The name of the resource group in which the vm is created in."
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding value."
   type        = string
 }
 

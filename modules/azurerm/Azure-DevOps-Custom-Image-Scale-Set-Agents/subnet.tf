@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "scale_set_agent_subnet" {
-  name                 = join("-", ["snet", local.scale_set_agents_application_name, var.padding])
+  name                 = join("-", ["snet", var.subnet_name])
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
   address_prefixes     = var.subnet_address_prefixes
@@ -18,7 +18,7 @@ resource "azurerm_subnet" "scale_set_agent_subnet" {
 }
 
 resource "azurerm_network_security_group" "scale_set_agent_subnet_nsg" {
-  name                = join("-", ["nsg", var.project, local.scale_set_agents_application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["nsg", var.virtual_machine_scale_set_network_security_group_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags

@@ -9,18 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment"
-  type        = string
-}
-
-variable "location" {
-  description = "The Azure Region in which the dashboard should be created."
+variable "eventhub_name" {
+  description = "The name of the eventhub."
   type        = string
 }
 
@@ -42,14 +32,4 @@ variable "partition_count" {
 variable "message_retention" {
   description = "The number of days to retain the events for."
   type        = number
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding"
-  type        = string
 }

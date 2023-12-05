@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_mssql_elasticpool" "mssql_elasticpool" {
-  name                = var.workload != "" ? join("-", ["sqlep", var.project, var.application_name, var.workload, var.environment]) : join("-", ["sqlep", var.project, var.application_name, var.environment])
+  name                = join("-", ["sqlep", var.mssql_elasticpool_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   server_name         = var.mssql_server_name

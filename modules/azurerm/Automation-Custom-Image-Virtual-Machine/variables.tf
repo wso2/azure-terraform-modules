@@ -9,6 +9,31 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "vm_name" {
+  description = "The name of the virtual machine."
+  type        = string
+}
+
+variable "computer_name" {
+  description = "The computer name of the virtual machine."
+  type        = string
+}
+
+variable "os_disk_name" {
+  description = "The name of the OS disk."
+  type        = string
+}
+
+variable "nic_name" {
+  description = "Virtual machine network interface name."
+  type        = string
+}
+
+variable "nic_ip_configuration_name" {
+  description = "Virtual machine network interface ip configuration name."
+  type        = string
+}
+
 variable "location" {
   description = "The location of the resource need to be created."
   type        = string
@@ -16,26 +41,6 @@ variable "location" {
 
 variable "resource_group_name" {
   description = "The name of the resource group in which the vm is created in."
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment. Eg: dev"
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project. Eg: asgardeo"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding value."
   type        = string
 }
 

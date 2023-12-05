@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Project name"
-  type        = string
-}
-
-variable "environment" {
-  description = "Environment name"
+variable "application_insights_name" {
+  description = "Application Insights name"
   type        = string
 }
 
@@ -47,16 +42,6 @@ variable "retention_in_days" {
 variable "tags" {
   description = "Tags"
   type        = map(string)
-}
-
-variable "application_name" {
-  description = "Application name"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding to differentiate between resources"
-  type        = string
 }
 
 variable "disable_ip_masking" {

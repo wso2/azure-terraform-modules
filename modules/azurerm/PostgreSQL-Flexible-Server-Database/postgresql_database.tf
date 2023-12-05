@@ -9,15 +9,9 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_log_analytics_solution" "aks_las" {
-  solution_name         = "ContainerInsights"
-  location              = var.location
-  resource_group_name   = local.log_analytics_resource_group_name
-  workspace_resource_id = var.log_analytics_workspace_id
-  workspace_name        = var.log_analytics_workspace_name
-
-  plan {
-    publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
-  }
+resource "azurerm_postgresql_flexible_server_database" "postgresql_database" {
+  name      = join("-", ["postgresqldb", var.database_name])
+  server_id = var.server_id
+  charset   = var.charset
+  collation = var.collation
 }

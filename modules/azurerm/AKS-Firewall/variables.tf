@@ -9,13 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Project name"
+variable "aks_cluster_name" {
+  description = "AKS cluster name"
   type        = string
 }
 
-variable "environment" {
-  description = "Environment name"
+variable "aks_cluster_dns_prefix" {
+  description = "AKS cluster dns prefix"
   type        = string
 }
 
@@ -39,13 +39,33 @@ variable "aks_node_pool_subnet_address_prefix" {
   type        = string
 }
 
-variable "workload" {
-  description = "Workload name"
+variable "aks_node_pool_resource_group_name" {
+  description = "Resource group name of AKS node pool"
   type        = string
 }
 
-variable "padding" {
-  description = "Padding for the resource name"
+variable "aks_node_pool_subnet_name" {
+  description = "Subnet name of AKS node pool"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_route_table_name" {
+  description = "Route table name of AKS node pool"
+  type        = string
+}
+
+variable "aks_load_balancer_subnet_name" {
+  description = "Subnet name of AKS load balancer"
+  type        = string
+}
+
+variable "aks_load_balancer_subnet_network_security_group_name" {
+  description = "Network security group name of AKS load balancer"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_network_security_group_name" {
+  description = "Network security group name of AKS node pool"
   type        = string
 }
 
@@ -154,11 +174,6 @@ variable "docker_bridge_cidr" {
 
 variable "log_analytics_workspace_id" {
   description = "Log analytics workspace id"
-  type        = string
-}
-
-variable "log_analytics_workspace_name" {
-  description = "Log analytics workspace name"
   type        = string
 }
 

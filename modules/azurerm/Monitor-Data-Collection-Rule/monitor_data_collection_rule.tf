@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
-  name                        = join("-", ["dcr", var.project, var.rule_name, var.environment, var.location, var.padding])
+  name                        = join("-", ["dcr", var.data_collection_rule_name])
   resource_group_name         = var.resource_group_name
   location                    = var.location
   kind                        = var.kind

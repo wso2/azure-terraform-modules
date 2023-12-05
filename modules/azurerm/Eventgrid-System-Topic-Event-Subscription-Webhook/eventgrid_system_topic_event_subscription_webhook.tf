@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_eventgrid_system_topic_event_subscription" "eventgrid_system_topic_event_subscription" {
-  name                 = join("-", ["evgs", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                 = join("-", ["evgs", var.eventgrid_system_topic_event_subscription_name])
   system_topic         = var.system_topic
   resource_group_name  = var.resource_group_name
   included_event_types = var.included_event_types

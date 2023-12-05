@@ -9,6 +9,82 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "vm_name" {
+  description = "The name of the Bastion VM"
+  type        = string
+}
+
+variable "computer_name" {
+  description = "The computer name of the Bastion VM"
+  type        = string
+}
+
+variable "os_disk_name" {
+  description = "The name of the OS Disk for the Bastion VM"
+  type        = string
+}
+
+variable "managed_disk_name" {
+  description = "The name of the Managed Disk for the Bastion VM"
+  type        = string
+}
+
+variable "route_table_name" {
+  description = "The name of the Route Table to create for the Bastion VM"
+  type        = string
+}
+
+variable "subnet_name" {
+  description = "The name of the subnet where the Bastion VM should be created"
+  type        = string
+}
+
+variable "network_security_group_name" {
+  description = "The name of the Network Security Group to create for the Bastion VM"
+  type        = string
+}
+
+variable "nic_name" {
+  description = "The name of the Network Interface Card to create for the Bastion VM"
+  type        = string
+}
+
+variable "ip_configuration_name" {
+  description = "The name of the IP Configuration to create for the Bastion VM"
+  type        = string
+}
+
+variable "application_security_group_name" {
+  description = "The name of the Application Security Group to create for the Bastion VM"
+  type        = string
+}
+
+variable "storage_account_name" {
+  description = "The name of the Storage Account to create for the Bastion VM"
+  type        = string
+}
+
+variable "storage_account_private_endpoint_name" {
+  description = "The name of the Private Endpoint for the Storage Account"
+  type        = string
+}
+
+variable "storage_account_private_endpoint_service_connection_name" {
+  description = "The name of the Private Endpoint Service Connection for the Storage Account"
+  type        = string
+}
+
+variable "private_dns_zone_group_name" {
+  description = "The name of the Private DNS Zone Group for the Storage Account"
+  type        = string
+}
+
+variable "managed_disk_attachment_lun" {
+  default     = 10
+  description = "The LUN of the managed disk attachment"
+  type        = number
+}
+
 variable "location" {
   description = "Specifies the supported Azure location where the resource exists"
   type        = string
@@ -16,52 +92,6 @@ variable "location" {
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the Bastion VM"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment"
-  type        = string
-}
-
-variable "project" {
-  description = "The project"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the Bastion VM. Changing this forces a new resource to be created"
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding"
-  type        = string
-}
-
-variable "shortened_project" {
-  description = "The shortened project name"
-  type        = string
-}
-
-variable "shortened_environment" {
-  description = "Shortened name for environment of the project in which this resource is deployed"
-  type        = string
-}
-
-variable "shortened_location" {
-  description = "Shortened name for the Azure location where the resource exists"
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "Shortened padding for the resource name"
-  type        = string
-}
-
-variable "shortened_application_name" {
-  default     = "bastion"
-  description = "The shortened name of the Bastion VM."
   type        = string
 }
 

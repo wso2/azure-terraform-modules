@@ -39,27 +39,12 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "project" {
-  description = "The name of the project"
+variable "private_endpoint_name" {
+  description = "The name of the private endpoint to create."
   type        = string
 }
 
 variable "connection_request_message" {
   description = "The connection request message to the PLS"
-  type        = string
-}
-
-variable "workload_name" {
-  description = "The workload name of the PLE"
-  type        = string
-}
-
-variable "environment" {
-  description = "The enviroment of the deployment"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the deployment"
   type        = string
 }

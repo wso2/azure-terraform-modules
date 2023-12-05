@@ -9,15 +9,24 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_log_analytics_solution" "aks_las" {
-  solution_name         = "ContainerInsights"
-  location              = var.location
-  resource_group_name   = var.resource_group_name
-  workspace_resource_id = var.log_analytics_workspace_id
-  workspace_name        = var.log_analytics_workspace_name
+variable "database_name" {
+  description = "Name of the PostgreSQL Database"
+  type        = string
+}
 
-  plan {
-    publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
-  }
+variable "server_id" {
+  description = "ID of the PostgreSQL Server"
+  type        = string
+}
+
+variable "charset" {
+  default     = "utf8"
+  description = "Specifies the Charset for the PostgreSQL Database"
+  type        = string
+}
+
+variable "collation" {
+  default     = "en_US.utf8"
+  description = "Specifies the Collation for the PostgreSQL Database"
+  type        = string
 }
