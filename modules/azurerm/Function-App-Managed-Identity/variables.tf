@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "function_app_with_managed_identity_name" {
+variable "function_app_name" {
   description = "The name of the Function App."
   type        = string
 }

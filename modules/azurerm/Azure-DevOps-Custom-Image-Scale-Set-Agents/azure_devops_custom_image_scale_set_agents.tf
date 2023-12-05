@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtual_machine_scale_set" {
-  name                        = join("-", ["vmss", var.virtual_machine_scale_set_name])
+  name                        = join("-", ["vmss", var.scale_set_name])
   resource_group_name         = var.resource_group_name
   location                    = var.location
   sku                         = var.sku

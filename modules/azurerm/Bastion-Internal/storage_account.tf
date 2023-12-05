@@ -53,7 +53,7 @@ resource "azurerm_private_endpoint" "storage_account_private_endpoint" {
   }
 
   private_dns_zone_group {
-    name                 = join("-", ["pvtdns", var.storage_account_private_endpoint_private_dns_zone_group_name])
+    name                 = join("-", ["pvtdns", var.private_dns_zone_group_name])
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 }

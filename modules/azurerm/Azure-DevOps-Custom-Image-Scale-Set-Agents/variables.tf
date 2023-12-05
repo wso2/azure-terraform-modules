@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "virtual_machine_scale_set_name" {
+variable "scale_set_name" {
   description = "The name of the Linux Virtual Machine Scale Set."
   type        = string
 }
@@ -19,7 +19,7 @@ variable "virtual_machine_scale_set_nic_name" {
   type        = string
 }
 
-variable "virtual_machine_scale_set_subnet_name" {
+variable "subnet_name" {
   description = "The virtual machine scaleset subnet name."
   type        = string
 }

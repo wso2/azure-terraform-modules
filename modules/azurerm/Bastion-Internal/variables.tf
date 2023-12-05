@@ -74,7 +74,7 @@ variable "storage_account_private_endpoint_service_connection_name" {
   type        = string
 }
 
-variable "storage_account_private_endpoint_private_dns_zone_group_name" {
+variable "private_dns_zone_group_name" {
   description = "The name of the Private DNS Zone Group for the Storage Account"
   type        = string
 }

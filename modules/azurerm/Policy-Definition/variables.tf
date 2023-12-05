@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 
-variable "policy_definition_display_name" {
+variable "display_name" {
   description = "The display name of the policy definition."
   type        = string
 }

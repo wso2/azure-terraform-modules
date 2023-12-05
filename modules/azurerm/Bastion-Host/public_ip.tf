@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_public_ip" "bastion_host_public_ip" {
-  name                = join("-", ["pip", var.bastion_host_public_ip_name])
+  name                = join("-", ["pip", var.public_ip_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   allocation_method   = "Static"

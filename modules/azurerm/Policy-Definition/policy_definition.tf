@@ -13,7 +13,7 @@ resource "azurerm_policy_definition" "policy_definition" {
   name         = var.policy_definition_name
   policy_type  = var.policy_type
   mode         = var.mode
-  display_name = var.policy_definition_display_name
+  display_name = var.display_name
   description  = var.description
   metadata     = local.metadata
   policy_rule  = local.policy_rule

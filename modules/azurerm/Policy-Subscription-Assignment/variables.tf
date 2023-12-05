@@ -9,12 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "subscription_policy_assignment_name" {
+variable "assignment_name" {
   type        = string
   description = "Subscription Policy Assignment Name"
 }
 
-variable "subscription_policy_assignment_display_name" {
+variable "assignment_display_name" {
   type        = string
   description = "Subscription Policy Assignment Display Name"
 }

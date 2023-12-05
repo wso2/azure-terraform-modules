@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "private_endpoint_subnet_network_security_group_name" {
+variable "network_security_group_name" {
   description = "The name of the network security group for the private endpoint subnet."
   type        = string
 }

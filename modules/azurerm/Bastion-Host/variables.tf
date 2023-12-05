@@ -14,12 +14,12 @@ variable "bastion_host_name" {
   type        = string
 }
 
-variable "bastion_host_network_security_group_name" {
+variable "network_security_group_name" {
   description = "The name of the Network Security Group for the Bastion Host"
   type        = string
 }
 
-variable "bastion_host_public_ip_name" {
+variable "public_ip_name" {
   description = "The name of the Public IP address for the Bastion Host"
   type        = string
 }

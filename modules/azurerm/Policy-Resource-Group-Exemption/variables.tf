@@ -9,12 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "resource_group_policy_exemption_name" {
+variable "policy_exemption_name" {
   description = "Resource group policy exemption name"
   type        = string
 }
 
-variable "resource_group_policy_exemption_display_name" {
+variable "display_name" {
   description = "Resource group policy exemption display name"
   type        = string
 }

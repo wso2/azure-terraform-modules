@@ -10,11 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subscription_policy_assignment" "subscription_policy_assignment" {
-  name                 = var.subscription_policy_assignment_name
+  name                 = var.assignment_name
   subscription_id      = var.subscription_resource_id
   policy_definition_id = var.policy_definition_id
   description          = var.description
-  display_name         = var.subscription_policy_assignment_display_name
+  display_name         = var.assignment_display_name
   enforce              = var.enforce
   parameters           = var.parameters
   location             = var.location

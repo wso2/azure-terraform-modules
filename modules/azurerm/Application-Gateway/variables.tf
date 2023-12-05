@@ -173,7 +173,7 @@ variable "appgw_backend_http_settings" {
 }
 
 variable "appgw_http_listeners" {
-  default     = [{default = "default"}]
+  default     = [{ default = "default" }]
   description = "List of maps including http listeners configurations"
   type        = list(map(string))
 }
