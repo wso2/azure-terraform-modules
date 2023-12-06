@@ -11,7 +11,7 @@
 
 resource "azurerm_firewall_nat_rule_collection" "public_loadbalancer_dnat_rules" {
   name                = join("-", ["fwnatrc", var.firewall_nat_rule_collection_name])
-  azure_firewall_name = azurerm_firewall.azure_firewall.name
+  azure_firewall_name = var.firewall_name
   resource_group_name = var.resource_group_name
   priority            = var.priority
   action              = "Dnat"
@@ -29,7 +29,7 @@ resource "azurerm_firewall_nat_rule_collection" "public_loadbalancer_dnat_rules"
         "443",
       ]
       destination_addresses = [
-        azurerm_public_ip.firewall_public_ip[ip.key].ip_address
+        var.dynamic_nat_rules[ip.key].public_ip_address
       ]
       translated_port    = 443
       translated_address = var.dynamic_nat_rules[ip.key].private_ip_address
