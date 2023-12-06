@@ -29,12 +29,6 @@ variable "priority" {
   type        = number
 }
 
-variable "action" {
-  default     = "Dnat"
-  description = "Firewall nat rule action. Valid values are: 'Dnat', 'Snat'"
-  type        = string
-}
-
 variable "dynamic_nat_rules" {
   description = "Map of nat rules"
   type = map(object({

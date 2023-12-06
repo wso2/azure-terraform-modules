@@ -14,7 +14,7 @@ resource "azurerm_firewall_nat_rule_collection" "public_loadbalancer_dnat_rules"
   azure_firewall_name = azurerm_firewall.azure_firewall.name
   resource_group_name = var.resource_group_name
   priority            = var.priority
-  action              = var.action
+  action              = "Dnat"
 
   dynamic "rule" {
     for_each = var.dynamic_nat_rules
