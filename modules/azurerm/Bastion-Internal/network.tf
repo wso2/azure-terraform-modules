@@ -37,7 +37,7 @@ resource "azurerm_route" "internet_route" {
   ]
 }
 
-resource "azurerm_subnet_route_table_association" "bastion_subnet_rt_association" {
+resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
   subnet_id      = azurerm_subnet.bastion_subnet.id
   route_table_id = azurerm_route_table.bastion_route_table.id
   depends_on = [

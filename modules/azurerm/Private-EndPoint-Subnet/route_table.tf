@@ -28,7 +28,7 @@ resource "azurerm_route_table" "private_endpoint_route_table" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "private_endpoint_subnet_rt_association" {
+resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
   subnet_id      = azurerm_subnet.private_endpoint_subnet.id
   route_table_id = azurerm_route_table.private_endpoint_route_table.id
   depends_on     = [azurerm_subnet.private_endpoint_subnet, azurerm_route_table.private_endpoint_route_table]
