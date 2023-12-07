@@ -23,7 +23,7 @@ resource "azurerm_route_table" "route_table_firewall_egress" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "aks_node_pool_subnet_rt_association" {
+resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
   subnet_id      = var.subnet_id
   route_table_id = azurerm_route_table.route_table_firewall_egress.id
   depends_on     = [azurerm_route_table.route_table_firewall_egress]

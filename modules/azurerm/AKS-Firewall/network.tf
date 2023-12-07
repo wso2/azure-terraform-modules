@@ -38,7 +38,7 @@ resource "azurerm_route_table" "aks_node_pool_route_table" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "aks_node_pool_subnet_rt_association" {
+resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
   subnet_id      = azurerm_subnet.aks_node_pool_subnet.id
   route_table_id = azurerm_route_table.aks_node_pool_route_table.id
   depends_on     = [azurerm_subnet.aks_node_pool_subnet, azurerm_route_table.aks_node_pool_route_table]
