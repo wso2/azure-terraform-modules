@@ -11,35 +11,33 @@
 
 #Create Azure Front Door Resource
 resource "azurerm_frontdoor" "frontdoor" {
-  name                                         = join("-", ["fd", var.name])
-  resource_group_name                          = var.resource_group_name
-  load_balancer_enabled                        = var.load_balancer_enabled
-  enforce_backend_pools_certificate_name_check = var.enforce_backend_pools_certificate_name_check
-  backend_pools_send_receive_timeout_seconds   = var.backend_pools_send_receive_timeout_seconds
-  tags                                         = var.tags
+  name                  = join("-", ["fd", var.name])
+  resource_group_name   = var.resource_group_name
+  load_balancer_enabled = var.load_balancer_enabled
+  tags                  = var.tags
 
   dynamic "routing_rule" {
     for_each = toset(var.routing_rules)
 
     content {
-      name               = routing_rule.value.name
-      accepted_protocols = routing_rule.value.accepted_protocols
-      patterns_to_match  = routing_rule.value.patterns_to_match
-      enabled            = routing_rule.value.enabled
-      frontend_endpoints = routing_rule.value.frontend_endpoints
+      name               = lookup(routing_rule.value, "name", "default")
+      accepted_protocols = lookup(routing_rule.value, "accepted_protocols", ["Http", "Https"])
+      patterns_to_match  = lookup(routing_rule.value, "patterns_to_match", ["/*"])
+      frontend_endpoints = lookup(routing_rule.value, "frontend_endpoints", ["exampleFrontendEndpoint1"])
+      enabled            = lookup(routing_rule.value, "enabled", true)
 
       dynamic "forwarding_configuration" {
         for_each = toset(routing_rule.value.forwarding_configuration)
 
         content {
-          forwarding_protocol                   = forwarding_configuration.value.forwarding_protocol
-          backend_pool_name                     = forwarding_configuration.value.backend_pool_name
-          cache_enabled                         = forwarding_configuration.value.cache_enabled
-          cache_duration                        = forwarding_configuration.value.cache_duration
-          cache_use_dynamic_compression         = forwarding_configuration.value.cache_use_dynamic_compression
-          cache_query_parameter_strip_directive = forwarding_configuration.value.cache_query_parameter_strip_directive
-          cache_query_parameters                = forwarding_configuration.value.cache_query_parameters
-          custom_forwarding_path                = forwarding_configuration.value.custom_forwarding_path
+          backend_pool_name                     = lookup(forwarding_configuration.value, "backend_pool_name", "default")
+          forwarding_protocol                   = lookup(forwarding_configuration.value, "forwarding_protocol", "HttpsOnly")
+          cache_enabled                         = lookup(forwarding_configuration.value, "cache_enabled", false)
+          cache_duration                        = lookup(forwarding_configuration.value, "cache_duration", "P0D")
+          cache_use_dynamic_compression         = lookup(forwarding_configuration.value, "cache_use_dynamic_compression", false)
+          cache_query_parameter_strip_directive = lookup(forwarding_configuration.value, "cache_query_parameter_strip_directive", "StripAll")
+          cache_query_parameters                = lookup(forwarding_configuration.value, "cache_query_parameters", "")
+          custom_forwarding_path                = lookup(forwarding_configuration.value, "custom_forwarding_path", "")
         }
       }
 
@@ -47,12 +45,12 @@ resource "azurerm_frontdoor" "frontdoor" {
         for_each = toset(routing_rule.value.redirect_configuration)
 
         content {
-          custom_host         = redirect_configuration.value.custom_host
           redirect_protocol   = redirect_configuration.value.redirect_protocol
           redirect_type       = redirect_configuration.value.redirect_type
-          custom_fragment     = redirect_configuration.value.custom_fragment
-          custom_path         = redirect_configuration.value.custom_path
-          custom_query_string = redirect_configuration.value.custom_query_string
+          custom_host         = lookup(redirect_configuration.value, "custom_host", "")
+          custom_fragment     = lookup(redirect_configuration.value, "custom_fragment", "")
+          custom_path         = lookup(redirect_configuration.value, "custom_path", "")
+          custom_query_string = lookup(redirect_configuration.value, "custom_query_string", "")
         }
       }
     }
@@ -62,24 +60,23 @@ resource "azurerm_frontdoor" "frontdoor" {
     for_each = toset(var.backend_pool_load_balancing)
 
     content {
-      name                            = backend_pool_load_balancing.value.name
-      sample_size                     = backend_pool_load_balancing.value.sample_size
-      successful_samples_required     = backend_pool_load_balancing.value.successful_samples_required
-      additional_latency_milliseconds = backend_pool_load_balancing.value.additional_latency_milliseconds
+      name                            = lookup(backend_pool_load_balancing.value, "name", "default")
+      sample_size                     = lookup(backend_pool_load_balancing.value, "sample_size", 4)
+      successful_samples_required     = lookup(backend_pool_load_balancing.value, "successful_samples_required", 2)
+      additional_latency_milliseconds = lookup(backend_pool_load_balancing.value, "additional_latency_milliseconds", 0)
     }
-
   }
 
   dynamic "backend_pool_health_probe" {
     for_each = toset(var.backend_pool_health_probes)
 
     content {
-      name                = backend_pool_health_probe.value.name
-      enabled             = backend_pool_health_probe.value.enabled
-      path                = backend_pool_health_probe.value.path
-      protocol            = backend_pool_health_probe.value.protocol
-      probe_method        = backend_pool_health_probe.value.probe_method
-      interval_in_seconds = backend_pool_health_probe.value.interval_in_seconds
+      name                = lookup(backend_pool_health_probe.value, "name", "default")
+      enabled             = lookup(backend_pool_health_probe.value, "enabled", true)
+      path                = lookup(backend_pool_health_probe.value, "path", "/")
+      protocol            = lookup(backend_pool_health_probe.value, "protocol", "Http")
+      probe_method        = lookup(backend_pool_health_probe.value, "probe_method", "GET")
+      interval_in_seconds = lookup(backend_pool_health_probe.value, "interval_in_seconds", 120)
     }
   }
 
@@ -87,21 +84,22 @@ resource "azurerm_frontdoor" "frontdoor" {
     for_each = toset(var.backend_pools)
 
     content {
-      name                = backend_pool.value.name
-      load_balancing_name = backend_pool.value.load_balancing_name
-      health_probe_name   = backend_pool.value.health_probe_name
+      name                = lookup(backend_pool.value, "name", "default")
+      load_balancing_name = lookup(backend_pool.value, "load_balancing_name", "default")
+      health_probe_name   = lookup(backend_pool.value, "health_probe_name", "default")
 
       dynamic "backend" {
         for_each = toset(backend_pool.value.backend)
 
         content {
-          enabled     = backend.value.enabled
-          address     = backend.value.address
-          host_header = backend.value.host_header
-          http_port   = backend.value.http_port
-          https_port  = backend.value.https_port
-          priority    = backend.value.priority
-          weight      = backend.value.weight
+          host_header = lookup(backend.value, "host_header", "${join("-", ["fd", var.name])}.azurefd.net")
+          http_port   = lookup(backend.value, "http_port", 80)
+          https_port  = lookup(backend.value, "https_port", 443)
+          address     = lookup(backend.value, "address", "${join("-", ["fd", var.name])}.azurefd.net")
+
+          enabled  = lookup(backend.value, "enabled", true)
+          priority = lookup(backend.value, "priority", 1)
+          weight   = lookup(backend.value, "weight", 50)
         }
       }
     }
@@ -111,9 +109,20 @@ resource "azurerm_frontdoor" "frontdoor" {
     for_each = toset(var.frontend_endpoints)
 
     content {
-      name                                    = frontend_endpoint.value.name
-      host_name                               = frontend_endpoint.value.host_name
-      web_application_firewall_policy_link_id = frontend_endpoint.value.web_application_firewall_policy_link_id
+      name                                    = lookup(frontend_endpoint.value, "name", "default")
+      host_name                               = lookup(frontend_endpoint.value, "host_name", "${join("-", ["fd", var.name])}.azurefd.net")
+      session_affinity_enabled                = lookup(frontend_endpoint.value, "session_affinity_enabled", false)
+      session_affinity_ttl_seconds            = lookup(frontend_endpoint.value, "session_affinity_ttl_seconds", 0)
+      web_application_firewall_policy_link_id = lookup(frontend_endpoint.value, "web_application_firewall_policy_link_id", "")
+    }
+  }
+
+  dynamic "backend_pool_setting" {
+    for_each = toset(var.backend_pools)
+
+    content {
+      backend_pools_send_receive_timeout_seconds   = lookup(backend_pool_setting.value, "enforce_backend_pools_certificate_name_check", false)
+      enforce_backend_pools_certificate_name_check = lookup(backend_pool_setting.value, "backend_pools_send_receive_timeout_seconds", 60)
     }
   }
 }
