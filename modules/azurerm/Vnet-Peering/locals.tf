@@ -16,5 +16,4 @@ locals {
 
   vnet_dest_parts               = split("/", var.vnet_dest_id)
   vnet_dest_name                = element(local.vnet_dest_parts, 8)
-  vnet_dest_resource_group_name = element(local.vnet_dest_parts, 4)
 }
