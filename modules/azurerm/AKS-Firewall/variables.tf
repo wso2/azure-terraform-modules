@@ -265,3 +265,9 @@ variable "user_assigned_identity_id" {
   type        = string
   default     = ""
 }
+
+variable "user_assigned_identity_principal_id" {
+  description = "User assigned identity principal id"
+  type        = string
+  default     = ""
+}
