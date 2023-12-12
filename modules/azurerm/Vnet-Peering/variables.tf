@@ -38,12 +38,6 @@ variable "use_remote_src_gateway" {
   default     = false
 }
 
-variable "custom_peering_src_name" {
-  description = "Custom name of the vnet peerings to create"
-  type        = string
-  default     = ""
-}
-
 variable "vnet_dest_id" {
   description = "ID of the dest vnet to peer"
   type        = string
