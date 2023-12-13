@@ -9,10 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dns_cname_record" "dns_cname_record" {
-  name                = var.record_name
-  zone_name           = var.dns_zone_name
+resource "azurerm_user_assigned_identity" "user_assigned_identity" {
+  name                = var.name
   resource_group_name = var.resource_group_name
-  ttl                 = var.ttl
-  record              = var.record
+  location            = var.location
 }

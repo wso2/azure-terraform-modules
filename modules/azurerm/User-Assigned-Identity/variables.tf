@@ -9,10 +9,17 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dns_cname_record" "dns_cname_record" {
-  name                = var.record_name
-  zone_name           = var.dns_zone_name
-  resource_group_name = var.resource_group_name
-  ttl                 = var.ttl
-  record              = var.record
+variable "name" {
+  description = "Name of the user assigned identity"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
 }

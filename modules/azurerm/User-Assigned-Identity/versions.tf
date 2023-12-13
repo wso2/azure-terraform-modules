@@ -9,10 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dns_cname_record" "dns_cname_record" {
-  name                = var.record_name
-  zone_name           = var.dns_zone_name
-  resource_group_name = var.resource_group_name
-  ttl                 = var.ttl
-  record              = var.record
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.52.0"
+    }
+  }
 }

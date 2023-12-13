@@ -12,13 +12,13 @@
 resource "azurerm_role_assignment" "network_contributor_role_assignment_subnet" {
   scope                = azurerm_subnet.aks_node_pool_subnet.id
   role_definition_name = "Network Contributor"
-  principal_id         = azurerm_kubernetes_cluster.aks_cluster.identity[0].principal_id
+  principal_id         = var.identity_type == "SystemAssigned" ? azurerm_kubernetes_cluster.aks_cluster.identity[0].principal_id : var.user_assigned_identity_principal_id
   depends_on           = [azurerm_kubernetes_cluster.aks_cluster, azurerm_subnet.aks_node_pool_subnet]
 }
 
 resource "azurerm_role_assignment" "aks_network_contributor_role_assignment_loadbalancer_subnet" {
   scope                = azurerm_subnet.internal_load_balancer_subnet.id
   role_definition_name = "Network Contributor"
-  principal_id         = azurerm_kubernetes_cluster.aks_cluster.identity[0].principal_id
+  principal_id         = var.identity_type == "SystemAssigned" ? azurerm_kubernetes_cluster.aks_cluster.identity[0].principal_id : var.user_assigned_identity_principal_id
   depends_on           = [azurerm_kubernetes_cluster.aks_cluster, azurerm_subnet.internal_load_balancer_subnet]
 }

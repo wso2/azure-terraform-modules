@@ -9,10 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dns_cname_record" "dns_cname_record" {
+resource "azurerm_dns_a_record" "dns_a_record" {
   name                = var.record_name
   zone_name           = var.dns_zone_name
   resource_group_name = var.resource_group_name
   ttl                 = var.ttl
-  record              = var.record
+  records             = var.records
+  tags                = var.tags
 }

@@ -9,10 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dns_cname_record" "dns_cname_record" {
-  name                = var.record_name
-  zone_name           = var.dns_zone_name
-  resource_group_name = var.resource_group_name
-  ttl                 = var.ttl
-  record              = var.record
+output "dns_zone_id" {
+  depends_on = [azurerm_dns_zone.dns_zone]
+  value      = azurerm_dns_zone.dns_zone.id
 }

@@ -248,3 +248,26 @@ variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_po
   description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
   type        = bool
 }
+
+variable "private_dns_zone_id" {
+  description = "Private DNS zone id"
+  type        = string
+}
+
+variable "identity_type" {
+  description = "Identity type"
+  type        = string
+  default     = "SystemAssigned"
+}
+
+variable "user_assigned_identity_id" {
+  description = "User assigned identity id"
+  type        = string
+  default     = ""
+}
+
+variable "user_assigned_identity_principal_id" {
+  description = "User assigned identity principal id"
+  type        = string
+  default     = ""
+}

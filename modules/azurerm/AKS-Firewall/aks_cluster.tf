@@ -19,6 +19,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   node_resource_group                 = join("-", ["rg", var.aks_node_pool_resource_group_name])
   sku_tier                            = var.sku_tier
   private_cluster_enabled             = var.private_cluster_enabled
+  private_dns_zone_id                 = var.private_dns_zone_id
   private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enable
   role_based_access_control_enabled   = true
   azure_policy_enabled                = var.azure_policy_enabled
@@ -60,8 +61,19 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     only_critical_addons_enabled = var.default_node_pool_only_critical_addons_enabled
   }
 
-  identity {
-    type = "SystemAssigned"
+  dynamic "identity" {
+    for_each = var.identity_type == "SystemAssigned" ? [1] : []
+    content {
+      type = "SystemAssigned"
+    }
+  }
+
+  dynamic "identity" {
+    for_each = var.identity_type == "SystemAssigned" ? [] : [1]
+    content {
+      type         = "UserAssigned"
+      identity_ids = [var.user_assigned_identity_id]
+    }
   }
 
   azure_active_directory_role_based_access_control {

@@ -9,10 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dns_cname_record" "dns_cname_record" {
-  name                = var.record_name
-  zone_name           = var.dns_zone_name
-  resource_group_name = var.resource_group_name
-  ttl                 = var.ttl
-  record              = var.record
+output "azurerm_user_assigned_identity_id" {
+  depends_on = [azurerm_user_assigned_identity.user_assigned_identity]
+  value      = azurerm_user_assigned_identity.user_assigned_identity.id
+}
+
+output "azurerm_user_assigned_identity_principal_id" {
+  depends_on = [azurerm_user_assigned_identity.user_assigned_identity]
+  value      = azurerm_user_assigned_identity.user_assigned_identity.principal_id
 }
