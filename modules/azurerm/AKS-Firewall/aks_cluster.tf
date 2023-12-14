@@ -95,4 +95,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     docker_bridge_cidr = var.docker_bridge_cidr
     outbound_type      = "userDefinedRouting"
   }
+
+  key_vault_secrets_provider {
+    secret_rotation_enabled = var.secret_rotation_enabled
+  }
 }

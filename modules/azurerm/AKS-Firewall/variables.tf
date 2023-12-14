@@ -271,3 +271,9 @@ variable "user_assigned_identity_principal_id" {
   type        = string
   default     = ""
 }
+
+variable "secret_rotation_enabled" {
+  description = "Enable secret rotation"
+  type        = bool
+  default     = false
+}
