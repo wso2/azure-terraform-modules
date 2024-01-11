@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_postgresql_flexible_server_database" "postgresql_database" {
-  name      = join("-", ["postgresqldb", var.database_name])
+  name      = var.database_full_name != null ? var.database_full_name : join("-", ["postgresqldb", var.database_name])
   server_id = var.server_id
   charset   = var.charset
   collation = var.collation

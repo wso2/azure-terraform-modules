@@ -12,6 +12,7 @@
 variable "database_name" {
   description = "Name of the PostgreSQL Database"
   type        = string
+  default     = null
 }
 
 variable "server_id" {
@@ -29,4 +30,10 @@ variable "collation" {
   default     = "en_US.utf8"
   description = "Specifies the Collation for the PostgreSQL Database"
   type        = string
+}
+
+variable "database_full_name" {
+  description = "Full name of the PostgreSQL Database"
+  type        = string
+  default     = null
 }
