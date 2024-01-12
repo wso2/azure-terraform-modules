@@ -79,6 +79,7 @@ resource "azurerm_network_security_rule" "network_security_rule_allow_https_inbo
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_apgw_allow_https_inbound" {
+  count                       = var.nsg_rule_apgw_inbound_allow_enabled ? 1 : 0
   name                        = "AllowAPGWHTTPS"
   priority                    = 2050
   direction                   = "Inbound"
