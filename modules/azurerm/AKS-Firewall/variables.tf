@@ -218,6 +218,7 @@ variable "firewall_private_ip" {
 variable "application_gateway_subnet_address_prefix" {
   description = "Subnet prefix of application gateway"
   type        = string
+  default     = null
 }
 
 variable "aks_azure_rbac_enabled" {
@@ -274,6 +275,12 @@ variable "user_assigned_identity_principal_id" {
 
 variable "secret_rotation_enabled" {
   description = "Enable secret rotation"
+  type        = bool
+  default     = false
+}
+
+variable "nsg_rule_apgw_inbound_allow_enabled" {
+  description = "Enable or Disable nsg rule for application gateway inbound allow"
   type        = bool
   default     = false
 }
