@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 variable "name" {
   description = "VMSS name."
   type        = string
