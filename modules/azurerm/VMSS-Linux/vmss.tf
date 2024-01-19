@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_set" {
   name                = join("-", ["vmss", var.name])
   resource_group_name = var.resource_group_name
@@ -27,6 +28,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_
       instances
     ]
   }
+
   admin_ssh_key {
     username   = var.admin_ssh_username
     public_key = file(var.admin_ssh_public_key_path)
@@ -43,7 +45,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_
   }
 
   source_image_id = local.valid_input && local.image_set ? var.source_image_id : null
-
 
   dynamic "rolling_upgrade_policy" {
     for_each = local.rolling_upgrade_enabled ? [var.rolling_upgrade_policy] : []
@@ -66,6 +67,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_
     name                      = join("-", ["nic", var.nic_name])
     primary                   = true
     network_security_group_id = var.nic_network_security_group_id
+
     ip_configuration {
       name                                         = "internal"
       primary                                      = true

@@ -8,6 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
+
 output "vmss_resource_id" {
   depends_on = [azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set]
   value      = azurerm_linux_virtual_machine_scale_set.linux_virtual_machine_scale_set.id
