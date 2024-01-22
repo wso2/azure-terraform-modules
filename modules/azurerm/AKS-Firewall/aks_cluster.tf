@@ -26,6 +26,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   http_application_routing_enabled    = var.http_application_routing_enabled
   tags                                = var.tags
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet]
+  workload_identity_enabled           = true
+  oidc_issuer_enabled                 = true
 
   lifecycle {
     ignore_changes = [
