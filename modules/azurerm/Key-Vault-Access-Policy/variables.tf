@@ -48,5 +48,3 @@ variable "key_vault_id" {
   description = "value of the key_vault_id"
   type        = string
 }
-
-variable "" {}
