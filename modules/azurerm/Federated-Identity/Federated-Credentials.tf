@@ -17,3 +17,4 @@ resource "azurerm_federated_identity_credential" "user_assigned_identity" {
   issuer              = var.oidc_issuer_url
   subject             = "system:serviceaccount:${workload_sa_namespace}:${workload_sa_name}"
 }
+
