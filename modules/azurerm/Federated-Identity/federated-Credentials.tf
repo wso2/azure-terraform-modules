@@ -9,11 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_federated_identity_credential" "federated_credentials_name" {
+resource "azurerm_federated_identity_credential" "federated_credentials" {
   name                = var.federated_identity_name
   resource_group_name = var.resource_group_name
   parent_id           = var.azurerm_user_assigned_identity_principal_id
-  audience            = ["api://AzureADTokenExchange"]
+  audience            = var.federated_audience
   issuer              = var.oidc_issuer_url
   subject             = "system:serviceaccount:${workload_sa_namespace}:${workload_sa_name}"
 }

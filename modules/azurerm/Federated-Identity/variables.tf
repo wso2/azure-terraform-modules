@@ -30,6 +30,11 @@ variable "azurerm_user_assigned_identity_principal_id" {
 }
 
 variable "oidc_issuer_url" {
-  description = "OIDC Url"
+  description = "OIDC issuer url"
+  type        = string
+}
+
+variable "federated_audience" {
+  description = "federated credential audience"
   type        = string
 }
