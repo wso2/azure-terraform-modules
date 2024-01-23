@@ -2,8 +2,8 @@
 name: TF Formatting Check
 on:
   pull_request:
-    branches: 
-        - main
+    branches:
+      - main
 
 jobs:
   build:
@@ -30,5 +30,3 @@ jobs:
           VALIDATE_TERRAFORM_FMT: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          
