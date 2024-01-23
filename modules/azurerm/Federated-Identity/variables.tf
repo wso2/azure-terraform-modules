@@ -36,5 +36,5 @@ variable "oidc_issuer_url" {
 
 variable "federated_audience" {
   description = "federated credential audience"
-  type        = string
+  type        = list
 }
