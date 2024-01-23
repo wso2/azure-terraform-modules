@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_federated_identity_credential" "user_assigned_identity" {
+resource "azurerm_federated_identity_credential" "federated_credentials_name" {
   name                = var.federated_identity_name
   resource_group_name = var.resource_group_name
   parent_id           = var.azurerm_user_assigned_identity_principal_id
