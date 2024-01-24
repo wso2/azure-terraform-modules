@@ -9,12 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "id" {
-  value      = azurerm_lb.internal_lb.id
-  depends_on = [azurerm_lb.internal_lb]
-}
-
-output "private_ip_addresses" {
-  value      = azurerm_lb.internal_lb.private_ip_addresses
-  depends_on = [azurerm_lb.internal_lb]
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.0.0"
+    }
+  }
 }

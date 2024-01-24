@@ -10,8 +10,8 @@
 # --------------------------------------------------------------------------------------
 
 locals {
-  image_set     = var.source_image_id != null ? true : false
-  reference_set = var.source_image_reference != null ? true : false
-  valid_input   = (local.image_set != local.reference_set) // Ensure only one is set
+  image_set               = var.source_image_id != null ? true : false
+  reference_set           = var.source_image_reference != null ? true : false
+  valid_input             = (local.image_set != local.reference_set) // Ensure only one is set
   rolling_upgrade_enabled = var.upgrade_mode != "Manual" ? true : false
 }

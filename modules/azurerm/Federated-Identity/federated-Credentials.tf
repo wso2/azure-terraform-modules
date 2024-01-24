@@ -9,12 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "id" {
-  value      = azurerm_lb.internal_lb.id
-  depends_on = [azurerm_lb.internal_lb]
-}
-
-output "private_ip_addresses" {
-  value      = azurerm_lb.internal_lb.private_ip_addresses
-  depends_on = [azurerm_lb.internal_lb]
+resource "azurerm_federated_identity_credential" "federated_credentials" {
+  name                = var.name
+  resource_group_name = var.resource_group_name
+  parent_id           = var.azurerm_user_assigned_identity_principal_id
+  audience            = var.federated_audience
+  issuer              = var.oidc_issuer_url
+  subject             = var.subject
 }
