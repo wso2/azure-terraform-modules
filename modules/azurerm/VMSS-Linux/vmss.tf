@@ -60,7 +60,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_
   os_disk {
     storage_account_type = var.os_disk_storage_account_type
     caching              = var.os_disk_caching
-    disk_size_gb = var.os_disk_size_gb
+    disk_size_gb         = var.os_disk_size_gb
   }
 
   network_interface {
