@@ -15,14 +15,13 @@ variable "loadbalancer_id" {
 }
 
 variable "rule_configuration" {
-  default     = []
-  description = "The list of Azure LB rules"
-  type = list(object({
-    name                           = string,
-    frontend_ip_configuration_name = string,
-    protocol                       = string,
-    frontend_port                  = number,
-    backend_port                   = number,
+  description = "The map of Azure LB rules"
+  type = map(object({
+    name                           = string
+    frontend_ip_configuration_name = string
+    protocol                       = string
+    frontend_port                  = number
+    backend_port                   = number
     backend_address_pool_ids       = list(string)
   }))
 }
