@@ -10,11 +10,18 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_lb_rule" "lb_rule" {
-  name                           = var.name
   loadbalancer_id                = var.loadbalancer_id
-  frontend_ip_configuration_name = var.frontend_ip_configuration_name
-  protocol                       = var.protocol
-  frontend_port                  = var.frontend_port
-  backend_port                   = var.backend_port
-  backend_address_pool_ids       = var.backend_address_pool_ids
+
+  dynamic "rule_configuration" {
+    for_each = var.rule_configuration
+
+    content {
+      name                           = rule_configuration.value["name"]
+      frontend_ip_configuration_name = rule_configuration.value["frontend_ip_configuration_name"]
+      protocol                       = rule_configuration.value["protocol"]
+      frontend_port                  = rule_configuration.value["frontend_port"]
+      backend_port                   = rule_configuration.value["backend_port"]
+      backend_address_pool_ids       = rule_configuration.value["backend_address_pool_ids"]
+    }
+  }
 }
