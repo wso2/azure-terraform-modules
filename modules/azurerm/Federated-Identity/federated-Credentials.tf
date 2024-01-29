@@ -9,8 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-
-
 resource "azurerm_federated_identity_credential" "federated_credentials" {
   name                = var.federated_identity_name
   resource_group_name = var.resource_group_name
