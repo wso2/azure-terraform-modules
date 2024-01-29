@@ -38,3 +38,8 @@ variable "federated_audience" {
   description = "federated credential audience"
   type        = list(any)
 }
+
+variable "workload_sa_name" {
+  description  = "service account name"
+  type         = string
+}

@@ -9,13 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-
-
-resource "azurerm_federated_identity_credential" "federated_credentials" {
-  name                = var.federated_identity_name
-  resource_group_name = var.resource_group_name
-  parent_id           = var.azurerm_user_assigned_identity_principal_id
-  audience            = var.federated_audience
-  issuer              = var.oidc_issuer_url
-  subject             = var.workload_sa_name
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.7.0"
+    }
+  }
 }
