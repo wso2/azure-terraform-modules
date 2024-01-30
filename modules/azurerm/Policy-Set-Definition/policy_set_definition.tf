@@ -10,9 +10,9 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
-  name         = join("-", [var.project_short_name, var.environment_short_name, var.purpose])
+  name         = var.policy_set_definition_name
   policy_type  = var.policy_type
-  display_name = join("", ["[${var.project}][${var.environment}]", var.display_name])
+  display_name = var.policy_set_definition_display_name
   description  = var.description
   metadata     = var.metadata
   parameters   = var.parameters

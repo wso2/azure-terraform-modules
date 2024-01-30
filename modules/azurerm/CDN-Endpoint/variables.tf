@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_name" {
-  description = "The name of the application."
+variable "cdn_endpoint_name" {
+  description = "The name of the CDN endpoint."
   type        = string
 }
 
@@ -31,21 +31,6 @@ variable "tags" {
 
 variable "origin_name" {
   description = "The name of the origin."
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project."
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding to be used for the CDN endpoint."
   type        = string
 }
 

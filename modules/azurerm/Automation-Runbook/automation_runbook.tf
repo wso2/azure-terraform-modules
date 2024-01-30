@@ -14,7 +14,7 @@ data "local_file" "powershell_script" {
 }
 
 resource "azurerm_automation_runbook" "automation_runbook" {
-  name                    = join("-", ["ar", var.project, var.environment, var.automation_runbook_name])
+  name                    = join("-", ["ar", var.automation_runbook_name])
   location                = var.location
   resource_group_name     = var.resource_group_name
   automation_account_name = var.automation_account_name

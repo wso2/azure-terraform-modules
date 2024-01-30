@@ -9,24 +9,9 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
+variable "static_site_name" {
   type        = string
-  description = "Name of the project in which this service will be used."
-}
-
-variable "application_name" {
-  type        = string
-  description = "Name of the application."
-}
-
-variable "environment" {
-  type        = string
-  description = "Name of the project environment where the service will be deployed."
-}
-
-variable "padding" {
-  type        = string
-  description = "Padding for resource naming."
+  description = "Name of the static site."
 }
 
 variable "location" {

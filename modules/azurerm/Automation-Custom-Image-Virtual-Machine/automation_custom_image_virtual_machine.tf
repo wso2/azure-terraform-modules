@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_linux_virtual_machine" "automation_linux_virtual_machine" {
-  name                = join("", ["vm", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("", ["vm", var.vm_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = var.size
   admin_username      = var.admin_username
-  computer_name       = join("", ["vm", var.project, var.application_name, var.environment, var.padding])
+  computer_name       = join("", ["vm", var.computer_name])
   source_image_id     = var.source_image_id
   tags                = var.tags
   network_interface_ids = [
@@ -28,7 +28,7 @@ resource "azurerm_linux_virtual_machine" "automation_linux_virtual_machine" {
   }
 
   os_disk {
-    name                 = join("", ["osdisk", var.project, var.application_name, var.location, var.padding])
+    name                 = join("", ["osdisk", var.os_disk_name])
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
     disk_size_gb         = var.os_disk_size_gb

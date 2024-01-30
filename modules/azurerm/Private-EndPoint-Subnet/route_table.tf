@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_route_table" "private_endpoint_route_table" {
-  name                = join("-", ["route-private-endpoint", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["route", var.private_endpoint_subnet_route_table_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
@@ -28,7 +28,7 @@ resource "azurerm_route_table" "private_endpoint_route_table" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "private_endpoint_subnet_rt_association" {
+resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
   subnet_id      = azurerm_subnet.private_endpoint_subnet.id
   route_table_id = azurerm_route_table.private_endpoint_route_table.id
   depends_on     = [azurerm_subnet.private_endpoint_subnet, azurerm_route_table.private_endpoint_route_table]

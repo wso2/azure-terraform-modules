@@ -9,23 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the Workbook"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment"
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding"
+variable "workbook_display_name" {
+  description = "The display name of the Workbook"
   type        = string
 }
 

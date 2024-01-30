@@ -9,29 +9,14 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project_short_name" {
+variable "assignment_name" {
   type        = string
-  description = "The short name  of project to which the policy assignment is created"
+  description = "Subscription Policy Assignment Name"
 }
 
-variable "environment_short_name" {
+variable "assignment_display_name" {
   type        = string
-  description = "The short name of the environment to which the policy assignment is created"
-}
-
-variable "project" {
-  type        = string
-  description = "The project to which the policy assignment is created"
-}
-
-variable "environment" {
-  type        = string
-  description = "The environment to which the policy assignment is created"
-}
-
-variable "purpose" {
-  type        = string
-  description = "The purpose which should be used for this Policy Assignment. Changing this forces a new Resource Policy Assignment to be created."
+  description = "Subscription Policy Assignment Display Name"
 }
 
 variable "subscription_resource_id" {
@@ -42,11 +27,6 @@ variable "subscription_resource_id" {
 variable "policy_definition_id" {
   type        = string
   description = "The ID of the Policy Definition or Policy Definition Set. Changing this forces a new Policy Assignment to be created."
-}
-
-variable "display_name" {
-  type        = string
-  description = "The Display Name for this Policy Assignment."
 }
 
 variable "enforce" {

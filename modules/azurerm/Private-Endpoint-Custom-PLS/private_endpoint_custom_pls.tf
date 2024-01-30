@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_private_endpoint" "private_endpoint" {
-  name                = join("-", ["pvtep", var.project, var.workload_name, var.environment, var.location, var.padding])
+  name                = join("-", ["pvtep", var.private_endpoint_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   subnet_id           = var.private_endpoint_subnet_id

@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "bastion_subnet" {
-  name                                      = join("-", ["snet-bastion", var.padding])
+  name                                      = join("-", ["snet-bastion", var.subnet_name])
   resource_group_name                       = var.resource_group_name
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = [var.subnet_address_prefix]
@@ -19,7 +19,7 @@ resource "azurerm_subnet" "bastion_subnet" {
 }
 
 resource "azurerm_route_table" "bastion_route_table" {
-  name                = join("-", ["route-bastion", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["route", var.route_table_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
@@ -37,7 +37,7 @@ resource "azurerm_route" "internet_route" {
   ]
 }
 
-resource "azurerm_subnet_route_table_association" "bastion_subnet_rt_association" {
+resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
   subnet_id      = azurerm_subnet.bastion_subnet.id
   route_table_id = azurerm_route_table.bastion_route_table.id
   depends_on = [
@@ -48,7 +48,7 @@ resource "azurerm_subnet_route_table_association" "bastion_subnet_rt_association
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "bastion_nsg" {
-  name                = join("-", ["nsg-bastion", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["nsg-bastion", var.network_security_group_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
@@ -56,7 +56,7 @@ resource "azurerm_network_security_group" "bastion_nsg" {
 
 # Create network interface
 resource "azurerm_network_interface" "bastion_nic" {
-  name                = join("-", ["nic-bastion", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["nic-bastion", var.nic_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
@@ -65,7 +65,7 @@ resource "azurerm_network_interface" "bastion_nic" {
   ]
 
   ip_configuration {
-    name                          = join("-", ["nic-bastion", var.project, var.application_name, var.environment, var.location, var.padding])
+    name                          = join("-", ["nic-bastion", var.ip_configuration_name])
     subnet_id                     = azurerm_subnet.bastion_subnet.id
     private_ip_address_allocation = "Dynamic"
   }
@@ -82,7 +82,7 @@ resource "azurerm_subnet_network_security_group_association" "bastion_sec_associ
 }
 
 resource "azurerm_application_security_group" "bastion_application_security_group" {
-  name                = join("-", ["asg-bastion", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["asg-bastion", var.application_security_group_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags

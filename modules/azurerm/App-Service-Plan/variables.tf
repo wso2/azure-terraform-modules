@@ -9,23 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "environment" {
-  description = "Environment name"
-  type        = string
-}
-
-variable "project" {
-  description = "Project name"
-  type        = string
-}
-
-variable "application_name" {
-  description = "Application name"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding to differentiate between resources"
+variable "app_service_plan_name" {
+  description = "App service plan name"
   type        = string
 }
 
@@ -52,12 +37,6 @@ variable "size" {
 variable "capacity" {
   description = "Capacity of the resource"
   type        = number
-}
-
-variable "resource_abbreviation" {
-  default     = "asp"
-  description = "Abbreviation of the resource"
-  type        = string
 }
 
 variable "app_service_plan_kind" {

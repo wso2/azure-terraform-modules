@@ -9,6 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  scale_set_agents_application_name = join("", ["scalesetagents", var.name])
+resource "azurerm_dns_zone" "dns_zone" {
+  name                = var.dns_zone_name
+  resource_group_name = var.resource_group_name
 }

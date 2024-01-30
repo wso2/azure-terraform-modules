@@ -10,18 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_resource_policy_exemption" "policy_exemption" {
-  name = join("-", [
-    var.project_short_name,
-    var.environment_short_name,
-    var.purpose
-  ])
-  resource_id          = var.resource_id
-  exemption_category   = var.exemption_category
-  policy_assignment_id = var.policy_assignment_id
-  description          = var.description
-  display_name = join(" ", [
-    "[${var.project}][${var.environment}]",
-    var.display_name
-  ])
+  name                            = var.resource_policy_exemption_name
+  resource_id                     = var.resource_id
+  exemption_category              = var.exemption_category
+  policy_assignment_id            = var.policy_assignment_id
+  description                     = var.description
+  display_name                    = var.resource_policy_exemption_display_name
   policy_definition_reference_ids = var.policy_definition_reference_ids
 }

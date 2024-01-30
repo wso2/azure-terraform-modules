@@ -9,9 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  appgw_name                             = join("-", ["agw", var.project, var.environment, var.location, var.padding])
-  gateway_ip_configuration_name          = join("-", [var.project, var.environment, var.name, "gw-ip-config"])
-  frontend_public_ip_configuration_name  = join("-", [var.project, var.environment, var.name, "public-ip-config"])
-  frontend_private_ip_configuration_name = join("-", [var.project, var.environment, var.name, "private-ip-config"])
+output "dns_zone_id" {
+  depends_on = [azurerm_dns_zone.dns_zone]
+  value      = azurerm_dns_zone.dns_zone.id
 }

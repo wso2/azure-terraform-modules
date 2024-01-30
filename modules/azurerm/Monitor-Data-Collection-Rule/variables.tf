@@ -9,28 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "rule_name" {
+variable "data_collection_rule_name" {
   description = "Name of the data collection rule"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
   type        = string
 }
 
 variable "location" {
   description = "Name of the location"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding"
   type        = string
 }
 

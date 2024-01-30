@@ -9,33 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "The project name"
-  type        = string
-}
-
-variable "application_name" {
-  description = "Application name for the resource"
-  type        = string
-}
-
-variable "workload_name" {
-  description = "Workload name for the resource"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment of the project in which this resource is deployed"
-  type        = string
-}
-
-variable "location" {
-  description = "Azure location where the resource exists"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the resource name"
+variable "eventhub_authorization_rule_name" {
+  description = "Name of the EventHub Authorization Rule"
   type        = string
 }
 

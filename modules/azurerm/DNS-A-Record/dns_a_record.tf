@@ -9,15 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_log_analytics_solution" "aks_las" {
-  solution_name         = "ContainerInsights"
-  location              = var.location
-  resource_group_name   = var.resource_group_name
-  workspace_resource_id = var.log_analytics_workspace_id
-  workspace_name        = var.log_analytics_workspace_name
-
-  plan {
-    publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
-  }
+resource "azurerm_dns_a_record" "dns_a_record" {
+  name                = var.record_name
+  zone_name           = var.dns_zone_name
+  resource_group_name = var.resource_group_name
+  ttl                 = var.ttl
+  records             = var.records
+  tags                = var.tags
 }

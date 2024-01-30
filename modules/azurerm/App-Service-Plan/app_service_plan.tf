@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_app_service_plan" "app_service_plan" {
-  name                = join("-", [var.resource_abbreviation, var.project, var.application_name, var.environment, var.padding])
+  name                = join("-", ["asp", var.app_service_plan_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   kind                = var.app_service_plan_kind

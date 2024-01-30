@@ -9,33 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "shortened_project" {
-  description = "The shortened project name"
-  type        = string
-}
-
-variable "application_name" {
-  description = "Name of the resource"
+variable "storage_account_name" {
+  description = "Name of the storage account"
   type        = string
 }
 
 variable "location" {
   description = "Azure location where the resource exists"
-  type        = string
-}
-
-variable "shortened_environment" {
-  description = "Shortened name for environment of the project in which this resource is deployed"
-  type        = string
-}
-
-variable "shortened_location" {
-  description = "Shortened name for the Azure location where the resource exists"
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "Shortened padding for the resource name"
   type        = string
 }
 

@@ -9,13 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Project name"
+variable "aks_cluster_name" {
+  description = "AKS cluster name"
   type        = string
 }
 
-variable "environment" {
-  description = "Environment name"
+variable "aks_cluster_dns_prefix" {
+  description = "AKS cluster dns prefix"
   type        = string
 }
 
@@ -39,13 +39,33 @@ variable "aks_node_pool_subnet_address_prefix" {
   type        = string
 }
 
-variable "workload" {
-  description = "Workload name"
+variable "aks_node_pool_resource_group_name" {
+  description = "Resource group name of AKS node pool"
   type        = string
 }
 
-variable "padding" {
-  description = "Padding for the resource name"
+variable "aks_node_pool_subnet_name" {
+  description = "Subnet name of AKS node pool"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_route_table_name" {
+  description = "Route table name of AKS node pool"
+  type        = string
+}
+
+variable "aks_load_balancer_subnet_name" {
+  description = "Subnet name of AKS load balancer"
+  type        = string
+}
+
+variable "aks_load_balancer_subnet_network_security_group_name" {
+  description = "Network security group name of AKS load balancer"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_network_security_group_name" {
+  description = "Network security group name of AKS node pool"
   type        = string
 }
 
@@ -157,11 +177,6 @@ variable "log_analytics_workspace_id" {
   type        = string
 }
 
-variable "log_analytics_workspace_name" {
-  description = "Log analytics workspace name"
-  type        = string
-}
-
 variable "azure_policy_enabled" {
   description = "Enable Azure policy"
   type        = bool
@@ -203,6 +218,7 @@ variable "firewall_private_ip" {
 variable "application_gateway_subnet_address_prefix" {
   description = "Subnet prefix of application gateway"
   type        = string
+  default     = null
 }
 
 variable "aks_azure_rbac_enabled" {
@@ -232,6 +248,41 @@ variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_po
   default     = false
   description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
   type        = bool
+}
+
+variable "private_dns_zone_id" {
+  description = "Private DNS zone id"
+  type        = string
+}
+
+variable "identity_type" {
+  description = "Identity type"
+  type        = string
+  default     = "SystemAssigned"
+}
+
+variable "user_assigned_identity_id" {
+  description = "User assigned identity id"
+  type        = string
+  default     = ""
+}
+
+variable "user_assigned_identity_principal_id" {
+  description = "User assigned identity principal id"
+  type        = string
+  default     = ""
+}
+
+variable "secret_rotation_enabled" {
+  description = "Enable secret rotation"
+  type        = bool
+  default     = false
+}
+
+variable "nsg_rule_apgw_inbound_allow_enabled" {
+  description = "Enable or Disable nsg rule for application gateway inbound allow"
+  type        = bool
+  default     = false
 }
 
 variable "workload_identity_enabled" {

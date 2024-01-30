@@ -9,6 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  cdnp_name_without_prefix = join("-", [var.project, var.application_name, var.environment, var.location, var.padding])
+output "azurerm_user_assigned_identity_id" {
+  depends_on = [azurerm_user_assigned_identity.user_assigned_identity]
+  value      = azurerm_user_assigned_identity.user_assigned_identity.id
+}
+
+output "azurerm_user_assigned_identity_principal_id" {
+  depends_on = [azurerm_user_assigned_identity.user_assigned_identity]
+  value      = azurerm_user_assigned_identity.user_assigned_identity.principal_id
 }

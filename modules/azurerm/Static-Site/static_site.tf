@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_static_site" "static_site" {
-  name                = join("-", ["stapp", var.project, var.application_name, var.environment, var.padding])
+  name                = join("-", ["stapp", var.static_site_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   sku_tier            = var.sku_tier

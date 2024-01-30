@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
+variable "route_table_firewall_egress_name" {
+  description = "Name of the route table"
   type        = string
 }
 
@@ -29,11 +24,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "workload" {
-  description = "Name of the workload"
-  type        = string
-}
-
 variable "tags" {
   description = "Tags for the resource"
   type        = map(string)
@@ -41,11 +31,6 @@ variable "tags" {
 
 variable "subnet_id" {
   description = "ID of the subnet"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the subnet"
   type        = string
 }
 

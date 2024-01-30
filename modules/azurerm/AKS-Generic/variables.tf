@@ -9,14 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-# Global details
-variable "project" {
-  description = "Project name"
+variable "aks_cluster_name" {
+  description = "AKS cluster name"
   type        = string
 }
 
-variable "environment" {
-  description = "Environment name"
+variable "aks_cluster_dns_prefix" {
+  description = "AKS cluster dns prefix"
   type        = string
 }
 
@@ -30,36 +29,14 @@ variable "aks_resource_group_name" {
   type        = string
 }
 
-variable "workload" {
-  description = "Purpose of the cluster within the project"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding to differentiate between resources"
-  type        = string
-}
-
 variable "tags" {
   default     = {}
   description = "Tags of the AKS cluster"
   type        = map(string)
 }
 
-# Log analytics details
-variable "log_analytics_resource_group_name" {
-  default     = null
-  description = "Resource group of the Log analytics workspace"
-  type        = string
-}
-
 variable "log_analytics_workspace_id" {
   description = "Log Analytics Workspace Resource id"
-  type        = string
-}
-
-variable "log_analytics_workspace_name" {
-  description = "Log Analytics Workspace Resource name"
   type        = string
 }
 
@@ -77,6 +54,36 @@ variable "virtual_network_name" {
 
 variable "aks_node_pool_subnet_address_prefix" {
   description = "Subnet CIDR for deploying the Nodepool"
+  type        = string
+}
+
+variable "aks_node_pool_resource_group_name" {
+  description = "Resource group name of AKS node pool"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_name" {
+  description = "Subnet name of AKS node pool"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_route_table_name" {
+  description = "Route table name of AKS node pool"
+  type        = string
+}
+
+variable "aks_load_balancer_subnet_name" {
+  description = "Subnet name of AKS load balancer"
+  type        = string
+}
+
+variable "aks_load_balancer_subnet_network_security_group_name" {
+  description = "Network security group name of AKS load balancer"
+  type        = string
+}
+
+variable "aks_node_pool_subnet_network_security_group_name" {
+  description = "Network security group name of AKS node pool"
   type        = string
 }
 

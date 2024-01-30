@@ -9,7 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  aks_node_pool_workload   = join("", ["aksnodepool", var.workload])
-  aks_internal_lb_workload = join("", ["aksinternallb", var.workload])
+output "postgresql_server_id" {
+  value      = azurerm_postgresql_flexible_server.postgresql_flexible_server.id
+  depends_on = [azurerm_postgresql_flexible_server.postgresql_flexible_server]
+}
+
+output "postgresql_server_fqdn" {
+  value      = azurerm_postgresql_flexible_server.postgresql_flexible_server.fqdn
+  depends_on = [azurerm_postgresql_flexible_server.postgresql_flexible_server]
 }

@@ -9,13 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "value of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "value of the environment"
+variable "recovery_services_vault_name" {
+  description = "The name of the Recovery Services Vault."
   type        = string
 }
 
@@ -40,7 +35,3 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "padding" {
-  description = "The padding."
-  type        = string
-}

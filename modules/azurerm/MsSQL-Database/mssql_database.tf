@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_mssql_database" "mssql_database" {
-  name                           = join("-", ["sqldb", var.project, var.application_name, var.workload, var.environment])
+  name                           = join("-", ["sqldb", var.mssql_database_name])
   server_id                      = var.server_id
   elastic_pool_id                = var.elastic_pool_id
   collation                      = var.collation

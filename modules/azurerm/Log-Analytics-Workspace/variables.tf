@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "environment" {
-  description = "value of the environment"
+variable "log_analytics_workspace_name" {
+  description = "The name of the Log Analytics Workspace."
   type        = string
 }
 
@@ -21,21 +21,6 @@ variable "location" {
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the Log Analytics Workspace."
-  type        = string
-}
-
-variable "project" {
-  description = "value of the project"
-  type        = string
-}
-
-variable "application_name" {
-  description = "value of the application"
-  type        = string
-}
-
-variable "padding" {
-  description = "value of the padding"
   type        = string
 }
 

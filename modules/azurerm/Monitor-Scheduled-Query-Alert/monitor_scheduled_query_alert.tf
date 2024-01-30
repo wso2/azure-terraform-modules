@@ -11,7 +11,7 @@
 
 resource "azurerm_monitor_scheduled_query_rules_alert" "scheduled_query_rules_alert" {
   for_each            = var.query_rules_alert
-  name                = join("-", ["sqra", var.project, each.value.reason, var.environment, var.location, var.padding])
+  name                = join("-", ["sqra", each.value.alert_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   data_source_id      = each.value.log_analytics_workspace_id
@@ -41,7 +41,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "scheduled_query_rules_al
 
 resource "azurerm_monitor_scheduled_query_rules_alert" "count_trigger_scheduled_query_rules_alert" {
   for_each            = var.count_trigger_query_rules_alert
-  name                = join("-", ["sqra", var.project, each.value.reason, var.environment, var.location, var.padding])
+  name                = join("-", ["sqra", each.value.alert_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   data_source_id      = each.value.log_analytics_workspace_id

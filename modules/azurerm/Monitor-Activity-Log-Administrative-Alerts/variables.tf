@@ -19,21 +19,6 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "environment" {
-  description = "Name of the environment."
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding value."
-  type        = string
-}
-
-variable "project" {
-  description = "Name of the project."
-  type        = string
-}
-
 variable "alert_enabled" {
   default     = true
   description = "Enable or disable the alert."

@@ -10,14 +10,14 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_traffic_manager_profile" "traffic_manager_profile" {
-  name                   = join("-", ["tm", var.project, var.environment, var.location, var.padding])
+  name                   = join("-", ["tm", var.traffic_manager_profile_name])
   resource_group_name    = var.resource_group_name
   traffic_routing_method = var.routing_method
   traffic_view_enabled   = var.traffic_view_enabled
   tags                   = var.tags
 
   dns_config {
-    relative_name = join("-", ["tm", var.project, var.environment, var.location, var.padding])
+    relative_name = join("-", ["tm", var.traffic_manager_profile_dns_config_relative_name])
     ttl           = var.ttl
   }
 

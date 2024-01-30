@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "application_name" {
-  description = "value of the application name"
+variable "dashboard_name" {
+  description = "The name of the dashboard."
   type        = string
 }
 
@@ -37,19 +37,4 @@ variable "template_path" {
 variable "template_vars" {
   description = "The variables to pass to the dashboard template."
   type        = any
-}
-
-variable "project" {
-  description = "The project"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment"
-  type        = string
-}
-
-variable "padding" {
-  description = "The padding"
-  type        = string
 }

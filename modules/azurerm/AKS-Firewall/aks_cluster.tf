@@ -10,15 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                                = join("-", ["aks", var.project, var.workload, var.environment, var.location, var.padding])
+  name                                = join("-", ["aks", var.aks_cluster_name])
   location                            = var.location
   resource_group_name                 = var.resource_group_name
-  dns_prefix                          = join("-", ["aks", var.workload, var.environment])
+  dns_prefix                          = join("-", ["aks", var.aks_cluster_dns_prefix])
   kubernetes_version                  = var.kubernetes_version
   api_server_authorized_ip_ranges     = try(var.api_server_authorized_ip_ranges, null)
-  node_resource_group                 = join("-", ["rg", var.project, local.aks_node_pool_workload, var.environment, var.location, var.padding])
+  node_resource_group                 = join("-", ["rg", var.aks_node_pool_resource_group_name])
   sku_tier                            = var.sku_tier
   private_cluster_enabled             = var.private_cluster_enabled
+  private_dns_zone_id                 = var.private_dns_zone_id
   private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enable
   role_based_access_control_enabled   = true
   azure_policy_enabled                = var.azure_policy_enabled
@@ -26,7 +27,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   workload_identity_enabled           = var.workload_identity_enabled
   oidc_issuer_enabled                 = var.oidc_issuer_enabled
   tags                                = var.tags
-  depends_on                          = [azurerm_log_analytics_solution.aks_las, azurerm_subnet.aks_node_pool_subnet]
+  depends_on                          = [azurerm_subnet.aks_node_pool_subnet]
 
   lifecycle {
     ignore_changes = [
@@ -62,8 +63,19 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     only_critical_addons_enabled = var.default_node_pool_only_critical_addons_enabled
   }
 
-  identity {
-    type = "SystemAssigned"
+  dynamic "identity" {
+    for_each = var.identity_type == "SystemAssigned" ? [1] : []
+    content {
+      type = "SystemAssigned"
+    }
+  }
+
+  dynamic "identity" {
+    for_each = var.identity_type == "SystemAssigned" ? [] : [1]
+    content {
+      type         = "UserAssigned"
+      identity_ids = [var.user_assigned_identity_id]
+    }
   }
 
   azure_active_directory_role_based_access_control {
@@ -84,5 +96,9 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     dns_service_ip     = var.dns_service_ip
     docker_bridge_cidr = var.docker_bridge_cidr
     outbound_type      = "userDefinedRouting"
+  }
+
+  key_vault_secrets_provider {
+    secret_rotation_enabled = var.secret_rotation_enabled
   }
 }

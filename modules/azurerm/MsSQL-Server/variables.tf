@@ -9,29 +9,14 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "mssql_server_name" {
+  description = "The name of the SQL Server."
+  type        = string
+}
+
 variable "tags" {
   description = "Tags for the SQL Server"
   type        = map(string)
-}
-
-variable "project" {
-  description = "The name of the project"
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the deployment"
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment"
-  type        = string
 }
 
 variable "resource_group_name" {

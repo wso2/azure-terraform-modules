@@ -9,18 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "association_name" {
+variable "data_collection_rule_association_name" {
   description = "Name of the data collection rule association"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
   type        = string
 }
 

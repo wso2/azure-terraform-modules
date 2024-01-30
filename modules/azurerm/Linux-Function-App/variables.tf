@@ -9,18 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project in which these resources are created."
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment for the resource."
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding used for naming conventions."
+variable "linux_function_app_name" {
+  description = "Name of the function app."
   type        = string
 }
 
@@ -31,11 +21,6 @@ variable "location" {
 
 variable "resource_group_name" {
   description = "Resource group name to deploy Azure function app in."
-  type        = string
-}
-
-variable "application_name" {
-  description = "Application name for the function app."
   type        = string
 }
 

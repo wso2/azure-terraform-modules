@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_network_security_group" "private_network_security_group" {
-  name                = join("-", ["nsg-private-endpoint", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                = join("-", ["nsg-private-endpoint", var.network_security_group_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags

@@ -14,8 +14,8 @@ variable "location" {
   type        = string
 }
 
-variable "padding" {
-  description = "The padding for the vnet"
+variable "virtual_network_name" {
+  description = "The name of the virtual network."
   type        = string
 }
 
@@ -26,27 +26,6 @@ variable "virtual_network_address_space" {
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the virtual network."
-  type        = string
-}
-
-variable "environment" {
-  description = "The name of the environment."
-  type        = string
-}
-
-variable "project" {
-  description = "The name of the project."
-  type        = string
-}
-
-variable "application_name" {
-  description = "The name of the application."
-  type        = string
-}
-
-variable "network_mode" {
-  default     = ""
-  description = "The network mode to use for the container instances in the container group."
   type        = string
 }
 

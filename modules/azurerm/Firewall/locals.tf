@@ -9,15 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_log_analytics_solution" "aks_las" {
-  solution_name         = "ContainerInsights"
-  location              = var.location
-  resource_group_name   = local.log_analytics_resource_group_name
-  workspace_resource_id = var.log_analytics_workspace_id
-  workspace_name        = var.log_analytics_workspace_name
-
-  plan {
-    publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
-  }
+locals {
+  public_ip_names = tolist(keys(var.public_ip_prefixes))
 }

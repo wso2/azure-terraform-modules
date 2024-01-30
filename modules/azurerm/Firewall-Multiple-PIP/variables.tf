@@ -9,13 +9,28 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Name of the project"
+variable "firewall_application_rule_collection_name" {
+  description = "Name of the Firewall Application Rule Collection"
   type        = string
 }
 
-variable "environment" {
-  description = "Name of the environment"
+variable "firewall_name" {
+  description = "Name of the Firewall"
+  type        = string
+}
+
+variable "firewall_nat_rule_collection_name" {
+  description = "Name of the Firewall NAT Rule Collection"
+  type        = string
+}
+
+variable "firewall_network_rule_collection_name" {
+  description = "Name of the Firewall Network Rule Collection"
+  type        = string
+}
+
+variable "firewall_public_ip_prefix_name" {
+  description = "Name of the Firewall Public IP Prefix"
   type        = string
 }
 
@@ -41,36 +56,6 @@ variable "virtual_network_name" {
 
 variable "subnet_address_prefixes" {
   description = "The address prefixes to use for the subnet."
-  type        = string
-}
-
-variable "application_name" {
-  description = "Name of the application"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding for the resource name"
-  type        = string
-}
-
-variable "shortened_project" {
-  description = "Shortened project name"
-  type        = string
-}
-
-variable "shortened_environment" {
-  description = "Shortened environment name"
-  type        = string
-}
-
-variable "shortened_location" {
-  description = "Shortened location name"
-  type        = string
-}
-
-variable "shortened_padding" {
-  description = "Shortened padding name"
   type        = string
 }
 

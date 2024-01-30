@@ -11,7 +11,7 @@
 
 resource "azurerm_application_gateway" "app_gateway" {
   location            = var.location
-  name                = local.appgw_name
+  name                = join("-", ["agw", var.application_gateway_name])
   resource_group_name = var.resource_group_name
   zones               = var.appgw_zones
   enable_http2        = var.enable_http2
@@ -33,12 +33,12 @@ resource "azurerm_application_gateway" "app_gateway" {
   }
 
   frontend_ip_configuration {
-    name                 = local.frontend_public_ip_configuration_name
+    name                 = var.frontend_public_ip_configuration_name
     public_ip_address_id = var.appgw_public_ip_id
   }
 
   frontend_ip_configuration {
-    name                          = local.frontend_private_ip_configuration_name
+    name                          = var.frontend_private_ip_configuration_name
     private_ip_address_allocation = "Static"
     private_ip_address            = var.appgw_private_ip
     subnet_id                     = azurerm_subnet.app_gateway_subnet.id
@@ -54,7 +54,7 @@ resource "azurerm_application_gateway" "app_gateway" {
   }
 
   gateway_ip_configuration {
-    name      = local.gateway_ip_configuration_name
+    name      = var.application_gateway_ip_configuration_name
     subnet_id = azurerm_subnet.app_gateway_subnet.id
   }
 
@@ -115,7 +115,7 @@ resource "azurerm_application_gateway" "app_gateway" {
 
     content {
       name                           = lookup(http_listener.value, "name", "dummy")
-      frontend_ip_configuration_name = lookup(http_listener.value, "frontend_ip_configuration_name", local.frontend_private_ip_configuration_name)
+      frontend_ip_configuration_name = lookup(http_listener.value, "frontend_ip_configuration_name", var.frontend_private_ip_configuration_name)
       frontend_port_name             = lookup(http_listener.value, "frontend_port_name", "dummy")
       protocol                       = lookup(http_listener.value, "protocol", "Http")
       ssl_certificate_name           = lookup(http_listener.value, "ssl_certificate_name", null)

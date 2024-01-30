@@ -9,28 +9,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "endpoint_name" {
+variable "data_collection_endpoint_name" {
   description = "Name of the data collection endpoint"
-  type        = string
-}
-
-variable "project" {
-  description = "Name of the project"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the environment"
   type        = string
 }
 
 variable "location" {
   description = "Name of the location"
-  type        = string
-}
-
-variable "padding" {
-  description = "Padding"
   type        = string
 }
 

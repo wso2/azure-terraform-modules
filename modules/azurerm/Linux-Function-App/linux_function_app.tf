@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_linux_function_app" "linux_function_app" {
-  name                       = join("-", ["func", var.project, var.application_name, var.environment, var.location, var.padding])
+  name                       = join("-", ["func", var.linux_function_app_name])
   resource_group_name        = var.resource_group_name
   location                   = var.location
   app_settings               = var.app_settings

@@ -9,6 +9,27 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  st_name_without_prefix = join("", [var.shortened_project, var.application_name, var.shortened_environment, var.shortened_location, var.shortened_padding])
+variable "record_name" {
+  description = "The name of the CNAME record."
+  type        = string
+}
+
+variable "dns_zone_name" {
+  description = "The name of the DNS zone in which the record should be created."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which the DNS zone exists."
+  type        = string
+}
+
+variable "ttl" {
+  description = "The Time To Live (TTL) of the DNS record in seconds."
+  type        = number
+}
+
+variable "record" {
+  description = "The value of the CNAME record."
+  type        = string
 }

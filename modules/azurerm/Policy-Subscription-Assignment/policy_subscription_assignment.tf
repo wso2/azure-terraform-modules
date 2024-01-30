@@ -10,11 +10,11 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subscription_policy_assignment" "subscription_policy_assignment" {
-  name                 = join("-", [var.project_short_name, var.environment_short_name, var.purpose])
+  name                 = var.assignment_name
   subscription_id      = var.subscription_resource_id
   policy_definition_id = var.policy_definition_id
   description          = var.description
-  display_name         = join("", ["[${var.project}][${var.environment}]", var.display_name])
+  display_name         = var.assignment_display_name
   enforce              = var.enforce
   parameters           = var.parameters
   location             = var.location

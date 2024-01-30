@@ -9,6 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-locals {
-  st_name_without_prefix = join("", [var.shortened_project, var.application_name, var.shortened_environment, var.shortened_location, var.shortened_padding])
+resource "azurerm_postgresql_flexible_server_configuration" "server_configuration" {
+  name      = var.server_configuration_name
+  server_id = var.postgresql_flexible_server_id
+  value     = var.sever_configuration_value
 }

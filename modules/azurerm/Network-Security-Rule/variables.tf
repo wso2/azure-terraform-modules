@@ -19,8 +19,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "scope" {
-  description = "Name of the Network security rule"
+variable "network_security_rule_name" {
+  description = "Name of the Network Security Rule"
   type        = string
 }
 

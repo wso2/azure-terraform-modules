@@ -9,23 +9,38 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  description = "Project name"
+variable "application_gateway_name" {
+  description = "Name of the application gateway"
   type        = string
 }
 
-variable "environment" {
-  description = "Environment name"
+variable "application_gateway_ip_configuration_name" {
+  description = "Name of the application gateway ip configuration"
+  type        = string
+}
+
+variable "frontend_public_ip_configuration_name" {
+  description = "Name of the frontend public ip configuration"
+  type        = string
+}
+
+variable "frontend_private_ip_configuration_name" {
+  description = "Name of the frontend private ip configuration"
+  type        = string
+}
+
+variable "application_gateway_network_security_group_name" {
+  description = "Name of the network security group"
+  type        = string
+}
+
+variable "application_gateway_subnet_name" {
+  description = "Name of the application gateway subnet"
   type        = string
 }
 
 variable "location" {
   description = "Azure region"
-  type        = string
-}
-
-variable "name" {
-  description = "Name of the resource"
   type        = string
 }
 
@@ -158,7 +173,7 @@ variable "appgw_backend_http_settings" {
 }
 
 variable "appgw_http_listeners" {
-  default     = [{}]
+  default     = [{ default = "default" }]
   description = "List of maps including http listeners configurations"
   type        = list(map(string))
 }
@@ -188,7 +203,7 @@ variable "trusted_root_certificate_configs" {
 }
 
 variable "appgw_routings" {
-  default     = [{}]
+  default     = [{ default = "default" }]
   description = "List of maps including request routing rules configurations"
   type        = list(map(string))
 }
@@ -200,9 +215,9 @@ variable "appgw_rewrite_rule_set" {
 }
 
 variable "appgw_probes" {
-  default     = []
+  default     = [{ default = "default" }]
   description = "List of maps including request probes configurations"
-  type        = list(map(string))
+  type        = any
 }
 
 variable "appgw_url_path_map" {
@@ -250,16 +265,6 @@ variable "tags" {
   default     = {}
   description = "Tags to be used in the resource tags"
   type        = map(string)
-}
-
-variable "padding" {
-  description = "Padding to differentiate between resources"
-  type        = string
-}
-
-variable "application_name" {
-  description = "Application name"
-  type        = string
 }
 
 variable "app_gateway_subnet_enforce_private_link_endpoint_network_policies" {

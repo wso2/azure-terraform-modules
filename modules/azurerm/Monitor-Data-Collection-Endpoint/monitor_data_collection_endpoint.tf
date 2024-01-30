@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_data_collection_endpoint" "data_collection_endpoint" {
-  name                          = join("-", ["dce", var.project, var.endpoint_name, var.environment, var.location, var.padding])
+  name                          = join("-", ["dce", var.data_collection_endpoint_name])
   resource_group_name           = var.resource_group_name
   location                      = var.location
   kind                          = var.kind
