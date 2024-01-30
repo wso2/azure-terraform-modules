@@ -28,8 +28,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   oidc_issuer_enabled                 = var.oidc_issuer_enabled
   tags                                = var.tags
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet]
-  workload_identity_enabled           = var.workload_identity_enabled
-  oidc_issuer_enabled                 = var.oidc_issuer_enabled
 
   lifecycle {
     ignore_changes = [
