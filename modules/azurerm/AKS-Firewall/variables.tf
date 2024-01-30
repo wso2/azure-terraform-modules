@@ -250,18 +250,6 @@ variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_po
   type        = bool
 }
 
-variable "workload_identity_enabled" {
-  default     = false
-  description = "Enable workload identity in AKS cluster"
-  type        = bool
-}
-
-variable "oidc_issuer_enabled" {
-  default     = false
-  description = "Enable OIDC URL in AKS cluster"
-  type        = bool
-}
-
 variable "private_dns_zone_id" {
   description = "Private DNS zone id"
   type        = string
