@@ -78,3 +78,8 @@ output "node_resource_group" {
   depends_on = [azurerm_kubernetes_cluster.aks_cluster]
   value      = azurerm_kubernetes_cluster.aks_cluster.node_resource_group
 }
+
+output "oidc_issuer_url" {
+  depends_on = [azurerm_kubernetes_cluster.aks_cluster]
+  value      = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
+}
