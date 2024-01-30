@@ -284,3 +284,15 @@ variable "nsg_rule_apgw_inbound_allow_enabled" {
   type        = bool
   default     = false
 }
+
+variable "workload_identity_enabled" {
+  default     = false
+  description = "Enable workload identity in AKS cluster"
+  type        = bool
+}
+
+variable "oidc_issuer_enabled" {
+  default     = false
+  description = "Enable OIDC URL in AKS cluster"
+  type        = bool
+}
