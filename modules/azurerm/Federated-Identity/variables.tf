@@ -14,8 +14,8 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "federated_identity_name" {
-  description = "AKS cluster name"
+variable "name" {
+  description = "Name of the Federated Identity Credential"
   type        = string
 }
 
@@ -30,11 +30,11 @@ variable "oidc_issuer_url" {
 }
 
 variable "federated_audience" {
-  description = "federated credential audience"
-  type        = list(any)
+  description = "Audience for the Federated Identity Credential"
+  type        = list(string)
 }
 
-variable "workload_sa_name" {
-  description = "service account name"
+variable "subject" {
+  description = "Subject for the Federated Identity Credential"
   type        = string
 }
