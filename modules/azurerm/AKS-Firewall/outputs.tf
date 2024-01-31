@@ -88,8 +88,3 @@ output "oidc_issuer_url" {
   depends_on = [azurerm_kubernetes_cluster.aks_cluster]
   value      = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
 }
-
-output "oidc_issuer_url" {
-  depends_on = [azurerm_kubernetes_cluster.aks_cluster]
-  value      = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
-}
