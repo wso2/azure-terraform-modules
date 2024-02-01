@@ -24,6 +24,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   role_based_access_control_enabled   = true
   azure_policy_enabled                = var.azure_policy_enabled
   http_application_routing_enabled    = var.http_application_routing_enabled
+  workload_identity_enabled           = var.workload_identity_enabled
+  oidc_issuer_enabled                 = var.oidc_issuer_enabled
   tags                                = var.tags
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet]
 
