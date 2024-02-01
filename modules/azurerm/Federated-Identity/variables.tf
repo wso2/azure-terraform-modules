@@ -29,7 +29,7 @@ variable "oidc_issuer_url" {
   type        = string
 }
 
-variable "federated_audience" {
+variable "audience" {
   description = "Audience for the Federated Identity Credential"
   type        = list(string)
 }

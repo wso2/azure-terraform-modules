@@ -13,7 +13,7 @@ resource "azurerm_federated_identity_credential" "federated_credentials" {
   name                = var.name
   resource_group_name = var.resource_group_name
   parent_id           = var.azurerm_user_assigned_identity_principal_id
-  audience            = var.federated_audience
+  audience            = var.audience
   issuer              = var.oidc_issuer_url
   subject             = var.subject
 }
