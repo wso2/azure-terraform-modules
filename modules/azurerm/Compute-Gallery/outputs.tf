@@ -10,16 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 output "compute_gallery_name" {
-  value = azurerm_shared_image_gallery.compute_gallery.name
+  value      = azurerm_shared_image_gallery.compute_gallery.name
   depends_on = [azurerm_shared_image_gallery.compute_gallery]
 }
 
 output "compute_gallery_user_assigned_id" {
-  value = azurerm_user_assigned_identity.compute_gallery_user_assigned_identity.id
+  value      = azurerm_user_assigned_identity.compute_gallery_user_assigned_identity.id
   depends_on = [azurerm_user_assigned_identity.compute_gallery_user_assigned_identity]
 }
 
 output "compute_gallery_user_assigned_principal_id" {
-  value = azurerm_user_assigned_identity.compute_gallery_user_assigned_identity.principal_id
+  value      = azurerm_user_assigned_identity.compute_gallery_user_assigned_identity.principal_id
   depends_on = [azurerm_user_assigned_identity.compute_gallery_user_assigned_identity]
 }
