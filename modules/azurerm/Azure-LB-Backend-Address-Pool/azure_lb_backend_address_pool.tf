@@ -9,12 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "id" {
-  value      = azurerm_lb.internal_lb.id
-  depends_on = [azurerm_lb.internal_lb]
-}
-
-output "private_ip_addresses" {
-  value      = azurerm_lb.internal_lb.private_ip_addresses
-  depends_on = [azurerm_lb.internal_lb]
+resource "azurerm_lb_backend_address_pool" "lb_backend_address_pool" {
+  loadbalancer_id = var.internal_lb_id
+  name            = var.lb_backend_address_pool_name
 }
