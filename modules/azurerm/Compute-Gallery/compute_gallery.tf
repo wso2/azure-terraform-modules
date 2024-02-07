@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_shared_image_gallery" "compute_gallery" {
-  name                = join("_", ["sig", var.project, var.environment, var.sig_application_name])
+  name                = join("_", ["sig", var.name])
   resource_group_name = var.resource_group
   location            = var.location
   description         = var.description

@@ -9,16 +9,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "project" {
-  type        = string
-  description = "The project."
-}
-
-variable "environment" {
-  type        = string
-  description = "The environment."
-}
-
 variable "resource_group" {
   type        = string
   description = "The name of the resource group in which to create the Shared Image Gallery."
@@ -45,9 +35,9 @@ variable "default_tags" {
   type        = map(string)
 }
 
-variable "sig_application_name" {
+variable "name" {
   type        = string
-  description = "The application name of the resource. Changing this forces a new resource to be created"
+  description = "The name of the resource. Changing this forces a new resource to be created"
 }
 
 variable "role_definition_description" {

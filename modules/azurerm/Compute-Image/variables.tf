@@ -9,11 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "padding" {
-  type = string
-}
-
-variable "si_application_name" {
+variable "name" {
   type = string
   description = "Specifies the name of the Shared Image. Changing this forces a new resource to be created."
 }
@@ -31,16 +27,6 @@ variable "resource_group" {
 variable "location" {
   type = string
   description = "Specifies the supported Azure location where the Shared Image Gallery exists."
-}
-
-variable "project" {
-  type = string
-  description = "The project."
-}
-
-variable "environment" {
-  type = string
-  description = "The environment."
 }
 
 variable "shared_image_os_type" {
