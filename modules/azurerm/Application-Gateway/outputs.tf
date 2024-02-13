@@ -31,5 +31,5 @@ output "azurerm_application_gateway_name" {
 
 output "apgw_backend_address_pool_id" {
   depends_on = [azurerm_application_gateway.app_gateway]
-  value      = azurerm_application_gateway.app_gateway.backend_address_pool[0].id
+  value      = tolist(azurerm_application_gateway.app_gateway.backend_address_pool).0.id
 }
