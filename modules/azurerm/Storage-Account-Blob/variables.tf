@@ -75,3 +75,9 @@ variable "public_network_access_enabled" {
   description = "Whether the public network access is enabled?"
   type        = bool
 }
+
+variable "storage_account_network_rules_virtual_network_subnet_ids" {
+  default     = []
+  description = "List of virtual network subnet IDs"
+  type        = list(string)
+}
