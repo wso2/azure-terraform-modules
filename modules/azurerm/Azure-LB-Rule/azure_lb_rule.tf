@@ -10,18 +10,14 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_lb_rule" "lb_rule" {
-  loadbalancer_id = var.loadbalancer_id
-
-  dynamic "rule_configuration" {
-    for_each = var.rule_configuration
-
-    content {
-      name                           = rule_configuration.value.name
-      frontend_ip_configuration_name = rule_configuration.value.frontend_ip_configuration_name
-      protocol                       = rule_configuration.value.protocol
-      frontend_port                  = rule_configuration.value.frontend_port
-      backend_port                   = rule_configuration.value.backend_port
-      backend_address_pool_ids       = rule_configuration.value.backend_address_pool_ids
-    }
-  }
+  loadbalancer_id                = var.loadbalancer_id
+  name                           = var.name
+  frontend_ip_configuration_name = var.frontend_ip_configuration_name
+  protocol                       = var.protocol
+  frontend_port                  = var.frontend_port
+  backend_port                   = var.backend_port
+  backend_address_pool_ids       = var.backend_address_pool_ids
+  probe_id                       = var.probe_id
+  enable_floating_ip             = var.enable_floating_ip
+  enable_tcp_reset               = var.enable_tcp_reset
 }
