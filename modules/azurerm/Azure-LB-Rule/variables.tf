@@ -32,12 +32,12 @@ variable "protocol" {
 
 variable "frontend_port" {
   description = "The port for the external endpoint. Port numbers for each Rule must be unique within the Load Balancer. Possible values range between 0 and 65534, inclusive."
-  type        = string
+  type        = number
 }
 
 variable "backend_port" {
   description = "The port used for internal connections on the endpoint. Possible values range between 0 and 65535, inclusive."
-  type        = string
+  type        = number
 }
 
 variable "backend_address_pool_ids" {
