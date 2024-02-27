@@ -16,6 +16,11 @@ resource "azurerm_virtual_machine_extension" "ad_login_virtual_machine_extension
   type                       = "AADSSHLoginForLinux"
   type_handler_version       = "1.0"
   auto_upgrade_minor_version = true
+
+  depends_on = [
+    azurerm_route.internet_route,
+    azurerm_linux_virtual_machine.bastion_linux_virtual_machine
+  ]
 }
 
 module "sre-task-automation-repository" {
@@ -47,4 +52,6 @@ resource "azurerm_virtual_machine_extension" "azure_monitor_agent_extension" {
   type                       = "AzureMonitorLinuxAgent"
   type_handler_version       = "1.0"
   auto_upgrade_minor_version = true
+
+  depends_on = [azurerm_linux_virtual_machine.bastion_linux_virtual_machine]
 }
