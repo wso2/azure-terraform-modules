@@ -13,4 +13,13 @@ resource "azurerm_security_center_subscription_pricing" "security_center_subscri
   tier          = var.pricing_setting
   subplan       = var.subplan
   resource_type = var.target_resource_set
+
+  dynamic "extension" {
+    for_each = var.extensions
+
+    content {
+      name                            = extension.value["name"]
+      additional_extension_properties = extension.value["additional_extension_properties"]
+    }
+  }
 }

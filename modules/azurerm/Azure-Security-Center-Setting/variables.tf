@@ -24,3 +24,12 @@ variable "subplan" {
   description = "Resource type pricing subplan. Contact your MSFT representative for possible values."
   type        = string
 }
+
+variable "extensions" {
+  default     = []
+  description = "List of extensions to enable for the target resource set"
+  type = list(object({
+    name                            = string
+    additional_extension_properties = map(string)
+  }))
+}
