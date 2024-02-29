@@ -72,3 +72,15 @@ variable "delegation" {
     service_delegation_actions = list(string)
   }))
 }
+
+variable "network_security_group_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nsg"
+}
+
+variable "subnet_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "snet"
+}

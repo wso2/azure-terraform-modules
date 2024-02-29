@@ -58,3 +58,21 @@ variable "private_endpoint_dns_zone_group_name" {
   description = "The name of the private DNS zone group to create."
   type        = string
 }
+
+variable "resource_group_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pvtep"
+}
+
+variable "private_endpoint_service_connection_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pvtsc"
+}
+
+variable "private_endpoint_dns_zone_group_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pvtdns"
+}

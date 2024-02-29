@@ -11,7 +11,7 @@
 
 resource "azurerm_network_security_group" "network_security_group" {
   location            = var.location
-  name                = join("-", ["nsg", var.application_gateway_network_security_group_name])
+  name                = join("-", [var.application_gateway_nsg_name_abbreviation, var.application_gateway_network_security_group_name])
   resource_group_name = var.resource_group_name
   depends_on          = [azurerm_subnet.app_gateway_subnet]
 }

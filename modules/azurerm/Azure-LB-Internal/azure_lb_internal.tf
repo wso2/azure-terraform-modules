@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_lb" "internal_lb" {
-  name                = join("-", ["lb", var.lb_name])
+  name                = join("-", [var.lb_name_abbreviation, var.lb_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags

@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_backup_policy_file_share" "backup_policy_file_share" {
-  name                = join("-", ["bpfs", var.backup_policy_file_share_name])
+  name                = join("-", [var.backup_policy_file_share_name_abbreviation, var.backup_policy_file_share_name])
   resource_group_name = var.resource_group_name
   recovery_vault_name = var.recovery_vault_name
 

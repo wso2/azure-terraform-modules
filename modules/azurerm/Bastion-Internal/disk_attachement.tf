@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_managed_disk" "bastion_vm_managed_disk" {
-  name                 = join("", ["diskbastion", var.managed_disk_name])
+  name                 = join("", [var.managed_disk_name_abbreviation, var.managed_disk_name])
   location             = var.location
   resource_group_name  = var.resource_group_name
   storage_account_type = "Standard_LRS"

@@ -96,3 +96,15 @@ variable "advanced_threat_protection_enabled" {
   description = "Enable Advance Threat protection for Storage account"
   type        = bool
 }
+
+variable "backup_policy_file_share_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "bpfs"
+}
+
+variable "storage_account_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "st"
+}

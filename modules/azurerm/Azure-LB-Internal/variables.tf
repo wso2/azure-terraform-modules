@@ -56,3 +56,9 @@ variable "frontend_ip_configuration" {
     private_ip_address            = string
   }))
 }
+
+variable "lb_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "lb"
+}

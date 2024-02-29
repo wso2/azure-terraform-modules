@@ -272,3 +272,21 @@ variable "app_gateway_subnet_enforce_private_link_endpoint_network_policies" {
   description = "Enable or Disable network policies for the private link endpoint on the application gateway subnet"
   type        = bool
 }
+
+variable "application_gateway_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "agw"
+}
+
+variable "application_gateway_nsg_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nsg"
+}
+
+variable "application_gateway_subnet_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "snet"
+}

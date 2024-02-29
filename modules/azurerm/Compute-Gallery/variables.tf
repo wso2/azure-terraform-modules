@@ -56,3 +56,9 @@ variable "assignable_scopes" {
   default     = []
   description = "One or more assignable scopes for this Role Definition"
 }
+
+variable "name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "sig"
+}

@@ -77,3 +77,9 @@ variable "azuread_administrator_tenant_id" {
   description = "The tenant id of the Azure AD Administrator of this SQL Server"
   type        = string
 }
+
+variable "mssql_server_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "sql"
+}

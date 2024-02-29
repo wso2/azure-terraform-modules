@@ -112,3 +112,27 @@ variable "bastion_host_subnet_enforce_private_link_endpoint_network_policies" {
   description = "Enable or Disable network policies for the private link endpoint on the bastion host subnet"
   type        = bool
 }
+
+variable "bastion_host_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "bastion"
+}
+
+variable "bastion_subnet_name" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "AzureBastionSubnet"
+}
+
+variable "network_security_group_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nsg-bastion-host"
+}
+
+variable "public_ip_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pip"
+}

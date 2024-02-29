@@ -84,8 +84,38 @@ variable "enable_ama_agent" {
   description = "Specifies to enable Azure Monitoring Agent"
   type        = bool
 }
- 
+
 variable "private_ip_address" {
   description = "The Static IP Address which should be used."
   type        = string
+}
+
+variable "vm_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "vm"
+}
+
+variable "computer_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "vm"
+}
+
+variable "os_disk_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "osdisk"
+}
+
+variable "nic_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nic"
+}
+
+variable "nic_ip_configuration_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nic"
 }

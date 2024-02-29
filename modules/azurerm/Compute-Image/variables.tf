@@ -58,3 +58,9 @@ variable "shared_image_sku" {
   default     = "18.04-LTS"
   description = "The Name of the SKU for this Gallery Image"
 }
+
+variable "name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "si"
+}

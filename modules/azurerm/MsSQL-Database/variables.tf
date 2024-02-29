@@ -81,3 +81,9 @@ variable "maintenance_configuration_name" {
   description = "The name of the Public Maintenance Configuration window to apply to the database"
   type        = string
 }
+
+variable "mssql_database_name_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "sqldb"
+}

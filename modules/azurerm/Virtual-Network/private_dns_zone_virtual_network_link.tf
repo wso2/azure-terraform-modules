@@ -11,7 +11,7 @@
 
 resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_virtual_network_link" {
   count                 = length(var.private_dns_zones)
-  name                  = join("-", ["pvtdnsvnl", var.private_dns_zones[count.index].name])
+  name                  = join("-", [var.private_dns_zone_name_abbreviation, var.private_dns_zones[count.index].name])
   depends_on            = [azurerm_virtual_network.virtual_network]
   resource_group_name   = var.resource_group_name
   private_dns_zone_name = var.private_dns_zones[count.index].zone_name
