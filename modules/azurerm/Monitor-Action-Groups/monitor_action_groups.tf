@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_action_group" "monitor_action_group" {
-  name                = join("-", ["ag", var.montior_action_group_name])
+  name                = join("-", [var.monitor_action_group_abbreviation, var.montior_action_group_name])
   resource_group_name = var.resource_group_name
   short_name          = var.short_name
   tags                = var.tags

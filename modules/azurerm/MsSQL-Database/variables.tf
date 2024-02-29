@@ -82,7 +82,7 @@ variable "maintenance_configuration_name" {
   type        = string
 }
 
-variable "mssql_database_name_abbreviation" {
+variable "mssql_database_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "sqldb"

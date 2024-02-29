@@ -82,7 +82,7 @@ variable "storage_account_network_rules_virtual_network_subnet_ids" {
   type        = list(string)
 }
 
-variable "storage_account_name_abbreviation" {
+variable "storage_account_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "st"

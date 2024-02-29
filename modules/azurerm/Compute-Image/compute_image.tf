@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_shared_image" "compute_image" {
-  name                = join("-", [var.name_abbreviation, var.name])
+  name                = join("-", [var.shared_image_abbreviation, var.name])
   gallery_name        = var.gallery_name
   resource_group_name = var.resource_group
   location            = var.location

@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_linux_virtual_machine" "bastion_linux_virtual_machine" {
-  name                = join("", [var.vm_name_abbreviation, var.vm_name])
+  name                = join("", [var.vm_abbreviation, var.vm_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = var.size
   admin_username      = var.admin_username
-  computer_name       = join("", [var.computer_name_abbreviation, var.computer_name])
+  computer_name       = join("", [var.computer_abbreviation, var.computer_name])
   source_image_id     = var.source_image_id
   network_interface_ids = [
     azurerm_network_interface.bastion_nic.id
@@ -27,7 +27,7 @@ resource "azurerm_linux_virtual_machine" "bastion_linux_virtual_machine" {
   }
 
   os_disk {
-    name                 = join("", [var.os_disk_name_abbreviation, var.os_disk_name])
+    name                 = join("", [var.os_disk_abbreviation, var.os_disk_name])
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
     disk_size_gb         = var.os_disk_size_gb

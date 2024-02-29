@@ -60,3 +60,9 @@ variable "automation_runbooks" {
     use_common_alert_schema = bool
   }))
 }
+
+variable "monitor_action_group_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "ag"
+}

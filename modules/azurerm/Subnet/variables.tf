@@ -73,13 +73,13 @@ variable "delegation" {
   }))
 }
 
-variable "network_security_group_name_abbreviation" {
+variable "nsg_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nsg"
 }
 
-variable "subnet_name_abbreviation" {
+variable "subnet_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "snet"

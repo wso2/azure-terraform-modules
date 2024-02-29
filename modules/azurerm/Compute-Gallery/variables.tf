@@ -57,7 +57,7 @@ variable "assignable_scopes" {
   description = "One or more assignable scopes for this Role Definition"
 }
 
-variable "name_abbreviation" {
+variable "shared_image_gallery_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "sig"

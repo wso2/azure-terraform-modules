@@ -11,7 +11,7 @@
 
 resource "azurerm_application_gateway" "app_gateway" {
   location            = var.location
-  name                = join("-", [var.application_gateway_name_abbreviation, var.application_gateway_name])
+  name                = join("-", [var.application_gateway_abbreviation, var.application_gateway_name])
   resource_group_name = var.resource_group_name
   zones               = var.appgw_zones
   enable_http2        = var.enable_http2

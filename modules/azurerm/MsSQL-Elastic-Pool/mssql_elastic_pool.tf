@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_mssql_elasticpool" "mssql_elasticpool" {
-  name                = join("-", [var.mssql_elasticpool_name_abbreviation, var.mssql_elasticpool_name])
+  name                = join("-", [var.mssql_elasticpool_abbreviation, var.mssql_elasticpool_name])
   resource_group_name = var.resource_group_name
   location            = var.location
   server_name         = var.mssql_server_name

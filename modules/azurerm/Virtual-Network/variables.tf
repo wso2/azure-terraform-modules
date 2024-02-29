@@ -52,13 +52,13 @@ variable "ddos_protection_plan_enable" {
   type        = bool
 }
 
-variable "private_dns_zone_name_abbreviation" {
+variable "private_dns_zone_vnet_link_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "pvtdnsvnl"
 }
 
-variable "virtual_network_name_abbreviation" {
+variable "virtual_network_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "vnet"

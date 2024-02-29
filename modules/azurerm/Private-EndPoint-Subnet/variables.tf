@@ -55,19 +55,19 @@ variable "private_endpoint_subnet_enforce_private_link_endpoint_network_policies
   type        = bool
 }
 
-variable "network_security_group_name_abbreviation" {
+variable "nsg_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nsg-private-endpoint"
 }
 
-variable "private_endpoint_subnet_name_abbreviation" {
+variable "private_endpoint_subnet_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "snet"
 }
 
-variable "private_endpoint_subnet_route_table_name_abbreviation" {
+variable "private_endpoint_subnet_route_table_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "route"

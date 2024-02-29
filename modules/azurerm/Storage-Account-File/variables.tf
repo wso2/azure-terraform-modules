@@ -97,13 +97,13 @@ variable "advanced_threat_protection_enabled" {
   type        = bool
 }
 
-variable "backup_policy_file_share_name_abbreviation" {
+variable "backup_policy_file_share_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "bpfs"
 }
 
-variable "storage_account_name_abbreviation" {
+variable "storage_account_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "st"

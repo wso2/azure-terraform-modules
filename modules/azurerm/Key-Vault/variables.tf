@@ -93,7 +93,7 @@ variable "purge_protection_enabled" {
   type        = bool
 }
 
-variable "key_vault_name_abbreviation" {
+variable "key_vault_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "kv"

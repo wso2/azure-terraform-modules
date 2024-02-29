@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_recovery_services_vault" "recovery_services_vault" {
-  name                = join("-", [var.recovery_services_vault_name_abbreviation, var.recovery_services_vault_name])
+  name                = join("-", [var.recovery_services_vault_abbreviation, var.recovery_services_vault_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.rs_vault_sku

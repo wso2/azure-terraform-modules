@@ -113,7 +113,7 @@ variable "bastion_host_subnet_enforce_private_link_endpoint_network_policies" {
   type        = bool
 }
 
-variable "bastion_host_name_abbreviation" {
+variable "bastion_host_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "bastion"
@@ -125,13 +125,13 @@ variable "bastion_subnet_name" {
   default     = "AzureBastionSubnet"
 }
 
-variable "network_security_group_name_abbreviation" {
+variable "nsg_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nsg-bastion-host"
 }
 
-variable "public_ip_name_abbreviation" {
+variable "public_ip_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "pip"

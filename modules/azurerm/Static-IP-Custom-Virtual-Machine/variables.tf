@@ -90,31 +90,31 @@ variable "private_ip_address" {
   type        = string
 }
 
-variable "vm_name_abbreviation" {
+variable "vm_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "vm"
 }
 
-variable "computer_name_abbreviation" {
+variable "computer_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "vm"
 }
 
-variable "os_disk_name_abbreviation" {
+variable "os_disk_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "osdisk"
 }
 
-variable "nic_name_abbreviation" {
+variable "nic_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nic"
 }
 
-variable "nic_ip_configuration_name_abbreviation" {
+variable "nic_ip_configuration_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nic"

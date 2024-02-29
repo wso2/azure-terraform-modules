@@ -273,19 +273,19 @@ variable "app_gateway_subnet_enforce_private_link_endpoint_network_policies" {
   type        = bool
 }
 
-variable "application_gateway_name_abbreviation" {
+variable "application_gateway_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "agw"
 }
 
-variable "application_gateway_nsg_name_abbreviation" {
+variable "nsg_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nsg"
 }
 
-variable "application_gateway_subnet_name_abbreviation" {
+variable "subnet_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "snet"

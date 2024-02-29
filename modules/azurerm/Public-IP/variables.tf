@@ -53,7 +53,7 @@ variable "allocation_method" {
   type        = string
 }
 
-variable "public_ip_name_abbreviation" {
+variable "public_ip_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "pip"

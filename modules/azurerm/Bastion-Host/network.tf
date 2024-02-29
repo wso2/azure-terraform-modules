@@ -18,7 +18,7 @@ resource "azurerm_subnet" "bastion_host_subnet" {
 }
 
 resource "azurerm_network_security_group" "bastion_host_nsg" {
-  name                = join("-", [var.network_security_group_name_abbreviation, var.network_security_group_name])
+  name                = join("-", [var.nsg_abbreviation, var.network_security_group_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags

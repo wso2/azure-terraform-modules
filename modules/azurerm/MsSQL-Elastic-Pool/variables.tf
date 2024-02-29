@@ -77,7 +77,7 @@ variable "elastic_pool_per_database_settings_max_capacity" {
   type        = number
 }
 
-variable "mssql_elasticpool_name_abbreviation" {
+variable "mssql_elasticpool_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "sqlep"

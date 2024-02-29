@@ -57,7 +57,7 @@ variable "frontend_ip_configuration" {
   }))
 }
 
-variable "lb_name_abbreviation" {
+variable "lb_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "lb"

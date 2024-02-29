@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "app_gateway_subnet" {
-  name                                      = join("-", [var.application_gateway_subnet_name_abbreviation, var.application_gateway_subnet_name])
+  name                                      = join("-", [var.subnet_abbreviation, var.application_gateway_subnet_name])
   resource_group_name                       = var.resource_group_name
   virtual_network_name                      = var.virtual_network_name
   address_prefixes                          = var.address_prefixes

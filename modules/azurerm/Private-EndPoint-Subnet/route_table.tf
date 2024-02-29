@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_route_table" "private_endpoint_route_table" {
-  name                = join("-", [var.private_endpoint_subnet_route_table_name_abbreviation, var.private_endpoint_subnet_route_table_name])
+  name                = join("-", [var.private_endpoint_subnet_route_table_abbreviation, var.private_endpoint_subnet_route_table_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags

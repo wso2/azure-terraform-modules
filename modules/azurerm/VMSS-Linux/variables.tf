@@ -150,13 +150,13 @@ EOD
   default     = {}
 }
 
-variable "name_abbreviation" {
+variable "vmss_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "vmss"
 }
 
-variable "nic_name_abbreviation" {
+variable "nic_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "nic"

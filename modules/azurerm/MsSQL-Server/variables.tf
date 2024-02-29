@@ -78,7 +78,7 @@ variable "azuread_administrator_tenant_id" {
   type        = string
 }
 
-variable "mssql_server_name_abbreviation" {
+variable "mssql_server_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "sql"

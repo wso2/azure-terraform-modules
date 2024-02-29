@@ -59,7 +59,7 @@ variable "shared_image_sku" {
   description = "The Name of the SKU for this Gallery Image"
 }
 
-variable "name_abbreviation" {
+variable "shared_image_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "si"
