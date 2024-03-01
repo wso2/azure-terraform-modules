@@ -38,7 +38,7 @@ variable "activity_log_administrative_alerts" {
   }))
 }
 
-variable "monitor_metric_alert_abbreviation" {
+variable "monitor_activity_log_alert_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "ala"
