@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_role_definition" "compute_gallery_role_definition" {
-  name        = join(" ", [var.role_definition, "Compute Gallery Writer"])
+  name        = join(" ", [var.role_definition_name, "Compute Gallery Writer"])
   scope       = var.resource_group_id
   description = var.role_definition_description
 

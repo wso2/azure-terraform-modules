@@ -63,7 +63,7 @@ variable "shared_image_gallery_abbreviation" {
   default     = "sig"
 }
 
-variable "role_definition" {
-  description = "The abbreviation of the resource name."
+variable "role_definition_name" {
+  description = "The name of role definition application. Postfix Appends (Compute Gallery Writer)"
   type        = string
 }
