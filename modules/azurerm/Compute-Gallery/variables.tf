@@ -64,6 +64,6 @@ variable "shared_image_gallery_abbreviation" {
 }
 
 variable "role_definition_name" {
-  description = "The name of role definition application. Postfix Appends (Compute Gallery Writer)"
+  description = "The name of the role definition and a postfix of 'Compute Gallery Writer' will append (ex: if you provide Custom as the role_definition_name, then the output will look as Custom Compute Gallery Writer"
   type        = string
 }
