@@ -62,3 +62,8 @@ variable "shared_image_gallery_abbreviation" {
   type        = string
   default     = "sig"
 }
+
+variable "role_definition" {
+  description = "The abbreviation of the resource name."
+  type        = string
+}
