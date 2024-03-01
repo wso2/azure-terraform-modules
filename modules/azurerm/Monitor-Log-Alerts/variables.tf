@@ -97,3 +97,9 @@ variable "specific_service_health_alerts" {
     targetServices          = list(string)
   }))
 }
+
+variable "monitor_metric_alert_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "ala"
+}

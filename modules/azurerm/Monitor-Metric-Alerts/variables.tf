@@ -95,3 +95,9 @@ variable "metric_alerts" {
     criteria_threshold        = number
   }))
 }
+
+variable "monitor_metric_alert_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "ma"
+}
