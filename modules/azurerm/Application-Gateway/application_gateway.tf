@@ -11,11 +11,12 @@
 
 resource "azurerm_application_gateway" "app_gateway" {
   location            = var.location
-  name                = join("-", ["agw", var.application_gateway_name])
+  name                = join("-", [var.application_gateway_abbreviation, var.application_gateway_name])
   resource_group_name = var.resource_group_name
   zones               = var.appgw_zones
   enable_http2        = var.enable_http2
   tags                = var.tags
+
   depends_on = [
     azurerm_network_security_group.network_security_group,
     azurerm_network_security_rule.default_network_security_rule,

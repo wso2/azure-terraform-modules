@@ -11,15 +11,15 @@
 
 # Create network interface
 resource "azurerm_network_interface" "static_ip_vm_nic" {
-  name                = join("-", ["nic", var.nic_name])
+  name                = join("-", [var.nic_abbreviation, var.nic_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
 
   ip_configuration {
-    name                          = join("-", ["nic", var.nic_ip_configuration_name])
+    name                          = join("-", [var.nic_ip_configuration_abbreviation, var.nic_ip_configuration_name])
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Static"
-    private_ip_address            = var.private_ip_address 
+    private_ip_address            = var.private_ip_address
   }
 }

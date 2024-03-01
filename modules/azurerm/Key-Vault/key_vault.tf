@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_key_vault" "key_vault" {
-  name                            = join("-", ["kv", var.key_vault_name])
+  name                            = join("-", [var.key_vault_abbreviation, var.key_vault_name])
   location                        = var.location
   resource_group_name             = var.resource_group_name
   sku_name                        = var.sku_name

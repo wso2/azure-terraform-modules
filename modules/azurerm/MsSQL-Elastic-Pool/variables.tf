@@ -76,3 +76,9 @@ variable "elastic_pool_per_database_settings_max_capacity" {
   description = "The maximum capacity any one database can consume."
   type        = number
 }
+
+variable "mssql_elasticpool_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "sqlep"
+}

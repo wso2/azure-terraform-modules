@@ -35,3 +35,8 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "recovery_services_vault_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "rsv"
+}

@@ -9,6 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "resource_group_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "rg"
+}
+
 variable "resource_group_name" {
   description = "Name of the resource group."
   type        = string

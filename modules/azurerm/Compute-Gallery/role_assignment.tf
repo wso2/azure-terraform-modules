@@ -28,7 +28,7 @@ resource "azurerm_role_definition" "compute_gallery_role_definition" {
 
     not_actions = []
   }
-  
+
   assignable_scopes = var.assignable_scopes
 }
 
@@ -42,7 +42,7 @@ resource "azurerm_role_assignment" "compute_gallery_role_assignment" {
   scope              = var.resource_group_id
   role_definition_id = azurerm_role_definition.compute_gallery_role_definition.role_definition_resource_id
   principal_id       = azurerm_user_assigned_identity.compute_gallery_user_assigned_identity.principal_id
-  
+
   depends_on = [
     azurerm_role_definition.compute_gallery_role_definition,
     azurerm_user_assigned_identity.compute_gallery_user_assigned_identity

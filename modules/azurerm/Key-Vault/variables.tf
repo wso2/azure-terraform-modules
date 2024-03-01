@@ -92,3 +92,9 @@ variable "purge_protection_enabled" {
   description = "Indicate if the keyvault is enabled with purge protection"
   type        = bool
 }
+
+variable "key_vault_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "kv"
+}

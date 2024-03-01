@@ -214,3 +214,87 @@ variable "bastion_subnet_enforce_private_link_endpoint_network_policies" {
   description = "Enable or Disable network policies for the private link endpoint on the bastion subnet"
   type        = bool
 }
+
+variable "managed_disk_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "diskbastion"
+}
+
+variable "vm_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "vmbastion"
+}
+
+variable "computer_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "vmbastion"
+}
+
+variable "os_disk_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "osdiskbastion"
+}
+
+variable "subnet_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "snet-bastion"
+}
+
+variable "route_table_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "route"
+}
+
+variable "nsg_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nsg-bastion"
+}
+
+variable "nic_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nic-bastion"
+}
+
+variable "ip_configuration_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nic-bastion"
+}
+
+variable "asg_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "asg-bastion"
+}
+
+variable "storage_account_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "st"
+}
+
+variable "private_endpoint_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pvtep"
+}
+
+variable "pvt_sc_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pvtsc"
+}
+
+variable "private_dns_zone_group_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "pvtdns"
+}

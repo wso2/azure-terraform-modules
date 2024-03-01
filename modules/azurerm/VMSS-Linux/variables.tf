@@ -149,3 +149,15 @@ EOD
   type        = map(string)
   default     = {}
 }
+
+variable "vmss_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "vmss"
+}
+
+variable "nic_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "nic"
+}

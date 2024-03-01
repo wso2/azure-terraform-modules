@@ -11,10 +11,10 @@
 
 output "compute_image_name" {
   value      = azurerm_shared_image.compute_image.name
-  depends_on = [azurerm_shared_image.compute_image] 
+  depends_on = [azurerm_shared_image.compute_image]
 }
 
 output "compute_image_id" {
   value      = azurerm_shared_image.compute_image.id
-  depends_on = [azurerm_shared_image.compute_image] 
+  depends_on = [azurerm_shared_image.compute_image]
 }

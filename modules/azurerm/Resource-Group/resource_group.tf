@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = join("-", ["rg", var.resource_group_name])
+  name     = join("-", [var.resource_group_abbreviation, var.resource_group_name])
   location = var.location
   tags     = var.tags
 }
