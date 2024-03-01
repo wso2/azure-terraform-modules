@@ -62,3 +62,8 @@ variable "shared_image_gallery_abbreviation" {
   type        = string
   default     = "sig"
 }
+
+variable "role_definition_name" {
+  description = "The name of the role definition and a postfix of 'Compute Gallery Writer' will append (ex: if you provide Custom as the role_definition_name, then the output will look as Custom Compute Gallery Writer"
+  type        = string
+}
