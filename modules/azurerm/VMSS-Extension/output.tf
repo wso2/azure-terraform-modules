@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 output "vmss_extension_id" {
-  value      = azurerm_virtual_machine_extension.vmss_extension.id
-  depends_on = [azurerm_virtual_machine_extension.vmss_extension]
+  value      = azurerm_virtual_machine_scale_set_extension.vmss_extension.id
+  depends_on = [azurerm_virtual_machine_scale_set_extension.vmss_extension]
 }
