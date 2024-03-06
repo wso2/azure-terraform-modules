@@ -76,4 +76,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_virtual_machine_scale_
       load_balancer_backend_address_pool_ids       = var.load_balancer_backend_address_pool_ids
     }
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
