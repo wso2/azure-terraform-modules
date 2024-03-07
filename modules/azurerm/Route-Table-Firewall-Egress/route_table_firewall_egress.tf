@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_route_table" "route_table_firewall_egress" {
-  name                = join("-", ["route", var.route_table_firewall_egress_name])
+  name                = join("-", [var.route_table_abbreviation, var.route_table_firewall_egress_name])
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = var.tags
