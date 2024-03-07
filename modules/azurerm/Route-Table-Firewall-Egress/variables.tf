@@ -38,3 +38,9 @@ variable "firewall_private_ip" {
   description = "Private IP of the firewall"
   type        = string
 }
+
+variable "route_table_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "route"
+}
