@@ -25,6 +25,12 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "cognitive_account_abbreviation" {
+  description = "The abbreviation for the name of the Azure Cognitive account."
+  type        = string
+  default     = "oai"
+}
+
 variable "cognitive_account_name" {
   description = "The name of the Azure Cognitive account."
   type        = string
@@ -51,6 +57,12 @@ variable "public_network_access_enabled" {
   description = "Specifies whether public network access is allowed for the Cognitive Account."
   type        = bool
   default     = false
+}
+
+variable "cognitive_deployment_abbreviation" {
+  description = "The abbreviation for the name of the Azure Cognitive Deployment."
+  type        = string
+  default     = "oai"
 }
 
 variable "cognitive_deployment_name" {

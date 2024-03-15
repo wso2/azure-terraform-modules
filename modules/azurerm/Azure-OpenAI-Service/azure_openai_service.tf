@@ -13,7 +13,7 @@ resource "azurerm_cognitive_account" "azure_openai_account" {
   kind                               = var.kind
   location                           = var.location
   resource_group_name                = var.resource_group_name
-  name                               = join("-", ["aoaica", var.cognitive_account_name])
+  name                               = join("-", [var.cognitive_account_abbreviation, var.cognitive_account_name])
   sku_name                           = var.account_sku_name
   dynamic_throttling_enabled         = var.dynamic_throttling_enabled
   outbound_network_access_restricted = var.outbound_network_access_restricted
@@ -23,7 +23,7 @@ resource "azurerm_cognitive_account" "azure_openai_account" {
 
 resource "azurerm_cognitive_deployment" "azure_openai_deployment" {
   cognitive_account_id   = azurerm_cognitive_account.azure_openai_account.id
-  name                   = join("-", ["aoaicd", var.cognitive_deployment_name])
+  name                   = join("-", [var.cognitive_deployment_abbreviation, var.cognitive_deployment_name])
   rai_policy_name        = var.rai_policy_name
   version_upgrade_option = var.version_upgrade_option
 
