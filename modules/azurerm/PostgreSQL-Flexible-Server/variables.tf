@@ -63,17 +63,20 @@ variable "location" {
 variable "postgresql_server_version" {
   description = "PostgreSQL Server version, Must be 11,12,13 or 14"
   type        = string
+  default     = null
 }
 
 variable "postgresql_server_admin_username" {
   description = "Admin account username"
   type        = string
+  default     = null
 }
 
 variable "postgresql_server_admin_password" {
   description = "Admin account password"
   type        = string
   sensitive   = true
+  default     = null
 }
 
 variable "storage_size" {
@@ -102,4 +105,16 @@ variable "maintainance_start_minute" {
   default     = 0
   description = "Minute to commence server updates, value should be between 0 - 59"
   type        = number
+}
+
+variable "create_mode" {
+  default     = "Default"
+  description = "Create mode for the PostgreSQL Server. Possible values are Default, PointInTimeRestore, Replica and Update"
+  type        = string
+}
+
+variable "source_server_id" {
+  default     = null
+  description = "Optional Parameter to create a server as a replica of an existing server"
+  type        = string
 }

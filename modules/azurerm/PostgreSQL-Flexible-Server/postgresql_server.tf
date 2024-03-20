@@ -23,6 +23,8 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
   sku_name                     = var.sku_name
   backup_retention_days        = var.backup_retention_days
+  create_mode                  = var.create_mode
+  source_server_id             = var.source_server_id
   tags                         = var.tags
 
   maintenance_window {
