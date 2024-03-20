@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
 #
 # This software is the property of WSO2 LLC. and its suppliers, if any.
 # Dissemination of any information or reproduction of any material contained
@@ -9,17 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_security_center_subscription_pricing" "security_center_subscription_pricing" {
-  tier          = var.pricing_setting
-  subplan       = var.subplan
-  resource_type = var.target_resource_set
-
-  dynamic "extension" {
-    for_each = var.extensions
-
-    content {
-      name                            = extension.value["name"]
-      additional_extension_properties = extension.value["additional_extension_properties"]
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.52.0"
     }
   }
 }
