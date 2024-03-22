@@ -18,6 +18,7 @@ resource "azurerm_cognitive_account" "azure_openai_account" {
   dynamic_throttling_enabled         = var.dynamic_throttling_enabled
   outbound_network_access_restricted = var.outbound_network_access_restricted
   public_network_access_enabled      = var.public_network_access_enabled
+  custom_subdomain_name              = join("-", [var.cognitive_account_abbreviation, var.custom_subdomain_name])
   tags                               = var.tags
 }
 

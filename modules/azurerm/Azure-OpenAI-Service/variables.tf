@@ -59,6 +59,11 @@ variable "public_network_access_enabled" {
   default     = false
 }
 
+variable "custom_subdomain_name" {
+  description = "The subdomain name used for token-based authentication."
+  type        = string
+}
+
 variable "cognitive_deployment_abbreviation" {
   description = "The abbreviation for the name of the Azure Cognitive Deployment."
   type        = string
