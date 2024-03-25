@@ -27,6 +27,10 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   source_server_id             = var.source_server_id
   tags                         = var.tags
 
+  high_availability {
+    mode = "ZoneRedundant"
+  }
+
   maintenance_window {
     day_of_week  = var.maintainance_start_day
     start_hour   = var.maintainance_start_hour
