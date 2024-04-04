@@ -56,3 +56,9 @@ variable "internet_query_enabled" {
   description = "Should the Log Analytics Workspace support querying over the Public Internet"
   type        = bool
 }
+
+variable "log_analytics_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "log"
+}
