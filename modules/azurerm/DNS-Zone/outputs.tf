@@ -13,3 +13,8 @@ output "dns_zone_id" {
   depends_on = [azurerm_dns_zone.dns_zone]
   value      = azurerm_dns_zone.dns_zone.id
 }
+
+output "dns_zone_name_servers" {
+  depends_on = [azurerm_dns_zone.dns_zone]
+  value      = azurerm_dns_zone.dns_zone.name_servers
+}
