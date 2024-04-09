@@ -11,14 +11,14 @@
 
 # Generic Extension Installation
 resource "azurerm_virtual_machine_scale_set_extension" "vmss_extension" {
-  name                          = var.vmss_extension_peering_name
-  virtual_machine_scale_set_id  = var.linux_vmss_id
-  publisher                     = var.vmss_extension_publisher
-  type                          = var.vmss_extension_type
-  type_handler_version          = var.vmss_extension_type_handler_version
-  auto_upgrade_minor_version    = var.vmss_extension_auto_upgrade_minor_version
-  settings                      = var.vmss_extension_settings
-  protected_settings            = var.vmss_extension_protected_settings
+  name                         = var.vmss_extension_peering_name
+  virtual_machine_scale_set_id = var.linux_vmss_id
+  publisher                    = var.vmss_extension_publisher
+  type                         = var.vmss_extension_type
+  type_handler_version         = var.vmss_extension_type_handler_version
+  auto_upgrade_minor_version   = var.vmss_extension_auto_upgrade_minor_version
+  settings                     = var.vmss_extension_settings
+  protected_settings           = var.vmss_extension_protected_settings
 
   timeouts {
     create = var.vmss_extension_create_timeout
