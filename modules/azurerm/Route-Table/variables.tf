@@ -48,3 +48,9 @@ variable "next_hop_in_ip_address" {
   description = "Next hop in IP address"
   type        = string
 }
+
+variable "route_table_abbreviation" {
+  description = "The abbreviation of the resource name."
+  type        = string
+  default     = "route"
+}
