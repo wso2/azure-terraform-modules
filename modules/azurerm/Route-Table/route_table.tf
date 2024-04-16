@@ -21,6 +21,13 @@ resource "azurerm_route_table" "route_table" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = var.next_hop_in_ip_address
   }
+
+  # handle manual route configurations
+  lifecycle {
+    ignore_changes = [
+      route
+    ]
+  }
 }
 
 resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
