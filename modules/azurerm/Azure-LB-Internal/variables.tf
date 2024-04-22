@@ -24,11 +24,6 @@ variable "lb_name" {
   type        = string
 }
 
-variable "virtual_network_name" {
-  description = "The name of the virtual network"
-  type        = string
-}
-
 variable "tags" {
   description = "The mapping of resource tags"
   type        = map(string)

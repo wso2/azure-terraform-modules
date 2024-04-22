@@ -23,10 +23,6 @@ resource "azurerm_virtual_machine_extension" "ad_login_virtual_machine_extension
   ]
 }
 
-module "sre-task-automation-repository" {
-  source = "git::https://github.com/wso2-enterprise/sre-task-automation?ref=v1.15.0"
-}
-
 resource "azurerm_virtual_machine_extension" "data_disk_attachment" {
   name                 = "AttachDataDisk"
   virtual_machine_id   = azurerm_linux_virtual_machine.bastion_linux_virtual_machine.id
@@ -35,7 +31,7 @@ resource "azurerm_virtual_machine_extension" "data_disk_attachment" {
   type_handler_version = "2.0"
   settings             = <<SETTINGS
     {
-        "script": "${base64encode(replace(file(module.sre-task-automation-repository.mount_vm_data_disk_shell_script), "disk_lun_value", var.managed_disk_attachment_lun))}"
+        "script": "${base64encode(replace(file("${path.module}/scripts/mount_vm_data_disk.sh"), "disk_lun_value", var.managed_disk_attachment_lun))}"
     }
 SETTINGS
   depends_on = [

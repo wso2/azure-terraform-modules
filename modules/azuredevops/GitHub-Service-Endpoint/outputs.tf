@@ -13,3 +13,8 @@ output "serviceendpoint_id" {
   depends_on = [azuredevops_serviceendpoint_github.devops_serviceendpoint_github]
   value      = azuredevops_serviceendpoint_github.devops_serviceendpoint_github.id
 }
+
+output "serviceendpoint_name" {
+  depends_on = [azuredevops_serviceendpoint_github.devops_serviceendpoint_github]
+  value      = azuredevops_serviceendpoint_github.devops_serviceendpoint_github.service_endpoint_name
+}
