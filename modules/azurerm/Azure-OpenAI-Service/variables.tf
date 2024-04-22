@@ -87,22 +87,6 @@ variable "version_upgrade_option" {
   default     = "NoAutoUpgrade"
 }
 
-variable "cognitive_model_format" {
-  description = "The format of the Cognitive Services Account Deployment model."
-  type        = string
-  default     = "OpenAI"
-}
-
-variable "cognitive_model_name" {
-  description = "The name of the Cognitive Services Account Deployment model."
-  type        = string
-}
-
-variable "cognitive_model_version" {
-  description = "The version of Cognitive Services Account Deployment model."
-  type        = string
-}
-
 variable "deployment_sku_scale_type" {
   description = "The name of the SKU. Ex - Standard or P3."
   type        = string
@@ -116,4 +100,13 @@ variable "deployment_sku_scale_capacity" {
 variable "tags" {
   description = "Default tag list"
   type        = map(string)
+}
+
+variable "azure_openai_deployments" {
+  description = "Map of OpenAI deployments in the Azure Cognitive Account"
+  type = map(object({
+    cognitive_model_format  = string
+    cognitive_model_name    = string
+    cognitive_model_version = string
+  }))
 }

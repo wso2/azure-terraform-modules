@@ -31,5 +31,5 @@ output "azure_openai_account_secondary_access_key" {
 
 output "azure_openai_deployment_id" {
   depends_on = [azurerm_cognitive_deployment.azure_openai_deployment]
-  value      = azurerm_cognitive_deployment.azure_openai_deployment.id
+  value      = [for azure_openai_deployment in azurerm_cognitive_deployment.azure_openai_deployment : azure_openai_deployment.id]
 }
