@@ -23,15 +23,16 @@ resource "azurerm_cognitive_account" "azure_openai_account" {
 }
 
 resource "azurerm_cognitive_deployment" "azure_openai_deployment" {
+  for_each               = var.azure_openai_deployments
   cognitive_account_id   = azurerm_cognitive_account.azure_openai_account.id
   name                   = join("-", [var.cognitive_deployment_abbreviation, var.cognitive_deployment_name])
   rai_policy_name        = var.rai_policy_name
   version_upgrade_option = var.version_upgrade_option
 
   model {
-    format  = var.cognitive_model_format
-    name    = var.cognitive_model_name
-    version = var.cognitive_model_version
+    format  = each.value.cognitive_model_format
+    name    = each.value.cognitive_model_name
+    version = each.value.cognitive_model_version
   }
   scale {
     type     = var.deployment_sku_scale_type
