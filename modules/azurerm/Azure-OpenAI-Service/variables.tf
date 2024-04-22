@@ -70,11 +70,6 @@ variable "cognitive_deployment_abbreviation" {
   default     = "oai"
 }
 
-variable "cognitive_deployment_name" {
-  description = "The name of the Cognitive Services Account Deployment."
-  type        = string
-}
-
 variable "rai_policy_name" {
   description = "Optional Parameter for the name of the RAI policy."
   type        = string
@@ -105,8 +100,9 @@ variable "tags" {
 variable "azure_openai_deployments" {
   description = "Map of OpenAI deployments in the Azure Cognitive Account"
   type = map(object({
-    cognitive_model_format  = string
-    cognitive_model_name    = string
-    cognitive_model_version = string
+    cognitive_deployment_name = string
+    cognitive_model_format    = string
+    cognitive_model_name      = string
+    cognitive_model_version   = string
   }))
 }
