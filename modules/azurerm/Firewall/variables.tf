@@ -60,7 +60,6 @@ variable "public_ip_prefixes" {
   description = "Map of public IP prefixes to associate with the Firewall."
   type = map(object({
     public_ip_name         = string
-    private_ip_address     = string
     fw_ip_association_name = string
     public_ip_prefix_id    = string
   }))
