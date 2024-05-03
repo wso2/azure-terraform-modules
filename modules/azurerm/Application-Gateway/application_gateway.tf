@@ -93,6 +93,18 @@ resource "azurerm_application_gateway" "app_gateway" {
     policy_name = var.ssl_policy_name
   }
 
+  dynamic "ssl_profile" {
+    for_each = var.ssl_profiles
+
+    content {
+      name = var.ssl_profile_name
+      ssl_policy {
+        policy_type = var.ssl_profile_policy_type
+        cipher_suites = var.ssl_profile_policy_cipher_suites
+      }
+    }
+  }
+
   dynamic "backend_http_settings" {
     for_each = var.appgw_backend_http_settings
 
@@ -201,6 +213,11 @@ resource "azurerm_application_gateway" "app_gateway" {
           response_header_configuration {
             header_name  = lookup(rewrite_rule.value, "response_header_name", null)
             header_value = lookup(rewrite_rule.value, "response_header_value", null)
+          }
+
+          request_header_configuration {
+            header_name = lookup(rewrite_rule.value, "request_header_name", null)
+            header_value = lookup(rewrite_rule.value, "request_header_value", null)
           }
         }
       }

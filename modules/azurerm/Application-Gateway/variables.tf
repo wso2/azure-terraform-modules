@@ -166,6 +166,30 @@ variable "ssl_policy_name" {
   type        = string
 }
 
+variable "ssl_profiles" {
+  default     = []
+  description = "Appgw SSL profiles"
+  type        = list(map(string))
+}
+
+variable "ssl_profile_name" {
+  default     = ""
+  description = "Appgw SSL profile name"
+  type        = string
+}
+
+variable "ssl_profile_policy_type" {
+  default     = ""
+  description = "Appgw SSL policy type of the profile"
+  type        = string
+}
+
+variable "ssl_profile_policy_cipher_suites" {
+  default     = []
+  description = "Appgw SSL policy cipher suites of the profile"
+  type        = list(string)
+}
+
 variable "appgw_backend_http_settings" {
   default     = [{ default = "default" }]
   description = "List of maps including backend http settings configurations"
