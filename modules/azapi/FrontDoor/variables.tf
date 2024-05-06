@@ -58,7 +58,7 @@ variable "frontend_endpoints_abbreviation" {
 }
 
 variable "routing_rules" {
-  description = "A list of routing rules to be associated with the Front Door. Check https://learn.microsoft.com/en-us/azure/templates/microsoft.network/frontdoors?pivots=deployment-language-terraform for more information"
+  description = "A list of routing rules to be associated with the Front Door. Check https://learn.microsoft.com/en-us/azure/templates/microsoft.network/frontdoors?pivots=deployment-language-terraform for more information."
   type        = any
 }
 
@@ -115,7 +115,7 @@ variable "backend_pools" {
 }
 
 variable "rules_engines" {
-  description = "A list of rules engines to be associated with the Front Door. Check https://learn.microsoft.com/en-us/azure/templates/microsoft.network/frontdoors/rulesengines?pivots=deployment-language-terraform for more information"
+  description = "A list of rules engines to be associated with the Front Door. Check https://learn.microsoft.com/en-us/azure/templates/microsoft.network/frontdoors/rulesengines?pivots=deployment-language-terraform for more information."
   type = list(object({
     name  = string
     rules = any
