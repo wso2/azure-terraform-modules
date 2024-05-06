@@ -22,3 +22,13 @@ output "frontdoor_id" {
   description = "The ID of the Front Door."
   value       = jsondecode(azapi_resource.frontdoor.output).properties.frontdoorId
 }
+
+output "frontdoor_frontend_endpoint_ids" {
+  description = "The Resource IDs of the Frontend Endpoints of the Front Door. This is used to configure custom HTTPS settings."
+  value       = [for endpoint in jsondecode(azapi_resource.frontdoor.output).properties.frontendEndpoints : endpoint.id if endpoint.name != "${var.frontend_endpoints_abbreviation}-default"]
+}
+
+output "frontdoor_frontend_endpoint_names" {
+  description = "The Resource names of the Frontend Endpoints of the Front Door."
+  value       = [for endpoint in jsondecode(azapi_resource.frontdoor.output).properties.frontendEndpoints : endpoint.name if endpoint.name != "${var.frontend_endpoints_abbreviation}-default"]
+}
