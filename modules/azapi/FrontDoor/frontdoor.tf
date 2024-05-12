@@ -89,6 +89,12 @@ resource "azapi_resource" "frontdoor" {
         }
       ]
 
+      # Configure Backend Pools Settings
+      backendPoolsSettings = {
+        enforceCertificateNameCheck = var.enforce_certificate_name_check
+        sendRecvTimeoutSeconds      = var.send_recv_timeout_seconds
+      }
+
       # Configure Backend Pool
       backendPools = [
         for pool in var.backend_pools :

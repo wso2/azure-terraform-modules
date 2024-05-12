@@ -96,6 +96,18 @@ variable "health_probe_abbreviation" {
   default     = "hp"
 }
 
+variable "enforce_certificate_name_check" {
+  description = "Enforce certificate name check."
+  type        = string
+  default     = "Enabled"
+}
+
+variable "send_recv_timeout_seconds" {
+  description = "The send and receive timeout in seconds."
+  type        = number
+  default     = 30
+}
+
 variable "backend_pools" {
   description = "A list of backend pools to be associated with the Front Door."
   type = list(object({
