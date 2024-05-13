@@ -1,34 +1,43 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
-# This software is the property of WSO2 LLC. and its suppliers, if any.
-# Dissemination of any information or reproduction of any material contained
-# herein in any form is strictly forbidden, unless permitted by WSO2 expressly.
-# You may not alter or remove any copyright or other notice from copies of this content.
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
 #
 # --------------------------------------------------------------------------------------
 
 variable "log_setting_name" {
-  description = "Name of the Diagnostic Setting"
   type        = string
+  description = "Diagnostic Setting Name"
 }
 
 variable "target_resource_id" {
-  description = "Azure resource ID for target resource to extract logs"
   type        = string
+  description = "Azure resource ID for target resource to extract logs"
 }
 
 variable "archival_locations" {
-  default = {
-    archival_storage_account_id = "",
-    log_analytics_workspace_id  = ""
-  }
-  description = "Locations to extract Log files to keep empty if not required"
   type = object({
     archival_storage_account_id = string,
     log_analytics_workspace_id  = string
   })
+  description = "Locations to extract Log files to keep empty if not required"
+  default = {
+    archival_storage_account_id = "",
+    log_analytics_workspace_id  = ""
+  }
   validation {
     condition     = var.archival_locations.archival_storage_account_id != "" || var.archival_locations.log_analytics_workspace_id != ""
     error_message = "Please specify at least one locations to send Logs."
@@ -36,53 +45,45 @@ variable "archival_locations" {
 }
 
 variable "sub_service_id" {
-  default     = ""
-  description = "Path to access Sub service (OPTIONAL)"
   type        = string
+  description = "Path to access Sub service (OPTIONAL)"
+  default     = ""
 }
 
 variable "required_metric_categories" {
-  default     = []
-  description = "Metrics to be extracted from the resource"
   type = list(object(
     {
-      category_name : string,
-      retention_period : number
+      category_name : string
     }
   ))
+  description = "Metrics to be extracted from the resource"
+  default     = []
 }
 
 variable "required_log_categories" {
-  default     = []
-  description = "Logs to be extracted from the resource"
   type = list(object(
     {
-      category_name : string,
-      retention_period : number
+      category_name : string
     }
   ))
+  description = "Logs to be extracted from the resource"
+  default     = []
 }
 
 variable "all_log_types_enabled" {
-  default     = { enabled : false, retention_period : 0 }
+  type        = bool
   description = "Allow or Disallow all log types to be extracted from the resource"
-  type = object({
-    enabled : bool,
-    retention_period : number
-  })
+  default     = false
 }
 
 variable "all_metrics_enabled" {
-  default     = { enabled : false, retention_period : 0 }
+  type        = bool
   description = "Allow or Disallow all metrics to be extracted from the resource"
-  type = object({
-    enabled : bool,
-    retention_period : number
-  })
+  default     = false
 }
 
 variable "log_analytics_destination_type" {
-  default     = null
-  description = "Destination type for Log Analytics Workspace"
   type        = string
+  description = "Possible values are AzureDiagnostics and Dedicated. When set to Dedicated, logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table."
+  default     = null
 }
