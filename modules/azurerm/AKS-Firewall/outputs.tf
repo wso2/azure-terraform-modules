@@ -54,6 +54,11 @@ output "aks_internal_lb_subnet_id" {
   value      = azurerm_subnet.internal_load_balancer_subnet.id
 }
 
+output "aks_internal_lb_subnet_name" {
+  depends_on = [azurerm_subnet.internal_load_balancer_subnet]
+  value      = azurerm_subnet.internal_load_balancer_subnet.name
+}
+
 output "nodepool_network_security_group_id" {
   depends_on = [azurerm_network_security_group.aks_node_pool_subnet_nsg]
   value      = azurerm_network_security_group.aks_node_pool_subnet_nsg.id
