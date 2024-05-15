@@ -61,3 +61,9 @@ variable "daily_data_cap_notifications_disabled" {
   description = "Disable daily data cap notifications"
   type        = bool
 }
+
+variable "workspace_id" {
+  description = "Specifies the id of a log analytics workspace resource."
+  type        = string
+  default     = null
+}
