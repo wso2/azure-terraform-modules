@@ -167,6 +167,7 @@ variable "ssl_policy_name" {
 }
 
 variable "ssl_profiles" {
+  default = {}
   description = "The SSL profile to be associate with a listener"
   type = map(object({
     name = string
@@ -220,6 +221,7 @@ variable "appgw_routings" {
 }
 
 variable "appgw_rewrite_rule_set" {
+  default = {}
   description = "Application gateway's rewrite rules"
   type = map(object({
     name = string
