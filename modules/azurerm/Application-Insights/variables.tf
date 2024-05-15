@@ -9,6 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "application_insights_abbreviation" {
+  description = "Application Insights name abbreviation"
+  type        = string
+  default     = "appi"
+}
+
 variable "application_insights_name" {
   description = "Application Insights name"
   type        = string
@@ -54,4 +60,10 @@ variable "daily_data_cap_notifications_disabled" {
   default     = false
   description = "Disable daily data cap notifications"
   type        = bool
+}
+
+variable "workspace_id" {
+  description = "Specifies the id of a log analytics workspace resource."
+  type        = string
+  default     = null
 }
