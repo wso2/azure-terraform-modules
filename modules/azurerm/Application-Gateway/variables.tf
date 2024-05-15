@@ -172,7 +172,7 @@ variable "ssl_profiles" {
   type = map(object({
     name = string
     ssl_policy = object({
-      min_protocol_version = string
+      min_protocol_version  = string
       profile_policy_type   = string
       profile_cipher_suites = list(string)
     })

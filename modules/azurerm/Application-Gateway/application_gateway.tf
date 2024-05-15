@@ -95,8 +95,8 @@ resource "azurerm_application_gateway" "app_gateway" {
       name = ssl_profile.value.name
       ssl_policy {
         min_protocol_version = ssl_profile.value.ssl_policy.min_protocol_version
-        policy_type   = ssl_profile.value.ssl_policy.profile_policy_type
-        cipher_suites = ssl_profile.value.ssl_policy.profile_cipher_suites
+        policy_type          = ssl_profile.value.ssl_policy.profile_policy_type
+        cipher_suites        = ssl_profile.value.ssl_policy.profile_cipher_suites
       }
     }
   }
