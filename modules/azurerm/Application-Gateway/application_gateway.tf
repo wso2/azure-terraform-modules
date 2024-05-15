@@ -93,13 +93,13 @@ resource "azurerm_application_gateway" "app_gateway" {
     policy_name = var.ssl_policy_name
   }
 
-  dynamic ssl_profile {
+  dynamic "ssl_profile" {
     for_each = var.ssl_profiles
 
     content {
       name = ssl_profile.value.name
       ssl_policy {
-        policy_type = ssl_profile.value.ssl_policy.profile_policy_type
+        policy_type   = ssl_profile.value.ssl_policy.profile_policy_type
         cipher_suites = ssl_profile.value.ssl_policy.profile_cipher_suites
       }
     }
@@ -190,7 +190,7 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  dynamic rewrite_rule_set {
+  dynamic "rewrite_rule_set" {
     for_each = var.appgw_rewrite_rule_set
 
     content {
