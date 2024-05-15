@@ -9,6 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
+variable "application_insights_abbreviation" {
+  description = "Application Insights name abbreviation"
+  type        = string
+  default     = "appi"
+}
+
 variable "application_insights_name" {
   description = "Application Insights name"
   type        = string
