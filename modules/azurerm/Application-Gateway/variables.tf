@@ -219,7 +219,7 @@ variable "appgw_routings" {
   type        = list(map(string))
 }
 
-variable "rewrite_rule_set_list" {
+variable "appgw_rewrite_rule_set" {
   description = "Application gateway's rewrite rules"
   type = map(object({
     name = string

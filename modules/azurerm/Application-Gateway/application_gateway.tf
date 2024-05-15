@@ -191,7 +191,7 @@ resource "azurerm_application_gateway" "app_gateway" {
   }
 
   dynamic rewrite_rule_set {
-    for_each = var.rewrite_rule_set_list
+    for_each = var.appgw_rewrite_rule_set
 
     content {
       name = rewrite_rule_set.value.name
