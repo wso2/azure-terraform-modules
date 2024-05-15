@@ -167,27 +167,14 @@ variable "ssl_policy_name" {
 }
 
 variable "ssl_profiles" {
-  default     = []
-  description = "Appgw SSL profiles"
-  type        = list(map(string))
-}
-
-variable "ssl_profile_name" {
-  default     = ""
-  description = "Appgw SSL profile name"
-  type        = string
-}
-
-variable "ssl_profile_policy_type" {
-  default     = ""
-  description = "Appgw SSL policy type of the profile"
-  type        = string
-}
-
-variable "ssl_profile_policy_cipher_suites" {
-  default     = []
-  description = "Appgw SSL policy cipher suites of the profile"
-  type        = list(string)
+  description = "The SSL profile to be associate with a listener"
+  type = map(object({
+    name = string
+    ssl_policy = object({
+      profile_policy_type = string
+      profile_cipher_suites = list(string)
+    })
+  }))
 }
 
 variable "appgw_backend_http_settings" {
@@ -232,10 +219,19 @@ variable "appgw_routings" {
   type        = list(map(string))
 }
 
-variable "appgw_rewrite_rule_set" {
-  default     = []
+variable "rewrite_rule_set_list" {
   description = "Application gateway's rewrite rules"
-  type        = list(map(string))
+  type = map(object({
+    name = string
+    rewrite_rule = object({
+      name = string
+      rule_sequence = string
+      request_header_configuration = object({
+        header_name = string
+        header_value = string
+      })
+    })
+  }))
 }
 
 variable "appgw_probes" {
