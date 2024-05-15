@@ -166,6 +166,18 @@ variable "ssl_policy_name" {
   type        = string
 }
 
+variable "ssl_profiles" {
+  default     = {}
+  description = "The SSL profile to be associate with a listener"
+  type = map(object({
+    name = string
+    ssl_policy = object({
+      profile_policy_type   = string
+      profile_cipher_suites = list(string)
+    })
+  }))
+}
+
 variable "appgw_backend_http_settings" {
   default     = [{ default = "default" }]
   description = "List of maps including backend http settings configurations"
@@ -209,9 +221,19 @@ variable "appgw_routings" {
 }
 
 variable "appgw_rewrite_rule_set" {
-  default     = []
+  default     = {}
   description = "Application gateway's rewrite rules"
-  type        = list(map(string))
+  type = map(object({
+    name = string
+    rewrite_rule = object({
+      name          = string
+      rule_sequence = string
+      request_header_configuration = object({
+        header_name  = string
+        header_value = string
+      })
+    })
+  }))
 }
 
 variable "appgw_probes" {

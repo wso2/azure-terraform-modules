@@ -93,6 +93,18 @@ resource "azurerm_application_gateway" "app_gateway" {
     policy_name = var.ssl_policy_name
   }
 
+  dynamic "ssl_profile" {
+    for_each = var.ssl_profiles
+
+    content {
+      name = ssl_profile.value.name
+      ssl_policy {
+        policy_type   = ssl_profile.value.ssl_policy.profile_policy_type
+        cipher_suites = ssl_profile.value.ssl_policy.profile_cipher_suites
+      }
+    }
+  }
+
   dynamic "backend_http_settings" {
     for_each = var.appgw_backend_http_settings
 
@@ -182,26 +194,13 @@ resource "azurerm_application_gateway" "app_gateway" {
     for_each = var.appgw_rewrite_rule_set
 
     content {
-      name = lookup(rewrite_rule_set.value, "name", null)
-
-      dynamic "rewrite_rule" {
-        for_each = lookup(rewrite_rule_set.value, "rewrite_rule")
-
-        content {
-          name          = lookup(rewrite_rule.value, "name")
-          rule_sequence = lookup(rewrite_rule.value, "rule_sequence")
-
-          condition {
-            ignore_case = lookup(rewrite_rule.value, "condition_ignore_case", null)
-            negate      = lookup(rewrite_rule.value, "condition_negate", null)
-            pattern     = lookup(rewrite_rule.value, "condition_pattern", null)
-            variable    = lookup(rewrite_rule.value, "condition_variable", null)
-          }
-
-          response_header_configuration {
-            header_name  = lookup(rewrite_rule.value, "response_header_name", null)
-            header_value = lookup(rewrite_rule.value, "response_header_value", null)
-          }
+      name = rewrite_rule_set.value.name
+      rewrite_rule {
+        name          = rewrite_rule_set.value.rewrite_rule.name
+        rule_sequence = rewrite_rule_set.value.rewrite_rule.rule_sequence
+        request_header_configuration {
+          header_name  = rewrite_rule_set.value.rewrite_rule.request_header_configuration.header_name
+          header_value = rewrite_rule_set.value.rewrite_rule.request_header_configuration.header_value
         }
       }
     }
