@@ -160,12 +160,6 @@ variable "waf_exclusion_settings" {
   type        = list(map(string))
 }
 
-variable "ssl_policy_name" {
-  default     = "AppGwSslPolicy20170401S"
-  description = "Name of the SSLPolicy to use with Appgw"
-  type        = string
-}
-
 variable "ssl_profiles" {
   default     = {}
   description = "The SSL profile to be associate with a listener"
