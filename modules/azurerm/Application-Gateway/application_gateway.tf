@@ -268,7 +268,8 @@ resource "azurerm_application_gateway" "app_gateway" {
       tags,
       trusted_root_certificate,
       identity,
-      trusted_client_certificate
+      trusted_client_certificate,
+      ssl_profile
     ]
   }
 }
