@@ -88,19 +88,15 @@ resource "azurerm_application_gateway" "app_gateway" {
     }
   }
 
-  ssl_policy {
-    policy_type = "Predefined"
-    policy_name = var.ssl_policy_name
-  }
-
   dynamic "ssl_profile" {
     for_each = var.ssl_profiles
 
     content {
       name = ssl_profile.value.name
       ssl_policy {
-        policy_type   = ssl_profile.value.ssl_policy.profile_policy_type
-        cipher_suites = ssl_profile.value.ssl_policy.profile_cipher_suites
+        min_protocol_version = ssl_profile.value.ssl_policy.min_protocol_version
+        policy_type          = ssl_profile.value.ssl_policy.profile_policy_type
+        cipher_suites        = ssl_profile.value.ssl_policy.profile_cipher_suites
       }
     }
   }
@@ -271,7 +267,8 @@ resource "azurerm_application_gateway" "app_gateway" {
       redirect_configuration,
       tags,
       trusted_root_certificate,
-      identity
+      identity,
+      trusted_client_certificate
     ]
   }
 }
