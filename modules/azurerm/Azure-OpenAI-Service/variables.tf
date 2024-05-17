@@ -82,16 +82,6 @@ variable "version_upgrade_option" {
   default     = "NoAutoUpgrade"
 }
 
-variable "deployment_sku_scale_type" {
-  description = "The name of the SKU. Ex - Standard or P3."
-  type        = string
-}
-
-variable "deployment_sku_scale_capacity" {
-  description = " Tokens-per-Minute (TPM). The unit of measure for this field is in the thousands of Tokens-per-Minute."
-  type        = string
-}
-
 variable "tags" {
   description = "Default tag list"
   type        = map(string)
@@ -100,9 +90,11 @@ variable "tags" {
 variable "azure_openai_deployments" {
   description = "Map of OpenAI deployments in the Azure Cognitive Account"
   type = map(object({
-    cognitive_deployment_name = string
-    cognitive_model_format    = string
-    cognitive_model_name      = string
-    cognitive_model_version   = string
+    cognitive_deployment_name     = string
+    cognitive_model_format        = string
+    cognitive_model_name          = string
+    cognitive_model_version       = string
+    deployment_sku_scale_type     = string
+    deployment_sku_scale_capacity = string
   }))
 }
