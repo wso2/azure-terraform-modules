@@ -23,3 +23,9 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the Azure Monitor Private Link Scope"
   type        = map(string)
 }
+
+variable "monitor_private_link_scope_abbreviation" {
+  description = "The abbreviation to be used."
+  type        = string
+  default     = "ampls"
+}
