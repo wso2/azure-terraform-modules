@@ -28,3 +28,9 @@ variable "linked_resource_id" {
   description = "The ID of the linked resource"
   type        = string
 }
+
+variable "monitor_private_link_scoped_service_abbreviation" {
+  description = "The abbreviation to be used."
+  type        = string
+  default     = "amplss"
+}

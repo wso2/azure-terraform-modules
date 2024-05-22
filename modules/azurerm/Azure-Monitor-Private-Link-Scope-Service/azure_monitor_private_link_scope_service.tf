@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_private_link_scoped_service" "monitor_private_link_scoped_service" {
-  name                = join("-", ["amplss", var.monitor_private_link_scoped_service_name])
+  name                = join("-", [var.monitor_private_link_scoped_service_abbreviation, var.monitor_private_link_scoped_service_name])
   resource_group_name = var.resource_group_name
   scope_name          = var.private_link_scope_name
   linked_resource_id  = var.linked_resource_id
