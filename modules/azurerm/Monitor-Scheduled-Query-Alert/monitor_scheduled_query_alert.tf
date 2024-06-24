@@ -9,55 +9,71 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_monitor_scheduled_query_rules_alert" "scheduled_query_rules_alert" {
-  for_each            = var.query_rules_alert
-  name                = join("-", ["sqra", each.value.alert_name])
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  data_source_id      = each.value.log_analytics_workspace_id
-  description         = each.value.description
-  enabled             = each.value.query_enabled
-  query               = each.value.query
-  severity            = each.value.severity
-  frequency           = each.value.frequency
-  time_window         = each.value.time_window
+resource "azurerm_monitor_scheduled_query_rules_alert_v2" "scheduled_query_rules_alert" {
+  for_each             = var.query_rules_alert
+  name                 = join("-", ["sqra", each.value.alert_name])
+  location             = var.location
+  resource_group_name  = var.resource_group_name
+  scopes               = each.value.scope_list
+  description          = each.value.description
+  enabled              = each.value.query_enabled
+  severity             = each.value.severity
+  evaluation_frequency = each.value.evaluation_frequency
+  window_duration      = each.value.window_duration
 
   action {
-    action_group = each.value.action_group_id_list
+    action_groups = each.value.action_group_id_list
   }
 
-  trigger {
-    operator  = each.value.operator
-    threshold = each.value.threshold
+  criteria {
+    operator                = each.value.operator
+    query                   = each.value.query
+    threshold               = each.value.threshold
+    time_aggregation_method = each.value.time_aggregation_method
 
-    metric_trigger {
-      operator            = each.value.metric_trigger_operator
-      threshold           = each.value.metric_threshold
-      metric_trigger_type = each.value.metric_trigger_type
-      metric_column       = each.value.metric_column
+    dynamic "dimension" {
+      for_each = (each.value.dimension != null) ? each.value.dimension : null
+
+      content {
+        name     = dimension.value.name
+        operator = dimension.value.operator
+        values   = dimension.value.values
+      }
     }
+
+    dynamic "failing_periods" {
+      for_each = (each.value.failing_periods != null) ? each.value.failing_periods : null
+
+      content {
+        minimum_failing_periods_to_trigger_alert = failing_periods.value.minimum_failing_periods_to_trigger_alert
+        number_of_evaluation_periods             = failing_periods.value.number_of_evaluation_periods
+      }
+    }
+
+    metric_measure_column = each.value.metric_measure_column
   }
 }
 
-resource "azurerm_monitor_scheduled_query_rules_alert" "count_trigger_scheduled_query_rules_alert" {
-  for_each            = var.count_trigger_query_rules_alert
-  name                = join("-", ["sqra", each.value.alert_name])
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  data_source_id      = each.value.log_analytics_workspace_id
-  description         = each.value.description
-  enabled             = each.value.query_enabled
-  query               = each.value.query
-  severity            = each.value.severity
-  frequency           = each.value.frequency
-  time_window         = each.value.time_window
+resource "azurerm_monitor_scheduled_query_rules_alert_v2" "count_trigger_scheduled_query_rules_alert" {
+  for_each             = var.count_trigger_query_rules_alert
+  name                 = join("-", ["sqra", each.value.alert_name])
+  location             = var.location
+  resource_group_name  = var.resource_group_name
+  scopes               = each.value.scope_list
+  description          = each.value.description
+  enabled              = each.value.query_enabled
+  severity             = each.value.severity
+  evaluation_frequency = each.value.evaluation_frequency
+  window_duration      = each.value.window_duration
 
   action {
-    action_group = each.value.action_group_id_list
+    action_groups = each.value.action_group_id_list
   }
 
-  trigger {
-    operator  = each.value.operator
-    threshold = each.value.threshold
+  criteria {
+    operator                = each.value.operator
+    query                   = each.value.query
+    threshold               = each.value.threshold
+    time_aggregation_method = "Count"
   }
 }
