@@ -19,12 +19,12 @@
 # --------------------------------------------------------------------------------------
 
 variable "resource_name" {
-  description = "The name of the Log Analytics Workspace Table Resource"
+  description = "The name of the Log Analytics Workspace Table Resource."
   type        = string
 }
 
 variable "log_analytics_workspace_id" {
-  description = "Log Analytics Workspace ID"
+  description = "Log Analytics Workspace ID."
   type        = string
 }
 
