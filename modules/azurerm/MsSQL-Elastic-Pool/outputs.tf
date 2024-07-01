@@ -13,3 +13,8 @@ output "azurerm_mssql_elasticpool_id" {
   depends_on = [azurerm_mssql_elasticpool.mssql_elasticpool]
   value      = azurerm_mssql_elasticpool.mssql_elasticpool.id
 }
+
+output "mssql_elasticpool_name" {
+  depends_on = [azurerm_mssql_elasticpool.mssql_elasticpool]
+  value      = azurerm_mssql_elasticpool.mssql_elasticpool.name
+}
