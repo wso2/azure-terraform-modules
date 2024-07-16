@@ -31,10 +31,10 @@ output "static_site_identity" {
 
 output "static_site_custom_domain_id" {
   depends_on = [azurerm_static_site_custom_domain.static_site_custom_domain]
-  value      = azurerm_static_site_custom_domain.static_site_custom_domain[0].id
+  value      = var.custom_domain_name != null ? azurerm_static_site_custom_domain.static_site_custom_domain[0].id : null
 }
 
 output "static_site_custom_domain_validation_token" {
   depends_on = [azurerm_static_site_custom_domain.static_site_custom_domain]
-  value      = azurerm_static_site_custom_domain.static_site_custom_domain[0].validation_token
+  value      = var.custom_domain_name != null ? azurerm_static_site_custom_domain.static_site_custom_domain[0].validation_token : null
 }
