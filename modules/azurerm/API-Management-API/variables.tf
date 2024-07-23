@@ -50,6 +50,7 @@ variable "display_name" {
 variable "path" {
   description = "The Path for this API Management API, which is a relative URL which uniquely identifies this API and all of its resource paths within the API Management Service"
   type        = string
+  default     = ""
 }
 
 variable "protocols" {

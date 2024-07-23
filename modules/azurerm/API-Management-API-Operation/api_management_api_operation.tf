@@ -15,7 +15,7 @@ resource "azurerm_api_management_api_operation" "api_management_api_operation" {
   api_management_name = var.api_management_name
   resource_group_name = var.resource_group_name
   display_name        = var.display_name
-  method              = var.http_method
+  method              = var.method
   url_template        = var.url_template
 
   dynamic "template_parameter" {

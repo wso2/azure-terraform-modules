@@ -40,7 +40,7 @@ variable "display_name" {
   type        = string
 }
 
-variable "http_method" {
+variable "method" {
   description = "HTTP method used for the API operation"
   type        = string
 }
@@ -58,4 +58,5 @@ variable "template_parameters" {
     required    = bool
     description = string
   }))
+  default     = []
 }
