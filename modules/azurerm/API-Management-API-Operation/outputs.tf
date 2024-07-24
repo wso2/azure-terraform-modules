@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "id" {
+output "api_operation_id" {
   value       = azurerm_api_management_api_operation.api_management_api_operation.id
   depends_on  = [azurerm_api_management_api_operation.api_management_api_operation]
 }
@@ -27,4 +27,9 @@ output "api_name" {
 output "api_management_name" {
     value       = azurerm_api_management_api_operation.api_management_api_operation.api_management_name
     depends_on  = [azurerm_api_management_api_operation.api_management_api_operation]
+}
+
+output "api_operation_policy_id" {
+  value       = azurerm_api_management_api_operation_policy.api_management_api_operation_policy.id
+  depends_on  = [azurerm_api_management_api_operation_policy.api_management_api_operation_policy]
 }

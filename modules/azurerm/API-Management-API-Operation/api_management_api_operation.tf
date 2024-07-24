@@ -29,3 +29,11 @@ resource "azurerm_api_management_api_operation" "api_management_api_operation" {
     }
   }
 }
+
+resource "azurerm_api_management_api_operation_policy" "api_management_api_operation_policy" {
+  api_name            = azurerm_api_management_api_operation.api_management_api_operation.api_name
+  api_management_name = azurerm_api_management_api_operation.api_management_api_operation.api_management_name
+  resource_group_name = var.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.api_management_api_operation.operation_id
+  xml_content         = templatefile(var.policy_xml_template_file_path, var.policy_xml_template_vars)
+}

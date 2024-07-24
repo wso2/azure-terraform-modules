@@ -60,3 +60,14 @@ variable "template_parameters" {
   }))
   default     = []
 }
+
+variable "policy_xml_template_file_path" {
+  description = "The path to the policy XML template file"
+  type        = string
+}
+
+variable "policy_xml_template_vars" {
+  description = "The variables to pass to the policy XML template"
+  type        = any
+  default     = {}
+}
