@@ -28,6 +28,6 @@ resource "azuredevops_serviceendpoint_azurerm" "devops_serviceendpoint_azurerm" 
   service_endpoint_authentication_scheme = "WorkloadIdentityFederation"
 
   credentials {
-    serviceprincipalid  = var.service_principal_id
+    serviceprincipalid = var.service_principal_id
   }
 }
