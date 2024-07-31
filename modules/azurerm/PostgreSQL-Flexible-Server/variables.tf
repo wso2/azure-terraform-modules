@@ -120,9 +120,6 @@ variable "source_server_id" {
 }
 
 variable "high_availability" {
-  default = {
-    mode = null
-  }
   description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant"
   type = object({
     mode = string
