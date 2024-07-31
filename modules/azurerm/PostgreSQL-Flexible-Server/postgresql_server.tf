@@ -27,7 +27,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   source_server_id             = var.source_server_id
   tags                         = var.tags
 
-  dynamic high_availability {
+  dynamic "high_availability" {
     for_each = var.high_availability
     content {
       mode = high_availability.value.mode
