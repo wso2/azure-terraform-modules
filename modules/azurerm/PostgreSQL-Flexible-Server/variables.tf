@@ -118,3 +118,11 @@ variable "source_server_id" {
   description = "Optional Parameter to create a server as a replica of an existing server"
   type        = string
 }
+
+variable "high_availability" {
+  default = null
+  description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant"
+  type = object({
+    mode = string
+  })
+}
