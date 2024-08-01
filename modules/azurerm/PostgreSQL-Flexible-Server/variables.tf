@@ -109,7 +109,7 @@ variable "maintainance_start_minute" {
 
 variable "create_mode" {
   default     = null
-  description = "Optional parameter. The creation mode which can be used to restore or replicate existing servers. Possible values are Default, GeoRestore, PointInTimeRestore, Replica and Update. Changing this forces a new PostgreSQL Flexible Server to be created"
+  description = "The creation mode which can be used to restore or replicate existing servers. Possible values are Default, GeoRestore, PointInTimeRestore, Replica and Update. Changing this forces a new PostgreSQL Flexible Server to be created"
   type        = string
 }
 
