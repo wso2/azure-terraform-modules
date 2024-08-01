@@ -31,6 +31,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
     for_each = var.high_availability == null ? {} : var.high_availability
     content {
       mode = var.high_availability.mode
+      standby_availability_zone = var.high_availability.standby_availability_zone
     }
   }
 
