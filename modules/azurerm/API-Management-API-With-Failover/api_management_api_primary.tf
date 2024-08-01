@@ -9,9 +9,9 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_api_management_api" "api_management_api" {
+resource "azurerm_api_management_api" "api_management_api_primary" {
   name                  = join("-", [var.api_abbreviation, var.api_name])
-  api_management_name   = var.api_management_name
+  api_management_name   = var.primary_api_management_name
   resource_group_name   = var.resource_group_name
   revision              = var.api_revision
   api_type              = var.api_type
@@ -22,9 +22,9 @@ resource "azurerm_api_management_api" "api_management_api" {
   subscription_required = var.subscription_required
 }
 
-resource "azurerm_api_management_api_policy" "api_management_api_policy" {
-  api_name            = var.api_name
-  api_management_name = var.api_management_name
+resource "azurerm_api_management_api_policy" "api_management_api_policy_primary" {
+  api_name            = azurerm_api_management_api.api_management_api_primary.name
+  api_management_name = var.primary_api_management_name
   resource_group_name = var.resource_group_name
   xml_content         = templatefile(var.xml_template_file_path, var.xml_template_vars)
 }

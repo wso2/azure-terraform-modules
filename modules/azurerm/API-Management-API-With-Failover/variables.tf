@@ -20,8 +20,13 @@ variable "api_name" {
   type        = string
 }
 
-variable "api_management_name" {
-  description = "Name of the API Management Service where this API should be created"
+variable "primary_api_management_name" {
+  description = "Name of the Primary API Management Service where the API exists"
+  type        = string
+}
+
+variable "secondary_api_management_name" {
+  description = "Name of the Secondary API Management Service where the API exists"
   type        = string
 }
 

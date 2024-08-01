@@ -9,7 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "id" {
-  value       = azurerm_api_management_api_policy.api_management_api_policy.id
-  depends_on  = [azurerm_api_management_api_policy.api_management_api_policy]
+terraform {
+  required_version = ">= 0.14"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.80.0"
+    }
+  }
 }
