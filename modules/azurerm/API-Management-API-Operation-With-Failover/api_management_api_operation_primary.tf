@@ -22,9 +22,9 @@ resource "azurerm_api_management_api_operation" "api_management_api_operation_pr
     for_each = var.template_parameters
 
     content {
-      name     = template_parameter.value.name
-      type     = template_parameter.value.type
-      required = template_parameter.value.required
+      name        = template_parameter.value.name
+      type        = template_parameter.value.type
+      required    = template_parameter.value.required
       description = template_parameter.value.description
     }
   }

@@ -10,21 +10,21 @@
 # --------------------------------------------------------------------------------------
 
 output "api_id" {
-  value       = azurerm_api_management_api.api_management_api.id
-  depends_on  = [azurerm_api_management_api.api_management_api]
+  value      = azurerm_api_management_api.api_management_api.id
+  depends_on = [azurerm_api_management_api.api_management_api]
 }
 
 output "name" {
-  value       = azurerm_api_management_api.api_management_api.name
-  depends_on  = [azurerm_api_management_api.api_management_api]
+  value      = azurerm_api_management_api.api_management_api.name
+  depends_on = [azurerm_api_management_api.api_management_api]
 }
 
 output "api_management_name" {
-  value       = azurerm_api_management_api.api_management_api.api_management_name
-  depends_on  = [azurerm_api_management_api.api_management_api]
+  value      = azurerm_api_management_api.api_management_api.api_management_name
+  depends_on = [azurerm_api_management_api.api_management_api]
 }
 
 output "api_policy_id" {
-  value       = azurerm_api_management_api_policy.api_management_api_policy.id
-  depends_on  = [azurerm_api_management_api_policy.api_management_api_policy]
+  value      = azurerm_api_management_api_policy.api_management_api_policy.id
+  depends_on = [azurerm_api_management_api_policy.api_management_api_policy]
 }

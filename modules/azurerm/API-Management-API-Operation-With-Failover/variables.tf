@@ -57,13 +57,13 @@ variable "url_template" {
 
 variable "template_parameters" {
   description = "Template parameters for the API operation"
-  type        = list(object({
+  type = list(object({
     name        = string
     type        = string
     required    = bool
     description = string
   }))
-  default     = []
+  default = []
 }
 
 variable "policy_xml_template_file_path" {

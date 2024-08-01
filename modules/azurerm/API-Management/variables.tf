@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable api_management_abbreviation {
+variable "api_management_abbreviation" {
   description = "Abbreviation for API Manager"
   type        = string
   default     = "apim"

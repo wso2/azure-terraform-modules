@@ -10,26 +10,26 @@
 # --------------------------------------------------------------------------------------
 
 output "primary_api_id" {
-  value       = azurerm_api_management_api.api_management_api_primary.id
-  depends_on  = [azurerm_api_management_api.api_management_api_primary]
+  value      = azurerm_api_management_api.api_management_api_primary.id
+  depends_on = [azurerm_api_management_api.api_management_api_primary]
 }
 
 output "primary_api_policy_id" {
-  value       = azurerm_api_management_api_policy.api_management_api_policy_primary.id
-  depends_on  = [azurerm_api_management_api_policy.api_management_api_policy_primary]
+  value      = azurerm_api_management_api_policy.api_management_api_policy_primary.id
+  depends_on = [azurerm_api_management_api_policy.api_management_api_policy_primary]
 }
 
 output "secondary_api_id" {
-  value       = azurerm_api_management_api.api_management_api_secondary.id
-  depends_on  = [azurerm_api_management_api.api_management_api_secondary]
+  value      = azurerm_api_management_api.api_management_api_secondary.id
+  depends_on = [azurerm_api_management_api.api_management_api_secondary]
 }
 
 output "secondary_api_policy_id" {
-  value       = azurerm_api_management_api_policy.api_management_api_policy_secondary.id
-  depends_on  = [azurerm_api_management_api_policy.api_management_api_policy_secondary]
+  value      = azurerm_api_management_api_policy.api_management_api_policy_secondary.id
+  depends_on = [azurerm_api_management_api_policy.api_management_api_policy_secondary]
 }
 
 output "name" {
-  value       = azurerm_api_management_api.api_management_api_primary.name
-  depends_on  = [azurerm_api_management_api.api_management_api_primary]
+  value      = azurerm_api_management_api.api_management_api_primary.name
+  depends_on = [azurerm_api_management_api.api_management_api_primary]
 }

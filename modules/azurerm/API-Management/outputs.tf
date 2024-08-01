@@ -10,21 +10,21 @@
 # --------------------------------------------------------------------------------------
 
 output "id" {
-  value       = azurerm_api_management.api_management.id
-  depends_on  = [azurerm_api_management.api_management]
+  value      = azurerm_api_management.api_management.id
+  depends_on = [azurerm_api_management.api_management]
 }
 
 output "name" {
-  value       = azurerm_api_management.api_management.name
-  depends_on  = [azurerm_api_management.api_management]
+  value      = azurerm_api_management.api_management.name
+  depends_on = [azurerm_api_management.api_management]
 }
 
 output "gateway_url" {
-  value       = azurerm_api_management.api_management.gateway_url
-  depends_on  = [azurerm_api_management.api_management]
+  value      = azurerm_api_management.api_management.gateway_url
+  depends_on = [azurerm_api_management.api_management]
 }
 
 output "public_ip_addresses" {
-  value       = azurerm_api_management.api_management.public_ip_addresses
-  depends_on  = [azurerm_api_management.api_management]
+  value      = azurerm_api_management.api_management.public_ip_addresses
+  depends_on = [azurerm_api_management.api_management]
 }
