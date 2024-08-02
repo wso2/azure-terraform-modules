@@ -72,8 +72,8 @@ resource "azurerm_application_gateway" "app_gateway" {
       for_each = var.waf_disabled_rule_group_settings
 
       content {
-        rule_group_name = lookup(disabled_rule_group.value, "rule_group_name")
-        rules           = lookup(disabled_rule_group.value, "rules")
+        rule_group_name = disabled_rule_group.value["rule_group_name"]
+        rules           = disabled_rule_group.value["rules"]
       }
     }
 
@@ -81,9 +81,9 @@ resource "azurerm_application_gateway" "app_gateway" {
       for_each = var.waf_exclusion_settings
 
       content {
-        match_variable          = lookup(exclusion.value, "match_variable")
-        selector                = lookup(exclusion.value, "selector")
-        selector_match_operator = lookup(exclusion.value, "selector_match_operator")
+        match_variable          = exclusion.value["match_variable"]
+        selector                = exclusion.value["selector"]
+        selector_match_operator = exclusion.value["selector_match_operator"]
       }
     }
   }
@@ -146,9 +146,9 @@ resource "azurerm_application_gateway" "app_gateway" {
     for_each = var.ssl_certificates_configs
 
     content {
-      name     = lookup(ssl_certificate.value, "name")
-      data     = filebase64(lookup(ssl_certificate.value, "data"))
-      password = lookup(ssl_certificate.value, "password")
+      name     = ssl_certificate.value["name"]
+      data     = filebase64(ssl_certificate.value["data"])
+      password = ssl_certificate.value["password"]
     }
   }
 
@@ -156,8 +156,8 @@ resource "azurerm_application_gateway" "app_gateway" {
     for_each = var.authentication_certificate_configs
 
     content {
-      name = lookup(authentication_certificate.value, "name")
-      data = filebase64(lookup(authentication_certificate.value, "data"))
+      name = authentication_certificate.value["name"]
+      data = filebase64(authentication_certificate.value["data"])
     }
   }
 
@@ -165,8 +165,8 @@ resource "azurerm_application_gateway" "app_gateway" {
     for_each = var.trusted_root_certificate_configs
 
     content {
-      name = lookup(trusted_root_certificate.value, "name")
-      data = filebase64(lookup(trusted_root_certificate.value, "data"))
+      name = trusted_root_certificate.value["name"]
+      data = filebase64(trusted_root_certificate.value["data"])
     }
   }
 
@@ -225,18 +225,18 @@ resource "azurerm_application_gateway" "app_gateway" {
     for_each = var.appgw_url_path_map
 
     content {
-      name                               = lookup(url_path_map.value, "name")
-      default_backend_address_pool_name  = lookup(url_path_map.value, "default_backend_address_pool_name")
-      default_backend_http_settings_name = lookup(url_path_map.value, "default_backend_http_settings_name", lookup(url_path_map.value, "default_backend_address_pool_name"))
+      name                               = url_path_map.value["name"]
+      default_backend_address_pool_name  = url_path_map.value["default_backend_address_pool_name"]
+      default_backend_http_settings_name = lookup(url_path_map.value, "default_backend_http_settings_name", url_path_map.value["default_backend_address_pool_name"])
 
       dynamic "path_rule" {
-        for_each = lookup(url_path_map.value, "path_rule")
+        for_each = url_path_map.value["path_rule"]
 
         content {
-          name                       = lookup(path_rule.value, "path_rule_name")
-          backend_address_pool_name  = lookup(path_rule.value, "backend_address_pool_name", lookup(path_rule.value, "path_rule_name"))
-          backend_http_settings_name = lookup(path_rule.value, "backend_http_settings_name", lookup(path_rule.value, "path_rule_name"))
-          paths                      = [lookup(path_rule.value, "paths")]
+          name                       = path_rule.value["path_rule_name"]
+          backend_address_pool_name  = lookup(path_rule.value, "backend_address_pool_name", path_rule.value["path_rule_name"])
+          backend_http_settings_name = lookup(path_rule.value, "backend_http_settings_name", path_rule.value["path_rule_name"])
+          paths                      = [path_rule.value["paths"]]
         }
       }
     }
@@ -246,9 +246,9 @@ resource "azurerm_application_gateway" "app_gateway" {
     for_each = var.appgw_redirect_configuration
 
     content {
-      name                 = lookup(redirect_configuration.value, "name")
+      name                 = redirect_configuration.value["name"]
       redirect_type        = lookup(redirect_configuration.value, "redirect_type", "Permanent")
-      target_listener_name = lookup(redirect_configuration.value, "target_listener_name")
+      target_listener_name = redirect_configuration.value["target_listener_name"]
       include_path         = lookup(redirect_configuration.value, "include_path", "true")
       include_query_string = lookup(redirect_configuration.value, "include_query_string", "true")
     }

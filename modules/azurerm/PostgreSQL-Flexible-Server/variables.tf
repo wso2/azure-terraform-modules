@@ -109,7 +109,7 @@ variable "maintainance_start_minute" {
 
 variable "create_mode" {
   default     = "Default"
-  description = "Create mode for the PostgreSQL Server. Possible values are Default, PointInTimeRestore, Replica and Update"
+  description = "The creation mode which can be used to restore or replicate existing servers. Possible values are Default, GeoRestore, PointInTimeRestore, Replica and Update. Changing this forces a new PostgreSQL Flexible Server to be created"
   type        = string
 }
 
@@ -117,4 +117,13 @@ variable "source_server_id" {
   default     = null
   description = "Optional Parameter to create a server as a replica of an existing server"
   type        = string
+}
+
+variable "high_availability" {
+  default     = null
+  description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant"
+  type = object({
+    mode                      = string
+    standby_availability_zone = any
+  })
 }
