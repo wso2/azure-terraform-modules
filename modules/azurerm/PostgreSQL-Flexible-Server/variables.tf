@@ -123,7 +123,7 @@ variable "high_availability" {
   default     = null
   description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant"
   type = object({
-    mode = string
+    mode                      = string
     standby_availability_zone = any
   })
 }
