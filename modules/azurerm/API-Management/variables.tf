@@ -45,6 +45,12 @@ variable "publisher_email" {
   type        = string
 }
 
+variable "min_api_version" {
+  description = "The minimum API version"
+  type        = string
+  default     = "2021-08-01"
+}
+
 variable "tags" {
   description = "Tags for the resource"
   type        = map(string)

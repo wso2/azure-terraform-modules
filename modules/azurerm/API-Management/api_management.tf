@@ -16,5 +16,6 @@ resource "azurerm_api_management" "api_management" {
   sku_name            = var.sku_name
   publisher_name      = var.publisher_name
   publisher_email     = var.publisher_email
+  min_api_version     = var.min_api_version
   tags                = var.tags
 }
