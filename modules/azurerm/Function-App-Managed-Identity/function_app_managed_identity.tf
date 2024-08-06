@@ -20,6 +20,7 @@ resource "azurerm_function_app" "function_app_with_managed_identity" {
   app_settings               = var.app_settings
   version                    = var.app_runtime_version
   client_cert_mode           = var.client_cert_mode
+  https_only                 = var.https_only
   tags                       = var.tags
 
   site_config {
