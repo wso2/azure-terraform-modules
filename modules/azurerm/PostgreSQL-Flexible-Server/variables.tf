@@ -128,5 +128,5 @@ variable "high_availability_mode" {
 variable "high_availability_standby_availability_zone" {
   default     = null
   description = "Specifies the Availability Zone in which the standby Flexible Server should be located."
-  type        = any
+  type        = number
 }
