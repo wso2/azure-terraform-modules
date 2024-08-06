@@ -104,3 +104,9 @@ variable "tags" {
   description = "Default tag list"
   type        = map(string)
 }
+
+variable "https_only" {
+  default     = true
+  description = "Should the Function App only be accessible over HTTPS? Defaults to true."
+  type        = bool
+}
