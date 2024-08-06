@@ -67,3 +67,9 @@ variable "workspace_id" {
   type        = string
   default     = null
 }
+
+variable "disable_ip_masking" {
+  description = "Disable masking and log the real client IP"
+  type      = bool
+  default = false
+}
