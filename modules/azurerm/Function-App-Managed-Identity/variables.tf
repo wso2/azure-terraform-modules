@@ -95,7 +95,7 @@ variable "health_check_path" {
 }
 
 variable "ftps_state" {
-  default     = "AllAllowed"
+  default     = "FtpsOnly"
   description = "State of FTP / FTPS service for this function app. Possible values include: AllAllowed, FtpsOnly and Disabled. Defaults to AllAllowed."
   type        = string
 }
