@@ -75,17 +75,11 @@ variable "template_parameters" {
 
 variable "default_policy_object" {
   description = "Map of default to policy template path and variables"
-  type = object({
-    policy_xml_template_file_path = string
-    policy_xml_template_vars      = any
-  })
+  type = any
 }
 
 variable "method_specific_policy_map" {
   description = "Map of method to policy map"
-  type = map(object({
-    policy_xml_template_file_path = string
-    policy_xml_template_vars      = any
-  }))
+  type = any
   default = {}
 }
