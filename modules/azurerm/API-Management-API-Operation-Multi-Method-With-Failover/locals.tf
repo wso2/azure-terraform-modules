@@ -16,12 +16,7 @@
  * under the License.
  */
 
-terraform {
-  required_version = ">= 0.14.10"
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 3.80.0"
-    }
-  }
+locals {
+  policy_xml_template_file_path = "policy_xml_template_file_path"
+  policy_xml_template_vars      = "policy_xml_template_vars"
 }
