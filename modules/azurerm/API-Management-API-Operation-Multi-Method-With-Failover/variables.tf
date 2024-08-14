@@ -75,11 +75,11 @@ variable "template_parameters" {
 
 variable "default_policy_object" {
   description = "Map of default to policy template path and variables"
-  type = any
+  type        = any
 }
 
 variable "method_specific_policy_map" {
   description = "Map of method to policy map"
-  type = any
-  default = {}
+  type        = any
+  default     = {}
 }
