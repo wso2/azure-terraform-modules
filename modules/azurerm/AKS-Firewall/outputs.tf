@@ -86,7 +86,7 @@ output "node_resource_group" {
 
 output "aks_key_vault_secrets_provider_identity" {
   depends_on = [azurerm_kubernetes_cluster.aks_cluster]
-  value      = azurerm_kubernetes_cluster.aks_cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
+  value      = var.secret_rotation_enabled ? azurerm_kubernetes_cluster.aks_cluster.key_vault_secrets_provider[0].secret_identity[0].object_id : null
 }
 
 output "oidc_issuer_url" {
