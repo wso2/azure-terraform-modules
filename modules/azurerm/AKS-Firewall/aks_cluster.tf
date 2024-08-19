@@ -98,7 +98,10 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     outbound_type      = "userDefinedRouting"
   }
 
-  key_vault_secrets_provider {
-    secret_rotation_enabled = var.secret_rotation_enabled
+  dynamic "key_vault_secrets_provider" {
+    for_each = var.secret_rotation_enabled ? [1] : []
+    content {
+      secret_rotation_enabled = var.secret_rotation_enabled
+    }
   }
 }
