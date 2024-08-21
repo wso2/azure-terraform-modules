@@ -14,6 +14,12 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "federated_credential_abbreviation" {
+  description = "Abbreviation for the Federated Identity Credential"
+  type        = string
+  default     = "fc"
+}
+
 variable "name" {
   description = "Name of the Federated Identity Credential"
   type        = string
