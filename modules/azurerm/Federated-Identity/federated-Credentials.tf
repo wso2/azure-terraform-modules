@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_federated_identity_credential" "federated_credentials" {
-  name                = var.name
+  name                = join("-", [var.federated_credential_abbreviation, var.name])
   resource_group_name = var.resource_group_name
   parent_id           = var.azurerm_user_assigned_identity_principal_id
   audience            = var.audience
