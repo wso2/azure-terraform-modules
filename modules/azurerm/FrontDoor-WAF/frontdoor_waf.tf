@@ -33,7 +33,7 @@ resource "azurerm_frontdoor_firewall_policy" "front_door_waf_policy" {
       rate_limit_threshold           = custom_rule.value.rate_limit_threshold
 
       dynamic "match_condition" {
-        for_each = [custom_rule.value.match_condition]
+        for_each = custom_rule.value.match_condition
 
         content {
           match_variable     = match_condition.value.match_variable

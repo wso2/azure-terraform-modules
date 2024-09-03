@@ -24,6 +24,11 @@ output "storage_account_primary_web_endpoint" {
   value      = azurerm_storage_account.static_storage.primary_web_endpoint
 }
 
+output "storage_account_primary_web_host" {
+  depends_on = [azurerm_storage_account.static_storage]
+  value      = azurerm_storage_account.static_storage.primary_web_host
+}
+
 output "storage_account_secondary_web_endpoint" {
   depends_on = [azurerm_storage_account.static_storage]
   value      = azurerm_storage_account.static_storage.secondary_web_endpoint

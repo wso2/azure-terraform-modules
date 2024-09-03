@@ -18,3 +18,8 @@ output "azurerm_user_assigned_identity_principal_id" {
   depends_on = [azurerm_user_assigned_identity.user_assigned_identity]
   value      = azurerm_user_assigned_identity.user_assigned_identity.principal_id
 }
+
+output "azurerm_user_assigned_identity_client_id" {
+  depends_on = [azurerm_user_assigned_identity.user_assigned_identity]
+  value      = azurerm_user_assigned_identity.user_assigned_identity.client_id
+}
