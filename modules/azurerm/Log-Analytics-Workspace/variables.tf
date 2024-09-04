@@ -62,3 +62,15 @@ variable "log_analytics_abbreviation" {
   type        = string
   default     = "log"
 }
+
+variable "log_analytics_solution_enabled" {
+  description = "Should the Log Analytics Solution be enabled?"
+  type        = bool
+  default     = false
+}
+
+variable "log_analytics_solution_name" {
+  description = "The name of the Log Analytics Solution."
+  type        = string
+  default     = "ContainerInsights"
+}
