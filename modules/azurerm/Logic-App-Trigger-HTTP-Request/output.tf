@@ -18,7 +18,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "name" {
+output "logic_app_trigger_http_request_name" {
   depends_on = [azurerm_logic_app_trigger_http_request.logic_app_trigger_http_request]
   value      = azurerm_logic_app_trigger_http_request.logic_app_trigger_http_request.name
 }

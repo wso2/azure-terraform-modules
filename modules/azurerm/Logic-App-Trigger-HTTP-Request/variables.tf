@@ -24,7 +24,7 @@ variable "abbreviation" {
   default     = "lgapp-trhttpreq"
 }
 
-variable "name" {
+variable "logic_app_trigger_http_request_name" {
   description = "Name of the Azure Logic App HTTP Requset Trigger"
   type        = string
 }
