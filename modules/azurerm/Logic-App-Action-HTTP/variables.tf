@@ -24,7 +24,7 @@ variable "abbreviation" {
   default     = "lgapp-achttp"
 }
 
-variable "logic_app_workflow_name" {
+variable "logic_app_action_http_name" {
   description = "Name of the HTTP Action to be created within the Logic App Workflow"
   type        = string
 }

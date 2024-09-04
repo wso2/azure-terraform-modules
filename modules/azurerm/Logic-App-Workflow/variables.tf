@@ -24,7 +24,7 @@ variable "abbreviation" {
   type        = string
   default     = "lgapp"
 }
-variable "logic_app_action_http_name" {
+variable "logic_app_workflow_name" {
   description = "Name of the Azure Logic App Workflow"
   type        = string
 }
