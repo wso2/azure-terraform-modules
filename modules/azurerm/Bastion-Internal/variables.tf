@@ -248,7 +248,7 @@ variable "subnet_abbreviation" {
 variable "route_table_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
-  default     = "route"
+  default     = "route-bastion"
 }
 
 variable "nsg_abbreviation" {
