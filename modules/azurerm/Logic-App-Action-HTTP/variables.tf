@@ -21,7 +21,7 @@
 variable "abbreviation" {
   description = "Logic app action http abbreviation to be used in the resource name"
   type        = string
-  default     = "lgapp-achttp"
+  default     = "lgapp-acthttp"
 }
 
 variable "logic_app_action_http_name" {

@@ -21,7 +21,7 @@
 variable "abbreviation" {
   description = "Logic app trigger http request abbreviation to be used in the resource name"
   type        = string
-  default     = "lgapp-trhttpreq"
+  default     = "lgapp-httpreq"
 }
 
 variable "logic_app_trigger_http_request_name" {
