@@ -18,7 +18,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "logic_app_action_http_name" {
+variable "abbreviation" {
+  description = "Logic app action http abbreviation to be used in the resource name"
+  type        = string
+  default     = "lgapp-achttp"
+}
+
+variable "name" {
   description = "Name of the HTTP Action to be created within the Logic App Workflow"
   type        = string
 }
@@ -28,27 +34,27 @@ variable "logic_app_id" {
   type        = string
 }
 
-variable "logic_app_action_http_method" {
+variable "method" {
   description = "The HTTP Method which should be used for the HTTP Action"
   type        = string
 }
 
-variable "logic_app_action_http_uri" {
+variable "uri" {
   description = "The URI which will be called when the HTTP Action is triggered"
   type        = string
 }
 
-variable "logic_app_action_http_body" {
+variable "body" {
   description = "The HTTP Body that should be sent to the uri when this HTTP Action is triggered"
   type        = string
 }
 
-variable "logic_app_action_http_headers" {
+variable "headers" {
   description = "A map of Key-Value Pairs that should be sent to the uri when this HTTP Action is triggered"
   type        = map(string)
 }
 
-variable "logic_app_action_http_queries" {
+variable "queries" {
   description = "Map of Key-Value Pairs that should be sent to the uri when this HTTP Action is triggered"
   type        = map(string)
   default     = null

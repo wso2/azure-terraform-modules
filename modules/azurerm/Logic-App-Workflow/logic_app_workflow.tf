@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_logic_app_workflow" "logic_app_workflow" {
-  name                = join("-", ["lgapp", var.logic_app_workflow_name])
+  name                = join("-", [var.abbreviation, var.name])
   location            = var.location
   resource_group_name = var.resource_group_name
 }

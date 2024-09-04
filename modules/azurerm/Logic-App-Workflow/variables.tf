@@ -18,7 +18,13 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "logic_app_workflow_name" {
+
+variable "abbreviation" {
+  description = "Logic app workflow abbreviation to be used in the resource name"
+  type        = string
+  default     = "lgapp"
+}
+variable "name" {
   description = "Name of the Azure Logic App Workflow"
   type        = string
 }

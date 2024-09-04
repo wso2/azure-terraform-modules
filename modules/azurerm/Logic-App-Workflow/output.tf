@@ -18,12 +18,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "logic_app_workflow_name" {
+output "name" {
   depends_on = [azurerm_logic_app_workflow.logic_app_workflow]
   value      = azurerm_logic_app_workflow.logic_app_workflow.name
 }
 
-output "logic_app_workflow_id" {
+output "id" {
   depends_on = [azurerm_logic_app_workflow.logic_app_workflow]
   value      = azurerm_logic_app_workflow.logic_app_workflow.id
 }

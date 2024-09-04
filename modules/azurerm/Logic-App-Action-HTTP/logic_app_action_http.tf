@@ -19,11 +19,11 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_logic_app_action_http" "logic_app_action_http" {
-  name         = join("-", ["lgapp", "acthttp", var.logic_app_action_http_name])
+  name         = join("-", [var.abbreviation, var.name])
   logic_app_id = var.logic_app_id
-  method       = var.logic_app_action_http_method
-  uri          = var.logic_app_action_http_uri
-  body         = var.logic_app_action_http_body
-  headers      = var.logic_app_action_http_headers
-  queries      = var.logic_app_action_http_queries
+  method       = var.method
+  uri          = var.uri
+  body         = var.body
+  headers      = var.headers
+  queries      = var.queries
 }

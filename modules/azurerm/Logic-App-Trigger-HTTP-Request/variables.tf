@@ -18,17 +18,23 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "logic_app_trigger_http_request_name" {
+variable "abbreviation" {
+  description = "Logic app trigger http request abbreviation to be used in the resource name"
+  type        = string
+  default     = "lgapp-trhttpreq"
+}
+
+variable "name" {
   description = "Name of the Azure Logic App HTTP Requset Trigger"
   type        = string
 }
 
-variable "logic_app_workflow_id" {
+variable "logic_app_id" {
   description = "The Logic App Workflow ID"
   type        = string
 }
 
-variable "logic_app_trigger_http_request_schema" {
+variable "schema" {
   description = "JSON blob defining the Schema of the incoming request"
   type        = string
   default     = "{}"
