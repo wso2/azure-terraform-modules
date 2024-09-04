@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_logic_app_trigger_http_request" "logic_app_trigger_http_request" {
-  logic_app_trigger_http_request_name = join("-", [var.abbreviation, var.name])
-  logic_app_id                        = var.logic_app_id
-  schema                              = var.schema
+  name         = join("-", [var.abbreviation, var.logic_app_trigger_http_request_name])
+  logic_app_id = var.logic_app_id
+  schema       = var.schema
 }

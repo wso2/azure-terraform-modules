@@ -19,11 +19,11 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_logic_app_action_http" "logic_app_action_http" {
-  logic_app_action_http_name = join("-", [var.abbreviation, var.name])
-  logic_app_id               = var.logic_app_id
-  method                     = var.method
-  uri                        = var.uri
-  body                       = var.body
-  headers                    = var.headers
-  queries                    = var.queries
+  name         = join("-", [var.abbreviation, var.logic_app_action_http_name])
+  logic_app_id = var.logic_app_id
+  method       = var.method
+  uri          = var.uri
+  body         = var.body
+  headers      = var.headers
+  queries      = var.queries
 }
