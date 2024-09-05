@@ -273,12 +273,6 @@ variable "user_assigned_identity_principal_id" {
   default     = ""
 }
 
-variable "secret_rotation_enabled" {
-  description = "Enable secret rotation"
-  type        = bool
-  default     = false
-}
-
 variable "nsg_rule_apgw_inbound_allow_enabled" {
   description = "Enable or Disable nsg rule for application gateway inbound allow"
   type        = bool
@@ -295,4 +289,16 @@ variable "oidc_issuer_enabled" {
   default     = false
   description = "Enable OIDC URL in AKS cluster"
   type        = bool
+}
+
+variable "key_vault_secrets_provider_enabled" {
+  default     = false
+  description = "Enable key vault secrets provider"
+  type        = bool
+}
+
+variable "secret_rotation_enabled" {
+  description = "Enable secret rotation"
+  type        = bool
+  default     = false
 }
