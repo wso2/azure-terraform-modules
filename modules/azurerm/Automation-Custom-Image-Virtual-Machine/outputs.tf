@@ -14,6 +14,11 @@ output "vm_id" {
   depends_on = [azurerm_linux_virtual_machine.automation_linux_virtual_machine]
 }
 
+output "vm_name" {
+  value      = azurerm_linux_virtual_machine.automation_linux_virtual_machine.name
+  depends_on = [azurerm_linux_virtual_machine.automation_linux_virtual_machine]
+}
+
 output "network_interface_id" {
   value      = azurerm_network_interface.automation_vm_nic.id
   depends_on = [azurerm_network_interface.automation_vm_nic]
