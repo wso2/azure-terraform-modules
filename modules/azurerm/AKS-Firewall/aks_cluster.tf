@@ -99,7 +99,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 
   dynamic "key_vault_secrets_provider" {
-    for_each = var.secret_rotation_enabled ? [1] : []
+    for_each = var.key_vault_secrets_provider_enabled ? [1] : []
     content {
       secret_rotation_enabled = var.secret_rotation_enabled
     }
