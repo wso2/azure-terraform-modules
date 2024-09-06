@@ -21,10 +21,10 @@
 variable "abbreviation" {
   description = "Logic app action http abbreviation to be used in the resource name"
   type        = string
-  default     = "lgapp-acthttp"
+  default     = "lgaw-ac-http"
 }
 
-variable "logic_app_action_http_name" {
+variable "name" {
   description = "Name of the HTTP Action to be created within the Logic App Workflow"
   type        = string
 }

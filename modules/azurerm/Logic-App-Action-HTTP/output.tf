@@ -18,7 +18,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "logic_app_action_http_name" {
+output "name" {
   depends_on = [azurerm_logic_app_action_http.logic_app_action_http]
   value      = azurerm_logic_app_action_http.logic_app_action_http.name
 }

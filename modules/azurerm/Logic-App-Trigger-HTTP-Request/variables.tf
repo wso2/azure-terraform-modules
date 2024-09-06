@@ -21,10 +21,10 @@
 variable "abbreviation" {
   description = "Logic app trigger http request abbreviation to be used in the resource name"
   type        = string
-  default     = "lgapp-httpreq"
+  default     = "lgaw-trig-http"
 }
 
-variable "logic_app_trigger_http_request_name" {
+variable "name" {
   description = "Name of the Azure Logic App HTTP Requset Trigger"
   type        = string
 }
