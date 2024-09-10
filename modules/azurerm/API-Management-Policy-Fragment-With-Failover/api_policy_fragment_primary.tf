@@ -20,5 +20,5 @@ resource "azurerm_api_management_policy_fragment" "api_policy_fragment_primary" 
   api_management_id = var.primary_api_management_id
   name              = join("-", [var.abbreviation, var.name])
   format            = var.file_format
-  value             = file(var.xml_template_file_path)
+  value             = templatefile(var.xml_template_file_path, var.xml_template_vars)
 }

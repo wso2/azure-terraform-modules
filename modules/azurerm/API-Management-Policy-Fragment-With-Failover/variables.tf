@@ -40,7 +40,7 @@ variable "secondary_api_management_id" {
 variable "file_format" {
   description = "Format of the API Policy Fragment"
   type        = string
-  default     = "xml"
+  default     = "rawxml"
 }
 
 variable "xml_template_file_path" {

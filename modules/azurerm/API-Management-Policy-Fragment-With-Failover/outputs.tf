@@ -26,12 +26,7 @@ output "secondary_policy_fragment_id" {
   depends_on = [azurerm_api_management_policy_fragment.api_policy_fragment_secondary]
 }
 
-output "primary_policy_fragment_name" {
+output "policy_fragment_name" {
   value      = azurerm_api_management_policy_fragment.api_policy_fragment_primary.name
   depends_on = [azurerm_api_management_policy_fragment.api_policy_fragment_primary]
-}
-
-output "secondary_policy_fragment_name" {
-  value      = azurerm_api_management_policy_fragment.api_policy_fragment_secondary.name
-  depends_on = [azurerm_api_management_policy_fragment.api_policy_fragment_secondary]
 }
