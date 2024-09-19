@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 locals {
-  raw_policy_data = jsondecode(file(var.raw_policy_definition_path))
+  raw_policy_data = var.raw_policy_definition_path != null ? jsondecode(file(var.raw_policy_definition_path)) : jsondecode(var.raw_policy_data)
   parameters      = jsonencode(local.raw_policy_data.properties.parameters)
   metadata        = jsonencode(local.raw_policy_data.properties.metadata)
   policy_rule     = jsonencode(local.raw_policy_data.properties.policyRule)

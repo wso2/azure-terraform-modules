@@ -39,4 +39,10 @@ variable "description" {
 variable "raw_policy_definition_path" {
   description = "The path to the policy definition. The policy should to constructed according to the JSON schema https://schema.management.azure.com/schemas/2020-10-01/policyDefinition.json"
   type        = string
+  default     = ""
+}
+
+variable "raw_policy_data" {
+  description = "The raw policy data."
+  type        = string
 }
