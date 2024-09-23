@@ -85,3 +85,9 @@ variable "repo_type" {
   description = "The type of the repository."
   type        = string
 }
+
+variable "status" {
+  default     = "enabled"
+  description = "The queue status of the build definition. Valid values: enabled or paused or disabled"
+  type        = string
+}
