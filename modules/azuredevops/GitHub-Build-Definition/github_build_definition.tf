@@ -14,6 +14,7 @@ resource "azuredevops_build_definition" "devops_build_definition" {
   name            = var.build_definition_name
   agent_pool_name = var.agent_pool_name
   path            = var.pipeline_path
+  queue_status    = var.status
 
   ci_trigger {
     use_yaml = true
