@@ -74,16 +74,19 @@ variable "tags" {
 }
 
 variable "data_collection_endpoint_id" {
+  default     = null
   description = "The ID of the Data Collection Endpoint"
   type        = string
 }
 
 variable "data_flow_transform_kql" {
+  default     = null
   description = "The KQL query to transform stream data"
   type        = string
 }
 
 variable "data_flow_output_stream" {
+  default     = null
   description = "The output stream of the transform. Only required if the data flow changes data to a different stream."
   type        = string
 }
@@ -95,6 +98,7 @@ variable "stream_declaration_name" {
 }
 
 variable "stream_declaration_columns" {
+  default     = []
   description = "The block to define the columns"
   type = list(object({
     name = string
