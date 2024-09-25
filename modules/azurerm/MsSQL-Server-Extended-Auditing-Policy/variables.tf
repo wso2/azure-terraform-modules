@@ -35,3 +35,9 @@ variable "log_monitoring_enabled" {
   description = "Enable audit events to Azure Monitor"
   type        = bool
 }
+
+variable "mssql_master_database_auditing_policy_enabled" {
+  default     = false
+  description = "Enable auditing on the master database"
+  type        = bool
+}
