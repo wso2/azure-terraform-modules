@@ -23,7 +23,7 @@ variable "pricing_setting" {
 variable "subplan" {
   description = "Resource type pricing subplan. Contact your MSFT representative for possible values."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "extensions" {
