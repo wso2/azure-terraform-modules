@@ -18,6 +18,7 @@ resource "azurerm_mssql_server_extended_auditing_policy" "mssql_extended_auditin
 }
 
 resource "azurerm_mssql_database_extended_auditing_policy" "mssql_database_log_analytics_extended_auditing_policy" {
+  count                  = var.mssql_master_database_auditing_policy_enabled ? 1 : 0
   database_id            = "${var.mssql_server_id}/databases/master"
   log_monitoring_enabled = var.log_monitoring_enabled
 }
