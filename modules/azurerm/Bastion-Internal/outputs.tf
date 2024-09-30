@@ -24,6 +24,11 @@ output "bastion_vm_id" {
   depends_on = [azurerm_linux_virtual_machine.bastion_linux_virtual_machine]
 }
 
+output "bastion_vm_name" {
+  value      = azurerm_linux_virtual_machine.bastion_linux_virtual_machine.name
+  depends_on = [azurerm_linux_virtual_machine.bastion_linux_virtual_machine]
+}
+
 output "bastion_network_security_group_id" {
   value      = azurerm_network_security_group.bastion_nsg.id
   depends_on = [azurerm_network_security_group.bastion_nsg]

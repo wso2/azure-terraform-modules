@@ -58,7 +58,7 @@ variable "private_endpoint_subnet_enforce_private_link_endpoint_network_policies
 variable "nsg_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
-  default     = "nsg-private-endpoint"
+  default     = "nsg"
 }
 
 variable "private_endpoint_subnet_abbreviation" {
