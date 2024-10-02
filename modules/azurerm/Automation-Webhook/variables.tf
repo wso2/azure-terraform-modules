@@ -27,6 +27,7 @@ variable "automation_account_name" {
 variable "automation_webhook_expiry_time" {
   description = "Timestamp when the webhook expires"
   type        = string
+  default     = null
 }
 
 variable "automation_webhook_enabled" {
@@ -39,4 +40,16 @@ variable "automation_runbook_name" {
   default     = true
   description = "Name of the Automation Runbook to execute by Webhook"
   type        = string
+}
+
+variable "notification_time_in_months" {
+  description = "The time in months to notify before the webhook expires"
+  type        = number
+  default     = 1
+}
+
+variable "rotation_time_in_months" {
+  description = "The time in months to rotate the webhook"
+  type        = number
+  default     = 6
 }
