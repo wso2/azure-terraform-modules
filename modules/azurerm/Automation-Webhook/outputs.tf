@@ -13,3 +13,8 @@ output "automation_webhook_url" {
   depends_on = [azurerm_automation_webhook.automation_webhook]
   value      = azurerm_automation_webhook.automation_webhook.uri
 }
+
+output "automation_webhook_expiry_time" {
+  depends_on = [azurerm_automation_webhook.automation_webhook]
+  value      = var.automation_webhook_expiry_time != null ? var.automation_webhook_expiry_time : time_offset.kv-cert-expiration-webhook[0].rfc3339
+}
