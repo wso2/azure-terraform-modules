@@ -130,3 +130,9 @@ variable "periodic_backup_retention_in_hours" {
   description = "The periodic backup retention in hours for the Cosmos DB account."
   type        = number
 }
+
+variable "backup_storage_redundancy" {
+  default     = "Geo"
+  description = "The backup storage redundancy for the Cosmos DB account."
+  type        = string
+}
