@@ -42,6 +42,7 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
     type                = var.backup_type
     interval_in_minutes = var.periodic_backup_interval
     retention_in_hours  = var.periodic_backup_retention_in_hours
+    storage_redundancy  = var.backup_storage_redundancy
   }
 
   dynamic "capabilities" {
