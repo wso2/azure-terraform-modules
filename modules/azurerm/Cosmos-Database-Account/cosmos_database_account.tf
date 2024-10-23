@@ -18,6 +18,7 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
   tags                              = var.tags
   enable_free_tier                  = var.enable_free_tier
   public_network_access_enabled     = var.public_network_access_enabled
+  ip_range_filter                   = var.ip_range_filter
   enable_multiple_write_locations   = var.enable_multiple_write_locations
   enable_automatic_failover         = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
   is_virtual_network_filter_enabled = var.is_virtual_network_filter_enabled

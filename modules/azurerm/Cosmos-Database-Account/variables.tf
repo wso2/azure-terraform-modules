@@ -142,3 +142,9 @@ variable "analytical_storage_enabled" {
   description = "Enable Analytical Storage option for the Cosmos DB account"
   type        = bool
 }
+
+variable "ip_range_filter" {
+  default     = null
+  description = "A set of IP addresses or IP address ranges in CIDR form to be included as the allowed list of client IPs"
+  type        = string
+}
