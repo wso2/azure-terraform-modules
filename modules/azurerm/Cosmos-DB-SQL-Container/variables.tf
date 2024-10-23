@@ -63,3 +63,9 @@ variable "default_ttl" {
   description = "The default time to live of SQL container."
   type        = number
 }
+
+variable "analytical_storage_ttl" {
+  default     = null
+  description = "The default time to live of Analytical Storage for this SQL container"
+  type        = number
+}
