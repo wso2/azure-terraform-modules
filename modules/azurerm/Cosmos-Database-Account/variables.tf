@@ -136,3 +136,9 @@ variable "backup_storage_redundancy" {
   description = "The backup storage redundancy for the Cosmos DB account."
   type        = string
 }
+
+variable "analytical_storage_enabled" {
+  default     = false
+  description = "Enable Analytical Storage option for the Cosmos DB account"
+  type        = bool
+}

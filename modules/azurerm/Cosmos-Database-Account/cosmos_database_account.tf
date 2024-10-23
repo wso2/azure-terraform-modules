@@ -21,6 +21,7 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
   enable_multiple_write_locations   = var.enable_multiple_write_locations
   enable_automatic_failover         = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
   is_virtual_network_filter_enabled = var.is_virtual_network_filter_enabled
+  analytical_storage_enabled        = var.analytical_storage_enabled
 
   dynamic "geo_location" {
     for_each = local.geo_locations
