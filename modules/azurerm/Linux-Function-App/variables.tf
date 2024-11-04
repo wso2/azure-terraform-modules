@@ -171,3 +171,15 @@ variable "tags" {
   description = "Tags used for the resource."
   type        = map(string)
 }
+
+variable "ftps_state" {
+  default     = "Disabled"
+  description = "State of FTP / FTPS service for this function app. Possible values include: AllAllowed, FtpsOnly and Disabled. Defaults to AllAllowed."
+  type        = string
+}
+
+variable "https_only" {
+  default     = false
+  description = "Should the Function App only be accessible over HTTPS? Defaults to true."
+  type        = bool
+}
