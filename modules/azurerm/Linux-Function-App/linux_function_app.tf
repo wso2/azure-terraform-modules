@@ -61,10 +61,10 @@ resource "azurerm_linux_function_app" "linux_function_app" {
       for_each = var.access_restriction_service_tag
 
       content {
-        priority   = ip_restriction.value["priority"]
-        name       = ip_restriction.value["name"]
-        ip_address = ip_restriction.value["ip_address"]
-        action     = ip_restriction.value["action"]
+        priority    = ip_restriction.value["priority"]
+        name        = ip_restriction.value["name"]
+        service_tag = ip_restriction.value["service_tag"]
+        action      = ip_restriction.value["action"]
 
         dynamic "headers" {
           for_each = ip_restriction.value["headers"] != null ? ["true"] : []
