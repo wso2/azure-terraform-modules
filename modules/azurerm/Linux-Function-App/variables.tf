@@ -52,6 +52,7 @@ variable "service_plan_id" {
 }
 
 variable "function_app_subnet_id" {
+  default     = null
   description = "ID of the subnet where function app will be created in."
   type        = string
 }
