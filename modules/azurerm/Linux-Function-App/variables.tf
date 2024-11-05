@@ -52,6 +52,7 @@ variable "service_plan_id" {
 }
 
 variable "function_app_subnet_id" {
+  default     = null
   description = "ID of the subnet where function app will be created in."
   type        = string
 }
@@ -169,4 +170,16 @@ variable "access_restriction_vnet" {
 variable "tags" {
   description = "Tags used for the resource."
   type        = map(string)
+}
+
+variable "ftps_state" {
+  default     = "Disabled"
+  description = "State of FTP / FTPS service for this function app. Possible values include: AllAllowed, FtpsOnly and Disabled. Defaults to AllAllowed."
+  type        = string
+}
+
+variable "https_only" {
+  default     = true
+  description = "Should the Function App only be accessible over HTTPS? Defaults to true."
+  type        = bool
 }

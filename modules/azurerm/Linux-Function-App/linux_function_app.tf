@@ -18,6 +18,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
   storage_account_access_key = var.storage_account_access_key
   service_plan_id            = var.service_plan_id
   virtual_network_subnet_id  = var.function_app_subnet_id
+  https_only                 = var.https_only
   tags                       = var.tags
 
   site_config {
@@ -26,6 +27,7 @@ resource "azurerm_linux_function_app" "linux_function_app" {
     worker_count                           = var.worker_count
     application_insights_key               = var.application_insights_key
     application_insights_connection_string = var.application_insights_connection_string
+    ftps_state                             = var.ftps_state
 
     application_stack {
       java_version            = var.java_version
@@ -61,10 +63,10 @@ resource "azurerm_linux_function_app" "linux_function_app" {
       for_each = var.access_restriction_service_tag
 
       content {
-        priority   = ip_restriction.value["priority"]
-        name       = ip_restriction.value["name"]
-        ip_address = ip_restriction.value["ip_address"]
-        action     = ip_restriction.value["action"]
+        priority    = ip_restriction.value["priority"]
+        name        = ip_restriction.value["name"]
+        service_tag = ip_restriction.value["service_tag"]
+        action      = ip_restriction.value["action"]
 
         dynamic "headers" {
           for_each = ip_restriction.value["headers"] != null ? ["true"] : []
