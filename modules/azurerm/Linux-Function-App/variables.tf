@@ -179,7 +179,7 @@ variable "ftps_state" {
 }
 
 variable "https_only" {
-  default     = false
+  default     = true
   description = "Should the Function App only be accessible over HTTPS? Defaults to true."
   type        = bool
 }
