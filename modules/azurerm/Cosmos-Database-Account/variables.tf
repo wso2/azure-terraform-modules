@@ -150,13 +150,13 @@ variable "ip_range_filter" {
 }
 
 variable "network_acl_bypass_for_azure_services" {
-  default     = true
+  default     = false
   description = "If Azure services can bypass ACLs."
   type        = bool
 }
 
 variable "network_acl_bypass_ids" {
   default     = []
-  description = "The list of resource Ids for Network Acl Bypass for this Cosmos DB account."
+  description = "The list of resource Ids for Network ACL Bypass for this Cosmos DB account."
   type        = list(string)
 }
