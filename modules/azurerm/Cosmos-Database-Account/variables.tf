@@ -148,3 +148,15 @@ variable "ip_range_filter" {
   description = "A set of IP addresses or IP address ranges in CIDR form to be included as the allowed list of client IPs"
   type        = string
 }
+
+variable "network_acl_bypass_for_azure_services" {
+  default     = true
+  description = "If Azure services can bypass ACLs."
+  type        = bool
+}
+
+variable "network_acl_bypass_ids" {
+  default     = []
+  description = "The list of resource Ids for Network Acl Bypass for this Cosmos DB account."
+  type        = list(string)
+}
