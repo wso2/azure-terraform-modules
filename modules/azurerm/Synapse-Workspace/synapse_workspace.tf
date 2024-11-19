@@ -27,6 +27,5 @@ resource "azurerm_synapse_workspace" "synapse_workspace" {
   sql_administrator_login_password     = var.sql_administrator_login_password
   managed_virtual_network_enabled      = var.managed_virtual_network_enabled
   data_exfiltration_protection_enabled = var.data_exfiltration_protection_enabled
-  purview_id                           = var.purview_id
   tags                                 = var.tags
 }
