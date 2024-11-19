@@ -52,19 +52,13 @@ variable "sql_administrator_login_password" {
 variable "managed_virtual_network_enabled" {
   description = "Enable or disable Managed Virtual Network for the Synapse Workspace"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "data_exfiltration_protection_enabled" {
   description = "Enable or disable data exfiltration protection"
   type        = bool
-  default     = true
-}
-
-variable "purview_id" {
-  description = "The ID of the Purview account to be associated with the Synapse Workspace"
-  type        = string
-  default     = null
+  default     = false
 }
 
 variable "tags" {
