@@ -18,14 +18,33 @@
 #
 # --------------------------------------------------------------------------------------
 
+resource "azurerm_storage_account" "storage_account" {
+  name                     = join("", ["st", var.storage_account_name])
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  account_kind             = "StorageV2"
+  is_hns_enabled           = true
+  tags                     = var.tags
+}
+
+resource "azurerm_storage_data_lake_gen2_filesystem" "storage_data_lake_gen2_filesystem" {
+  name               = join("", ["fs", var.storage_account_name])
+  storage_account_id = azurerm_storage_account.storage_account.id
+}
+
 resource "azurerm_synapse_workspace" "synapse_workspace" {
   name                                 = join("-", ["synw", var.name])
   resource_group_name                  = var.resource_group_name
   location                             = var.location
-  storage_data_lake_gen2_filesystem_id = var.storage_data_lake_gen2_filesystem_id
+  storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.storage_data_lake_gen2_filesystem.id
   sql_administrator_login              = var.sql_administrator_login
   sql_administrator_login_password     = var.sql_administrator_login_password
   managed_virtual_network_enabled      = var.managed_virtual_network_enabled
   data_exfiltration_protection_enabled = var.data_exfiltration_protection_enabled
-  tags                                 = var.tags
+  identity {
+    type = "SystemAssigned"
+  }
+  tags = var.tags
 }

@@ -61,6 +61,11 @@ variable "data_exfiltration_protection_enabled" {
   default     = false
 }
 
+variable "storage_account_name" {
+  description = "The name of the Storage account linked to the Synapse Workspace"
+  type        = string
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(string)
