@@ -20,15 +20,15 @@
 
 output "id" {
   description = "The ID of the Synapse Workspace"
-  value       = azurerm_synapse_workspace.synapse.id
+  value       = azurerm_synapse_workspace.synapse_workspace.id
 }
 
 output "connectivity_endpoints" {
   description = "A list of connectivity endpoints for the Synapse Workspace"
-  value       = azurerm_synapse_workspace.synapse.connectivity_endpoints
+  value       = azurerm_synapse_workspace.synapse_workspace.connectivity_endpoints
 }
 
 output "managed_resource_group_name" {
   description = "The name of the Managed Resource Group for the Synapse Workspace"
-  value       = azurerm_synapse_workspace.synapse.managed_resource_group_name
+  value       = azurerm_synapse_workspace.synapse_workspace.managed_resource_group_name
 }
