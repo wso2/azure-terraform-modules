@@ -22,10 +22,10 @@ resource "azurerm_storage_account" "storage_account" {
   name                     = join("", ["st", var.storage_account_name])
   resource_group_name      = var.resource_group_name
   location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  account_kind             = "StorageV2"
-  is_hns_enabled           = true
+  account_tier             = var.account_tier
+  account_replication_type = var.account_replication_type
+  account_kind             = var.account_kind
+  is_hns_enabled           = var.is_hns_enabled
   tags                     = var.tags
 }
 
