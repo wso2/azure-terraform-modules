@@ -66,6 +66,30 @@ variable "storage_account_name" {
   type        = string
 }
 
+variable "account_tier" {
+  description = "The tier of the storage account"
+  type        = string
+  default     = "Standard"
+}
+
+variable "account_replication_type" {
+  description = "The replication type of the storage account"
+  type        = string
+  default     = "LRS"
+}
+
+variable "account_kind" {
+  description = "The kind of storage account"
+  type        = string
+  default     = "StorageV2"
+}
+
+variable "is_hns_enabled" {
+  description = "Enable or disable Hierarchical Namespace"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(string)
