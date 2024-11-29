@@ -33,11 +33,6 @@ variable "location" {
   type        = string
 }
 
-variable "storage_data_lake_gen2_filesystem_id" {
-  description = "The ID of the Data Lake Storage Gen2 Filesystem to be used by the Synapse Workspace"
-  type        = string
-}
-
 variable "sql_administrator_login" {
   description = "The username of the SQL Administrator"
   type        = string
