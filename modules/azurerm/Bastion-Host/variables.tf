@@ -102,7 +102,7 @@ variable "public_ip_zones" {
 }
 
 variable "allow_https_internet_inbound" {
-  default     = true
+  default     = false
   description = "Specify whether to allow HTTPS Inbound internet traffic or not"
   type        = bool
 }

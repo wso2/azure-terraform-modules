@@ -41,7 +41,7 @@ variable "tags" {
 }
 
 variable "default_action" {
-  default     = "Allow"
+  default     = "Deny"
   description = "The default action of allow or deny when no other rules match"
   type        = string
 }

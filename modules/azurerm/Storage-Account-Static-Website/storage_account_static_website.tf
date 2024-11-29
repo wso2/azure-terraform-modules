@@ -32,6 +32,7 @@ resource "azurerm_storage_account" "static_storage" {
     default_action             = var.network_rules_default_action
     ip_rules                   = var.network_rules_ip_whitelist
     virtual_network_subnet_ids = var.network_rules_subnet_ids
+    bypass                     = var.network_rules_bypass
   }
 
   static_website {

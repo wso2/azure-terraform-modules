@@ -62,7 +62,7 @@ variable "daily_retention" {
 }
 
 variable "storage_account_network_rules_default_action" {
-  default     = "Allow"
+  default     = "Deny"
   description = "The default action of allow or deny when no other rules match"
   type        = string
 }
