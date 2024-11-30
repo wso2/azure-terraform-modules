@@ -15,6 +15,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   resource_group_name                 = var.aks_resource_group_name
   dns_prefix                          = join("-", ["aks", var.aks_cluster_dns_prefix])
   kubernetes_version                  = var.kubernetes_version
+  api_server_authorized_ip_ranges     = var.api_server_authorized_ip_ranges
   node_resource_group                 = join("-", ["rg", var.aks_node_pool_resource_group_name])
   sku_tier                            = var.sku_tier
   private_cluster_enabled             = var.private_cluster_enabled

@@ -1,3 +1,4 @@
+---
 name: TF Linter Check
 on:
   pull_request:

@@ -307,3 +307,8 @@ variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_po
   description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
   type        = bool
 }
+
+variable "api_server_authorized_ip_ranges" {
+  description = "List of authorized IP ranges for the Kubernetes API server"
+  type        = list(string)
+}
