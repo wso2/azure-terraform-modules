@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "aks_node_pool_subnet" {
-  name                                      = join("-", ["snet", var.aks_node_pool_subnet_name])
-  resource_group_name                       = local.virtual_network_resource_group_name
-  virtual_network_name                      = var.virtual_network_name
-  address_prefixes                          = [var.aks_node_pool_subnet_address_prefix]
-  service_endpoints                         = var.aks_nodepool_subnet_allowed_service_endpoints
-  private_endpoint_network_policies_enabled = var.aks_nodepool_subnet_enforce_private_link_endpoint_network_policies
+  name                              = join("-", ["snet", var.aks_node_pool_subnet_name])
+  resource_group_name               = local.virtual_network_resource_group_name
+  virtual_network_name              = var.virtual_network_name
+  address_prefixes                  = [var.aks_node_pool_subnet_address_prefix]
+  service_endpoints                 = var.aks_nodepool_subnet_allowed_service_endpoints
+  private_endpoint_network_policies = var.aks_nodepool_subnet_enforce_private_link_endpoint_network_policies
 }
 
 resource "azurerm_route_table" "aks_node_pool_route_table" {
@@ -57,10 +57,6 @@ resource "azurerm_network_security_rule" "aks_node_pool_subnet_nsg_rules" {
   direction                                  = each.value.direction
   access                                     = each.value.access
   protocol                                   = each.value.protocol
-  source_port_range                          = each.value.source_port_range
-  destination_port_range                     = each.value.destination_port_range
-  source_address_prefix                      = each.value.source_address_prefix
-  destination_address_prefix                 = each.value.destination_address_prefix
   source_port_ranges                         = each.value.source_port_ranges
   destination_port_ranges                    = each.value.destination_port_ranges
   source_address_prefixes                    = each.value.source_address_prefixes
@@ -83,12 +79,12 @@ resource "azurerm_subnet_network_security_group_association" "aks_node_pool_subn
 }
 
 resource "azurerm_subnet" "internal_load_balancer_subnet" {
-  name                                      = join("-", ["snet", var.aks_load_balancer_subnet_name])
-  resource_group_name                       = local.virtual_network_resource_group_name
-  virtual_network_name                      = var.virtual_network_name
-  address_prefixes                          = [var.internal_loadbalancer_subnet_address_prefix]
-  service_endpoints                         = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
-  private_endpoint_network_policies_enabled = var.internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies
+  name                              = join("-", ["snet", var.aks_load_balancer_subnet_name])
+  resource_group_name               = local.virtual_network_resource_group_name
+  virtual_network_name              = var.virtual_network_name
+  address_prefixes                  = [var.internal_loadbalancer_subnet_address_prefix]
+  service_endpoints                 = ["Microsoft.Sql", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.Storage"]
+  private_endpoint_network_policies = var.internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies
 }
 
 resource "azurerm_network_security_group" "internal_load_balancer_subnet_nsg" {
@@ -107,10 +103,6 @@ resource "azurerm_network_security_rule" "aks_load_balancer_subnet_nsg_rules" {
   direction                                  = each.value.direction
   access                                     = each.value.access
   protocol                                   = each.value.protocol
-  source_port_range                          = each.value.source_port_range
-  destination_port_range                     = each.value.destination_port_range
-  source_address_prefix                      = each.value.source_address_prefix
-  destination_address_prefix                 = each.value.destination_address_prefix
   source_port_ranges                         = each.value.source_port_ranges
   destination_port_ranges                    = each.value.destination_port_ranges
   source_address_prefixes                    = each.value.source_address_prefixes
