@@ -108,13 +108,9 @@ variable "aks_node_pool_subnet_nsg_rules" {
     direction                                  = string
     access                                     = string
     protocol                                   = string
-    source_port_range                          = string
     source_port_ranges                         = list(string)
-    destination_port_range                     = string
     destination_port_ranges                    = list(string)
-    source_address_prefix                      = string
     source_address_prefixes                    = list(string)
-    destination_address_prefix                 = string
     destination_address_prefixes               = list(string)
     source_application_security_group_ids      = list(string)
     destination_application_security_group_ids = list(string)
@@ -131,13 +127,9 @@ variable "aks_load_balancer_subnet_nsg_rules" {
     direction                                  = string
     access                                     = string
     protocol                                   = string
-    source_port_range                          = string
     source_port_ranges                         = list(string)
-    destination_port_range                     = string
     destination_port_ranges                    = list(string)
-    source_address_prefix                      = string
     source_address_prefixes                    = list(string)
-    destination_address_prefix                 = string
     destination_address_prefixes               = list(string)
     source_application_security_group_ids      = list(string)
     destination_application_security_group_ids = list(string)
@@ -190,11 +182,6 @@ variable "service_cidr" {
 
 variable "dns_service_ip" {
   description = "DNS service IP Address"
-  type        = string
-}
-
-variable "docker_bridge_cidr" {
-  description = "CIDR block for the docker bridge"
   type        = string
 }
 
@@ -306,9 +293,4 @@ variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_po
   default     = false
   description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
   type        = bool
-}
-
-variable "api_server_authorized_ip_ranges" {
-  description = "List of authorized IP ranges for the Kubernetes API server"
-  type        = list(string)
 }
