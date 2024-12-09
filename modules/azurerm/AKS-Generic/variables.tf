@@ -230,6 +230,11 @@ variable "default_node_pool_orchestrator_version" {
   description = "Kubernetes version for the default nodepool"
   type        = string
 }
+variable "node_public_ip_enabled" {
+  description = "Flag to assign each node have a public IP address"
+  type        = bool
+  default     = false
+}
 
 variable "default_node_pool_only_critical_addons_enabled" {
   description = "Flag to only use default nodepool for Critical workloads"

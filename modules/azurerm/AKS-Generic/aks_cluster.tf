@@ -47,7 +47,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     min_count                    = var.default_node_pool_min_count
     max_pods                     = var.default_node_pool_max_pods
     orchestrator_version         = var.default_node_pool_orchestrator_version
-    node_public_ip_enabled       = false
+    node_public_ip_enabled       = var.node_public_ip_enabled
     only_critical_addons_enabled = var.default_node_pool_only_critical_addons_enabled
   }
 
