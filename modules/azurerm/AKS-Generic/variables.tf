@@ -289,13 +289,13 @@ variable "azure_policy_enabled" {
 }
 
 variable "aks_nodepool_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
+  default     = "Disabled"
   description = "Enable or Disable network policies for the private link endpoint on the aks nodepool subnet"
-  type        = bool
+  type        = string
 }
 
 variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
+  default     = "Disabled"
   description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
-  type        = bool
+  type        = string
 }
