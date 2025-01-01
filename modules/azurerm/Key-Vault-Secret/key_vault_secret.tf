@@ -10,8 +10,9 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_key_vault_secret" "key_vault_secret" {
-  for_each     = var.secrets_map
-  key_vault_id = var.key_vault_id
-  name         = each.value.name
-  value        = each.value.value
+  for_each        = var.secrets_map
+  key_vault_id    = var.key_vault_id
+  name            = each.value.name
+  value           = each.value.value
+  expiration_date = each.value.expiration_date
 }
