@@ -65,7 +65,7 @@ resource "azurerm_synapse_integration_runtime_azure" "synapse_integration_runtim
 resource "azurerm_synapse_linked_service" "synapse_linked_service" {
   name                 = join("-", ["synls", var.name])
   synapse_workspace_id = azurerm_synapse_workspace.synapse_workspace.id
-  type                 = "AzureBlobStorage"
+  type                 = var.synapse_linked_service_type
   type_properties_json = <<JSON
 {
   "connectionString": "${azurerm_storage_account.storage_account.primary_connection_string}"

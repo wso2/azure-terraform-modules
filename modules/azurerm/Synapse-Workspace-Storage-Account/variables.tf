@@ -100,11 +100,17 @@ variable "fw_start_ip_address" {
 variable "fw_end_ip_address" {
   description = "The ending IP address of the firewall rule"
   type        = string
-  default     = "255.255.255.255"
+  default     = "0.0.0.0"
 }
 
 variable "fw_rule_name" {
   description = "The name of the firewall rule for the Synapse workspace"
   type        = string
   default     = "allowAll"
+}
+
+variable "synapse_linked_service_type" {
+  description = "The type of linked service for the Synapse workspace"
+  type        = string
+  default     = "AzureBlobStorage"
 }
