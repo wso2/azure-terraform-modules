@@ -16,15 +16,16 @@ resource "azurerm_cosmosdb_account" "cosmos_db_account" {
   offer_type                            = var.offer_type
   kind                                  = var.kind
   tags                                  = var.tags
-  enable_free_tier                      = var.enable_free_tier
+  free_tier_enabled                     = var.enable_free_tier
   public_network_access_enabled         = var.public_network_access_enabled
   ip_range_filter                       = var.ip_range_filter
   network_acl_bypass_for_azure_services = var.network_acl_bypass_for_azure_services
   network_acl_bypass_ids                = var.network_acl_bypass_ids
-  enable_multiple_write_locations       = var.enable_multiple_write_locations
-  enable_automatic_failover             = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
+  multiple_write_locations_enabled      = var.enable_multiple_write_locations
+  automatic_failover_enabled            = length(local.geo_locations) == 1 ? false : var.enable_automatic_failover
   is_virtual_network_filter_enabled     = var.is_virtual_network_filter_enabled
   analytical_storage_enabled            = var.analytical_storage_enabled
+  minimal_tls_version                   = var.minimal_tls_version
 
   dynamic "geo_location" {
     for_each = local.geo_locations

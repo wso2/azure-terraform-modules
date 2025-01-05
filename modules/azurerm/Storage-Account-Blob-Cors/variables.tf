@@ -98,3 +98,9 @@ variable "cors_max_age_in_seconds" {
   description = "Max age in seconds for CORD configs"
   type        = number
 }
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Is cross tenant replication enabled for the container."
+  type        = bool
+}

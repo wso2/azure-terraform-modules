@@ -29,3 +29,9 @@ variable "monitor_private_link_scope_abbreviation" {
   type        = string
   default     = "ampls"
 }
+
+variable "ingestion_access_mode" {
+  description = "The access mode for the Azure Monitor Private Link Scope"
+  type        = string
+  default     = "PrivateOnly"
+}

@@ -19,14 +19,15 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_storage_account" "storage_account" {
-  name                     = join("", ["st", var.storage_account_name])
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
-  account_kind             = var.account_kind
-  is_hns_enabled           = var.is_hns_enabled
-  tags                     = var.tags
+  name                             = join("", ["st", var.storage_account_name])
+  resource_group_name              = var.resource_group_name
+  location                         = var.location
+  account_tier                     = var.account_tier
+  account_replication_type         = var.account_replication_type
+  account_kind                     = var.account_kind
+  is_hns_enabled                   = var.is_hns_enabled
+  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
+  tags                             = var.tags
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "storage_data_lake_gen2_filesystem" {

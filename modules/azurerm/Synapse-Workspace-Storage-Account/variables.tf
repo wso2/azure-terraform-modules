@@ -90,3 +90,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "cross_tenant_replication_enabled" {
+  description = "Enable or disable cross tenant replication"
+  type        = bool
+  default     = false
+}

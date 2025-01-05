@@ -21,8 +21,6 @@
 locals {
   user_provided_logs_settings      = { for s in var.required_log_categories : s.category_name => true }
   user_provided_metrics_settings   = { for s in var.required_metric_categories : s.category_name => true }
-  updated_default_logs_settings    = { for s in sort(data.azurerm_monitor_diagnostic_categories.default.logs) : s => var.all_log_types_enabled }
   updated_default_metrics_settings = { for s in sort(data.azurerm_monitor_diagnostic_categories.default.metrics) : s => var.all_metrics_enabled }
-  all_logs_settings                = merge(local.updated_default_logs_settings, local.user_provided_logs_settings)
   all_metrics_settings             = merge(local.updated_default_metrics_settings, local.user_provided_metrics_settings)
 }

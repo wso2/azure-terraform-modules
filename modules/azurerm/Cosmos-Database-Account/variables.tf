@@ -146,7 +146,7 @@ variable "analytical_storage_enabled" {
 variable "ip_range_filter" {
   default     = null
   description = "A set of IP addresses or IP address ranges in CIDR form to be included as the allowed list of client IPs"
-  type        = string
+  type        = list(string)
 }
 
 variable "network_acl_bypass_for_azure_services" {
@@ -159,4 +159,10 @@ variable "network_acl_bypass_ids" {
   default     = []
   description = "The list of resource Ids for Network ACL Bypass for this Cosmos DB account"
   type        = list(string)
+}
+
+variable "minimal_tls_version" {
+  default     = "Tls12"
+  description = "The minimal TLS version for the Cosmos DB account"
+  type        = string
 }

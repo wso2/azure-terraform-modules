@@ -183,3 +183,15 @@ variable "https_only" {
   description = "Should the Function App only be accessible over HTTPS? Defaults to true."
   type        = bool
 }
+
+variable "ip_restriction_default_action" {
+  default     = "Deny"
+  description = "Default action for IP restrictions. Possible values include: Allow and Deny."
+  type        = string
+}
+
+variable "scm_ip_restriction_default_action" {
+  default     = "Deny"
+  description = "Default action for SCM IP restrictions. Possible values include: Allow and Deny."
+  type        = string
+}
