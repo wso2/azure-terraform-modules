@@ -28,73 +28,83 @@ variable "alert_enabled" {
 variable "recommendation_alerts" {
   description = "Map of Azure recommendation alerts"
   type = map(object({
-    scopes                  = list(string)
     alert_name              = string
     description             = string
-    recommendation_impact   = string
+    location                = string
     monitor_action_group_id = string
+    recommendation_impact   = string
+    scopes                  = list(string)
+    webhook_properties      = map(string)
   }))
 }
 
 variable "activity_log_alerts" {
   description = "Map of Azure Activity Log alerts"
   type = map(object({
-    scopes                  = list(string)
     alert_name              = string
-    description             = string
-    monitor_action_group_id = string
-    criteriaLevel           = string
     criteriaCategory        = string
+    criteriaLevel           = string
+    description             = string
+    location                = string
+    monitor_action_group_id = string
+    scopes                  = list(string)
+    webhook_properties      = map(string)
   }))
 }
 
 variable "resource_health_alerts" {
   description = "Map of Azure resource health alerts"
   type = map(object({
-    scopes                  = list(string)
     alert_name              = string
-    description             = string
-    monitor_action_group_id = string
-    criteriaLevel           = string
-    query_enabled           = bool
     criteriaCategory        = string
-    currentStatuses         = list(string)
-    previousStatuses        = list(string)
+    criteriaLevel           = string
     criteriaReason          = list(string)
+    currentStatuses         = list(string)
+    description             = string
+    location                = string
+    monitor_action_group_id = string
+    previousStatuses        = list(string)
+    query_enabled           = bool
+    scopes                  = list(string)
     status                  = string
     target_resource_group   = string
-    target_resource_type    = string
     target_resource_id      = string
+    target_resource_type    = string
+    webhook_properties      = map(string)
   }))
 }
 
 variable "service_health_alerts" {
   description = "Map of Azure service health alerts"
   type = map(object({
-    scopes                  = list(string)
     alert_name              = string
+    criteriaCategory        = string
+    criteriaLevel           = string
     description             = string
+    location                = string
     monitor_action_group_id = string
     query_enabled           = bool
-    criteriaLevel           = string
-    criteriaCategory        = string
-    targetLocations         = list(string)
+    scopes                  = list(string)
     targetEvents            = list(string)
+    targetLocations         = list(string)
+    webhook_properties      = map(string)
   }))
 }
 
 variable "specific_service_health_alerts" {
   description = "Map of Azure service health alerts"
   type = map(object({
-    scopes                  = list(string)
     alert_name              = string
+    criteriaCategory        = string
     description             = string
+    location                = string
     monitor_action_group_id = string
     query_enabled           = bool
-    criteriaCategory        = string
-    targetLocations         = list(string)
+    scopes                  = list(string)
     targetEvents            = list(string)
+    targetLocations         = list(string)
     targetServices          = list(string)
+    webhook_properties      = map(string)
   }))
 }
 

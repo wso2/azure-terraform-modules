@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 output "dashboard_id" {
-  depends_on = [azurerm_dashboard.dashboard]
-  value      = azurerm_dashboard.dashboard.id
+  depends_on = [azurerm_portal_dashboard.dashboard]
+  value      = azurerm_portal_dashboard.dashboard.id
 }

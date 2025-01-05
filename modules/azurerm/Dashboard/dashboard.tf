@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_dashboard" "dashboard" {
+resource "azurerm_portal_dashboard" "dashboard" {
   name                 = join("-", ["dashb", var.dashboard_name])
   resource_group_name  = var.resource_group_name
   location             = var.location
