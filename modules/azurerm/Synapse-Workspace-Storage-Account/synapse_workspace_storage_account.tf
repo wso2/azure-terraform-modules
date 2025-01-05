@@ -49,3 +49,34 @@ resource "azurerm_synapse_workspace" "synapse_workspace" {
   }
   tags = var.tags
 }
+
+resource "azurerm_synapse_firewall_rule" "synapse_firewall_rule" {
+  name                 = var.fw_rule_name
+  synapse_workspace_id = azurerm_synapse_workspace.synapse_workspace.id
+  start_ip_address     = var.fw_start_ip_address
+  end_ip_address       = var.fw_end_ip_address
+}
+
+resource "azurerm_synapse_integration_runtime_azure" "synapse_integration_runtime_azure" {
+  name                 = join("-", ["synintruntime", var.name])
+  synapse_workspace_id = azurerm_synapse_workspace.synapse_workspace.id
+  location             = azurerm_synapse_workspace.synapse_workspace.location
+}
+
+resource "azurerm_synapse_linked_service" "synapse_linked_service" {
+  name                 = join("-", ["synls", var.name])
+  synapse_workspace_id = azurerm_synapse_workspace.synapse_workspace.id
+  type                 = var.synapse_linked_service_type
+  type_properties_json = <<JSON
+{
+  "connectionString": "${azurerm_storage_account.storage_account.primary_connection_string}"
+}
+JSON
+  integration_runtime {
+    name = azurerm_synapse_integration_runtime_azure.synapse_integration_runtime_azure.name
+  }
+
+  depends_on = [
+    azurerm_synapse_firewall_rule.synapse_firewall_rule,
+  ]
+}
