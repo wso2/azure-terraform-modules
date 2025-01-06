@@ -112,7 +112,8 @@ resource "azurerm_linux_function_app" "linux_function_app" {
     ignore_changes = [
       tags["hidden-link: /app-insights-conn-string"],
       tags["hidden-link: /app-insights-instrumentation-key"],
-      tags["hidden-link: /app-insights-resource-id"]
+      tags["hidden-link: /app-insights-resource-id"],
+      app_settings["WEBSITE_RUN_FROM_PACKAGE"]
     ]
   }
 }
