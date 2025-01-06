@@ -10,9 +10,9 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "firewall_subnet" {
-  name                                      = "AzureFirewallSubnet"
-  resource_group_name                       = var.resource_group_name
-  virtual_network_name                      = var.virtual_network_name
-  address_prefixes                          = [var.subnet_address_prefixes]
-  private_endpoint_network_policies_enabled = var.firewall_subnet_enforce_private_link_endpoint_network_policies
+  name                              = "AzureFirewallSubnet"
+  resource_group_name               = var.resource_group_name
+  virtual_network_name              = var.virtual_network_name
+  address_prefixes                  = [var.subnet_address_prefixes]
+  private_endpoint_network_policies = var.private_endpoint_network_policies
 }

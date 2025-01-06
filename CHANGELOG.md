@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - yyyy-mm-dd
+## [Unreleased]
+
+### Added
+
+### Changed
+
+- Update AzureRM modules to support AzureRM 4.x.x changes
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
 
 ## [v2.0.0] - 2025-01-06
 

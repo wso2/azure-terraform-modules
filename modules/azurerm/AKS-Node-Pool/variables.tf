@@ -92,3 +92,21 @@ variable "tags" {
   description = "Tags to be used in the resource tags"
   type        = map(string)
 }
+
+variable "node_pool_upgrade_drain_timeout" {
+  default     = 30
+  description = "Drain timeout in minutes for node pool upgrades"
+  type        = number
+}
+
+variable "node_pool_upgrade_soak_duration" {
+  default     = 0
+  description = "Soak duration in minutes for node pool upgrades"
+  type        = number
+}
+
+variable "node_pool_upgrade_max_surge" {
+  default     = "33%"
+  description = "Maximum surge for node pool upgrades"
+  type        = string
+}
