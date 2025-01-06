@@ -29,9 +29,9 @@ variable "cosmos_db_name" {
   type        = string
 }
 
-variable "partition_key_path" {
+variable "partition_key_paths" {
   description = "Partition key path of the partition key."
-  type        = string
+  type        = list(string)
 }
 
 variable "partition_key_version" {

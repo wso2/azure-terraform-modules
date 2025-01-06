@@ -29,11 +29,10 @@ resource "azurerm_monitor_diagnostic_setting" "resource_monitoring_diagnostic_se
   storage_account_id             = var.archival_locations.archival_storage_account_id != "" ? var.archival_locations.archival_storage_account_id : null
   log_analytics_destination_type = var.log_analytics_destination_type
 
-  dynamic "log" {
-    for_each = local.all_logs_settings
+  dynamic "enabled_log" {
+    for_each = local.user_provided_logs_settings
     content {
-      category = log.key
-      enabled  = log.value
+      category = enabled_log.key
     }
   }
 

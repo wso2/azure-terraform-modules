@@ -57,10 +57,10 @@ variable "enforce_private_link_service_network_policies" {
   type        = bool
 }
 
-variable "enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the subnet"
-  type        = bool
+variable "private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }
 
 variable "delegation" {

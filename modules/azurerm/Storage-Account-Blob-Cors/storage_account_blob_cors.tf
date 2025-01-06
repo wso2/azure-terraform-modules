@@ -10,17 +10,18 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_storage_account" "storage_account" {
-  name                            = join("", ["st", var.storage_account_name])
-  resource_group_name             = var.resource_group_name
-  location                        = var.location
-  account_tier                    = var.account_tier
-  access_tier                     = var.access_tier
-  account_replication_type        = var.account_replication_type
-  min_tls_version                 = "TLS1_2"
-  account_kind                    = "StorageV2"
-  enable_https_traffic_only       = true
-  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  tags                            = var.tags
+  name                             = join("", ["st", var.storage_account_name])
+  resource_group_name              = var.resource_group_name
+  location                         = var.location
+  account_tier                     = var.account_tier
+  access_tier                      = var.access_tier
+  account_replication_type         = var.account_replication_type
+  min_tls_version                  = "TLS1_2"
+  account_kind                     = "StorageV2"
+  https_traffic_only_enabled       = true
+  allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
+  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
+  tags                             = var.tags
 
   blob_properties {
 

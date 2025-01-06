@@ -29,9 +29,14 @@ output "cosmos_db_account_write_endpoints" {
   value      = azurerm_cosmosdb_account.cosmos_db_account.write_endpoints
 }
 
-output "cosmos_db_account_connection_strings" {
+output "cosmos_db_account_primary_sql_connection_string" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
-  value      = azurerm_cosmosdb_account.cosmos_db_account.connection_strings
+  value      = azurerm_cosmosdb_account.cosmos_db_account.primary_sql_connection_string
+}
+
+output "cosmos_db_account_secondary_sql_connection_string" {
+  depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
+  value      = azurerm_cosmosdb_account.cosmos_db_account.secondary_sql_connection_string
 }
 
 output "cosmos_db_account_name" {

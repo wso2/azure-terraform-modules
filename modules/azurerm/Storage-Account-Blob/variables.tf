@@ -87,3 +87,9 @@ variable "storage_account_abbreviation" {
   type        = string
   default     = "st"
 }
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Enable or disable cross tenant replication"
+  type        = bool
+}

@@ -14,7 +14,7 @@ resource "azurerm_cosmosdb_sql_container" "cosmosdb_sql_container" {
   resource_group_name    = var.resource_group_name
   account_name           = var.cosmos_db_account_name
   database_name          = var.cosmos_db_name
-  partition_key_path     = var.partition_key_path
+  partition_key_paths    = var.partition_key_paths
   partition_key_version  = var.partition_key_version
   throughput             = var.autoscale_enabled == false ? var.throughput : null
   default_ttl            = var.default_ttl

@@ -18,13 +18,11 @@ resource "azurerm_eventhub_namespace" "eventhub_namespace" {
   auto_inflate_enabled          = true
   maximum_throughput_units      = var.maximum_throughput_units
   public_network_access_enabled = var.public_network_access_enabled
-  zone_redundant                = true
   tags                          = var.tags
 
   lifecycle {
     ignore_changes = [
       capacity,
-      zone_redundant,
     ]
   }
 

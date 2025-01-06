@@ -114,3 +114,9 @@ variable "synapse_linked_service_type" {
   type        = string
   default     = "AzureBlobStorage"
 }
+
+variable "cross_tenant_replication_enabled" {
+  description = "Enable or disable cross tenant replication"
+  type        = bool
+  default     = false
+}

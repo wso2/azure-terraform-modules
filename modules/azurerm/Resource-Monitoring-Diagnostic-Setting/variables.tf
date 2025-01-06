@@ -70,12 +70,6 @@ variable "required_log_categories" {
   default     = []
 }
 
-variable "all_log_types_enabled" {
-  type        = bool
-  description = "Allow or Disallow all log types to be extracted from the resource"
-  default     = false
-}
-
 variable "all_metrics_enabled" {
   type        = bool
   description = "Allow or Disallow all metrics to be extracted from the resource"
