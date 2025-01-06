@@ -209,10 +209,10 @@ variable "private_dns_zone_ids" {
   type        = list(string)
 }
 
-variable "bastion_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the bastion subnet"
-  type        = bool
+variable "private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }
 
 variable "managed_disk_abbreviation" {
@@ -297,4 +297,10 @@ variable "private_dns_zone_group_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "pvtdns"
+}
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Enable or disable cross tenant replication"
+  type        = bool
 }

@@ -35,3 +35,9 @@ variable "ingestion_access_mode" {
   type        = string
   default     = "PrivateOnly"
 }
+
+variable "query_access_mode" {
+  description = "The access mode for the Azure Monitor Private Link Scope"
+  type        = string
+  default     = "PrivateOnly"
+}

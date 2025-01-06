@@ -78,3 +78,9 @@ variable "network_rules_bypass" {
   description = "List of actions that bypass the network rule. Defaults to []"
   type        = list(string)
 }
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Enable or disable cross tenant replication"
+  type        = bool
+}

@@ -284,10 +284,10 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "app_gateway_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the application gateway subnet"
-  type        = bool
+variable "private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }
 
 variable "application_gateway_abbreviation" {

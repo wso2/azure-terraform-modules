@@ -167,11 +167,6 @@ variable "dns_service_ip" {
   type        = string
 }
 
-variable "docker_bridge_cidr" {
-  description = "Docker bridge CIDR"
-  type        = string
-}
-
 variable "log_analytics_workspace_id" {
   description = "Log analytics workspace id"
   type        = string
@@ -238,16 +233,16 @@ variable "private_cluster_public_fqdn_enable" {
   type        = bool
 }
 
-variable "aks_nodepool_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the aks nodepool subnet"
-  type        = bool
+variable "aks_nodepool_subnet_private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }
 
-variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
-  type        = bool
+variable "internal_load_balancer_subnet_private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }
 
 variable "private_dns_zone_id" {
@@ -301,4 +296,34 @@ variable "secret_rotation_enabled" {
   description = "Enable secret rotation"
   type        = bool
   default     = false
+}
+
+variable "default_node_pool_drain_timeout_in_minutes" {
+  description = "Default node pool drain timeout in minutes"
+  type        = number
+  default     = 30
+}
+
+variable "default_node_pool_soak_duration_in_minutes" {
+  description = "Default node pool soak duration in minutes"
+  type        = number
+  default     = 0
+}
+
+variable "default_node_pool_max_surge" {
+  description = "Default node pool max surge"
+  type        = string
+  default     = "33%"
+}
+
+variable "image_cleaner_interval_hours" {
+  description = "Image cleaner interval hours"
+  type        = number
+  default     = 48
+}
+
+variable "node_os_upgrade_channel" {
+  description = "Node OS upgrade channel"
+  type        = string
+  default     = "NodeImage"
 }

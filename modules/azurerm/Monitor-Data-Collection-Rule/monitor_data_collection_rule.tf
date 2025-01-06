@@ -41,6 +41,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
         name           = var.data_sources_syslog_name
         facility_names = var.data_sources_syslog_facility_names
         log_levels     = var.data_sources_syslog_log_levels
+        streams        = var.data_sources_syslog_streams
       }
     }
   }

@@ -10,16 +10,17 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_storage_account" "storage_account" {
-  name                            = join("", [var.storage_account_abbreviation, var.storage_account_name])
-  resource_group_name             = var.resource_group_name
-  location                        = var.location
-  account_tier                    = var.account_tier
-  account_replication_type        = var.account_replication_type
-  account_kind                    = "FileStorage"
-  enable_https_traffic_only       = true
-  min_tls_version                 = "TLS1_2"
-  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  tags                            = var.tags
+  name                             = join("", [var.storage_account_abbreviation, var.storage_account_name])
+  resource_group_name              = var.resource_group_name
+  location                         = var.location
+  account_tier                     = var.account_tier
+  account_replication_type         = var.account_replication_type
+  account_kind                     = "FileStorage"
+  https_traffic_only_enabled       = true
+  min_tls_version                  = "TLS1_2"
+  allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
+  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
+  tags                             = var.tags
 }
 
 resource "azurerm_advanced_threat_protection" "storage_account_advanced_threat_protection" {

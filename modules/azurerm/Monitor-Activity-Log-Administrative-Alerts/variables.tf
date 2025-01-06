@@ -28,13 +28,14 @@ variable "alert_enabled" {
 variable "activity_log_administrative_alerts" {
   description = "Map of azure activity log administrative alerts"
   type = map(object({
-    scopes                          = list(string)
-    monitor_activity_log_alert_name = string
-    description                     = string
-    monitor_action_group_id         = string
     category                        = string
+    description                     = string
+    location                        = string
+    monitor_action_group_id         = string
+    monitor_activity_log_alert_name = string
     operation_name                  = string
     resource_id                     = string
+    scopes                          = list(string)
   }))
 }
 
