@@ -106,7 +106,7 @@ variable "fw_end_ip_address" {
 variable "fw_rule_name" {
   description = "The name of the firewall rule for the Synapse workspace"
   type        = string
-  default     = "allowAll"
+  default     = "AllowAllWindowsAzureIps"
 }
 
 variable "synapse_linked_service_type" {
