@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Update AzureRM modules to support AzureRM 4.x.x changes
+- Add Storage Account Static Website with CDN
 
 ### Deprecated
 
