@@ -16,6 +16,16 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+## [v2.2.0] - 2025-01-16
+
+### Added
+
+### Changed
+
+- Enhance storage account configuration with cross-tenant replication and update network rules bypass default
+
+### Fixed
+
 ## [v2.1.0] - 2025-01-08
 
 ### Added
