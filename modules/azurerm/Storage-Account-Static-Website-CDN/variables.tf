@@ -83,7 +83,7 @@ variable "allow_nested_items_to_be_public" {
 }
 
 variable "network_rules_bypass" {
-  default     = []
+  default     = ["AzureServices"]
   description = "List of actions that bypass the network rule. Defaults to []"
   type        = list(string)
 }
@@ -120,4 +120,10 @@ variable "cdn_delivery_rules" {
     redirect_type    = string
     name             = string
   }))
+}
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Enable or disable cross tenant replication"
+  type        = bool
 }
