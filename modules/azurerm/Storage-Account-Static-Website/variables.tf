@@ -74,7 +74,7 @@ variable "allow_nested_items_to_be_public" {
 }
 
 variable "network_rules_bypass" {
-  default     = []
+  default     = ["AzureServices"]
   description = "List of actions that bypass the network rule. Defaults to []"
   type        = list(string)
 }
