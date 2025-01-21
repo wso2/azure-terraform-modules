@@ -16,6 +16,17 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+## [v2.3.0] - 2025-01-22
+
+### Added
+
+### Changed
+
+- Add Configurable OS Disk Size for VMSS
+- Ignore Changes of `api_server_access_profile`
+
+### Fixed
+
 ## [v2.2.0] - 2025-01-16
 
 ### Added
