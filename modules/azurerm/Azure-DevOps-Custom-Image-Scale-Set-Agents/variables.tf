@@ -145,3 +145,9 @@ variable "scale_in_rule" {
   description = "The scale in rule for the virtual machine scale set"
   type        = string
 }
+
+variable "os_disk_size_gb" {
+  default     = 30
+  description = "The size of the OS disk in GB"
+  type        = number
+}
