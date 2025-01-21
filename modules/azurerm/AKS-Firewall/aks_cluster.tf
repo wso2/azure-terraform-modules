@@ -36,7 +36,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
       windows_profile,
       kubernetes_version,
       default_node_pool[0].orchestrator_version,
-      microsoft_defender
+      microsoft_defender,
+      api_server_access_profile
     ]
   }
 
