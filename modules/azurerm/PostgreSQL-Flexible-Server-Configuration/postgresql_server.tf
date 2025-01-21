@@ -10,7 +10,8 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_postgresql_flexible_server_configuration" "server_configuration" {
-  name      = var.server_configuration_name
+  for_each  = var.server_configurations
+  name      = each.value.property
   server_id = var.postgresql_flexible_server_id
-  value     = var.sever_configuration_value
+  value     = each.value.settings
 }
