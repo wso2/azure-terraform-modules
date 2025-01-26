@@ -91,3 +91,9 @@ variable "source_address_prefixes" {
   description = "List source address range for considered traffic"
   type        = list(string)
 }
+
+variable "source_application_security_group_ids" {
+  default     = null
+  description = "List of source application security group ids"
+  type        = list(string)
+}
