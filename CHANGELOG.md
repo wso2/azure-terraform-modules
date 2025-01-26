@@ -16,6 +16,16 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+## [v2.4.0] - 2025-01-26
+
+### Added
+
+### Changed
+
+- Add `source_application_security_group_ids` variable to Network Security Rule
+
+### Fixed
+
 ## [v2.3.0] - 2025-01-22
 
 ### Added
