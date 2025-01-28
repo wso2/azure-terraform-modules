@@ -130,3 +130,9 @@ variable "high_availability_standby_availability_zone" {
   description = "Specifies the Availability Zone in which the standby Flexible Server should be located."
   type        = number
 }
+
+variable "public_network_access_enabled" {
+  default     = false
+  description = "Enable or disable public network access to the PostgreSQL Server"
+  type        = bool
+}
