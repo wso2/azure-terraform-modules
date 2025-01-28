@@ -16,6 +16,16 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+## [v2.5.0] - 2025-01-28
+
+### Added
+
+### Changed
+
+- Update Firewall and PostgreSQL-Flexible-Server modules to support AzureRM 4.x.x
+
+### Fixed
+
 ## [v2.4.0] - 2025-01-26
 
 ### Added
