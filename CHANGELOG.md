@@ -16,6 +16,16 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+## [v2.6.0] - 2025-02-06
+
+### Added
+
+- Add Firewall Public IP Association Output & App Configuration Modules 
+
+### Changed
+
+### Fixed
+
 ## [v2.5.0] - 2025-01-28
 
 ### Added

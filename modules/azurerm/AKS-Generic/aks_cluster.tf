@@ -34,6 +34,10 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     }
   }
 
+  api_server_access_profile {
+    authorized_ip_ranges = var.api_server_authorized_ip_ranges
+  }
+
   default_node_pool {
     name                         = join("", ["aksnp", var.default_node_pool_name])
     node_count                   = var.default_node_pool_count
@@ -79,6 +83,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
       windows_profile,
       kubernetes_version,
       default_node_pool[0].orchestrator_version,
+      api_server_access_profile
     ]
   }
 }
