@@ -50,7 +50,7 @@ variable "rules" {
     }))
 
     route_configuration_override_actions = list(object({
-      cache_duration                = number
+      cache_duration                = string
       cdn_frontdoor_origin_group_id = string
       forwarding_protocol           = string
       query_string_caching_behavior = string
