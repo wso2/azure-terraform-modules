@@ -10,12 +10,14 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_shared_image" "compute_image" {
-  name                = join("-", [var.shared_image_abbreviation, var.name])
-  gallery_name        = var.gallery_name
-  resource_group_name = var.resource_group
-  location            = var.location
-  os_type             = var.shared_image_os_type
-  hyper_v_generation  = var.hyper_v_generation
+  name                     = join("-", [var.shared_image_abbreviation, var.name])
+  gallery_name             = var.gallery_name
+  resource_group_name      = var.resource_group
+  location                 = var.location
+  os_type                  = var.shared_image_os_type
+  hyper_v_generation       = var.hyper_v_generation
+  trusted_launch_supported = var.trusted_launch_supported
+  trusted_launch_enabled   = var.trusted_launch_enabled
 
   identifier {
     publisher = var.shared_image_publisher

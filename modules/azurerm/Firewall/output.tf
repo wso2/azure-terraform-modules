@@ -40,6 +40,6 @@ output "firewall_public_ip_names" {
 }
 
 output "firewall_public_ip_associations" {
-  value      = {for pip in azurerm_public_ip.firewall_public_ip : pip.name => pip.ip_address}
+  value      = { for pip in azurerm_public_ip.firewall_public_ip : pip.name => pip.ip_address }
   depends_on = [azurerm_public_ip.firewall_public_ip]
 }
