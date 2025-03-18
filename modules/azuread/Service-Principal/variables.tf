@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------------------
 
 variable "ad_application_client_id" {
-  description = "The application Client ID of the application you want to assign the role to."
+  description = "The application's client ID of the application you want to assign the role to."
   type        = string
 }
 

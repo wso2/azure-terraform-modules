@@ -45,6 +45,7 @@ variable "oidc_issuer_url" {
 }
 
 variable "audiences" {
+  default     = []
   description = "Audience for the Federated Identity Credential"
   type        = list(string)
 }
