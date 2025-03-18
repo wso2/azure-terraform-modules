@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
 #
 # This software is the property of WSO2 LLC. and its suppliers, if any.
 # Dissemination of any information or reproduction of any material contained
@@ -9,8 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "ad_application_id" {
-  description = "The application ID of the application you want to assign the role to."
+variable "ad_application_client_id" {
+  description = "The application Client ID of the application you want to assign the role to."
   type        = string
 }
 

@@ -9,14 +9,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "sp_internal_id" {
-  value = azuread_service_principal.service_principal.id
-}
-
-output "sp_app_client_id" {
-  value = azuread_service_principal.service_principal.client_id
-}
-
-output "sp_object_id" {
-  value = azuread_service_principal.service_principal.object_id
+resource "azuread_application_federated_identity_credential" "federated_credentials" {
+  application_id = var.ad_application_id
+  display_name   = join("-", [var.federated_credential_abbreviation, var.name])
+  description    = var.description
+  audiences      = var.audiences
+  issuer         = var.oidc_issuer_url
+  subject        = var.subject
 }

@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
 #
 # This software is the property of WSO2 LLC. and its suppliers, if any.
 # Dissemination of any information or reproduction of any material contained
@@ -10,6 +10,6 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuread_service_principal" "service_principal" {
-  application_id               = var.ad_application_id
+  client_id                    = var.ad_application_client_id
   app_role_assignment_required = var.app_role_assignment_required
 }

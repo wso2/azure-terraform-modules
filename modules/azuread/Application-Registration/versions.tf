@@ -9,14 +9,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "sp_internal_id" {
-  value = azuread_service_principal.service_principal.id
-}
-
-output "sp_app_client_id" {
-  value = azuread_service_principal.service_principal.client_id
-}
-
-output "sp_object_id" {
-  value = azuread_service_principal.service_principal.object_id
+terraform {
+  required_version = ">= 0.14"
+  required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = ">= 3.0.0"
+    }
+  }
 }

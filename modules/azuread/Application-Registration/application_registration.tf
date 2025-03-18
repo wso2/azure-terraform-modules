@@ -9,14 +9,10 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "sp_internal_id" {
-  value = azuread_service_principal.service_principal.id
-}
+resource "azuread_application_registration" "ad_application" {
+  display_name = var.application_name
 
-output "sp_app_client_id" {
-  value = azuread_service_principal.service_principal.client_id
-}
-
-output "sp_object_id" {
-  value = azuread_service_principal.service_principal.object_id
+  lifecycle {
+    create_before_destroy = true
+  }
 }

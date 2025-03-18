@@ -9,14 +9,17 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "sp_internal_id" {
-  value = azuread_service_principal.service_principal.id
+output "application_id" {
+  value      = azuread_application_registration.ad_application.id
+  depends_on = [azuread_application_registration.ad_application]
 }
 
-output "sp_app_client_id" {
-  value = azuread_service_principal.service_principal.client_id
+output "object_id" {
+  value      = azuread_application_registration.ad_application.object_id
+  depends_on = [azuread_application_registration.ad_application]
 }
 
-output "sp_object_id" {
-  value = azuread_service_principal.service_principal.object_id
+output "client_id" {
+  value      = azuread_application_registration.ad_application.client_id
+  depends_on = [azuread_application_registration.ad_application]
 }

@@ -9,14 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "sp_internal_id" {
-  value = azuread_service_principal.service_principal.id
-}
-
-output "sp_app_client_id" {
-  value = azuread_service_principal.service_principal.client_id
-}
-
-output "sp_object_id" {
-  value = azuread_service_principal.service_principal.object_id
+variable "application_name" {
+  description = "The name of the application"
+  type        = string
 }
