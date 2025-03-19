@@ -21,7 +21,7 @@
 terraform {
   required_version = ">= 0.13"
   required_providers {
-    azuredevops = {
+    random = {
       source  = "hashicorp/random"
       version = ">= 2.2.0"
     }
