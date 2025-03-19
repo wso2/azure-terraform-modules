@@ -18,12 +18,17 @@
 #
 # --------------------------------------------------------------------------------------
 
-terraform {
-  required_version = ">= 0.13"
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">= 2.44.0"
-    }
-  }
+output "application_id" {
+  value      = azuread_application_registration.ad_application.id
+  depends_on = [azuread_application_registration.ad_application]
+}
+
+output "object_id" {
+  value      = azuread_application_registration.ad_application.object_id
+  depends_on = [azuread_application_registration.ad_application]
+}
+
+output "client_id" {
+  value      = azuread_application_registration.ad_application.client_id
+  depends_on = [azuread_application_registration.ad_application]
 }

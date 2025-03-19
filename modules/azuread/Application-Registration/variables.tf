@@ -18,12 +18,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-terraform {
-  required_version = ">= 0.13"
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">= 2.44.0"
-    }
-  }
+variable "application_name" {
+  description = "The name of the application"
+  type        = string
 }

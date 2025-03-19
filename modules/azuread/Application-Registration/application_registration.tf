@@ -18,12 +18,10 @@
 #
 # --------------------------------------------------------------------------------------
 
-terraform {
-  required_version = ">= 0.13"
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">= 2.44.0"
-    }
+resource "azuread_application_registration" "ad_application" {
+  display_name = var.application_name
+
+  lifecycle {
+    create_before_destroy = true
   }
 }

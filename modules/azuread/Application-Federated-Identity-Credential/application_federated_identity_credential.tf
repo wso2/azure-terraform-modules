@@ -18,12 +18,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-terraform {
-  required_version = ">= 0.13"
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">= 2.44.0"
-    }
-  }
+resource "azuread_application_federated_identity_credential" "federated_credentials" {
+  application_id = var.ad_application_id
+  display_name   = join("-", [var.federated_credential_abbreviation, var.name])
+  description    = var.description
+  audiences      = var.audiences
+  issuer         = var.oidc_issuer_url
+  subject        = var.subject
 }
