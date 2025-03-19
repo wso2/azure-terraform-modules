@@ -61,7 +61,7 @@ variable "min_special" {
 }
 
 variable "keepers" {
-  description = "A map of values that should be kept secret"
+  description = "Arbitrary map of values that, when changed, will trigger recreation of resource"
   type        = map(string)
   default     = {}
 }
