@@ -39,6 +39,7 @@ variable "registration_enabled" {
 }
 
 variable "dns_resolution_policy" {
-  description = "DNS resolution policy for the Private DNS Zone.This value can be 'Default' or 'NxDomainRedirect'"
+  default = "Default"
+  description = "DNS resolution policy for the Private DNS Zone. This value can be 'Default' or 'NxDomainRedirect'"
   type        = string
 }
