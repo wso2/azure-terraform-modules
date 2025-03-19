@@ -19,49 +19,49 @@
 # --------------------------------------------------------------------------------------
 
 variable "length" {
-  default     = 20
   description = "The length of the generated password"
   type        = number
+  default     = 20
 }
 
-variable "special" {
-  default     = true
+variable "include_special_characters" {
   description = "Whether to include special characters in the generated password"
   type        = bool
+  default     = 20
 }
 
-variable "override_special" {
-  default     = "_+.~^#*?"
+variable "override_special_characters" {
   description = "Override the default special characters with a custom set"
   type        = string
+  default     = "_+.~^#*?"
 }
 
 variable "min_numeric" {
-  default     = 1
   description = "The minimum number of numeric characters in the generated password"
   type        = number
+  default     = 1
 }
 
 variable "min_upper" {
-  default     = 1
   description = "The minimum number of uppercase characters in the generated password"
   type        = number
+  default     = 1
 }
 
 variable "min_lower" {
-  default     = 1
   description = "The minimum number of lowercase characters in the generated password"
   type        = number
+  default     = 1
 }
 
 variable "min_special" {
-  default     = 1
   description = "The minimum number of special characters in the generated password"
   type        = number
+  default     = 1
 }
 
 variable "keepers" {
-  default     = {}
   description = "A map of values that should be kept secret"
   type        = map(string)
+  default     = {}
 }
