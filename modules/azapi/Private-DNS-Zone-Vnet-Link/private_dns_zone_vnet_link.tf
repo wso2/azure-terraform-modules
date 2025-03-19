@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+# Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -18,14 +18,19 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "elastic_pool_id" {
-  description = "The ID of the elastic pool."
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.id
-}
+resource "azapi_resource" "private_dns_zone_vnet_link" {
+  type      = "Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01"
+  parent_id = var.private_dns_zone_id
+  name      = var.private_dns_zone_vnet_link_name
+  location  = "global"
 
-output "elastic_pool_name" {
-  description = "The Name of the elastic pool"
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.name
+  body = {
+    properties = {
+      registrationEnabled = var.registration_enabled
+      resolutionPolicy    = var.dns_resolution_policy
+      virtualNetwork = {
+        id = var.virtual_network_id
+      }
+    }
+  }
 }

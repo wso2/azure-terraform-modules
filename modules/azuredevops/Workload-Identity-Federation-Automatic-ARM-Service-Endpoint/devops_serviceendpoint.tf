@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+# Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -18,14 +18,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "elastic_pool_id" {
-  description = "The ID of the elastic pool."
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.id
-}
-
-output "elastic_pool_name" {
-  description = "The Name of the elastic pool"
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.name
+resource "azuredevops_serviceendpoint_azurerm" "devops_serviceendpoint_azurerm" {
+  project_id                             = var.project_id
+  service_endpoint_name                  = var.service_endpoint_name
+  azurerm_spn_tenantid                   = var.tenant_id
+  azurerm_subscription_id                = var.subscription_id
+  azurerm_subscription_name              = var.subscription_name
+  description                            = var.description
+  service_endpoint_authentication_scheme = "WorkloadIdentityFederation"
 }
