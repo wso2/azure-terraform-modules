@@ -34,7 +34,7 @@ variable "virtual_network_id" {
 }
 
 variable "registration_enabled" {
-  description = "Existing Virtual Network ID"
+  description = "Enable automatic registration of virtual network in the Private DNS Zone"
   type        = bool
 }
 
