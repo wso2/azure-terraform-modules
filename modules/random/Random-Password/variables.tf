@@ -27,7 +27,7 @@ variable "length" {
 variable "include_special_characters" {
   description = "Whether to include special characters in the generated password"
   type        = bool
-  default     = 20
+  default     = true
 }
 
 variable "override_special_characters" {
