@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+# Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -18,14 +18,32 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "elastic_pool_id" {
-  description = "The ID of the elastic pool."
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.id
+variable "service_endpoint_name" {
+  description = "The name of the service endpoint."
+  type        = string
 }
 
-output "elastic_pool_name" {
-  description = "The Name of the elastic pool"
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.name
+variable "project_id" {
+  description = "The ID of the project."
+  type        = string
+}
+
+variable "description" {
+  description = "The description of the service endpoint."
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "The Tenant ID if the service principal."
+  type        = string
+}
+
+variable "subscription_id" {
+  description = "The Subscription ID of the Azure targets."
+  type        = string
+}
+
+variable "subscription_name" {
+  description = "The Subscription Name of the targets."
+  type        = string
 }

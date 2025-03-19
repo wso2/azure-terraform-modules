@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+# Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -18,14 +18,27 @@
 #
 # --------------------------------------------------------------------------------------
 
-output "elastic_pool_id" {
-  description = "The ID of the elastic pool."
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.id
+variable "private_dns_zone_id" {
+  type        = string
+  description = "Existing Private DNS Zone resource ID"
 }
 
-output "elastic_pool_name" {
-  description = "The Name of the elastic pool"
-  depends_on  = [azuredevops_elastic_pool.elastic_pool]
-  value       = azuredevops_elastic_pool.elastic_pool.name
+variable "private_dns_zone_vnet_link_name" {
+  type        = string
+  description = "VNet Link name for the Private DNS Zone"
+}
+
+variable "virtual_network_id" {
+  type        = string
+  description = "Existing Virtual Network ID"
+}
+
+variable "registration_enabled" {
+  type        = bool
+  description = "Enable automatic registration of virtual network in the Private DNS Zone"
+}
+
+variable "dns_resolution_policy" {
+  type        = string
+  description = "DNS resolution policy for the Private DNS Zone"
 }
