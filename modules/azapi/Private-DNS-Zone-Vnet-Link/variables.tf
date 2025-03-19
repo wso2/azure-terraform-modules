@@ -19,26 +19,26 @@
 # --------------------------------------------------------------------------------------
 
 variable "private_dns_zone_id" {
-  type        = string
   description = "Existing Private DNS Zone resource ID"
+  type        = string
 }
 
 variable "private_dns_zone_vnet_link_name" {
-  type        = string
   description = "VNet Link name for the Private DNS Zone"
+  type        = string
 }
 
 variable "virtual_network_id" {
-  type        = string
   description = "Existing Virtual Network ID"
+  type        = string
 }
 
 variable "registration_enabled" {
+  description = "Existing Virtual Network ID"
   type        = bool
-  description = "Enable automatic registration of virtual network in the Private DNS Zone"
 }
 
 variable "dns_resolution_policy" {
+  description = "DNS resolution policy for the Private DNS Zone.This value can be 'Default' or 'NxDomainRedirect'"
   type        = string
-  description = "DNS resolution policy for the Private DNS Zone"
 }
