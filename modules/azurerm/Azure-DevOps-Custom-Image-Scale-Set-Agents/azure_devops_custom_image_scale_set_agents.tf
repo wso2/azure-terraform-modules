@@ -38,6 +38,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtua
   os_disk {
     storage_account_type = "StandardSSD_LRS"
     caching              = "ReadOnly"
+    disk_size_gb         = var.os_disk_size_gb
   }
 
   network_interface {
@@ -53,5 +54,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtua
 
   identity {
     type = "SystemAssigned"
+  }
+
+  scale_in {
+    force_deletion_enabled = var.force_deletion_enabled
+    rule                   = var.scale_in_rule
   }
 }

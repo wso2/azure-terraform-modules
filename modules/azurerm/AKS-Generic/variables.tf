@@ -108,13 +108,9 @@ variable "aks_node_pool_subnet_nsg_rules" {
     direction                                  = string
     access                                     = string
     protocol                                   = string
-    source_port_range                          = string
     source_port_ranges                         = list(string)
-    destination_port_range                     = string
     destination_port_ranges                    = list(string)
-    source_address_prefix                      = string
     source_address_prefixes                    = list(string)
-    destination_address_prefix                 = string
     destination_address_prefixes               = list(string)
     source_application_security_group_ids      = list(string)
     destination_application_security_group_ids = list(string)
@@ -131,13 +127,9 @@ variable "aks_load_balancer_subnet_nsg_rules" {
     direction                                  = string
     access                                     = string
     protocol                                   = string
-    source_port_range                          = string
     source_port_ranges                         = list(string)
-    destination_port_range                     = string
     destination_port_ranges                    = list(string)
-    source_address_prefix                      = string
     source_address_prefixes                    = list(string)
-    destination_address_prefix                 = string
     destination_address_prefixes               = list(string)
     source_application_security_group_ids      = list(string)
     destination_application_security_group_ids = list(string)
@@ -193,11 +185,6 @@ variable "dns_service_ip" {
   type        = string
 }
 
-variable "docker_bridge_cidr" {
-  description = "CIDR block for the docker bridge"
-  type        = string
-}
-
 variable "private_cluster_public_fqdn_enable" {
   default     = false
   description = "Flag for whether a public FQDN for this private cluster should be added."
@@ -242,6 +229,11 @@ variable "default_node_pool_vm_size" {
 variable "default_node_pool_orchestrator_version" {
   description = "Kubernetes version for the default nodepool"
   type        = string
+}
+variable "node_public_ip_enabled" {
+  description = "Flag to assign each node have a public IP address"
+  type        = bool
+  default     = false
 }
 
 variable "default_node_pool_only_critical_addons_enabled" {
@@ -297,13 +289,18 @@ variable "azure_policy_enabled" {
 }
 
 variable "aks_nodepool_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
+  default     = "Disabled"
   description = "Enable or Disable network policies for the private link endpoint on the aks nodepool subnet"
-  type        = bool
+  type        = string
 }
 
 variable "internal_load_balancer_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
+  default     = "Disabled"
   description = "Enable or Disable network policies for the private link endpoint on the internal load balancer subnet"
-  type        = bool
+  type        = string
+}
+
+variable "api_server_authorized_ip_ranges" {
+  description = "List of authorized IP ranges for the Kubernetes API server"
+  type        = list(string)
 }

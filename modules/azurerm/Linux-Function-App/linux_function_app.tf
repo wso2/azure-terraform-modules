@@ -28,6 +28,8 @@ resource "azurerm_linux_function_app" "linux_function_app" {
     application_insights_key               = var.application_insights_key
     application_insights_connection_string = var.application_insights_connection_string
     ftps_state                             = var.ftps_state
+    ip_restriction_default_action          = var.ip_restriction_default_action
+    scm_ip_restriction_default_action      = var.scm_ip_restriction_default_action
 
     application_stack {
       java_version            = var.java_version

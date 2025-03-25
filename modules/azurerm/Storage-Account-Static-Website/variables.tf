@@ -56,7 +56,7 @@ variable "network_rules_ip_whitelist" {
 }
 
 variable "network_rules_default_action" {
-  default     = "Allow"
+  default     = "Deny"
   description = "The default action of allow or deny when no other rules match"
   type        = string
 }
@@ -70,5 +70,17 @@ variable "network_rules_subnet_ids" {
 variable "allow_nested_items_to_be_public" {
   default     = false
   description = "Allow or disallow nested items within this Account to opt into being public"
+  type        = bool
+}
+
+variable "network_rules_bypass" {
+  default     = ["AzureServices"]
+  description = "List of actions that bypass the network rule. Defaults to []"
+  type        = list(string)
+}
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Enable or disable cross tenant replication"
   type        = bool
 }

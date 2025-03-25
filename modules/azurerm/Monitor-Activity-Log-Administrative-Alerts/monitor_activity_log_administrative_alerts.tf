@@ -17,6 +17,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_administrati
   scopes              = each.value.scopes
   description         = each.value.description
   enabled             = var.alert_enabled
+  location            = each.value.location
 
   criteria {
     resource_id    = each.value.resource_id

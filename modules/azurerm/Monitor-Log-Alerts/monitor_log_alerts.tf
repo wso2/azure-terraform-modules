@@ -17,6 +17,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_recommendation_alert" {
   scopes              = each.value.scopes
   description         = each.value.description
   enabled             = var.alert_enabled
+  location            = each.value.location
 
   criteria {
     category              = "Recommendation"
@@ -24,7 +25,8 @@ resource "azurerm_monitor_activity_log_alert" "monitor_recommendation_alert" {
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
 
@@ -36,6 +38,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_alert" {
   scopes              = each.value.scopes
   description         = each.value.description
   enabled             = var.alert_enabled
+  location            = each.value.location
 
   criteria {
     category = each.value.criteriaCategory
@@ -43,7 +46,8 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_alert" {
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
 
@@ -55,6 +59,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_resource_health_alert" {
   scopes              = each.value.scopes
   enabled             = each.value.query_enabled
   description         = each.value.description
+  location            = each.value.location
 
   criteria {
     category       = each.value.criteriaCategory
@@ -71,7 +76,8 @@ resource "azurerm_monitor_activity_log_alert" "monitor_resource_health_alert" {
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
 
@@ -83,6 +89,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_service_health_alert" {
   scopes              = each.value.scopes
   enabled             = each.value.query_enabled
   description         = each.value.description
+  location            = each.value.location
 
   criteria {
     category = each.value.criteriaCategory
@@ -94,7 +101,8 @@ resource "azurerm_monitor_activity_log_alert" "monitor_service_health_alert" {
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
 
@@ -106,6 +114,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_specific_service_health_a
   scopes              = each.value.scopes
   enabled             = each.value.query_enabled
   description         = each.value.description
+  location            = each.value.location
 
   criteria {
     category = each.value.criteriaCategory
@@ -117,6 +126,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_specific_service_health_a
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }

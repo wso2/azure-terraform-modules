@@ -1,8 +1,9 @@
+---
 name: TF Formatting Check
 on:
   pull_request:
     branches: 
-        - main
+      - main
 
 jobs:
   build:

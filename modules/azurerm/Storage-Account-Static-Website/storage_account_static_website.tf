@@ -10,19 +10,19 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_storage_account" "static_storage" {
-  name                            = join("", ["st", var.storage_account_name])
-  resource_group_name             = var.resource_group_name
-  location                        = var.location
-  account_kind                    = "StorageV2"
-  account_tier                    = var.account_tier
-  account_replication_type        = var.account_replication_type
-  min_tls_version                 = "TLS1_2"
-  enable_https_traffic_only       = true
-  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  tags                            = var.tags
+  name                             = join("", ["st", var.storage_account_name])
+  resource_group_name              = var.resource_group_name
+  location                         = var.location
+  account_kind                     = "StorageV2"
+  account_tier                     = var.account_tier
+  account_replication_type         = var.account_replication_type
+  min_tls_version                  = "TLS1_2"
+  https_traffic_only_enabled       = true
+  allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
+  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
+  tags                             = var.tags
 
   blob_properties {
-
     delete_retention_policy {
       days = 7
     }
@@ -32,6 +32,7 @@ resource "azurerm_storage_account" "static_storage" {
     default_action             = var.network_rules_default_action
     ip_rules                   = var.network_rules_ip_whitelist
     virtual_network_subnet_ids = var.network_rules_subnet_ids
+    bypass                     = var.network_rules_bypass
   }
 
   static_website {

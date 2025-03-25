@@ -105,3 +105,9 @@ variable "stream_declaration_columns" {
     type = string
   }))
 }
+
+variable "data_sources_syslog_streams" {
+  default     = null
+  description = "Specifies a list of streams"
+  type        = list(string)
+}

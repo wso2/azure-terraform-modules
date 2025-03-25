@@ -23,3 +23,9 @@ output "elastic_pool_id" {
   depends_on  = [azuredevops_elastic_pool.elastic_pool]
   value       = azuredevops_elastic_pool.elastic_pool.id
 }
+
+output "elastic_pool_name" {
+  description = "The Name of the elastic pool"
+  depends_on  = [azuredevops_elastic_pool.elastic_pool]
+  value       = azuredevops_elastic_pool.elastic_pool.name
+}

@@ -34,8 +34,8 @@ resource "azurerm_cognitive_deployment" "azure_openai_deployment" {
     name    = each.value.cognitive_model_name
     version = each.value.cognitive_model_version
   }
-  scale {
-    type     = each.value.deployment_sku_scale_type
-    capacity = each.value.deployment_sku_scale_capacity
+  sku {
+    name     = each.value.deployment_sku_name
+    capacity = each.value.deployment_sku_capacity
   }
 }

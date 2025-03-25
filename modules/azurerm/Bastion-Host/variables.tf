@@ -102,15 +102,15 @@ variable "public_ip_zones" {
 }
 
 variable "allow_https_internet_inbound" {
-  default     = true
+  default     = false
   description = "Specify whether to allow HTTPS Inbound internet traffic or not"
   type        = bool
 }
 
-variable "bastion_host_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the bastion host subnet"
-  type        = bool
+variable "private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }
 
 variable "bastion_host_abbreviation" {

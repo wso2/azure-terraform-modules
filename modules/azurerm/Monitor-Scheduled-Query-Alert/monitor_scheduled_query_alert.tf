@@ -20,6 +20,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "scheduled_query_rules
   severity             = each.value.severity
   evaluation_frequency = each.value.evaluation_frequency
   window_duration      = each.value.window_duration
+  tags                 = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
     action_groups = each.value.action_group_id_list
@@ -65,6 +66,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "count_trigger_schedul
   severity             = each.value.severity
   evaluation_frequency = each.value.evaluation_frequency
   window_duration      = each.value.window_duration
+  tags                 = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
     action_groups = each.value.action_group_id_list

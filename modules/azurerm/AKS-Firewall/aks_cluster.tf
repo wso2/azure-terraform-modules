@@ -15,7 +15,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   resource_group_name                 = var.resource_group_name
   dns_prefix                          = join("-", ["aks", var.aks_cluster_dns_prefix])
   kubernetes_version                  = var.kubernetes_version
-  api_server_authorized_ip_ranges     = try(var.api_server_authorized_ip_ranges, null)
   node_resource_group                 = join("-", ["rg", var.aks_node_pool_resource_group_name])
   sku_tier                            = var.sku_tier
   private_cluster_enabled             = var.private_cluster_enabled
@@ -26,6 +25,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   http_application_routing_enabled    = var.http_application_routing_enabled
   workload_identity_enabled           = var.workload_identity_enabled
   oidc_issuer_enabled                 = var.oidc_issuer_enabled
+  image_cleaner_interval_hours        = var.image_cleaner_interval_hours
+  node_os_upgrade_channel             = var.node_os_upgrade_channel
   tags                                = var.tags
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet, azurerm_subnet_route_table_association.subnet_rt_association]
 
@@ -35,8 +36,13 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
       windows_profile,
       kubernetes_version,
       default_node_pool[0].orchestrator_version,
-      microsoft_defender
+      microsoft_defender,
+      api_server_access_profile
     ]
+  }
+
+  api_server_access_profile {
+    authorized_ip_ranges = var.api_server_authorized_ip_ranges
   }
 
   linux_profile {
@@ -53,14 +59,20 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     zones                        = var.default_node_pool_availability_zones
     os_disk_size_gb              = var.default_node_pool_os_disk_size_gb
     os_disk_type                 = var.default_node_pool_os_disk_type
-    enable_auto_scaling          = var.default_node_pool_enable_auto_scaling
+    auto_scaling_enabled         = var.default_node_pool_enable_auto_scaling
     vnet_subnet_id               = azurerm_subnet.aks_node_pool_subnet.id
     max_count                    = var.default_node_pool_max_count
     min_count                    = var.default_node_pool_min_count
     max_pods                     = var.default_node_pool_max_pods
     orchestrator_version         = var.default_node_pool_orchestrator_version
-    enable_node_public_ip        = false
+    node_public_ip_enabled       = false
     only_critical_addons_enabled = var.default_node_pool_only_critical_addons_enabled
+
+    upgrade_settings {
+      drain_timeout_in_minutes      = var.default_node_pool_drain_timeout_in_minutes
+      node_soak_duration_in_minutes = var.default_node_pool_soak_duration_in_minutes
+      max_surge                     = var.default_node_pool_max_surge
+    }
   }
 
   dynamic "identity" {
@@ -79,7 +91,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 
   azure_active_directory_role_based_access_control {
-    managed                = true
     admin_group_object_ids = var.aks_admin_group_object_ids
     azure_rbac_enabled     = var.aks_azure_rbac_enabled
   }
@@ -89,13 +100,12 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 
   network_profile {
-    network_plugin     = "azure"
-    network_policy     = "calico"
-    load_balancer_sku  = "standard"
-    service_cidr       = var.service_cidr
-    dns_service_ip     = var.dns_service_ip
-    docker_bridge_cidr = var.docker_bridge_cidr
-    outbound_type      = "userDefinedRouting"
+    network_plugin    = "azure"
+    network_policy    = "calico"
+    load_balancer_sku = "standard"
+    service_cidr      = var.service_cidr
+    dns_service_ip    = var.dns_service_ip
+    outbound_type     = "userDefinedRouting"
   }
 
   dynamic "key_vault_secrets_provider" {

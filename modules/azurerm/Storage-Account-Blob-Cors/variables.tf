@@ -41,7 +41,7 @@ variable "tags" {
 }
 
 variable "default_action" {
-  default     = "Allow"
+  default     = "Deny"
   description = "The default action of allow or deny when no other rules match"
   type        = string
 }
@@ -97,4 +97,10 @@ variable "cors_max_age_in_seconds" {
   default     = 200
   description = "Max age in seconds for CORD configs"
   type        = number
+}
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Is cross tenant replication enabled for the container."
+  type        = bool
 }

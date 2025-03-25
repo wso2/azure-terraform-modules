@@ -62,7 +62,7 @@ variable "daily_retention" {
 }
 
 variable "storage_account_network_rules_default_action" {
-  default     = "Allow"
+  default     = "Deny"
   description = "The default action of allow or deny when no other rules match"
   type        = string
 }
@@ -107,4 +107,10 @@ variable "storage_account_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "st"
+}
+
+variable "cross_tenant_replication_enabled" {
+  default     = false
+  description = "Enable or disable cross tenant replication"
+  type        = bool
 }

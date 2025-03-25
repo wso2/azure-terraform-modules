@@ -8,18 +8,15 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-
-variable "server_configuration_name" {
-  description = "Name of the PostgreSQL Server Configuration"
-  type        = string
+variable "server_configurations" {
+  description = "A map of PostgreSQL server configurations, where each entry contains a 'property' (parameter name) and 'settings' (parameter value)."
+  type = map(object({
+    property = string
+    settings = string
+  }))
+  default = {}
 }
-
-variable "sever_configuration_value" {
-  description = "Value of the PostgreSQL Server Configuration"
-  type        = string
-}
-
 variable "postgresql_flexible_server_id" {
-  description = "ID of the PostgreSQL Server"
+  description = "ID of the PostgreSQL Flexible Server."
   type        = string
 }

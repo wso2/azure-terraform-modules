@@ -64,3 +64,15 @@ variable "shared_image_abbreviation" {
   type        = string
   default     = "si"
 }
+
+variable "trusted_launch_supported" {
+  description = "Specifies whether Trusted Launch is supported for the Shared Image."
+  type        = bool
+  default     = null
+}
+
+variable "trusted_launch_enabled" {
+  description = "Specifies whether Trusted Launch is enabled for the Shared Image."
+  type        = bool
+  default     = null
+}

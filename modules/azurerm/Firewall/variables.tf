@@ -65,8 +65,8 @@ variable "public_ip_prefixes" {
   }))
 }
 
-variable "firewall_subnet_enforce_private_link_endpoint_network_policies" {
-  default     = false
-  description = "Enable or Disable network policies for the private link endpoint on the firewall subnet"
-  type        = bool
+variable "private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
 }

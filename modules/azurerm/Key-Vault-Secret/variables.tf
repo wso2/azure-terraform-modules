@@ -17,7 +17,8 @@ variable "key_vault_id" {
 variable "secrets_map" {
   description = "Map containing name and value pairs"
   type = map(object({
-    name  = string
-    value = string
+    name            = string
+    value           = string
+    expiration_date = string
   }))
 }

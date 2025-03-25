@@ -127,3 +127,27 @@ variable "service_endpoints" {
   description = "The list of Service endpoints to associate with the subnet."
   type        = list(string)
 }
+
+variable "private_endpoint_network_policies" {
+  default     = "Disabled"
+  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
+  type        = string
+}
+
+variable "force_deletion_enabled" {
+  default     = false
+  description = "Enable or disable force deletion of the virtual machine scale set instances"
+  type        = bool
+}
+
+variable "scale_in_rule" {
+  default     = "Default"
+  description = "The scale in rule for the virtual machine scale set"
+  type        = string
+}
+
+variable "os_disk_size_gb" {
+  default     = 30
+  description = "The size of the OS disk in GB"
+  type        = number
+}
