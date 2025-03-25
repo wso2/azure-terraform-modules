@@ -38,3 +38,8 @@ output "cosmos_db_account_name" {
   depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
   value      = azurerm_cosmosdb_account.cosmos_db_account.name
 }
+
+output "cosmos_db_account_primary_key" {
+  depends_on = [azurerm_cosmosdb_account.cosmos_db_account]
+  value      = azurerm_cosmosdb_account.cosmos_db_account.primary_key
+}
