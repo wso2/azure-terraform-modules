@@ -69,7 +69,7 @@ resource "azurerm_synapse_linked_service" "synapse_linked_service" {
   type                 = var.synapse_linked_service_type
   type_properties_json = <<JSON
 {
-  "connectionString": "${azurerm_storage_account.storage_account.primary_connection_string}"
+  "connectionString": "${var.connection_string}"
 }
 JSON
   integration_runtime {
