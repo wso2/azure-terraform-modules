@@ -124,4 +124,5 @@ variable "cross_tenant_replication_enabled" {
 variable "connection_string" {
   description = "Resource Connection String (Cosmos DB, Storage Account, Data Lake)"
   type        = string
+  default     = null
 }
