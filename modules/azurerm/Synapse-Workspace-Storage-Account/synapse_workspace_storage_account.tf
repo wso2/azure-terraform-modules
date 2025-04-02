@@ -69,7 +69,7 @@ resource "azurerm_synapse_linked_service" "synapse_linked_service" {
   type                 = var.synapse_linked_service_type
   type_properties_json = <<JSON
 {
-  "connectionString": "${var.connection_string}"
+  "connectionString": "${var.connection_string != null ? var.connection_string : azurerm_storage_account.storage_account.primary_connection_string}"
 }
 JSON
   integration_runtime {
@@ -77,6 +77,6 @@ JSON
   }
 
   depends_on = [
-    azurerm_synapse_firewall_rule.synapse_firewall_rule,
+    azurerm_synapse_firewall_rule.synapse_firewall_rule
   ]
 }
