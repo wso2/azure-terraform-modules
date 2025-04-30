@@ -82,3 +82,9 @@ variable "mssql_elasticpool_abbreviation" {
   type        = string
   default     = "sqlep"
 }
+
+variable "maintenance_configuration_name" {
+  description = "The name of the Public Maintenance Configuration window to apply to the elastic pool."
+  type        = string
+  default     = "SQL_Default"
+}
