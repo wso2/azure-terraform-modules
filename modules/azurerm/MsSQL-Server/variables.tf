@@ -83,3 +83,9 @@ variable "mssql_server_abbreviation" {
   type        = string
   default     = "sql"
 }
+
+variable "express_vulnerability_assessment_enabled" {
+  description = "Enable or disable the Express Vulnerability Assessment for the SQL Server."
+  type        = bool
+  default     = false
+}

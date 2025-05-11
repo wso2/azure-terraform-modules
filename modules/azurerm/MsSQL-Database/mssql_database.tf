@@ -29,5 +29,8 @@ resource "azurerm_mssql_database" "mssql_database" {
 
   lifecycle {
     prevent_destroy = true
+    ignore_changes = [
+      auto_pause_delay_in_minutes
+    ]
   }
 }

@@ -10,15 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_mssql_server" "mssql_server" {
-  name                          = join("-", [var.mssql_server_abbreviation, var.mssql_server_name])
-  resource_group_name           = var.resource_group_name
-  location                      = var.location
-  version                       = var.db_server_version
-  administrator_login           = var.db_server_administrator_login
-  administrator_login_password  = var.db_server_administrator_login_password
-  minimum_tls_version           = var.db_server_minimum_tls_version
-  public_network_access_enabled = var.db_server_public_network_access_enabled
-  tags                          = var.tags
+  name                                     = join("-", [var.mssql_server_abbreviation, var.mssql_server_name])
+  resource_group_name                      = var.resource_group_name
+  location                                 = var.location
+  version                                  = var.db_server_version
+  administrator_login                      = var.db_server_administrator_login
+  administrator_login_password             = var.db_server_administrator_login_password
+  minimum_tls_version                      = var.db_server_minimum_tls_version
+  public_network_access_enabled            = var.db_server_public_network_access_enabled
+  express_vulnerability_assessment_enabled = var.express_vulnerability_assessment_enabled
+  tags                                     = var.tags
 
   lifecycle {
     prevent_destroy = true
