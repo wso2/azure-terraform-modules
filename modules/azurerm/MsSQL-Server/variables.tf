@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2023-2025, WSO2 LLC. (http://www.wso2.com).
 #
 # This software is the property of WSO2 LLC. and its suppliers, if any.
 # Dissemination of any information or reproduction of any material contained
@@ -82,4 +82,10 @@ variable "mssql_server_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "sql"
+}
+
+variable "express_vulnerability_assessment_enabled" {
+  description = "Enable or disable the Express Vulnerability Assessment for the SQL Server."
+  type        = bool
+  default     = false
 }
