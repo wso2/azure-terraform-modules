@@ -327,3 +327,15 @@ variable "node_os_upgrade_channel" {
   type        = string
   default     = "NodeImage"
 }
+
+variable "image_cleaner_enabled" {
+  description = "Enable image cleaner"
+  type        = bool
+  default     = false
+}
+
+variable "cost_analysis_enabled" {
+  description = "Enable cost analysis"
+  type        = bool
+  default     = false
+}
