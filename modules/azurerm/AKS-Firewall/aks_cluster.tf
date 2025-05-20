@@ -25,8 +25,10 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   http_application_routing_enabled    = var.http_application_routing_enabled
   workload_identity_enabled           = var.workload_identity_enabled
   oidc_issuer_enabled                 = var.oidc_issuer_enabled
+  image_cleaner_enabled               = var.image_cleaner_enabled
   image_cleaner_interval_hours        = var.image_cleaner_interval_hours
   node_os_upgrade_channel             = var.node_os_upgrade_channel
+  cost_analysis_enabled               = var.cost_analysis_enabled
   tags                                = var.tags
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet, azurerm_subnet_route_table_association.subnet_rt_association]
 
