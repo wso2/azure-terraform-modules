@@ -15,4 +15,5 @@ resource "azurerm_automation_variable_string" "automation_variable_string" {
   resource_group_name     = var.resource_group_name
   name                    = join("-", ["av", each.value.variable_name])
   value                   = each.value.variable_value
+  encrypted               = coalesce(each.value.encrypted, false)
 }
