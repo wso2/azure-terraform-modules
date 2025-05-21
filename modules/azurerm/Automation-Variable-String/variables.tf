@@ -24,5 +24,6 @@ variable "automation_variables" {
   type = map(object({
     variable_name  = string
     variable_value = string
+    encrypted      = optional(bool)
   }))
 }
