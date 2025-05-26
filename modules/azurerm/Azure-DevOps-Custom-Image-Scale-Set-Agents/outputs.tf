@@ -20,3 +20,7 @@ output "scale_set_agent_subnet_id" {
 output "network_security_group_id" {
   value = azurerm_network_security_group.scale_set_agent_subnet_nsg.id
 }
+
+output "virtual_machine_scale_set_name" {
+  value = azurerm_linux_virtual_machine_scale_set.scale_set_agent_linux_virtual_machine_scale_set.name
+}
