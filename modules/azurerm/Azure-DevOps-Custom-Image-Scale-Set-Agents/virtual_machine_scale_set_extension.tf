@@ -18,6 +18,7 @@ resource "azurerm_virtual_machine_scale_set_extension" "azure_monitor_agent_exte
   type_handler_version         = var.ama_type_handler_version
   auto_upgrade_minor_version   = var.ama_auto_upgrade_minor_version
   automatic_upgrade_enabled    = var.ama_automatic_upgrade_enabled
+  settings                     = var.ama_settings
 
   lifecycle {
     ignore_changes = [
