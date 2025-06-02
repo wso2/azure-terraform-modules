@@ -151,3 +151,9 @@ variable "os_disk_size_gb" {
   description = "The size of the OS disk in GB"
   type        = number
 }
+
+variable "ama_settings" {
+  default     = null
+  description = "The settings for the Azure Monitor Agent"
+  type        = string
+}
