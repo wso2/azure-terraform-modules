@@ -84,3 +84,9 @@ variable "cross_tenant_replication_enabled" {
   description = "Enable or disable cross tenant replication"
   type        = bool
 }
+
+variable "network_rules_enabled" {
+  default     = true
+  description = "Enable or disable network rules for the storage account"
+  type        = bool
+}
