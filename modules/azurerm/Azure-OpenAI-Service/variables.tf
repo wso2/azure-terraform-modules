@@ -98,3 +98,27 @@ variable "azure_openai_deployments" {
     deployment_sku_capacity   = string
   }))
 }
+
+variable "network_acls_enabled" {
+  description = "Boolean flag to specify whether Network ACLs should be enabled for the Cognitive Account."
+  type        = bool
+  default     = false
+}
+
+variable "network_acls_default_action" {
+  description = "The Default Action for the Network ACLs."
+  type        = string
+  default     = "Deny"
+}
+
+variable "network_acls_bypass" {
+  description = "Specifies which traffic can bypass the network rules. Possible values are AzureServices and None."
+  type        = string
+  default     = "AzureServices"
+}
+
+variable "network_acls_ip_rules" {
+  description = "One or more IP Addresses, or CIDR Blocks which should be able to access the Cognitive Account."
+  type        = list(string)
+  default     = []
+}

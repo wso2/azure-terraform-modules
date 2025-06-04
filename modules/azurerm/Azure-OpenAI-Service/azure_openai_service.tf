@@ -19,7 +19,18 @@ resource "azurerm_cognitive_account" "azure_openai_account" {
   outbound_network_access_restricted = var.outbound_network_access_restricted
   public_network_access_enabled      = var.public_network_access_enabled
   custom_subdomain_name              = join("-", [var.cognitive_account_abbreviation, var.custom_subdomain_name])
-  tags                               = var.tags
+
+  dynamic "network_acls" {
+    for_each = var.network_acls_enabled ? [1] : []
+
+    content {
+      default_action = var.network_acls_default_action
+      bypass         = var.network_acls_bypass
+      ip_rules       = var.network_acls_ip_rules
+    }
+  }
+
+  tags = var.tags
 }
 
 resource "azurerm_cognitive_deployment" "azure_openai_deployment" {
