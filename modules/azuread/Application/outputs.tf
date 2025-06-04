@@ -10,11 +10,16 @@
 # --------------------------------------------------------------------------------------
 
 output "application_id" {
-  value      = azuread_application.ad_application.application_id
+  value      = azuread_application.ad_application.id
   depends_on = [azuread_application.ad_application]
 }
 
 output "object_id" {
   value      = azuread_application.ad_application.object_id
+  depends_on = [azuread_application.ad_application]
+}
+
+output "client_id" {
+  value      = azuread_application.ad_application.client_id
   depends_on = [azuread_application.ad_application]
 }
