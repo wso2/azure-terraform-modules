@@ -38,3 +38,13 @@ variable "scope_map_name" {
   description = "The name of the scope map for the Azure Container Registry Token."
   type        = string
 }
+
+variable "project" {
+  description = "The name of the project for which the Azure Container Registry Token is created."
+  type        = string
+}
+
+variable "environment" {
+  description = "The environment for which the Azure Container Registry Token is created."
+  type        = string
+}

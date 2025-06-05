@@ -20,21 +20,21 @@
 
 # Create child DNS zone
 variable "resource_group_name" {
-  type = string
+  type        = string
   description = "The name of the resource group in which the child DNS zone is created."
 }
 
 variable "child_dns_name" {
-  type = string
+  type        = string
   description = "The name of the child DNS zone to be created."
 }
 
 variable "base_dns_name" {
-  type = string
+  type        = string
   description = "The base DNS name to which the child DNS zone will be appended."
 }
 
 variable "ns_record_ttl" {
-  type = number
+  type        = number
   description = "The time to live (TTL) for the Default NS record in seconds"
 }
