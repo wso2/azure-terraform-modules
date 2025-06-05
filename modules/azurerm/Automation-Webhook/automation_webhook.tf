@@ -31,4 +31,5 @@ resource "azurerm_automation_webhook" "automation_webhook" {
   expiry_time             = coalesce(var.automation_webhook_expiry_time, time_offset.kv-cert-expiration-webhook[0].rfc3339)
   enabled                 = var.automation_webhook_enabled
   runbook_name            = var.automation_runbook_name
+  parameters              = var.automation_webhook_parameters
 }
