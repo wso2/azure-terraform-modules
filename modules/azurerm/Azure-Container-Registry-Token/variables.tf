@@ -22,3 +22,7 @@ variable "actions" {
   type        = list(string)
   default     = []
 }
+variable "scope_map_name" {
+  description = "The name of the scope map for the Azure Container Registry Token."
+  type        = string
+}

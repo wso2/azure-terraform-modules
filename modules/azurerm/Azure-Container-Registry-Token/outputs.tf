@@ -12,6 +12,7 @@
 output "azure_container_registry_token_id" {
   value = azurerm_container_registry_token.registry_token.id
 }
+
 output "azure_container_registry_token_password" {
   value = azurerm_container_registry_token_password.registry_token_password.password1[0].value
 }
