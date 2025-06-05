@@ -22,8 +22,13 @@ output "azure_container_registry_token_id" {
   value = azurerm_container_registry_token.registry_token.id
 }
 
-output "azure_container_registry_token_password" {
+output "azure_container_registry_token_password_primary" {
   value     = azurerm_container_registry_token_password.registry_token_password.password1[0].value
+  sensitive = true
+}
+
+output "azure_container_registry_token_password_secondary" {
+  value     = azurerm_container_registry_token_password.registry_token_password.password2[0].value
   sensitive = true
 }
 

@@ -31,7 +31,6 @@ variable "resource_group_name" {
 variable "actions" {
   description = "The actions that the Azure Container Registry Token can perform."
   type        = list(string)
-  default     = []
 }
 
 variable "scope_map_name" {
