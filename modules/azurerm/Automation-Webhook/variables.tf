@@ -53,3 +53,9 @@ variable "rotation_time_in_months" {
   type        = number
   default     = 6
 }
+
+variable "automation_webhook_parameters" {
+  description = "Parameters to pass to the automation webhook"
+  type        = map(string)
+  default     = {}
+}
