@@ -59,3 +59,15 @@ variable "token_password_2_expiry" {
   type        = string
   default     = null
 }
+
+variable "scopemap_resource_name" {
+  description = "Generic resource name for the Azure Container Registry Scope Map."
+  type        = string
+  default     = "scopemap"
+}
+
+variable "token_resource_name" {
+  description = "Generic resource name for the Azure Container Registry Token."
+  type        = string
+  default     = "token"
+}

@@ -19,14 +19,14 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_container_registry_scope_map" "registry_scope_map" {
-  name                    = "${var.project}-${var.environment}-${var.scope_map_name}-scopemap"
+  name                    = join("-", [var.project, var.environment, var.scope_map_name, var.scopemap_resource_name])
   container_registry_name = var.container_registry_name
   resource_group_name     = var.resource_group_name
   actions                 = var.actions
 }
 
 resource "azurerm_container_registry_token" "registry_token" {
-  name                    = "${var.project}-${var.environment}-${var.scope_map_name}-token"
+  name                    = join("-", [var.project, var.environment, var.scope_map_name, var.token_resource_name])
   container_registry_name = var.container_registry_name
   resource_group_name     = var.resource_group_name
   scope_map_id            = azurerm_container_registry_scope_map.registry_scope_map.id
