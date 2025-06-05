@@ -35,6 +35,10 @@ resource "azurerm_container_registry_token" "registry_token" {
 resource "azurerm_container_registry_token_password" "registry_token_password" {
   container_registry_token_id = azurerm_container_registry_token.registry_token.id
 
-  password1 {}
-  password2 {}
+  password1 {
+    expiry = var.token_password_1_expiry
+  }
+  password2 {
+    expiry = var.token_password_2_expiry
+  }
 }

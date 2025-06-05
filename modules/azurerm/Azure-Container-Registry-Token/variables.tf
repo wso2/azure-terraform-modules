@@ -47,3 +47,15 @@ variable "environment" {
   description = "The environment for which the Azure Container Registry Token is created."
   type        = string
 }
+
+variable "token_password_1_expiry" {
+  description = "The expiry time for the first password of the Azure Container Registry Token."
+  type        = string
+  default     = null
+}
+
+variable "token_password_2_expiry" {
+  description = "The expiry time for the second password of the Azure Container Registry Token."
+  type        = string
+  default     = null
+}
