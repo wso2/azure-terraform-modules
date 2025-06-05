@@ -13,7 +13,7 @@ resource "azurerm_container_registry_scope_map" "registry_scope_map" {
   name                    = "example-scope-map"
   container_registry_name = var.container_registry_name
   resource_group_name     = var.resource_group_name
-  actions = var.actions
+  actions                 = var.actions
 }
 
 resource "azurerm_container_registry_token" "registry_token" {

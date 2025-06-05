@@ -45,20 +45,20 @@ output "storage_account_secondary_web_endpoint" {
 
 output "cdn_profile_name" {
   depends_on = [azurerm_cdn_profile.cdn_profile]
-  value = azurerm_cdn_profile.cdn_profile.name
+  value      = azurerm_cdn_profile.cdn_profile.name
 }
 
 output "cdn_profile_id" {
   depends_on = [azurerm_cdn_profile.cdn_profile]
-  value = azurerm_cdn_profile.cdn_profile.id
+  value      = azurerm_cdn_profile.cdn_profile.id
 }
 
 output "cdn_endpoint_fqdn" {
   depends_on = [azurerm_cdn_endpoint.cdn_endpoint]
-  value = azurerm_cdn_endpoint.cdn_endpoint.fqdn
+  value      = azurerm_cdn_endpoint.cdn_endpoint.fqdn
 }
 
 output "cdn_endpoint_id" {
   depends_on = [azurerm_cdn_endpoint.cdn_endpoint]
-  value = azurerm_cdn_endpoint.cdn_endpoint.id
+  value      = azurerm_cdn_endpoint.cdn_endpoint.id
 }
