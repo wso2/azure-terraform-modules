@@ -23,9 +23,9 @@ variable "rules" {
       blob_types   = list(string),
       object_rules = list(object({
         for_object           = string
-        delete_in_days       = number
-        move_to_cold_tier_in = number
-        archive_in           = number
+        delete_in_days       = optional(number)
+        move_to_cold_tier_in = optional(number)
+        archive_in           = optional(number)
       }))
     })
   )
