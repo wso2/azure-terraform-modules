@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuread_application" "app" {
-  display_name = var.entra_app_display_name
+  display_name = var.application_name
   description  = var.description
   owners       = var.owners
 
