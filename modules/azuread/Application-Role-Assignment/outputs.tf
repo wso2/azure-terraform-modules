@@ -11,10 +11,10 @@
 
 output "client_id" {
   description = "The client ID of the Azure AD application."
-  value       = azuread_application.app.client_id
+  value       = azuread_application.ad_application.client_id
 }
 
 output "object_id" {
   description = "The object ID of the service principal."
-  value       = azuread_service_principal.sp.object_id
+  value       = azuread_service_principal.service_principal.object_id
 }
