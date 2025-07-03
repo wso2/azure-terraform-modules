@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-variable "entra_app_display_name" {
+variable "application_name" {
   description = "The display name of the Azure AD application."
   type        = string
 }
