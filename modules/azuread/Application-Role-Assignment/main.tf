@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azuread_application" "app" {
+resource "azuread_application" "ad_application" {
   display_name = var.application_name
   description  = var.description
   owners       = var.owners
@@ -30,17 +30,17 @@ resource "azuread_application" "app" {
   }
 }
 
-resource "azuread_service_principal" "sp" {
-  client_id  = azuread_application.app.client_id
-  depends_on = [azuread_application.app]
+resource "azuread_service_principal" "service_principal" {
+  client_id  = azuread_application.ad_application.client_id
+  depends_on = [azuread_application.ad_application]
 }
 
 resource "azurerm_role_assignment" "role_assignment" {
   for_each             = var.role_assignments
   scope                = each.value.scope
   role_definition_name = each.value.role_definition_name
-  principal_id         = azuread_service_principal.sp.object_id
-  depends_on           = [azuread_service_principal.sp]
+  principal_id         = azuread_service_principal.service_principal.object_id
+  depends_on           = [azuread_service_principal.service_principal]
 }
 
 resource "azurerm_role_definition" "custom_role" {
@@ -59,6 +59,6 @@ resource "azurerm_role_assignment" "custom_role_assignment" {
   for_each           = var.custom_role_definitions
   scope              = each.value.scope
   role_definition_id = azurerm_role_definition.custom_role[each.key].role_definition_resource_id
-  principal_id       = azuread_service_principal.sp.object_id
-  depends_on         = [azuread_service_principal.sp]
+  principal_id       = azuread_service_principal.service_principal.object_id
+  depends_on         = [azuread_service_principal.service_principal]
 }
