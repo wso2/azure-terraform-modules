@@ -23,6 +23,11 @@ output "client_id" {
   value       = azuread_application.ad_application.client_id
 }
 
+output "application_id" {
+  description = "The resource ID of the Azure AD application."
+  value       = azuread_application.ad_application.id
+}
+
 output "object_id" {
   description = "The object ID of the service principal."
   value       = azuread_service_principal.service_principal.object_id
