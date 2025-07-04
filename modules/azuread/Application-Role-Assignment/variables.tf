@@ -39,13 +39,13 @@ variable "role_assignments" {
     scope                = string
     role_definition_name = string
   }))
-  default = null
+  default = {}
 }
 
 variable "required_resource_access_map" {
   description = "A map of resource_app_id to a map of resource_access objects."
   type        = map(map(string))
-  default     = null
+  default     = {}
 }
 
 variable "custom_role_definitions" {
