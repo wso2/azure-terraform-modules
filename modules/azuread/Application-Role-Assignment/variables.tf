@@ -29,8 +29,8 @@ variable "description" {
 }
 
 variable "owners" {
-  type        = set(string)
   description = "A set of object ids of the owners of the Azure AD application."
+  type        = set(string)
 }
 
 variable "role_assignments" {
