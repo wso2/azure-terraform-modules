@@ -76,7 +76,7 @@ variable "tags" {
 
 variable "force_upgrade_enabled" {
   description = "This field instructs the upgrade operation to bypass upgrade protections"
-  type        = boolean
+  type        = bool
   default     = false
 }
 
