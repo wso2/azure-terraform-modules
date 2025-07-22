@@ -35,7 +35,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   upgrade_override {
     force_upgrade_enabled = var.force_upgrade_enabled
   }
-  
+
   lifecycle {
     ignore_changes = [
       default_node_pool[0].node_count,
