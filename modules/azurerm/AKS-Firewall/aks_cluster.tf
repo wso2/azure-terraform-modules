@@ -33,7 +33,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet, azurerm_subnet_route_table_association.subnet_rt_association]
 
   upgrade_override {
-    force_upgrade_enabled               = var.force_upgrade_enabled
+    force_upgrade_enabled = var.force_upgrade_enabled
   }
   
   lifecycle {
