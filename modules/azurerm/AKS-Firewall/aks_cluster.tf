@@ -30,6 +30,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   node_os_upgrade_channel             = var.node_os_upgrade_channel
   cost_analysis_enabled               = var.cost_analysis_enabled
   tags                                = var.tags
+  force_upgrade_enabled               = var.force_upgrade_enabled
   depends_on                          = [azurerm_subnet.aks_node_pool_subnet, azurerm_subnet_route_table_association.subnet_rt_association]
 
   lifecycle {
