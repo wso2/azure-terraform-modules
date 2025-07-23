@@ -74,6 +74,12 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "force_upgrade_enabled" {
+  description = "This field instructs the upgrade operation to bypass upgrade protections"
+  type        = bool
+  default     = false
+}
+
 variable "aks_admin_username" {
   description = "Admin username for AKS"
   type        = string
