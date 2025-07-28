@@ -45,3 +45,9 @@ variable "ip_version" {
   description = "The IP version of the Public IP Prefix."
   type        = string
 }
+
+variable "public_ip_zones" {
+  default     = ["1", "2", "3"]
+  description = "A collection containing the availability zone to allocate the Public IP in"
+  type        = list(string)
+}
