@@ -46,7 +46,7 @@ variable "ip_version" {
   type        = string
 }
 
-variable "public_ip_zones" {
+variable "zones" {
   default     = ["1", "2", "3"]
   description = "A collection containing the availability zone to allocate the Public IP in"
   type        = list(string)
