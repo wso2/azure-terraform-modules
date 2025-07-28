@@ -139,3 +139,9 @@ variable "private_endpoint_network_policies" {
   description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled"
   type        = string
 }
+
+variable "zones" {
+  default     = [1, 2, 3]
+  description = "A collection containing the availability zone to allocate the Public IP in"
+  type        = list(number)
+}
