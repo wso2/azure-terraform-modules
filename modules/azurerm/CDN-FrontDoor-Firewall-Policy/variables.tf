@@ -75,8 +75,8 @@ variable "tags" {
 }
 
 variable "custom_rules" {
-  description = "A list of custom rules to apply to the FrontDoor Firewall Policy"
-  default     = {}
+  description = "A map of custom rules to apply to the FrontDoor Firewall Policy. Either use `custom_rules` for map type or `custom_rules_list` for list type."
+  default     = null
   type = map(object({
     enabled                        = bool
     priority                       = number
@@ -89,16 +89,71 @@ variable "custom_rules" {
       operator           = string
       negation_condition = string
       match_values       = list(string)
-      transforms         = list(string)
-      selector           = string
+      transforms         = optional(list(string))
+      selector           = optional(string)
+    }))
+  }))
+}
+
+variable "custom_rules_list" {
+  description = "A list of custom rules to apply to the FrontDoor Firewall Policy. Either use `custom_rules` for map type or `custom_rules_list` for list type."
+  default     = null
+  type = list(object({
+    name                           = string
+    enabled                        = bool
+    priority                       = number
+    rate_limit_duration_in_minutes = number
+    rate_limit_threshold           = number
+    type                           = string
+    action                         = string
+    match_conditions = list(object({
+      match_variable     = string
+      operator           = string
+      negation_condition = string
+      match_values       = list(string)
+      transforms         = optional(list(string))
+      selector           = optional(string)
     }))
   }))
 }
 
 variable "managed_rules" {
-  description = "A list of managed rules to apply to the FrontDoor Firewall Policy"
-  default     = {}
+  description = "A map of managed rules to apply to the FrontDoor Firewall Policy. Either use `managed_rules` for map type or `managed_rules_list` for list type."
+  default     = null
   type = map(object({
+    type    = string
+    version = string
+    action  = string
+    exclusions = list(object({
+      match_variable = string
+      operator       = string
+      selector       = string
+    }))
+    overrides = list(object({
+      rule_group_name = string
+      exclusions = list(object({
+        match_variable = string
+        operator       = string
+        selector       = string
+      }))
+      rules = list(object({
+        rule_id = string
+        action  = string
+        enabled = bool
+        exclusions = list(object({
+          match_variable = string
+          operator       = string
+          selector       = string
+        }))
+      }))
+    }))
+  }))
+}
+
+variable "managed_rules_list" {
+  description = "A list of managed rules to apply to the FrontDoor Firewall Policy. Either use `managed_rules` for map type or `managed_rules_list` for list type."
+  default     = null
+  type = list(object({
     type    = string
     version = string
     action  = string
