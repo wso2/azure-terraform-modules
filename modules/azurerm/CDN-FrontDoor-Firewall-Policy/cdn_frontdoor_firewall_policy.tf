@@ -30,7 +30,8 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "cdn_frontdoor_firewall_policy"
   tags                              = var.tags
 
   dynamic "custom_rule" {
-    for_each = var.custom_rules
+    # This block is used to define custom rules for the FrontDoor Firewall Policy. Support for map types.
+    for_each = var.custom_rules != null ? var.custom_rules : {}
     content {
       name                           = custom_rule.key
       action                         = custom_rule.value.action
@@ -46,16 +47,95 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "cdn_frontdoor_firewall_policy"
           match_variable     = match_condition.value.match_variable
           match_values       = match_condition.value.match_values
           operator           = match_condition.value.operator
-          selector           = match_condition.value.selector
+          selector           = try(match_condition.value.selector, null)
           negation_condition = match_condition.value.negation_condition
-          transforms         = match_condition.value.transforms
+          transforms         = try(match_condition.value.transforms, null)
+        }
+      }
+    }
+  }
+
+  dynamic "custom_rule" {
+    # This block is used to define custom rules for the FrontDoor Firewall Policy. Support for list types.
+    for_each = var.custom_rules == null ? var.custom_rules_list : []
+    content {
+      name                           = custom_rule.value.name
+      action                         = custom_rule.value.action
+      enabled                        = custom_rule.value.enabled
+      priority                       = custom_rule.value.priority
+      rate_limit_duration_in_minutes = custom_rule.value.rate_limit_duration_in_minutes
+      rate_limit_threshold           = custom_rule.value.rate_limit_threshold
+      type                           = custom_rule.value.type
+
+      dynamic "match_condition" {
+        for_each = custom_rule.value.match_conditions
+        content {
+          match_variable     = match_condition.value.match_variable
+          match_values       = match_condition.value.match_values
+          operator           = match_condition.value.operator
+          selector           = try(match_condition.value.selector, null)
+          negation_condition = match_condition.value.negation_condition
+          transforms         = try(match_condition.value.transforms, null)
         }
       }
     }
   }
 
   dynamic "managed_rule" {
-    for_each = var.managed_rules
+    for_each = var.managed_rules != null ? var.managed_rules : {}
+    content {
+      type    = managed_rule.value.type
+      version = managed_rule.value.version
+      action  = managed_rule.value.action
+
+      dynamic "exclusion" {
+        for_each = managed_rule.value.exclusions
+        content {
+          match_variable = exclusion.value.match_variable
+          operator       = exclusion.value.operator
+          selector       = exclusion.value.selector
+        }
+      }
+
+      dynamic "override" {
+        for_each = managed_rule.value.overrides
+        content {
+          rule_group_name = override.value.rule_group_name
+
+          dynamic "exclusion" {
+            for_each = override.value.exclusions
+            content {
+              match_variable = exclusion.value.match_variable
+              operator       = exclusion.value.operator
+              selector       = exclusion.value.selector
+            }
+          }
+
+          dynamic "rule" {
+            for_each = override.value.rules
+            content {
+              rule_id = rule.value.rule_id
+              action  = rule.value.action
+              enabled = rule.value.enabled
+
+              dynamic "exclusion" {
+                for_each = rule.value.exclusions
+                content {
+                  match_variable = exclusion.value.match_variable
+                  operator       = exclusion.value.operator
+                  selector       = exclusion.value.selector
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+  dynamic "managed_rule" {
+    for_each = var.managed_rules == null ? var.managed_rules_list : []
     content {
       type    = managed_rule.value.type
       version = managed_rule.value.version
