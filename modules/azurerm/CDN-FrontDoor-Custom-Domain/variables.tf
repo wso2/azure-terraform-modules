@@ -37,6 +37,7 @@ variable "cdn_frontdoor_profile_id" {
 variable "dns_zone_id" {
   description = "The ID of the DNS Zone."
   type        = string
+  default     = null
 }
 
 variable "host_name" {
@@ -47,6 +48,7 @@ variable "host_name" {
 variable "certificate_type" {
   description = "The type of the certificate."
   type        = string
+  default     = "ManagedCertificate"
 }
 
 variable "minimum_tls_version" {
@@ -58,4 +60,5 @@ variable "minimum_tls_version" {
 variable "cdn_frontdoor_secret_id" {
   description = "The ID of the CDN Front Door Secret."
   type        = string
+  default     = null
 }
