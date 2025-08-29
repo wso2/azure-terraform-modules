@@ -38,7 +38,7 @@ variable "rules" {
       source_pattern          = string
       destination             = string
       preserve_unmatched_path = optional(bool)
-    })))
+    })), [])
 
     url_redirect_actions = optional(list(object({
       redirect_type        = string
@@ -47,7 +47,7 @@ variable "rules" {
       destination_path     = optional(string)
       query_string         = optional(string)
       destination_fragment = optional(string)
-    })))
+    })), [])
 
     route_configuration_override_actions = optional(list(object({
       cache_duration                = optional(string)
@@ -57,19 +57,19 @@ variable "rules" {
       query_string_parameters       = optional(list(string))
       compression_enabled           = optional(bool)
       cache_behavior                = optional(string)
-    })))
+    })), [])
 
     request_header_actions = optional(list(object({
       header_action = string
       header_name   = string
       value         = optional(string)
-    })))
+    })), [])
 
     response_header_actions = optional(list(object({
       header_action = string
       header_name   = string
       value         = optional(string)
-    })))
+    })), [])
 
     conditions = optional(map(object({
       type             = string
@@ -78,7 +78,7 @@ variable "rules" {
       negate_condition = optional(bool)
       transforms       = optional(list(string))
       post_args_name   = optional(string)
-    })))
+    })), {})
 
   }))
 }
