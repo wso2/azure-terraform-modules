@@ -77,7 +77,7 @@ variable "rules" {
       operator         = optional(string)
       negate_condition = optional(bool)
       transforms       = optional(list(string))
-      post_args_name   = optional(string)
+      object_name   = optional(string)
     })), {})
 
   }))
