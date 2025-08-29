@@ -29,56 +29,56 @@ variable "cdn_frontdoor_profile_id" {
 }
 
 variable "rules" {
-  description = "A list of rules to be included in the Rule Set"
+  description = "Map of rules to be included in the Rule Set"
   type = map(object({
     order             = number
-    behavior_on_match = string
+    behavior_on_match = optional(string)
 
-    url_rewrite_actions = list(object({
+    url_rewrite_actions = optional(list(object({
       source_pattern          = string
       destination             = string
-      preserve_unmatched_path = bool
-    }))
+      preserve_unmatched_path = optional(bool)
+    })))
 
-    url_redirect_actions = list(object({
+    url_redirect_actions = optional(list(object({
       redirect_type        = string
       destination_hostname = string
-      redirect_protocol    = string
-      destination_path     = string
-      query_string         = string
-      destination_fragment = string
-    }))
+      redirect_protocol    = optional(string)
+      destination_path     = optional(string)
+      query_string         = optional(string)
+      destination_fragment = optional(string)
+    })))
 
-    route_configuration_override_actions = list(object({
-      cache_duration                = string
-      cdn_frontdoor_origin_group_id = string
-      forwarding_protocol           = string
-      query_string_caching_behavior = string
-      query_string_parameters       = list(string)
-      compression_enabled           = bool
-      cache_behavior                = string
-    }))
+    route_configuration_override_actions = optional(list(object({
+      cache_duration                = optional(string)
+      cdn_frontdoor_origin_group_id = optional(string)
+      forwarding_protocol           = optional(string)
+      query_string_caching_behavior = optional(string)
+      query_string_parameters       = optional(list(string))
+      compression_enabled           = optional(bool)
+      cache_behavior                = optional(string)
+    })))
 
-    request_header_actions = list(object({
+    request_header_actions = optional(list(object({
       header_action = string
       header_name   = string
-      value         = string
-    }))
+      value         = optional(string)
+    })))
 
-    response_header_actions = list(object({
+    response_header_actions = optional(list(object({
       header_action = string
       header_name   = string
-      value         = string
-    }))
+      value         = optional(string)
+    })))
 
-    conditions = map(object({
+    conditions = optional(map(object({
       type             = string
-      match_values     = list(string)
-      operator         = string
-      negate_condition = bool
-      transforms       = list(string)
-      object_name      = string
-    }))
+      match_values     = optional(list(string))
+      operator         = optional(string)
+      negate_condition = optional(bool)
+      transforms       = optional(list(string))
+      post_args_name   = optional(string)
+    })))
 
   }))
 }
