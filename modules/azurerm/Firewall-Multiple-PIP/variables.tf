@@ -142,6 +142,6 @@ variable "private_endpoint_network_policies" {
 
 variable "public_ip_zones" {
   default     = [1, 2, 3]
-  description = "A collection containing the availability zone to allocate the Public IP in"
+  description = "The Availability Zones in which to create the Public IPs."
   type        = list(number)
 }
