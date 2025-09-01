@@ -140,7 +140,7 @@ variable "private_endpoint_network_policies" {
   type        = string
 }
 
-variable "zones" {
+variable "public_ip_zones" {
   default     = [1, 2, 3]
   description = "A collection containing the availability zone to allocate the Public IP in"
   type        = list(number)
