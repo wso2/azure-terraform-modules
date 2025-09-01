@@ -24,6 +24,11 @@ output "firewall_private_ip" {
   value      = azurerm_firewall.azure_firewall.ip_configuration[0].private_ip_address
 }
 
+output "firewall_public_ip_prefix" {
+  depends_on = [azurerm_public_ip_prefix.public_ip_prefix_fw]
+  value      = azurerm_public_ip_prefix.public_ip_prefix_fw.ip_prefix
+}
+
 output "firewall_public_ips" {
   value      = [for pip in azurerm_public_ip.firewall_public_ip : pip.id]
   depends_on = [azurerm_public_ip.firewall_public_ip]
