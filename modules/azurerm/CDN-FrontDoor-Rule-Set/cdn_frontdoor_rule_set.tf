@@ -84,187 +84,190 @@ resource "azurerm_cdn_frontdoor_rule" "cdn_frontdoor_rule" {
     }
   }
 
-  conditions {
-    dynamic "remote_address_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "remote_address" }
-      content {
-        match_values     = remote_address_condition.value.match_values
-        operator         = remote_address_condition.value.operator
-        negate_condition = remote_address_condition.value.negate_condition
+  dynamic "conditions" {
+    for_each = length(each.value.conditions) > 0 ? [each.value.conditions] : []
+    content {
+      dynamic "remote_address_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "remote_address" }
+        content {
+          match_values     = remote_address_condition.value.match_values
+          operator         = remote_address_condition.value.operator
+          negate_condition = remote_address_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "request_method_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "request_method" }
-      content {
-        match_values     = request_method_condition.value.match_values
-        operator         = request_method_condition.value.operator
-        negate_condition = request_method_condition.value.negate_condition
+      dynamic "request_method_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "request_method" }
+        content {
+          match_values     = request_method_condition.value.match_values
+          operator         = request_method_condition.value.operator
+          negate_condition = request_method_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "query_string_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "query_string" }
-      content {
-        match_values     = query_string_condition.value.match_values
-        operator         = query_string_condition.value.operator
-        negate_condition = query_string_condition.value.negate_condition
-        transforms       = query_string_condition.value.transforms
+      dynamic "query_string_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "query_string" }
+        content {
+          match_values     = query_string_condition.value.match_values
+          operator         = query_string_condition.value.operator
+          negate_condition = query_string_condition.value.negate_condition
+          transforms       = query_string_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "post_args_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "post_args" }
-      content {
-        post_args_name   = post_args_condition.value.object_name
-        match_values     = post_args_condition.value.match_values
-        operator         = post_args_condition.value.operator
-        negate_condition = post_args_condition.value.negate_condition
-        transforms       = post_args_condition.value.transforms
+      dynamic "post_args_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "post_args" }
+        content {
+          post_args_name   = post_args_condition.value.object_name
+          match_values     = post_args_condition.value.match_values
+          operator         = post_args_condition.value.operator
+          negate_condition = post_args_condition.value.negate_condition
+          transforms       = post_args_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "request_uri_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "request_uri" }
-      content {
-        match_values     = request_uri_condition.value.match_values
-        operator         = request_uri_condition.value.operator
-        negate_condition = request_uri_condition.value.negate_condition
-        transforms       = request_uri_condition.value.transforms
+      dynamic "request_uri_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "request_uri" }
+        content {
+          match_values     = request_uri_condition.value.match_values
+          operator         = request_uri_condition.value.operator
+          negate_condition = request_uri_condition.value.negate_condition
+          transforms       = request_uri_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "request_header_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "request_header" }
-      content {
-        match_values     = request_header_condition.value.match_values
-        operator         = request_header_condition.value.operator
-        negate_condition = request_header_condition.value.negate_condition
-        transforms       = request_header_condition.value.transforms
-        header_name      = request_header_condition.value.object_name
+      dynamic "request_header_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "request_header" }
+        content {
+          match_values     = request_header_condition.value.match_values
+          operator         = request_header_condition.value.operator
+          negate_condition = request_header_condition.value.negate_condition
+          transforms       = request_header_condition.value.transforms
+          header_name      = request_header_condition.value.object_name
+        }
       }
-    }
 
-    dynamic "request_body_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "request_body" }
-      content {
-        match_values     = request_body_condition.value.match_values
-        operator         = request_body_condition.value.operator
-        negate_condition = request_body_condition.value.negate_condition
-        transforms       = request_body_condition.value.transforms
+      dynamic "request_body_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "request_body" }
+        content {
+          match_values     = request_body_condition.value.match_values
+          operator         = request_body_condition.value.operator
+          negate_condition = request_body_condition.value.negate_condition
+          transforms       = request_body_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "request_scheme_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "request_scheme" }
-      content {
-        match_values     = request_scheme_condition.value.match_values
-        operator         = request_scheme_condition.value.operator
-        negate_condition = request_scheme_condition.value.negate_condition
+      dynamic "request_scheme_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "request_scheme" }
+        content {
+          match_values     = request_scheme_condition.value.match_values
+          operator         = request_scheme_condition.value.operator
+          negate_condition = request_scheme_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "url_path_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "url_path" }
-      content {
-        match_values     = url_path_condition.value.match_values
-        operator         = url_path_condition.value.operator
-        negate_condition = url_path_condition.value.negate_condition
-        transforms       = url_path_condition.value.transforms
+      dynamic "url_path_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "url_path" }
+        content {
+          match_values     = url_path_condition.value.match_values
+          operator         = url_path_condition.value.operator
+          negate_condition = url_path_condition.value.negate_condition
+          transforms       = url_path_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "url_file_extension_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "url_file_extension" }
-      content {
-        match_values     = url_file_extension_condition.value.match_values
-        operator         = url_file_extension_condition.value.operator
-        negate_condition = url_file_extension_condition.value.negate_condition
-        transforms       = url_file_extension_condition.value.transforms
+      dynamic "url_file_extension_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "url_file_extension" }
+        content {
+          match_values     = url_file_extension_condition.value.match_values
+          operator         = url_file_extension_condition.value.operator
+          negate_condition = url_file_extension_condition.value.negate_condition
+          transforms       = url_file_extension_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "url_filename_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "url_filename" }
-      content {
-        match_values     = url_filename_condition.value.match_values
-        operator         = url_filename_condition.value.operator
-        negate_condition = url_filename_condition.value.negate_condition
-        transforms       = url_filename_condition.value.transforms
+      dynamic "url_filename_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "url_filename" }
+        content {
+          match_values     = url_filename_condition.value.match_values
+          operator         = url_filename_condition.value.operator
+          negate_condition = url_filename_condition.value.negate_condition
+          transforms       = url_filename_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "http_version_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "http_version" }
-      content {
-        match_values     = http_version_condition.value.match_values
-        operator         = http_version_condition.value.operator
-        negate_condition = http_version_condition.value.negate_condition
+      dynamic "http_version_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "http_version" }
+        content {
+          match_values     = http_version_condition.value.match_values
+          operator         = http_version_condition.value.operator
+          negate_condition = http_version_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "cookies_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "cookies" }
-      content {
-        match_values     = cookies_condition.value.match_values
-        operator         = cookies_condition.value.operator
-        negate_condition = cookies_condition.value.negate_condition
-        transforms       = cookies_condition.value.transforms
-        cookie_name      = cookies_condition.value.object_name
+      dynamic "cookies_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "cookies" }
+        content {
+          match_values     = cookies_condition.value.match_values
+          operator         = cookies_condition.value.operator
+          negate_condition = cookies_condition.value.negate_condition
+          transforms       = cookies_condition.value.transforms
+          cookie_name      = cookies_condition.value.object_name
+        }
       }
-    }
 
-    dynamic "is_device_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "is_device" }
-      content {
-        match_values     = is_device_condition.value.match_values
-        operator         = is_device_condition.value.operator
-        negate_condition = is_device_condition.value.negate_condition
+      dynamic "is_device_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "is_device" }
+        content {
+          match_values     = is_device_condition.value.match_values
+          operator         = is_device_condition.value.operator
+          negate_condition = is_device_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "socket_address_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "socket_address" }
-      content {
-        match_values     = socket_address_condition.value.match_values
-        operator         = socket_address_condition.value.operator
-        negate_condition = socket_address_condition.value.negate_condition
+      dynamic "socket_address_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "socket_address" }
+        content {
+          match_values     = socket_address_condition.value.match_values
+          operator         = socket_address_condition.value.operator
+          negate_condition = socket_address_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "client_port_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "client_port" }
-      content {
-        match_values     = client_port_condition.value.match_values
-        operator         = client_port_condition.value.operator
-        negate_condition = client_port_condition.value.negate_condition
+      dynamic "client_port_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "client_port" }
+        content {
+          match_values     = client_port_condition.value.match_values
+          operator         = client_port_condition.value.operator
+          negate_condition = client_port_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "server_port_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "server_port" }
-      content {
-        match_values     = server_port_condition.value.match_values
-        operator         = server_port_condition.value.operator
-        negate_condition = server_port_condition.value.negate_condition
+      dynamic "server_port_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "server_port" }
+        content {
+          match_values     = server_port_condition.value.match_values
+          operator         = server_port_condition.value.operator
+          negate_condition = server_port_condition.value.negate_condition
+        }
       }
-    }
 
-    dynamic "host_name_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "host_name" }
-      content {
-        match_values = host_name_condition.value.match_values
-        operator     = host_name_condition.value.operator
-        transforms   = host_name_condition.value.transforms
+      dynamic "host_name_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "host_name" }
+        content {
+          match_values = host_name_condition.value.match_values
+          operator     = host_name_condition.value.operator
+          transforms   = host_name_condition.value.transforms
+        }
       }
-    }
 
-    dynamic "ssl_protocol_condition" {
-      for_each = { for k, v in each.value.conditions : k => v if v.type == "ssl_protocol" }
-      content {
-        match_values     = ssl_protocol_condition.value.match_values
-        operator         = ssl_protocol_condition.value.operator
-        negate_condition = ssl_protocol_condition.value.negate_condition
+      dynamic "ssl_protocol_condition" {
+        for_each = { for k, v in conditions.value : k => v if v.type == "ssl_protocol" }
+        content {
+          match_values     = ssl_protocol_condition.value.match_values
+          operator         = ssl_protocol_condition.value.operator
+          negate_condition = ssl_protocol_condition.value.negate_condition
+        }
       }
     }
   }
