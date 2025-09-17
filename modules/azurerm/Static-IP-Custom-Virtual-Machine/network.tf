@@ -21,5 +21,6 @@ resource "azurerm_network_interface" "static_ip_vm_nic" {
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Static"
     private_ip_address            = var.private_ip_address
+    public_ip_address_id          = var.public_ip_address_id
   }
 }

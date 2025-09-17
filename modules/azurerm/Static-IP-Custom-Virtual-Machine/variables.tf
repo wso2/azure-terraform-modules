@@ -119,3 +119,9 @@ variable "nic_ip_configuration_abbreviation" {
   type        = string
   default     = "nic"
 }
+
+variable "public_ip_address_id" {
+  description = "The ID of the public IP address to associate with the network interface."
+  type        = string
+  default     = null
+}

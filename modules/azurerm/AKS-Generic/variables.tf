@@ -304,3 +304,21 @@ variable "api_server_authorized_ip_ranges" {
   description = "List of authorized IP ranges for the Kubernetes API server"
   type        = list(string)
 }
+
+variable "default_node_pool_drain_timeout_in_minutes" {
+  description = "Default node pool drain timeout in minutes"
+  type        = number
+  default     = 0
+}
+
+variable "default_node_pool_soak_duration_in_minutes" {
+  description = "Default node pool soak duration in minutes"
+  type        = number
+  default     = 0
+}
+
+variable "default_node_pool_max_surge" {
+  description = "Default node pool max surge"
+  type        = string
+  default     = "10%"
+}

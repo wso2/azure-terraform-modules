@@ -53,6 +53,11 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     orchestrator_version         = var.default_node_pool_orchestrator_version
     node_public_ip_enabled       = var.node_public_ip_enabled
     only_critical_addons_enabled = var.default_node_pool_only_critical_addons_enabled
+    upgrade_settings {
+      drain_timeout_in_minutes      = var.default_node_pool_drain_timeout_in_minutes
+      node_soak_duration_in_minutes = var.default_node_pool_soak_duration_in_minutes
+      max_surge                     = var.default_node_pool_max_surge
+    }
   }
 
   identity {
