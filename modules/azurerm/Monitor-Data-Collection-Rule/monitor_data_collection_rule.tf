@@ -25,23 +25,40 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
   }
 
   destinations {
-
     log_analytics {
       name                  = var.destination_la_name
       workspace_resource_id = var.destination_la_workspace_resource_id
     }
   }
 
+  # Single dynamic data_sources block that can include both syslog and extension
   dynamic "data_sources" {
-    for_each = var.data_sources_syslog_name != null ? [1] : []
+    for_each = (var.data_sources_syslog_name != null || var.data_sources_extension != null) ? [1] : []
 
     content {
+      # Conditionally include syslog configuration
+      dynamic "syslog" {
+        for_each = var.data_sources_syslog_name != null ? [1] : []
 
-      syslog {
-        name           = var.data_sources_syslog_name
-        facility_names = var.data_sources_syslog_facility_names
-        log_levels     = var.data_sources_syslog_log_levels
-        streams        = var.data_sources_syslog_streams
+        content {
+          name           = var.data_sources_syslog_name
+          facility_names = var.data_sources_syslog_facility_names
+          log_levels     = var.data_sources_syslog_log_levels
+          streams        = var.data_sources_syslog_streams
+        }
+      }
+
+      # Conditionally include extension configuration
+      dynamic "extension" {
+        for_each = var.data_sources_extension != null ? [1] : []
+
+        content {
+          name              = var.data_sources_extension.name
+          extension_name    = var.data_sources_extension.extension_name
+          extension_json    = var.data_sources_extension.extension_json
+          streams           = var.data_sources_extension.streams
+          input_data_sources = var.data_sources_extension.input_data_sources
+        }
       }
     }
   }
