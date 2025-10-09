@@ -51,7 +51,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
       # Conditionally include extension configuration
       dynamic "extension" {
-        for_each = var.data_sources_extensions != null ?  var.data_sources_extensions : []
+        for_each = var.data_sources_extensions != null ? var.data_sources_extensions : []
 
         content {
           name               = extension.value.name
