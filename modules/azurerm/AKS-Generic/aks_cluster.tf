@@ -71,7 +71,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
   oms_agent {
     log_analytics_workspace_id = var.log_analytics_workspace_id
-    msi_auth_for_monitoring_enabled = true
+    msi_auth_for_monitoring_enabled = var.msi_auth_for_monitoring_enabled
   }
 
   network_profile {

@@ -25,6 +25,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
   }
 
   destinations {
+
     log_analytics {
       name                  = var.destination_la_name
       workspace_resource_id = var.destination_la_workspace_resource_id

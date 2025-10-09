@@ -40,6 +40,12 @@ variable "log_analytics_workspace_id" {
   type        = string
 }
 
+variable "msi_auth_for_monitoring_enabled" {
+  description = "Enable MSI auth for monitoring"
+  type        = string
+  default     = "false"
+}
+
 # Network details
 variable "virtual_network_resource_group_name" {
   default     = null
