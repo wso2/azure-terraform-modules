@@ -2,7 +2,7 @@
 name: Trivy Scan
 on:
   pull_request:
-    branches: 
+    branches:
       - main
 
 jobs:
@@ -27,3 +27,4 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           severity: 'HIGH,CRITICAL'
+          trivyignores: '.trivyignore'
