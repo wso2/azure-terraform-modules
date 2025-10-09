@@ -32,16 +32,34 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
     }
   }
 
+  # Single dynamic data_sources block that can include both syslog and extension
   dynamic "data_sources" {
-    for_each = var.data_sources_syslog_name != null ? [1] : []
+    for_each = (var.data_sources_syslog_name != null || var.data_sources_extensions != null) ? [1] : []
 
     content {
+      # Conditionally include syslog configuration
+      dynamic "syslog" {
+        for_each = var.data_sources_syslog_name != null ? [1] : []
 
-      syslog {
-        name           = var.data_sources_syslog_name
-        facility_names = var.data_sources_syslog_facility_names
-        log_levels     = var.data_sources_syslog_log_levels
-        streams        = var.data_sources_syslog_streams
+        content {
+          name           = var.data_sources_syslog_name
+          facility_names = var.data_sources_syslog_facility_names
+          log_levels     = var.data_sources_syslog_log_levels
+          streams        = var.data_sources_syslog_streams
+        }
+      }
+
+      # Conditionally include extension configuration
+      dynamic "extension" {
+        for_each = var.data_sources_extensions != null ? var.data_sources_extensions : []
+
+        content {
+          name               = extension.value.name
+          extension_name     = extension.value.extension_name
+          extension_json     = extension.value.extension_json
+          streams            = extension.value.streams
+          input_data_sources = extension.value.input_data_sources
+        }
       }
     }
   }

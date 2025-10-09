@@ -111,3 +111,15 @@ variable "data_sources_syslog_streams" {
   description = "Specifies a list of streams"
   type        = list(string)
 }
+
+variable "data_sources_extensions" {
+  default     = null
+  description = "Specifies data source configuration extensions"
+  type = list(object({
+    name               = string
+    extension_name     = string
+    extension_json     = string
+    streams            = list(string)
+    input_data_sources = list(string)
+  }))
+}
