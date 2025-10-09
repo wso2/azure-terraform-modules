@@ -54,11 +54,11 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
         for_each = var.data_sources_extension
 
         content {
-          name              = extension.value.name
-          extension_name    = extension.value.extension_name
-          extension_json    = extension.value.extension_json
-          streams           = extension.value.streams
-          input_data_sources = extension.value.input_data_sources
+          name                = extension.value.name
+          extension_name      = extension.value.extension_name
+          extension_json      = extension.value.extension_json
+          streams             = extension.value.streams
+          input_data_sources  = extension.value.input_data_sources
         }
       }
     }
