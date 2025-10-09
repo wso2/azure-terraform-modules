@@ -115,11 +115,11 @@ variable "data_sources_syslog_streams" {
 variable "data_sources_extension" {
   default     = null
   description = "Extension data source configuration"
-  type = object({
+  type = list(object({
     name              = string
     extension_name    = string
     extension_json    = string
     streams           = list(string)
     input_data_sources = list(string)
-  })
+  }))
 }

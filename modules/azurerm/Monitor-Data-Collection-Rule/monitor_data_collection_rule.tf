@@ -51,14 +51,14 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
       # Conditionally include extension configuration
       dynamic "extension" {
-        for_each = var.data_sources_extension != null ? [1] : []
+        for_each = var.data_sources_extension
 
         content {
-          name              = var.data_sources_extension.name
-          extension_name    = var.data_sources_extension.extension_name
-          extension_json    = var.data_sources_extension.extension_json
-          streams           = var.data_sources_extension.streams
-          input_data_sources = var.data_sources_extension.input_data_sources
+          name              = extension.value.name
+          extension_name    = extension.value.extension_name
+          extension_json    = extension.value.extension_json
+          streams           = extension.value.streams
+          input_data_sources = extension.value.input_data_sources
         }
       }
     }
