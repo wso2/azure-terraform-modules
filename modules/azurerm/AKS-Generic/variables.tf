@@ -42,8 +42,8 @@ variable "log_analytics_workspace_id" {
 
 variable "msi_auth_for_monitoring_enabled" {
   description = "Enable MSI auth for monitoring"
-  type        = string
-  default     = "false"
+  type        = bool
+  default     = false
 }
 
 # Network details

@@ -34,7 +34,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
   # Single dynamic data_sources block that can include both syslog and extension
   dynamic "data_sources" {
-    for_each = (var.data_sources_syslog_name != null || var.data_sources_extension != null) ? [1] : []
+    for_each = (var.data_sources_syslog_name != null || var.data_sources_extensions != null) ? [1] : []
 
     content {
       # Conditionally include syslog configuration
@@ -51,7 +51,7 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
       # Conditionally include extension configuration
       dynamic "extension" {
-        for_each = var.data_sources_extension
+        for_each = var.data_sources_extensions != null ?  var.data_sources_extensions : []
 
         content {
           name               = extension.value.name
