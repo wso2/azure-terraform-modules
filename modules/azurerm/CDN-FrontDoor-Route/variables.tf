@@ -87,6 +87,7 @@ variable "link_to_default_domain" {
 variable "cdn_frontdoor_origin_path" {
   description = "The path to the Front Door Origin."
   type        = string
+  default     = null
 }
 
 variable "enable_cache" {
