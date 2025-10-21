@@ -37,3 +37,9 @@ variable "dynamic_nat_rules" {
     public_ip_address      = string
   }))
 }
+
+variable "source_addresses" {
+  description = "Source addresses for the DNAT rules"
+  type        = list(string)
+  default     = ["*"]
+}
