@@ -30,11 +30,13 @@ variable "target" {
 }
 
 variable "header_name" {
+  default     = ""
   type        = string
   description = "Name of the custom header"
 }
 
 variable "header_value" {
+  default     = ""
   type        = string
   description = "Value of the custom header"
 }
