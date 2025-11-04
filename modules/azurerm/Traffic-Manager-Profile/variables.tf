@@ -76,3 +76,8 @@ variable "traffic_view_enabled" {
   type        = bool
 }
 
+variable "expected_status_code_ranges" {
+  default     = []
+  description = "A list of status code ranges in the format of 100-101"
+  type        = list(string)
+}
