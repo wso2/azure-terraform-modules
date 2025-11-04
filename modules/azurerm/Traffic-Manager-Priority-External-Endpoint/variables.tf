@@ -44,3 +44,9 @@ variable "enabled" {
   type        = bool
   description = "Is the endpoint enabled"
 }
+
+variable "custom_header_enabled" {
+  default     = true
+  type        = bool
+  description = "Is the custom header enabled"
+}
