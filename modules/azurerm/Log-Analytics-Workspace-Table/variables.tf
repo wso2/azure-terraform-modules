@@ -32,7 +32,7 @@ variable "plan" {
   description = "The table plan. Possible values are Basic and Analytics."
   type        = string
   default     = "Analytics"
-  
+
   validation {
     condition     = contains(["Basic", "Analytics"], var.plan)
     error_message = "The plan must be either 'Basic' or 'Analytics'."
