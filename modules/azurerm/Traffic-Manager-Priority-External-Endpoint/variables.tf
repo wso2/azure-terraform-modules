@@ -30,11 +30,13 @@ variable "target" {
 }
 
 variable "header_name" {
+  default     = ""
   type        = string
   description = "Name of the custom header"
 }
 
 variable "header_value" {
+  default     = ""
   type        = string
   description = "Value of the custom header"
 }
@@ -43,4 +45,10 @@ variable "enabled" {
   default     = true
   type        = bool
   description = "Is the endpoint enabled"
+}
+
+variable "custom_header_enabled" {
+  default     = true
+  type        = bool
+  description = "Is the custom header enabled"
 }

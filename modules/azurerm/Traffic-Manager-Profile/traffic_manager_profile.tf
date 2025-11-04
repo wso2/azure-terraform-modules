@@ -28,5 +28,6 @@ resource "azurerm_traffic_manager_profile" "traffic_manager_profile" {
     interval_in_seconds          = var.health_check_interval
     timeout_in_seconds           = var.health_check_timeout
     tolerated_number_of_failures = var.tolerated_failures
+    expected_status_code_ranges  = var.expected_status_code_ranges
   }
 }
