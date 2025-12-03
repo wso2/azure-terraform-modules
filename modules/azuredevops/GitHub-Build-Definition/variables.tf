@@ -68,7 +68,7 @@ variable "status" {
   type        = string
 }
 
-variable "ci_trigger_use_yaml" {
+variable "use_yaml" {
   default     = true
   description = "Use YAML for CI trigger"
   type        = bool
@@ -76,7 +76,7 @@ variable "ci_trigger_use_yaml" {
 
 variable "ci_trigger_overrides" {
   default     = []
-  description = "Overrides for the CI trigger. Only used when ci_trigger_use_yaml is false."
+  description = "Overrides for the CI trigger. Only used when use_yaml is false."
   type = list(object({
     batch                            = bool
     max_concurrent_builds_per_branch = number
