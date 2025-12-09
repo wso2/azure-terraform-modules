@@ -32,4 +32,5 @@ resource "azurerm_traffic_manager_external_endpoint" "performace_based_external_
     }
   }
   always_serve_enabled = var.always_serve_enabled
+  enabled              = var.enabled
 }

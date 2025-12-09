@@ -58,3 +58,9 @@ variable "always_serve_enabled" {
   type        = bool
   default     = false
 }
+
+variable "enabled" {
+  description = "Indicates whether the endpoint is enabled."
+  type        = bool
+  default     = true
+}

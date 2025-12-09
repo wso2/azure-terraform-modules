@@ -17,7 +17,24 @@ resource "azuredevops_build_definition" "devops_build_definition" {
   queue_status    = var.status
 
   ci_trigger {
-    use_yaml = true
+    use_yaml = var.use_yaml == true ? true : null
+
+    dynamic "override" {
+      for_each = var.use_yaml == false ? var.ci_trigger_overrides : []
+      content {
+        batch                            = override.value.batch
+        max_concurrent_builds_per_branch = override.value.max_concurrent_builds_per_branch
+        polling_interval                 = override.value.polling_interval
+        branch_filter {
+          exclude = override.value.branch_filter_exclude_list
+          include = override.value.branch_filter_include_list
+        }
+        path_filter {
+          exclude = override.value.path_filter_exclude_list
+          include = override.value.path_filter_include_list
+        }
+      }
+    }
   }
 
   repository {
