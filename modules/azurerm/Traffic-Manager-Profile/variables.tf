@@ -81,3 +81,9 @@ variable "expected_status_code_ranges" {
   description = "A list of status code ranges in the format of 100-101"
   type        = list(string)
 }
+
+variable "max_return" {
+  default     = 8
+  description = "The maximum number of endpoints to be returned in DNS queries."
+  type        = number
+}
