@@ -1,0 +1,106 @@
+# -------------------------------------------------------------------------------------
+#
+# Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+#
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# --------------------------------------------------------------------------------------
+
+variable "endpoint_name" {
+  description = "Name of the endpoint"
+  type        = string
+}
+
+variable "profile_id" {
+  description = "ID of the traffic manager profile"
+  type        = string
+}
+
+variable "target" {
+  description = "Target IP or FQDN DNS name"
+  type        = string
+}
+
+variable "routing_method" {
+  description = "Routing method for the Traffic Manager Profile. Valid values are 'Performance', 'Priority', 'Weighted', 'Geographic', 'Multivalue', 'Subnet'"
+  type        = string
+  validation {
+    condition     = contains(["Performance", "Priority", "Weighted", "Geographic", "Multivalue", "Subnet"], var.routing_method)
+    error_message = "Routing method must be one of: Performance, Priority, Weighted, Geographic, Multivalue, or Subnet."
+  }
+}
+
+variable "custom_headers" {
+  description = "Custom headers for the endpoint"
+  type = list(object({
+    header_name  = string
+    header_value = string
+  }))
+  default = []
+}
+
+variable "always_serve_enabled" {
+  description = "Indicates whether the endpoint should always serve traffic, even if it is unhealthy."
+  type        = bool
+  default     = false
+}
+
+variable "enabled" {
+  description = "Indicates whether the endpoint is enabled."
+  type        = bool
+  default     = true
+}
+
+variable "weight" {
+  description = "Weight of the endpoint. Required for Weighted routing method. Valid values are between 1 and 1000"
+  type        = number
+  default     = 1
+}
+
+variable "priority" {
+  description = "Priority of the endpoint. Required for Priority routing method. Valid values are between 1 and 1000"
+  type        = number
+  default     = 1
+}
+
+variable "endpoint_location" {
+  description = "Location of the endpoint. Required for Performance routing method. The location must be specified for endpoints of types: 'Performance'"
+  type        = string
+  default     = ""
+  validation {
+    condition = (
+      var.routing_method != "Performance" ||
+      (var.routing_method == "Performance" && var.endpoint_location != "")
+    )
+    error_message = "endpoint_location must be provided when routing_method is 'Performance'."
+  }
+
+}
+
+variable "geo_mappings" {
+  description = "A list of Geographic Regions used to distribute traffic. Required for Geographic routing method."
+  type        = list(string)
+  default     = []
+}
+
+variable "subnets" {
+  description = "A list of subnets used to distribute traffic. Required for Subnet routing method."
+  type = list(object({
+    first = string
+    last  = optional(string)
+    scope = optional(string)
+  }))
+  default = []
+}
