@@ -34,14 +34,12 @@ variable "target" {
 }
 
 variable "routing_method" {
-  description = "Routing method for the Traffic Manager Profile. Valid values are 'Performance', 'Priority', 'Weighted', 'Geographic', 'Multivalue', 'Subnet'."
+  description = "Routing method for the Traffic Manager Profile. Valid values are 'Performance', 'Priority', 'Weighted', 'Geographic', 'Multivalue', 'Subnet'"
   type        = string
-}
-
-variable "endpoint_location" {
-  description = "Location of the endpoint. Required for Performance routing method."
-  type        = string
-  default     = ""
+  validation {
+    condition     = contains(["Performance", "Priority", "Weighted", "Geographic", "Multivalue", "Subnet"], var.routing_method)
+    error_message = "Routing method must be one of: Performance, Priority, Weighted, Geographic, Multivalue, or Subnet."
+  }
 }
 
 variable "custom_headers" {
@@ -63,4 +61,46 @@ variable "enabled" {
   description = "Indicates whether the endpoint is enabled."
   type        = bool
   default     = true
+}
+
+variable "weight" {
+  description = "Weight of the endpoint. Required for Weighted routing method. Valid values are between 1 and 1000"
+  type        = number
+  default     = 1
+}
+
+variable "priority" {
+  description = "Priority of the endpoint. Required for Priority routing method. Valid values are between 1 and 1000"
+  type        = number
+  default     = 1
+}
+
+variable "endpoint_location" {
+  description = "Location of the endpoint. Required for Performance routing method. The location must be specified for endpoints of types: 'Performance'"
+  type        = string
+  default     = ""
+  validation {
+    condition = (
+      var.routing_method != "Performance" ||
+      (var.routing_method == "Performance" && var.endpoint_location != "")
+    )
+    error_message = "endpoint_location must be provided when routing_method is 'Performance'."
+  }
+
+}
+
+variable "geo_mappings" {
+  description = "A list of Geographic Regions used to distribute traffic. Required for Geographic routing method."
+  type        = list(string)
+  default     = []
+}
+
+variable "subnets" {
+  description = "A list of subnets used to distribute traffic. Required for Subnet routing method."
+  type = list(object({
+    first = string
+    last  = optional(string)
+    scope = optional(string)
+  }))
+  default = []
 }
