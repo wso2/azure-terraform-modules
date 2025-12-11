@@ -15,6 +15,7 @@ resource "azurerm_traffic_manager_profile" "traffic_manager_profile" {
   traffic_routing_method = var.routing_method
   traffic_view_enabled   = var.traffic_view_enabled
   tags                   = var.tags
+  max_return             = var.max_return
 
   dns_config {
     relative_name = join("-", ["tm", var.traffic_manager_profile_dns_config_relative_name])

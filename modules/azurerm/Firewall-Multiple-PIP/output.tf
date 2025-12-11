@@ -43,3 +43,14 @@ output "firewall_public_ip_names" {
   value      = [for pip in azurerm_public_ip.firewall_public_ip : pip.name]
   depends_on = [azurerm_public_ip.firewall_public_ip]
 }
+
+output "firewall_nat_rule_address_mapping" {
+  value = {
+    for key, rule in var.dynamic_nat_rules :
+    key => {
+      destination_address = azurerm_public_ip.firewall_public_ip[key].ip_address
+      translated_address  = rule.private_ip_address
+    }
+  }
+  depends_on = [azurerm_firewall_nat_rule_collection.public_loadbalancer_dnat_rules]
+}
