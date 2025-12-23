@@ -13,3 +13,8 @@ output "postgresql_db_id" {
   value      = azurerm_postgresql_flexible_server_database.postgresql_database.id
   depends_on = [azurerm_postgresql_flexible_server_database.postgresql_database]
 }
+
+output "postgresql_db_name" {
+  value      = azurerm_postgresql_flexible_server_database.postgresql_database.name
+  depends_on = [azurerm_postgresql_flexible_server_database.postgresql_database]
+}
