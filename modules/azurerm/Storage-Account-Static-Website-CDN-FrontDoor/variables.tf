@@ -23,13 +23,8 @@ variable "storage_account_name" {
   type        = string
 }
 
-variable "location" {
-  description = "Azure location where the resource exists"
-  type        = string
-}
-
 variable "resource_group_name" {
-  description = "Name of the resource group in which the EventHub Namespace exists"
+  description = "Name of the resource group"
   type        = string
 }
 
@@ -84,12 +79,22 @@ variable "allow_nested_items_to_be_public" {
 
 variable "network_rules_bypass" {
   default     = ["AzureServices"]
-  description = "List of actions that bypass the network rule. Defaults to []"
+  description = "List of actions that bypass the network rule."
   type        = list(string)
+}
+
+variable "cdn_frontdoor_profile_name" {
+  description = "Name of the CDN Frontdoor profile"
+  type        = string
 }
 
 variable "cdn_frontdoor_profile_sku_name" {
   description = "The pricing tier of the CDN Frontdoor profile"
+  type        = string
+}
+
+variable "cdn_frontdoor_endpoint_name" {
+  description = "Name of the CDN endpoint"
   type        = string
 }
 
@@ -108,5 +113,28 @@ variable "network_rules_enabled" {
 variable "response_timeout_seconds" {
   description = "The response timeout for the Front Door Profile."
   type        = number
-  default     = 240
+  default     = 30
+}
+
+variable "cdn_frontdoor_profile_abbreviation" {
+  description = "Abbreviation for CDN Frontdoor Profile"
+  type        = string
+  default     = "cdnp"
+}
+
+variable "cdn_frontdoor_endpoint_abbreviation" {
+  description = "Abbreviation for CDN Frontdoor Endpoint"
+  type        = string
+  default     = "cdne"
+}
+
+variable "cdn_frontdoor_endpoint_enabled" {
+  description = "CDN Frontdoor Endpoint Enabled or Not"
+  type        = bool
+  default     = true
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
 }

@@ -21,7 +21,6 @@
 resource "azurerm_cdn_frontdoor_profile" "cdn_frontdoor_profile" {
   name                     = join("-", [var.cdn_frontdoor_profile_abbreviation, var.cdn_frontdoor_profile_name])
   resource_group_name      = var.resource_group_name
-  location                 = var.location
   sku_name                 = var.cdn_frontdoor_profile_sku_name
   response_timeout_seconds = var.response_timeout_seconds
   tags                     = var.tags
@@ -30,6 +29,6 @@ resource "azurerm_cdn_frontdoor_profile" "cdn_frontdoor_profile" {
 resource "azurerm_cdn_frontdoor_endpoint" "cdn_frontdoor_endpoint" {
   name                     = join("-", [var.cdn_frontdoor_endpoint_abbreviation, var.cdn_frontdoor_endpoint_name])
   cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile.id
-  enabled                  = var.enabled
+  enabled                  = var.cdn_frontdoor_endpoint_enabled
   tags                     = var.tags
 }

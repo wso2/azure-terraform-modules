@@ -53,9 +53,9 @@ output "cdn_frontdoor_profile_id" {
   value      = azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile.id
 }
 
-output "cdn_frontdoor_endpoint_fqdn" {
+output "cdn_frontdoor_endpoint_hostname" {
   depends_on = [azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint]
-  value      = azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint.fqdn
+  value      = azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint.host_name
 }
 
 output "cdn_frontdoor_endpoint_id" {
