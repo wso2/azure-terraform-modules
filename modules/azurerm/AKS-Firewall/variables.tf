@@ -83,7 +83,7 @@ variable "force_upgrade_enabled" {
 variable "effect_until_date_force_upgrade" {
   description = "Optional RFC3339 timestamp until which force upgrade is effective"
   type        = string
-  default     = null
+  default     = "2006-01-01T00:00:00Z"
 }
 
 variable "aks_admin_username" {
