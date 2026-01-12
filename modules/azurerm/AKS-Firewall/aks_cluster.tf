@@ -34,6 +34,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
   upgrade_override {
     force_upgrade_enabled = var.force_upgrade_enabled
+    effective_until       = var.effect_until_date_force_upgrade
   }
 
   lifecycle {
