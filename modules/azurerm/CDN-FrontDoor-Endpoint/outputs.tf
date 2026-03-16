@@ -27,3 +27,8 @@ output "host_name" {
   depends_on = [azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint]
   value      = azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint.host_name
 }
+
+output "name" {
+  depends_on = [azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint]
+  value      = azurerm_cdn_frontdoor_endpoint.cdn_frontdoor_endpoint.name
+}
