@@ -18,3 +18,13 @@ output "service_endpoint_name" {
   value      = azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.service_endpoint_name
   depends_on = [azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr]
 }
+
+output "workload_identity_federation_issuer" {
+  value      = var.authentication_scheme == "WorkloadIdentityFederation" ? azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.workload_identity_federation_issuer : null
+  depends_on = [azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr]
+}
+
+output "workload_identity_federation_subject" {
+  value      = var.authentication_scheme == "WorkloadIdentityFederation" ? azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr.workload_identity_federation_subject : null
+  depends_on = [azuredevops_serviceendpoint_azurecr.serviceendpoint_azurecr]
+}
