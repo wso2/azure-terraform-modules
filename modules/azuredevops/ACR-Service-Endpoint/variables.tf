@@ -48,3 +48,15 @@ variable "acr_subscription_name" {
   description = "The subscription name of the Azure targets."
   type        = string
 }
+
+variable "authentication_scheme" {
+  description = "The authentication scheme to use for the service endpoint. Possible values are WorkloadIdentityFederation, ManagedServiceIdentity or ServicePrincipal."
+  type        = string
+  default     = "ServicePrincipal"
+}
+
+variable "service_principal_id" {
+  description = "The service principal application Id."
+  type        = string
+  default     = null
+}

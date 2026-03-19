@@ -27,11 +27,21 @@ variable "description" {
 variable "service_principal_id" {
   description = "The service principal application Id."
   type        = string
+  default     = null
 }
 
 variable "service_principal_key" {
   description = "The service principal secret."
   type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "service_principal_certificate" {
+  description = "The service principal certificate."
+  type        = string
+  default     = null
+  sensitive   = true
 }
 
 variable "tenant_id" {
@@ -47,4 +57,10 @@ variable "subscription_id" {
 variable "subscription_name" {
   description = "The Subscription Name of the targets."
   type        = string
+}
+
+variable "authentication_scheme" {
+  description = "The authentication scheme to use for the service endpoint. Possible values are WorkloadIdentityFederation, ManagedServiceIdentity or ServicePrincipal."
+  type        = string
+  default     = "ServicePrincipal"
 }
