@@ -34,12 +34,14 @@ variable "service_principal_key" {
   description = "The service principal secret."
   type        = string
   default     = null
+  sensitive   = true
 }
 
 variable "service_principal_certificate" {
   description = "The service principal certificate."
   type        = string
   default     = null
+  sensitive   = true
 }
 
 variable "tenant_id" {
