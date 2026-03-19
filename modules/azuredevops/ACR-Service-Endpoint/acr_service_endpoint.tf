@@ -10,12 +10,20 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuredevops_serviceendpoint_azurecr" "serviceendpoint_azurecr" {
-  project_id                = var.project_id
-  service_endpoint_name     = var.service_endpoint_name
-  resource_group            = var.acr_rg_name
-  description               = var.description
-  azurecr_spn_tenantid      = var.acr_spn_tenant_id
-  azurecr_name              = var.acr_name
-  azurecr_subscription_id   = var.acr_subscription_id
-  azurecr_subscription_name = var.acr_subscription_name
+  project_id                             = var.project_id
+  service_endpoint_name                  = var.service_endpoint_name
+  resource_group                         = var.acr_rg_name
+  description                            = var.description
+  azurecr_spn_tenantid                   = var.acr_spn_tenant_id
+  azurecr_name                           = var.acr_name
+  azurecr_subscription_id                = var.acr_subscription_id
+  azurecr_subscription_name              = var.acr_subscription_name
+  service_endpoint_authentication_scheme = var.authentication_scheme
+
+  dynamic "credentials" {
+    for_each = var.service_principal_id != null ? [1] : []
+    content {
+      serviceprincipalid = var.service_principal_id
+    }
+  }
 }
