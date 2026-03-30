@@ -24,7 +24,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "scheduled_query_rules_al
   tags                = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
-    action_group = each.value.action_group_id_list
+    action_group           = each.value.action_group_id_list
+    custom_webhook_payload = each.value.custom_webhook_payload
   }
 
   trigger {
@@ -55,7 +56,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "count_trigger_scheduled_
   tags                = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
-    action_group = each.value.action_group_id_list
+    action_group           = each.value.action_group_id_list
+    custom_webhook_payload = each.value.custom_webhook_payload
   }
 
   trigger {
