@@ -52,6 +52,7 @@ variable "metric_alerts_with_2_dimensions" {
     dimension_2_name          = string
     dimension_2_operator      = string
     dimension_2_values        = list(string)
+    webhook_properties        = optional(map(string))
   }))
 }
 
@@ -74,6 +75,7 @@ variable "metric_alerts_with_1_dimension" {
     dimension_1_name          = string
     dimension_1_operator      = string
     dimension_1_values        = list(string)
+    webhook_properties        = optional(map(string))
   }))
 }
 
@@ -93,6 +95,7 @@ variable "metric_alerts" {
     criteria_aggregation      = string
     criteria_operator         = string
     criteria_threshold        = number
+    webhook_properties        = optional(map(string))
   }))
 }
 

@@ -44,6 +44,7 @@ variable "query_rules_alert" {
       number_of_evaluation_periods             = number
     }))
     metric_measure_column = string
+    custom_properties     = optional(map(string))
   }))
 }
 
@@ -61,6 +62,7 @@ variable "count_trigger_query_rules_alert" {
     window_duration      = string
     operator             = string
     threshold            = number
+    custom_properties    = optional(map(string))
   }))
 }
 

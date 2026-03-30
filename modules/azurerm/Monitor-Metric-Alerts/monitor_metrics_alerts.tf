@@ -43,7 +43,8 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_2_dimensions"
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
 
@@ -75,7 +76,8 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_1_dimension" 
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
 
@@ -101,6 +103,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }

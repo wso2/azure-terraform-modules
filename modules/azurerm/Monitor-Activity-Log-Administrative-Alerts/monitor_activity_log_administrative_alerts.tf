@@ -26,6 +26,7 @@ resource "azurerm_monitor_activity_log_alert" "monitor_activity_log_administrati
   }
 
   action {
-    action_group_id = each.value.monitor_action_group_id
+    action_group_id    = each.value.monitor_action_group_id
+    webhook_properties = each.value.webhook_properties
   }
 }
