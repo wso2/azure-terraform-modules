@@ -37,7 +37,7 @@ variable "query_rules_alert" {
     metric_threshold           = number
     metric_trigger_type        = string
     metric_column              = string
-    custom_webhook_payload     = string
+    custom_webhook_payload     = optional(string)
   }))
 }
 
@@ -55,7 +55,7 @@ variable "count_trigger_query_rules_alert" {
     time_window                = number
     operator                   = string
     threshold                  = number
-    custom_webhook_payload     = string
+    custom_webhook_payload     = optional(string)
   }))
 }
 
