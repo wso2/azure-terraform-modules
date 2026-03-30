@@ -34,7 +34,7 @@ variable "recommendation_alerts" {
     monitor_action_group_id = string
     recommendation_impact   = string
     scopes                  = list(string)
-    webhook_properties      = map(string)
+    webhook_properties      = optional(map(string))
   }))
 }
 
@@ -48,7 +48,7 @@ variable "activity_log_alerts" {
     location                = string
     monitor_action_group_id = string
     scopes                  = list(string)
-    webhook_properties      = map(string)
+    webhook_properties      = optional(map(string))
   }))
 }
 
@@ -70,7 +70,7 @@ variable "resource_health_alerts" {
     target_resource_group   = string
     target_resource_id      = string
     target_resource_type    = string
-    webhook_properties      = map(string)
+    webhook_properties      = optional(map(string))
   }))
 }
 
@@ -87,7 +87,7 @@ variable "service_health_alerts" {
     scopes                  = list(string)
     targetEvents            = list(string)
     targetLocations         = list(string)
-    webhook_properties      = map(string)
+    webhook_properties      = optional(map(string))
   }))
 }
 
@@ -104,7 +104,7 @@ variable "specific_service_health_alerts" {
     targetEvents            = list(string)
     targetLocations         = list(string)
     targetServices          = list(string)
-    webhook_properties      = map(string)
+    webhook_properties      = optional(map(string))
   }))
 }
 

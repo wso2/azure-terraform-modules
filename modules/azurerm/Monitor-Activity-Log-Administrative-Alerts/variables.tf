@@ -36,6 +36,7 @@ variable "activity_log_administrative_alerts" {
     operation_name                  = string
     resource_id                     = string
     scopes                          = list(string)
+    webhook_properties              = optional(map(string))
   }))
 }
 

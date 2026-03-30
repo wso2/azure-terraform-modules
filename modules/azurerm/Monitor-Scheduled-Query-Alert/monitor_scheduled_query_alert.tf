@@ -23,7 +23,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "scheduled_query_rules
   tags                 = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
-    action_groups = each.value.action_group_id_list
+    action_groups     = each.value.action_group_id_list
+    custom_properties = each.value.custom_properties
   }
 
   criteria {
@@ -69,7 +70,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "count_trigger_schedul
   tags                 = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
-    action_groups = each.value.action_group_id_list
+    action_groups     = each.value.action_group_id_list
+    custom_properties = each.value.custom_properties
   }
 
   criteria {
