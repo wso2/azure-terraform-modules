@@ -44,7 +44,7 @@ variable "query_rules_alert" {
       number_of_evaluation_periods             = number
     }))
     metric_measure_column = string
-    custom_properties    = optional(map(string))
+    custom_properties     = optional(map(string))
   }))
 }
 
