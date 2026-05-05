@@ -32,8 +32,3 @@ output "resource_guid" {
   depends_on = [azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile]
   value      = azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile.resource_guid
 }
-
-output "identity" {
-  depends_on = [azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile]
-  value      = azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile.identity
-}
