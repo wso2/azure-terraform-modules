@@ -26,6 +26,18 @@ resource "azurerm_cdn_frontdoor_route" "cdn_frontdoor_route" {
   cdn_frontdoor_rule_set_ids    = var.cdn_frontdoor_rule_set_ids
   enabled                       = var.enable_route
 
+/*
+We are adding this life cycle block to prevent the cyclic dependency with the azapi/FrontDoorRouteRuleSetOrderUpdate module
+and prevent the duplicate modifications. 
+
+And current route module does not provide the feature to set the priority order when attaching the rule sets,
+beacuse of that we had to use the azapi/FrontDoorRouteRuleSetOrderUpdate module and use az api to update the 
+route in front-door
+*/
+  lifecycle {
+    ignore_changes = [cdn_frontdoor_rule_set_ids]
+  }
+
   forwarding_protocol    = var.forwarding_protocol
   https_redirect_enabled = var.https_redirect_enabled
   patterns_to_match      = var.patterns_to_match
