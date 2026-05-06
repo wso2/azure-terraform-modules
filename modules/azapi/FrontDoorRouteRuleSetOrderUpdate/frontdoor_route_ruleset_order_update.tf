@@ -25,12 +25,12 @@ resource "azapi_update_resource" "route_ruleset_order" {
   type        = "Microsoft.Cdn/profiles/afdEndpoints/routes@${var.api_version}"
   resource_id = each.value.route_id
 
-  body = {
+  body = jsonencode({
     properties = {
       ruleSets = [
         for ruleset_id in each.value.rule_set_ids :
         { id = ruleset_id }
       ]
     }
-  }
+  })
 }
