@@ -24,4 +24,12 @@ resource "azurerm_cdn_frontdoor_profile" "cdn_frontdoor_profile" {
   sku_name                 = var.sku_name
   response_timeout_seconds = var.response_timeout_seconds
   tags                     = var.tags
+
+  dynamic "identity" {
+    for_each = var.identity != null ? [var.identity] : []
+    content {
+      type         = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
+  }
 }

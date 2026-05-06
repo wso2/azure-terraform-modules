@@ -51,3 +51,12 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "identity" {
+  description = "The identity block for the CDN Frontdoor Profile."
+  type = object({
+    type         = string
+    identity_ids = optional(list(string), [])
+  })
+  default = null
+}
