@@ -38,10 +38,10 @@ variable "cdn_frontdoor_origin_ids" {
   type        = list(string)
 }
 
-variable "cdn_frontdoor_rule_set_ids" {
+/* variable "cdn_frontdoor_rule_set_ids" {
   description = "The IDs of the Front Door Rule Sets."
   type        = list(string)
-}
+} */
 
 variable "enable_route" {
   description = "Is the route enabled?"
