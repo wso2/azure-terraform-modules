@@ -114,3 +114,9 @@ variable "cross_tenant_replication_enabled" {
   description = "Enable or disable cross tenant replication"
   type        = bool
 }
+
+variable "account_kind" {
+  description = "Defines the Kind of the storage account"
+  type        = string
+  default     = "FileStorage"
+}

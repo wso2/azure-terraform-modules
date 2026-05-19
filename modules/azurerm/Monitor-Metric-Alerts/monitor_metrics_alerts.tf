@@ -11,7 +11,7 @@
 
 resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_2_dimensions" {
   for_each             = var.metric_alerts_with_2_dimensions
-  name                 = join("-", [var.monitor_metric_alert_abbreviation, each.value.alert_name])
+  name                 = join("-", compact([var.monitor_metric_alert_abbreviation, each.value.alert_name]))
   resource_group_name  = var.resource_group_name
   tags                 = var.tags
   scopes               = each.value.scopes
@@ -50,7 +50,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_2_dimensions"
 
 resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_1_dimension" {
   for_each             = var.metric_alerts_with_1_dimension
-  name                 = join("-", [var.monitor_metric_alert_abbreviation, each.value.alert_name])
+  name                 = join("-", compact([var.monitor_metric_alert_abbreviation, each.value.alert_name]))
   resource_group_name  = var.resource_group_name
   tags                 = var.tags
   scopes               = each.value.scopes
@@ -83,7 +83,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert_with_1_dimension" 
 
 resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   for_each                 = var.metric_alerts
-  name                     = join("-", [var.monitor_metric_alert_abbreviation, each.value.alert_name])
+  name                     = join("-", compact([var.monitor_metric_alert_abbreviation, each.value.alert_name]))
   resource_group_name      = var.resource_group_name
   tags                     = var.tags
   scopes                   = each.value.scopes
