@@ -58,3 +58,9 @@ variable "public_ip_abbreviation" {
   type        = string
   default     = "pip"
 }
+
+variable "zones" {
+  description = "The availability zones of the Public IP."
+  type        = list(number)
+  default     = [1, 2, 3]
+}

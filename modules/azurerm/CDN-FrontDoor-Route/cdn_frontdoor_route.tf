@@ -24,9 +24,9 @@ resource "azurerm_cdn_frontdoor_route" "cdn_frontdoor_route" {
   cdn_frontdoor_origin_group_id = var.cdn_frontdoor_origin_group_id
   cdn_frontdoor_origin_ids      = var.cdn_frontdoor_origin_ids
   #cdn_frontdoor_rule_set_ids    = var.cdn_frontdoor_rule_set_ids
-  enabled                       = var.enable_route
+  enabled = var.enable_route
 
-/*
+  /*
 Current route module does not provide the feature to set the priority order when attaching the rule sets,
 beacuse of that we had to use the azapi/FrontDoorRouteRuleSetOrderUpdate module and use az api to update the 
 route in front-door

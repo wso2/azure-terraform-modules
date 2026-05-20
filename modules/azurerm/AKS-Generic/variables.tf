@@ -328,3 +328,39 @@ variable "default_node_pool_max_surge" {
   type        = string
   default     = "10%"
 }
+
+variable "aks_cluster_abbreviation" {
+  description = "Abbreviation to be used in naming the AKS cluster and its resources"
+  type        = string
+  default     = "aks"
+}
+
+variable "resource_group_abbreviation" {
+  description = "Abbreviation to be used in naming the resource groups of the AKS cluster and its resources"
+  type        = string
+  default     = "rg"
+}
+
+variable "aks_node_pool_abbreviation" {
+  description = "Abbreviation to be used in naming the node pools of the AKS cluster and its resources"
+  type        = string
+  default     = "aksnp"
+}
+
+variable "aks_node_pool_subnet_network_security_group_abbreviation" {
+  description = "Abbreviation to be used in naming the network security group of the node pool subnet"
+  type        = string
+  default     = "nsg"
+}
+
+variable "aks_node_pool_subnet_route_table_abbreviation" {
+  description = "Abbreviation to be used in naming the route table of the node pool subnet"
+  type        = string
+  default     = "route"
+}
+
+variable "aks_node_pool_subnet_abbreviation" {
+  description = "Abbreviation to be used in naming the node pool subnet"
+  type        = string
+  default     = "snet"
+}

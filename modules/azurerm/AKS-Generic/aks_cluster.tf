@@ -10,12 +10,12 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                                = join("-", ["aks", var.aks_cluster_name])
+  name                                = join("-", compact([var.aks_cluster_abbreviation, var.aks_cluster_name]))
   location                            = var.location
   resource_group_name                 = var.aks_resource_group_name
-  dns_prefix                          = join("-", ["aks", var.aks_cluster_dns_prefix])
+  dns_prefix                          = join("-", compact([var.aks_cluster_abbreviation, var.aks_cluster_dns_prefix]))
   kubernetes_version                  = var.kubernetes_version
-  node_resource_group                 = join("-", ["rg", var.aks_node_pool_resource_group_name])
+  node_resource_group                 = join("-", compact([var.resource_group_abbreviation, var.aks_node_pool_resource_group_name]))
   sku_tier                            = var.sku_tier
   private_cluster_enabled             = var.private_cluster_enabled
   private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enable
@@ -39,7 +39,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 
   default_node_pool {
-    name                         = join("", ["aksnp", var.default_node_pool_name])
+    name                         = join("", compact([var.aks_node_pool_abbreviation, var.default_node_pool_name]))
     node_count                   = var.default_node_pool_count
     vm_size                      = var.default_node_pool_vm_size
     zones                        = var.default_node_pool_availability_zones
