@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+# Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -18,18 +18,12 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_cdn_frontdoor_profile" "cdn_frontdoor_profile" {
-  name                     = join("-", [var.frontdoor_abbreviation, var.frontdoor_profile_name])
-  resource_group_name      = var.resource_group_name
-  sku_name                 = var.sku_name
-  response_timeout_seconds = var.response_timeout_seconds
-  tags                     = var.tags
+output "serviceendpoint_id" {
+  depends_on = [azuredevops_serviceendpoint_dockerregistry.devops_serviceendpoint_dockerregistry]
+  value      = azuredevops_serviceendpoint_dockerregistry.devops_serviceendpoint_dockerregistry.id
+}
 
-  dynamic "identity" {
-    for_each = var.identity != null ? [var.identity] : []
-    content {
-      type         = identity.value.type
-      identity_ids = identity.value.identity_ids
-    }
-  }
+output "serviceendpoint_name" {
+  depends_on = [azuredevops_serviceendpoint_dockerregistry.devops_serviceendpoint_dockerregistry]
+  value      = azuredevops_serviceendpoint_dockerregistry.devops_serviceendpoint_dockerregistry.service_endpoint_name
 }

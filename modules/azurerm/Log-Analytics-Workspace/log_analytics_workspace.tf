@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
-  name                       = join("-", [var.log_analytics_abbreviation, var.log_analytics_workspace_name])
+  name                       = join("-", compact([var.log_analytics_abbreviation, var.log_analytics_workspace_name]))
   location                   = var.location
   resource_group_name        = var.resource_group_name
   sku                        = var.log_analytics_workspace_sku
@@ -27,7 +27,7 @@ resource "azurerm_log_analytics_solution" "log_analytics_solution" {
   location              = var.location
   resource_group_name   = var.resource_group_name
   workspace_resource_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
-  workspace_name        = join("-", [var.log_analytics_abbreviation, var.log_analytics_workspace_name])
+  workspace_name        = join("-", compact([var.log_analytics_abbreviation, var.log_analytics_workspace_name]))
   depends_on = [
     azurerm_log_analytics_workspace.log_analytics_workspace
   ]

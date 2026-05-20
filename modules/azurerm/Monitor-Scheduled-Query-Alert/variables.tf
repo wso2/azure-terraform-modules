@@ -71,3 +71,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "scheduled_query_alert_abbreviation" {
+  description = "Abbreviation for the scheduled query alert name"
+  type        = string
+  default     = "sqra"
+}

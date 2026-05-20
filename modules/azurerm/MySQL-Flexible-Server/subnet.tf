@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+# Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -18,18 +18,23 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_cdn_frontdoor_profile" "cdn_frontdoor_profile" {
-  name                     = join("-", [var.frontdoor_abbreviation, var.frontdoor_profile_name])
-  resource_group_name      = var.resource_group_name
-  sku_name                 = var.sku_name
-  response_timeout_seconds = var.response_timeout_seconds
-  tags                     = var.tags
+resource "azurerm_subnet" "mysql_server_subnet" {
+  name                 = join("-", compact([var.subnet_abbreviation, var.subnet_name]))
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = var.virtual_network_name
+  address_prefixes     = var.address_prefix
+  service_endpoints    = var.service_endpoints
 
-  dynamic "identity" {
-    for_each = var.identity != null ? [var.identity] : []
+  dynamic "delegation" {
+    for_each = var.delegations
+
     content {
-      type         = identity.value.type
-      identity_ids = identity.value.identity_ids
+      name = delegation.value.name
+
+      service_delegation {
+        name    = delegation.value.service_name
+        actions = delegation.value.actions
+      }
     }
   }
 }

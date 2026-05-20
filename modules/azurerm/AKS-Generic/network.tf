@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "aks_node_pool_subnet" {
-  name                              = join("-", ["snet", var.aks_node_pool_subnet_name])
+  name                              = join("-", compact([var.aks_node_pool_subnet_abbreviation, var.aks_node_pool_subnet_name]))
   resource_group_name               = local.virtual_network_resource_group_name
   virtual_network_name              = var.virtual_network_name
   address_prefixes                  = [var.aks_node_pool_subnet_address_prefix]
@@ -19,7 +19,7 @@ resource "azurerm_subnet" "aks_node_pool_subnet" {
 }
 
 resource "azurerm_route_table" "aks_node_pool_route_table" {
-  name                = join("-", ["route", var.aks_node_pool_subnet_route_table_name])
+  name                = join("-", compact([var.aks_node_pool_subnet_route_table_abbreviation, var.aks_node_pool_subnet_route_table_name]))
   location            = var.location
   resource_group_name = local.virtual_network_resource_group_name
   tags                = var.tags
@@ -43,7 +43,7 @@ resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
 
 resource "azurerm_network_security_group" "aks_node_pool_subnet_nsg" {
   location            = var.location
-  name                = join("-", ["nsg", var.aks_node_pool_subnet_network_security_group_name])
+  name                = join("-", compact([var.aks_node_pool_subnet_network_security_group_abbreviation, var.aks_node_pool_subnet_network_security_group_name]))
   resource_group_name = local.virtual_network_resource_group_name
 }
 
