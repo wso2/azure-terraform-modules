@@ -17,7 +17,7 @@ resource "azurerm_mssql_database" "mssql_database" {
   read_scale                     = var.read_scale
   sku_name                       = var.sku_name
   min_capacity                   = var.min_capacity
-  max_size_gb                    = var.max_size_gb
+  max_size_gb                    = startswith(var.sku_name, "HS_") ? null : var.max_size_gb
   auto_pause_delay_in_minutes    = var.auto_pause_delay_in_minutes
   zone_redundant                 = var.zone_redundant
   maintenance_configuration_name = var.maintenance_configuration_name
