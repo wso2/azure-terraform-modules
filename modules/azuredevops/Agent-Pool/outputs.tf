@@ -20,5 +20,5 @@
 
 output "agent_pool_id" {
   description = "The ID of the Azure DevOps agent pool"
-  value       = azuredevops_agent_pool.agent-pool.id
+  value       = azuredevops_agent_pool.agent_pool.id
 }

@@ -18,7 +18,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azuredevops_agent_pool" "agent-pool" {
+resource "azuredevops_agent_pool" "agent_pool" {
   name           = var.agent_pool_name
   auto_provision = var.auto_provision
   auto_update    = var.auto_update
