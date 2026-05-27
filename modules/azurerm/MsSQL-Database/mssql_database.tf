@@ -22,6 +22,7 @@ resource "azurerm_mssql_database" "mssql_database" {
   zone_redundant                 = var.zone_redundant
   maintenance_configuration_name = var.maintenance_configuration_name
   tags                           = var.tags
+  read_replica_count             = startswith(var.sku_name, "HS_") ? var.read_replica_count : null
 
   short_term_retention_policy {
     retention_days = var.short_term_retention_policy_retention_days
