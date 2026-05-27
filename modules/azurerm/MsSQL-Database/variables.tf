@@ -27,7 +27,7 @@ variable "server_id" {
 
 variable "read_scale" {
   default     = true
-  description = "Boolean flag which controls if read scale is enabled for the database"
+  description = "If enabled, connections that have application intent set to readonly in their connection string may be routed to a readonly secondary replica. This property is only settable for Premium and Business Critical databases."
   type        = bool
 }
 
@@ -86,4 +86,10 @@ variable "mssql_database_abbreviation" {
   description = "The abbreviation of the resource name."
   type        = string
   default     = "sqldb"
+}
+
+variable "read_replica_count" {
+  default     = 0
+  description = "The number of readonly secondary replicas associated with the database to which readonly application intent connections may be routed. This property is only settable for Hyperscale edition databases."
+  type        = number
 }
