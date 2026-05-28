@@ -18,7 +18,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-
 variable "agent_pool_name" {
   description = "Azure DevOps agent pool name"
   type        = string
