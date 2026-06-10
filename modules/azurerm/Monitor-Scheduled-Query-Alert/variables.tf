@@ -31,6 +31,8 @@ variable "query_rules_alert" {
     severity                = number
     evaluation_frequency    = string
     window_duration         = string
+    skip_query_validation   = optional(bool, false)
+    target_resource_types   = optional(list(string))
     operator                = string
     threshold               = number
     time_aggregation_method = string
@@ -51,18 +53,20 @@ variable "query_rules_alert" {
 variable "count_trigger_query_rules_alert" {
   description = "Map of count trigger query rules alert"
   type = map(object({
-    action_group_id_list = list(string)
-    alert_name           = string
-    scope_list           = list(string)
-    description          = string
-    query_enabled        = bool
-    query                = string
-    severity             = number
-    evaluation_frequency = string
-    window_duration      = string
-    operator             = string
-    threshold            = number
-    custom_properties    = optional(map(string))
+    action_group_id_list  = list(string)
+    alert_name            = string
+    scope_list            = list(string)
+    description           = string
+    query_enabled         = bool
+    query                 = string
+    severity              = number
+    evaluation_frequency  = string
+    window_duration       = string
+    skip_query_validation = optional(bool, false)
+    target_resource_types = optional(list(string))
+    operator              = string
+    threshold             = number
+    custom_properties     = optional(map(string))
   }))
 }
 
