@@ -10,17 +10,19 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "scheduled_query_rules_alert" {
-  for_each             = var.query_rules_alert
-  name                 = join("-", compact([var.scheduled_query_alert_abbreviation, each.value.alert_name]))
-  location             = var.location
-  resource_group_name  = var.resource_group_name
-  scopes               = each.value.scope_list
-  description          = each.value.description
-  enabled              = each.value.query_enabled
-  severity             = each.value.severity
-  evaluation_frequency = each.value.evaluation_frequency
-  window_duration      = each.value.window_duration
-  tags                 = merge(var.tags, { "enabled" : each.value.query_enabled })
+  for_each              = var.query_rules_alert
+  name                  = join("-", compact([var.scheduled_query_alert_abbreviation, each.value.alert_name]))
+  location              = var.location
+  resource_group_name   = var.resource_group_name
+  scopes                = each.value.scope_list
+  description           = each.value.description
+  enabled               = each.value.query_enabled
+  severity              = each.value.severity
+  evaluation_frequency  = each.value.evaluation_frequency
+  window_duration       = each.value.window_duration
+  skip_query_validation = each.value.skip_query_validation
+  target_resource_types = each.value.target_resource_types
+  tags                  = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
     action_groups     = each.value.action_group_id_list
@@ -57,17 +59,19 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "scheduled_query_rules
 }
 
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "count_trigger_scheduled_query_rules_alert" {
-  for_each             = var.count_trigger_query_rules_alert
-  name                 = join("-", compact([var.scheduled_query_alert_abbreviation, each.value.alert_name]))
-  location             = var.location
-  resource_group_name  = var.resource_group_name
-  scopes               = each.value.scope_list
-  description          = each.value.description
-  enabled              = each.value.query_enabled
-  severity             = each.value.severity
-  evaluation_frequency = each.value.evaluation_frequency
-  window_duration      = each.value.window_duration
-  tags                 = merge(var.tags, { "enabled" : each.value.query_enabled })
+  for_each              = var.count_trigger_query_rules_alert
+  name                  = join("-", compact([var.scheduled_query_alert_abbreviation, each.value.alert_name]))
+  location              = var.location
+  resource_group_name   = var.resource_group_name
+  scopes                = each.value.scope_list
+  description           = each.value.description
+  enabled               = each.value.query_enabled
+  severity              = each.value.severity
+  evaluation_frequency  = each.value.evaluation_frequency
+  window_duration       = each.value.window_duration
+  skip_query_validation = each.value.skip_query_validation
+  target_resource_types = each.value.target_resource_types
+  tags                  = merge(var.tags, { "enabled" : each.value.query_enabled })
 
   action {
     action_groups     = each.value.action_group_id_list
