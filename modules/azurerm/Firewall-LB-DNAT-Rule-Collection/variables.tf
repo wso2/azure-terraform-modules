@@ -32,9 +32,9 @@ variable "priority" {
 variable "dynamic_nat_rules" {
   description = "Map of nat rules"
   type = map(object({
-    private_ip_address     = string
-    nat_rule_name_shortned = string
-    public_ip_address      = string
+    private_ip_address      = string
+    nat_rule_name_shortened = string
+    public_ip_address       = string
   }))
 }
 

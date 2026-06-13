@@ -85,11 +85,11 @@ variable "dynamic_nat_rule_collection_priority" {
 variable "dynamic_nat_rules" {
   description = "Map of nat rules"
   type = map(object({
-    public_ip_name         = string
-    private_ip_address     = string
-    nat_rule_name_shortned = string
-    fw_ip_association_name = string
-    public_ip_prefix_id    = string
+    public_ip_name          = string
+    private_ip_address      = string
+    nat_rule_name_shortened = string
+    fw_ip_association_name  = string
+    public_ip_prefix_id     = string
   }))
 }
 

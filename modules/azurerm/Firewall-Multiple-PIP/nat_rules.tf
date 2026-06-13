@@ -21,7 +21,7 @@ resource "azurerm_firewall_nat_rule_collection" "public_loadbalancer_dnat_rules"
     iterator = ip
 
     content {
-      name = join("-", ["internal", var.dynamic_nat_rules[ip.key].nat_rule_name_shortned, "dnat-rule-443", ip.key])
+      name = join("-", ["internal", var.dynamic_nat_rules[ip.key].nat_rule_name_shortened, "dnat-rule-443", ip.key])
       source_addresses = [
         "*",
       ]
