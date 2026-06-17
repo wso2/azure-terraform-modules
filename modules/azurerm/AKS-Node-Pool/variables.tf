@@ -110,3 +110,9 @@ variable "node_pool_upgrade_max_surge" {
   description = "Maximum surge for node pool upgrades"
   type        = string
 }
+
+variable "node_pool_upgrade_undrainable_node_behavior" {
+  default     = null
+  description = "Behavior for undrainable nodes during node pool upgrades"
+  type        = string
+}

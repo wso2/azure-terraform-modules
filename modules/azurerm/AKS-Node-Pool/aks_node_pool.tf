@@ -32,6 +32,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
     drain_timeout_in_minutes      = var.node_pool_upgrade_drain_timeout
     node_soak_duration_in_minutes = var.node_pool_upgrade_soak_duration
     max_surge                     = var.node_pool_upgrade_max_surge
+    undrainable_node_behavior     = var.node_pool_upgrade_undrainable_node_behavior
   }
 
   lifecycle {
