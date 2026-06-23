@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_cdn_frontdoor_origin_group" "cdn_frontdoor_origin_group" {
-  name                     = join("-", [var.origin_group_name, var.origin_group_suffix])
+  name                     = join("-", compact([var.origin_group_name, var.origin_group_suffix]))
   cdn_frontdoor_profile_id = var.cdn_frontdoor_profile_id
   session_affinity_enabled = var.enable_session_affinity
 
