@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "azurerm_cdn_frontdoor_custom_domain" "cdn_frontdoor_custom_domain" {
-  name                     = join("-", [var.custom_domain_name, var.custom_domain_suffix])
+  name                     = join("-", compact([var.custom_domain_name, var.custom_domain_suffix]))
   cdn_frontdoor_profile_id = var.cdn_frontdoor_profile_id
   dns_zone_id              = var.dns_zone_id
   host_name                = var.host_name
