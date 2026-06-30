@@ -184,6 +184,12 @@ variable "log_analytics_workspace_id" {
   type        = string
 }
 
+variable "msi_auth_for_monitoring_enabled" {
+  description = "Enable MSI auth for monitoring"
+  type        = bool
+  default     = false
+}
+
 variable "azure_policy_enabled" {
   description = "Enable Azure policy"
   type        = bool
