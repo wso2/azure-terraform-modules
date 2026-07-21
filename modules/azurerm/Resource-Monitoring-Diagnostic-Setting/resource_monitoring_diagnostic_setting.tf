@@ -27,6 +27,8 @@ resource "azurerm_monitor_diagnostic_setting" "resource_monitoring_diagnostic_se
   target_resource_id             = var.sub_service_id != "" ? "${var.target_resource_id}/${var.sub_service_id}" : var.target_resource_id
   log_analytics_workspace_id     = var.archival_locations.log_analytics_workspace_id != "" ? var.archival_locations.log_analytics_workspace_id : null
   storage_account_id             = var.archival_locations.archival_storage_account_id != "" ? var.archival_locations.archival_storage_account_id : null
+  eventhub_authorization_rule_id = var.archival_locations.eventhub_authorization_rule_id != "" ? var.archival_locations.eventhub_authorization_rule_id : null
+  eventhub_name                  = var.archival_locations.eventhub_name != "" ? var.archival_locations.eventhub_name : null
   log_analytics_destination_type = var.log_analytics_destination_type
 
   dynamic "enabled_log" {

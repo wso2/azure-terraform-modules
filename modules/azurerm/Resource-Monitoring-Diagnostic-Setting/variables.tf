@@ -30,16 +30,20 @@ variable "target_resource_id" {
 
 variable "archival_locations" {
   type = object({
-    archival_storage_account_id = string,
-    log_analytics_workspace_id  = string
+    archival_storage_account_id    = string,
+    log_analytics_workspace_id     = string,
+    eventhub_authorization_rule_id = string,
+    eventhub_name                  = string
   })
   description = "Locations to extract Log files to keep empty if not required"
   default = {
-    archival_storage_account_id = "",
-    log_analytics_workspace_id  = ""
+    archival_storage_account_id    = "",
+    log_analytics_workspace_id     = "",
+    eventhub_authorization_rule_id = "",
+    eventhub_name                  = ""
   }
   validation {
-    condition     = var.archival_locations.archival_storage_account_id != "" || var.archival_locations.log_analytics_workspace_id != ""
+    condition     = var.archival_locations.archival_storage_account_id != "" || var.archival_locations.log_analytics_workspace_id != "" || var.archival_locations.eventhub_authorization_rule_id != ""
     error_message = "Please specify at least one locations to send Logs."
   }
 }
