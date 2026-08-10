@@ -34,8 +34,13 @@ variable "build_definition_id" {
 }
 
 variable "permissions" {
-  description = "A map of permissions to assign. Each value must be Allow, Deny, or NotSet. Valid keys: ViewBuilds, EditBuildQuality, RetainIndefinitely, DeleteBuilds, ManageBuildQualities, DestroyBuilds, UpdateBuildInformation, QueueBuilds, ManageBuildQueue, StopBuilds, ViewBuildDefinition, EditBuildDefinition, DeleteBuildDefinition, OverrideBuildCheckInValidation, AdministerBuildPermissions, CreateBuildDefinition, EditPipelineQueueConfigurationPermission."
+  description = "A map of permissions to assign. Each value must be Allow or Deny. Valid keys: ViewBuilds, EditBuildQuality, RetainIndefinitely, DeleteBuilds, ManageBuildQualities, DestroyBuilds, UpdateBuildInformation, QueueBuilds, ManageBuildQueue, StopBuilds, ViewBuildDefinition, EditBuildDefinition, DeleteBuildDefinition, OverrideBuildCheckInValidation, AdministerBuildPermissions, CreateBuildDefinition, EditPipelineQueueConfigurationPermission."
   type        = map(string)
+
+  validation {
+    condition     = alltrue([for v in values(var.permissions) : contains(["Allow", "Deny"], v)])
+    error_message = "Each permission value must be one of: Allow, Deny."
+  }
 }
 
 variable "replace" {

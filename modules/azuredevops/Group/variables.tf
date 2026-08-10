@@ -22,12 +22,22 @@ variable "scope" {
   description = "The scope of the group. A descriptor referencing the scope (collection, project) in which the group should be created. If omitted, will be created in the scope of the enclosing account or organization. Cannot be used simultaneously with origin_id or mail."
   type        = string
   default     = null
+
+  validation {
+    condition     = var.scope == null || (var.origin_id == null && var.mail == null)
+    error_message = "scope cannot be used simultaneously with origin_id or mail."
+  }
 }
 
 variable "display_name" {
-  description = "The name of a new Azure DevOps group that is not backed by an external provider. Cannot be used simultaneously with origin_id or mail."
+  description = "The name of a new Azure DevOps group that is not backed by an external provider. Cannot be used simultaneously with origin_id or mail. Exactly one of display_name, origin_id, or mail must be set."
   type        = string
   default     = null
+
+  validation {
+    condition     = length([for v in [var.display_name, var.origin_id, var.mail] : v if v != null]) == 1
+    error_message = "Exactly one of display_name, origin_id, or mail must be set."
+  }
 }
 
 variable "origin_id" {
