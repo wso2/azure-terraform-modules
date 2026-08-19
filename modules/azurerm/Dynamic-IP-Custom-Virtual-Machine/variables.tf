@@ -76,7 +76,7 @@ variable "public_key_path" {
 variable "tags" {
   description = "Default tag list"
   type        = map(string)
-  default = {}
+  default     = {}
 }
 
 variable "subnet_id" {
