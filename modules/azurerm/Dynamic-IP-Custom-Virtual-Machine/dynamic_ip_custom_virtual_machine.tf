@@ -38,8 +38,8 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
 
   os_disk {
     name                 = join("", [var.os_disk_abbreviation, var.os_disk_name])
-    storage_account_type = "Standard_LRS"
-    caching              = "ReadWrite"
+    storage_account_type = var.os_disk_storage_account_type
+    caching              = var.os_disk_caching
     disk_size_gb         = var.os_disk_size_gb
   }
 

@@ -129,3 +129,15 @@ variable "public_ip_address_id" {
   description = "The ID of the public IP address to associate with the network interface."
   type        = string
 }
+
+variable "os_disk_storage_account_type" {
+  description = "Storage account type for OS disk"
+  type        = string
+  default     = "Standard_LRS"
+}
+
+variable "os_disk_caching" {
+  description = "caching for OS disk"
+  type        = string
+  default     = "ReadWrite"
+}
