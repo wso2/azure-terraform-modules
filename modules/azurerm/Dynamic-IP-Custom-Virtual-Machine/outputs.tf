@@ -24,8 +24,8 @@ output "vm_id" {
 }
 
 output "network_interface_id" {
-  value      = azurerm_network_interface.dynamic_ip_vm_nic.id
-  depends_on = [azurerm_network_interface.dynamic_ip_vm_nic]
+  value      = azurerm_network_interface.nic.id
+  depends_on = [azurerm_network_interface.nic]
 }
 
 output "vm_identity_object_id" {
