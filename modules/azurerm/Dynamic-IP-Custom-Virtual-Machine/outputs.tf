@@ -28,7 +28,7 @@ output "network_interface_id" {
   depends_on = [azurerm_network_interface.dynamic_ip_vm_nic]
 }
 
-output "dynamic_ip_vm_identity_object_id" {
+output "vm_identity_object_id" {
   depends_on = [azurerm_linux_virtual_machine.virtual_machine]
   value      = azurerm_linux_virtual_machine.virtual_machine.identity[0].principal_id
 }
