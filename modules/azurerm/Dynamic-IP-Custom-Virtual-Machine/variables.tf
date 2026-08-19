@@ -142,3 +142,4 @@ variable "os_disk_caching" {
   type        = string
   default     = "ReadWrite"
 }
+
