@@ -32,3 +32,4 @@ resource "azurerm_network_interface" "nic" {
     public_ip_address_id          = var.public_ip_address_id
   }
 }
+

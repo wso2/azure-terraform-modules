@@ -32,3 +32,4 @@ output "vm_identity_object_id" {
   depends_on = [azurerm_linux_virtual_machine.virtual_machine]
   value      = azurerm_linux_virtual_machine.virtual_machine.identity[0].principal_id
 }
+
