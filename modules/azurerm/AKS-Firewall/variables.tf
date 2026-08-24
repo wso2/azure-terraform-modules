@@ -334,6 +334,12 @@ variable "default_node_pool_max_surge" {
   default     = "33%"
 }
 
+variable "default_node_pool_temporary_name_for_rotation" {
+  description = "Name of a temporary node pool used to rotate the default node pool in place. Required to change vm_size, os_disk_size_gb or os_disk_type without replacing the whole cluster. Max 12 characters, lowercase alphanumeric, must start with a letter."
+  type        = string
+  default     = null
+}
+
 variable "image_cleaner_interval_hours" {
   description = "Image cleaner interval hours"
   type        = number
