@@ -93,8 +93,9 @@ variable "manifest_files" {
     location     = optional(string)
     content      = optional(string)
     template_map = optional(map(string), {})
+    namespace    = optional(string)
   }))
-  description = "Additional Kubernetes manifests to apply after the Helm releases above - e.g. debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects, ExternalSecrets/ClusterSecretStore for Workload Identity. Content and ordering are entirely caller-supplied. Set content directly to pass already-fetched text instead of rendering location as a local file path."
+  description = "Additional Kubernetes manifests to apply after the Helm releases above - e.g. debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects, ExternalSecrets/ClusterSecretStore for Workload Identity. Content and ordering are entirely caller-supplied. Set content directly to pass already-fetched text instead of rendering location as a local file path. namespace, if set, overrides every object's own embedded metadata.namespace via kubectl_manifest's override_namespace - lets one unmodified source file (no hardcoded namespace, or a namespace meant for a different context) be applied into a different namespace per caller, e.g. the same executor/pipeline WorkflowTemplate applied once per (cloud x env) namespace."
   default     = []
 }
 
