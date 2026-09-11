@@ -198,6 +198,23 @@ resource "azurerm_kubernetes_cluster" "this" {
     os_disk_size_gb              = 128
     max_pods                     = 110
     only_critical_addons_enabled = false
+
+    # Explicit so the azurerm provider stops reporting drift every plan -
+    # earlier provider versions silently defaulted this block to these
+    # exact values; a provider bump made it a real optional/computed
+    # attribute instead, so Terraform started planning to null it out on
+    # every run. That "no-op" diff still forces this whole resource into
+    # "will be updated in-place", which makes the cluster's kube_config
+    # data source (and therefore the kubernetes provider's own host/CA
+    # config) unknown at plan time - breaking every kubernetes_namespace_v1
+    # resource's plan-time refresh with a "connect: connection refused"
+    # to localhost. Found live 2026-09-11 blocking an unrelated
+    # argo_workflows_values change.
+    upgrade_settings {
+      max_surge                     = "10%"
+      drain_timeout_in_minutes      = 0
+      node_soak_duration_in_minutes = 0
+    }
   }
 
   identity {
@@ -264,6 +281,15 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   max_pods              = 110
   mode                  = "User"
   node_taints           = ["env=${var.prod_node_taint_value}:NoSchedule"]
+
+  # See default_node_pool's own upgrade_settings comment above - same
+  # provider-drift fix, needed here too since this pool has its own
+  # independent upgrade_settings block.
+  upgrade_settings {
+    max_surge                     = "10%"
+    drain_timeout_in_minutes      = 0
+    node_soak_duration_in_minutes = 0
+  }
 
   tags = var.tags
 
