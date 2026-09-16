@@ -9,10 +9,9 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azuredevops_resource_authorization" "devops_resource_authorization" {
-  project_id    = var.project_id
-  resource_id   = var.resource_id
-  authorized    = var.authorized
-  definition_id = var.definition_id
-  type          = var.authorized_type
+resource "azuredevops_pipeline_authorization" "devops_resource_authorization" {
+  project_id  = var.project_id
+  resource_id = var.resource_id
+  pipeline_id = var.definition_id
+  type        = var.authorized_type
 }
