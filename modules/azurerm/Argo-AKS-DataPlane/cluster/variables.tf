@@ -118,11 +118,6 @@ variable "internal_lb_subnet_address_prefix" {
   description = "CIDR for AKS's internal load balancer subnet (shared infra, not tier-specific)"
 }
 
-variable "stage_node_count" {
-  type    = number
-  default = 2
-}
-
 variable "stage_node_vm_size" {
   type = string
 }
@@ -147,11 +142,6 @@ variable "stage_node_max_count" {
 variable "prod_subnet_address_prefix" {
   type        = string
   description = "CIDR for the prod tier's dedicated subnet"
-}
-
-variable "prod_node_count" {
-  type    = number
-  default = 2
 }
 
 variable "prod_node_vm_size" {

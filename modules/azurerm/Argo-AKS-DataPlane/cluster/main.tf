@@ -200,16 +200,13 @@ resource "azurerm_kubernetes_cluster" "this" {
     only_critical_addons_enabled = false
 
     # Explicit so the azurerm provider stops reporting drift every plan -
-    # earlier provider versions silently defaulted this block to these
-    # exact values; a provider bump made it a real optional/computed
-    # attribute instead, so Terraform started planning to null it out on
-    # every run. That "no-op" diff still forces this whole resource into
-    # "will be updated in-place", which makes the cluster's kube_config
-    # data source (and therefore the kubernetes provider's own host/CA
-    # config) unknown at plan time - breaking every kubernetes_namespace_v1
-    # resource's plan-time refresh with a "connect: connection refused"
-    # to localhost. Found live 2026-09-11 blocking an unrelated
-    # argo_workflows_values change.
+    # this block is optional/computed, and leaving it unset makes
+    # Terraform plan to null it out on every run. That "no-op" diff still
+    # forces this whole resource into "will be updated in-place", which
+    # makes the cluster's kube_config data source (and therefore the
+    # kubernetes provider's own host/CA config) unknown at plan time -
+    # breaking every kubernetes_namespace_v1 resource's plan-time refresh
+    # with a "connect: connection refused" to localhost.
     upgrade_settings {
       max_surge                     = "10%"
       drain_timeout_in_minutes      = 0
