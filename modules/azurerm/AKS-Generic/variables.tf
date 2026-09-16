@@ -221,18 +221,6 @@ variable "aks_azure_rbac_enabled" {
   type        = bool
 }
 
-variable "oidc_issuer_enabled" {
-  default     = false
-  description = "Enable the built-in OIDC issuer, required for Workload Identity Federation (e.g. External Secrets Operator federated credentials)"
-  type        = bool
-}
-
-variable "workload_identity_enabled" {
-  default     = false
-  description = "Enable Azure AD Workload Identity for the cluster. Requires oidc_issuer_enabled to also be true"
-  type        = bool
-}
-
 # Default Nodepool Configurations
 variable "default_node_pool_count" {
   description = "Number of nodes for the default system nodepool"

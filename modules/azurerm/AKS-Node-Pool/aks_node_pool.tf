@@ -26,7 +26,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
   node_public_ip_enabled = false
   mode                   = var.node_pool_mode
   os_type                = var.node_pool_os_type
-  node_taints            = var.node_taints
   tags                   = var.tags
 
   upgrade_settings {

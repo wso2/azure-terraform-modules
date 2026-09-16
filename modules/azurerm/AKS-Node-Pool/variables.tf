@@ -14,12 +14,6 @@ variable "node_pool_name" {
   type        = string
 }
 
-variable "node_taints" {
-  description = "Taints applied to nodes in this pool, e.g. [\"env=prod:NoSchedule\"], so only workloads that explicitly tolerate them get scheduled here"
-  type        = list(string)
-  default     = []
-}
-
 variable "node_pool_count" {
   description = "Number of nodes in the node pool"
   type        = number

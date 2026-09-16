@@ -49,11 +49,6 @@ output "aks_api_server_identity" {
   value      = azurerm_kubernetes_cluster.aks_cluster.identity[0].principal_id
 }
 
-output "aks_oidc_issuer_url" {
-  depends_on = [azurerm_kubernetes_cluster.aks_cluster]
-  value      = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
-}
-
 output "aks_internal_lb_subnet_id" {
   depends_on = [azurerm_subnet.internal_load_balancer_subnet]
   value      = azurerm_subnet.internal_load_balancer_subnet.id
