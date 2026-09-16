@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = ">= 1.10"
   required_providers {
     # No longer pinned to 4.x - that was only needed to work around
     # deprecated azurerm_subnet arguments in AKS-Generic/Virtual-Network,
