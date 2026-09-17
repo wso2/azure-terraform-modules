@@ -105,7 +105,7 @@ resource "kubernetes_service_account_v1" "federated" {
   for_each = var.federated_service_accounts
 
   metadata {
-    name      = each.key
+    name      = coalesce(each.value.name, each.key)
     namespace = each.value.namespace
     annotations = {
       "azure.workload.identity/client-id" = each.value.client_id

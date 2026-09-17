@@ -124,8 +124,18 @@ variable "federated_service_accounts" {
   type = map(object({
     namespace = string
     client_id = string
+    # Optional - defaults to the map key when unset. Needed because a
+    # pipeline's own WorkflowTemplate hardcodes a fixed
+    # `serviceAccountName` (e.g. "asgardeo-docs-deploy-sa") that must be
+    # identical across every namespace it runs in, but this map's own
+    # keys must be unique - two entries for the SAME SA name in two
+    # different namespaces (stage vs prod) can't both use that name as
+    # their key. Added 2026-09-17 when azure-prod needed a second
+    # "asgardeo-docs-deploy-sa" (a different namespace, not a different
+    # name) alongside stage's.
+    name = optional(string)
   }))
-  description = "ServiceAccounts to create, each annotated with azure.workload.identity/client-id - the identity a ClusterSecretStore's serviceAccountRef (or any other Workload-Identity-authenticated workload) presents. client_id should come from the cluster module's deploy_identity_client_ids output for a matching (namespace, name) entry in its deploy_identities."
+  description = "ServiceAccounts to create, each annotated with azure.workload.identity/client-id - the identity a ClusterSecretStore's serviceAccountRef (or any other Workload-Identity-authenticated workload) presents. client_id should come from the cluster module's deploy_identity_client_ids output for a matching (namespace, name) entry in its deploy_identities. The k8s object's own name is `name` if set, else the map key itself."
   default     = {}
 }
 
