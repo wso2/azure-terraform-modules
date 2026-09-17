@@ -35,6 +35,15 @@ resource "azurerm_resource_group" "this" {
 
 locals {
   resource_group_name = var.create_resource_group ? azurerm_resource_group.this[0].name : var.resource_group_name
+
+  # Storage account names must be <=24 chars, lowercase alphanumeric only.
+  # Reserving exactly enough room for the full suffix keeps it from being
+  # truncated mid-word (previously produced e.g.
+  # "aksargoazuredataplanearg" - "argologs" cut off after "arg" once the
+  # sanitized cluster-name prefix pushed it past 24 chars).
+  cluster_name_sanitized          = lower(replace(var.aks_cluster_name, "-", ""))
+  flow_logs_storage_account_name  = coalesce(var.flow_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("flowlogs"))}flowlogs")
+  argo_logs_storage_account_name  = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
 }
 
 resource "azurerm_virtual_network" "this" {
@@ -278,6 +287,15 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   max_pods              = 110
   mode                  = "User"
   node_taints           = ["env=${var.prod_node_taint_value}:NoSchedule"]
+  # Taint alone only keeps other workloads OFF this pool - anything that
+  # self-selects onto it (nodeSelector: env=prod, e.g. the prod
+  # EventBus/EventSource/Sensor) also needs the matching label, or it
+  # stays Pending forever even with the right toleration. Found live
+  # 2026-09-17: this pool had the taint but no label, so
+  # tasks-azure-prod-eventsource/submit-task-sensor never scheduled.
+  node_labels = {
+    env = var.prod_node_taint_value
+  }
 
   # See default_node_pool's own upgrade_settings comment above - same
   # provider-drift fix, needed here too since this pool has its own
@@ -360,8 +378,7 @@ resource "azurerm_role_assignment" "kms" {
 resource "azurerm_storage_account" "flow_logs" {
   count = var.enable_vpc_flow_logs ? 1 : 0
 
-  # Storage account names must be <=24 chars, lowercase alphanumeric only.
-  name                     = substr(lower(replace("${var.aks_cluster_name}flowlogs", "-", "")), 0, 24)
+  name                     = local.flow_logs_storage_account_name
   resource_group_name      = local.resource_group_name
   location                 = var.location
   account_tier             = "Standard"
@@ -406,7 +423,7 @@ resource "azurerm_network_watcher_flow_log" "prod" {
 resource "azurerm_storage_account" "argo_logs" {
   count = var.enable_artifact_archiving ? 1 : 0
 
-  name                     = substr(lower(replace("${var.aks_cluster_name}argologs", "-", "")), 0, 24)
+  name                     = local.argo_logs_storage_account_name
   resource_group_name      = local.resource_group_name
   location                 = var.location
   account_tier             = "Standard"

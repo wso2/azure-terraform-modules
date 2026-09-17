@@ -261,3 +261,15 @@ variable "workflow_controller_service_account_name" {
   description = "ServiceAccount name the argo-workflows Helm chart creates for workflow-controller - only used to scope the federated identity subject when enable_artifact_archiving is true"
   default     = "argo-workflows-workflow-controller"
 }
+
+variable "argo_logs_storage_account_name" {
+  type        = string
+  description = "Explicit override for the argo_logs Storage Account name. Storage account names are ForceNew (renaming destroys and recreates the real Azure resource, losing any archived logs), so an already-applied environment must pin its current live name here rather than pick up a naming-algorithm change. Leave null for a fresh environment - the default below always reserves exactly enough room for the full \"argologs\" suffix so it's never truncated mid-word."
+  default     = null
+}
+
+variable "flow_logs_storage_account_name" {
+  type        = string
+  description = "Same override as argo_logs_storage_account_name, for the flow_logs Storage Account."
+  default     = null
+}
