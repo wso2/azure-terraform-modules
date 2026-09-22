@@ -1,16 +1,18 @@
 # Argo-AKS-DataPlane/apps
 
 Installs the Kubernetes-level workload an Azure Argo data plane runs.
-Mirrors `Argo-EKS-DataPlane/apps` almost exactly - same generic Helm
+Mirrors `Argo-EKS-DataPlane/apps` almost exactly: same generic Helm
 release set, same `manifest_files`/`kubectl_manifest_files` pattern for
-caller-supplied project-specific YAML. Assumes the caller has already
-configured the `kubernetes`/`helm`/`kubectl` providers against the cluster
-built by the sibling [`../cluster`](../cluster) module. The one structural
-difference from the AWS side: External Secrets Operator's controller pod
-needs no identity annotation here at all - Workload Identity auth happens
-per-`ClusterSecretStore`, via `serviceAccountRef` pointing at one of the
-federated ServiceAccounts this module creates (`federated_service_accounts`),
-not via an annotation on ESO's own controller.
+caller-supplied project-specific YAML. It assumes the caller has already
+configured the `kubernetes`/`helm`/`kubectl` providers against the
+cluster built by the sibling [`../cluster`](../cluster) module.
+
+The one structural difference from the AWS side: External Secrets
+Operator's controller pod needs no identity annotation here at all.
+Workload Identity auth happens per-`ClusterSecretStore`, via
+`serviceAccountRef` pointing at one of the federated ServiceAccounts this
+module creates (`federated_service_accounts`) - not via an annotation on
+ESO's own controller.
 
 ## What it provisions
 
@@ -20,7 +22,7 @@ not via an annotation on ESO's own controller.
   `system_namespace`), optionally `argocd`, optionally `external-secrets`.
 - ServiceAccounts (`federated_service_accounts`) annotated with
   `azure.workload.identity/client-id` and labeled
-  `azure.workload.identity/use: "true"` - the identity a
+  `azure.workload.identity/use: "true"`. This is the identity a
   `ClusterSecretStore`'s `serviceAccountRef` (or any other
   Workload-Identity-authenticated workload) presents, trusted via the
   cluster's own AKS OIDC issuer. `client_id` should come from the
@@ -37,7 +39,7 @@ not via an annotation on ESO's own controller.
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `namespaces` | `list(string)` | required | Per-tier Kubernetes namespaces - created by this module, but Argo Workflows/Events themselves install once, cluster-wide, in `system_namespace` |
+| `namespaces` | `list(string)` | required | Per-tier Kubernetes namespaces, created by this module. Argo Workflows/Events themselves install once, cluster-wide, in `system_namespace` |
 | `system_namespace` | `string` | `"argo"` | |
 | `argo_workflows_chart_version` | `string` | `null` | |
 | `argo_events_chart_version` | `string` | `null` | |

@@ -2,14 +2,16 @@
 
 Provisions everything the Argo control plane's Entra ID SSO needs,
 self-contained in one module: the app registration, its service principal
-+ auto-rotating password, and the 4 RBAC tier groups the control plane's
-credential-injector component maps incoming requests against (nonprod
-reader/contributor, prod reader/contributor). This is what fronts the
-control plane's portal (argo-server/oauth2-proxy) with Entra ID login -
-unrelated to any per-cloud data-plane identity (IRSA/Workload Identity),
-which is handled by the `aws`/`azurerm` modules instead.
+with an auto-rotating password, and the 4 RBAC tier groups the control
+plane's credential-injector component maps incoming requests against
+(nonprod reader/contributor, prod reader/contributor).
 
-Raw `azuread_*`/`time_rotating` resource blocks instead of composing the
+This is what fronts the control plane's portal (argo-server/oauth2-proxy)
+with Entra ID login. It's unrelated to any per-cloud data-plane identity
+(IRSA/Workload Identity), which the `aws`/`azurerm` modules handle
+instead.
+
+Raw `azuread_*`/`time_rotating` resource blocks, instead of composing the
 generic Application-Registration/Service-Principal/
 Service-Principal-Password/Group modules separately - a caller only needs
 this one module block. No `cluster`/`apps` split; this is a single-file
@@ -20,10 +22,7 @@ module with no sub-directories.
 - An `azuread_application_registration` (the Entra ID app registration
   itself), with `group_membership_claims` controlling whether/how the
   groups claim is issued.
-- Optionally, `azuread_application_redirect_uris` for that app - gated on
-  the plain bool `manage_redirect_uris`, not on `redirect_uris` being
-  non-empty, since `count`/`for_each` can't depend on a value that's only
-  known after apply (e.g. a LoadBalancer hostname).
+- Optionally, `azuread_application_redirect_uris` for that app.
 - An `azuread_service_principal` for the app registration.
 - A rotating password for that service principal
   (`azuread_service_principal_password`, rotated via `time_rotating` on
@@ -33,14 +32,31 @@ module with no sub-directories.
   `-prod-contributor`, `-prod-reader`), each a security-enabled group with
   a fixed description.
 
+## Notes
+
+- Whether `azuread_application_redirect_uris` gets created is controlled
+  by the plain bool `manage_redirect_uris`, not by whether `redirect_uris`
+  is non-empty. `count`/`for_each` can't depend on a value that's only
+  known after apply, such as a LoadBalancer hostname, and `redirect_uris`
+  itself may be one of those.
+- **If the RBAC tier groups or app registration already exist** - e.g.
+  created manually before this module was adopted - import them before
+  the first `apply`. A fresh apply against existing display names creates
+  duplicate groups with new object IDs, disconnected from any existing
+  user memberships or downstream group-ID lookups:
+
+  ```bash
+  terraform import 'module.argo_sso.azuread_group.tier["nonprod-reader"]' <existing-object-id>
+  ```
+
 ## Inputs
 
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `application_name` | `string` | `"argo-rnd-portal"` | Display name for the Entra ID app registration |
 | `group_membership_claims` | `list(string)` | `["SecurityGroup"]` | Configures the groups claim issued in a token this app expects. One or more of: `None`, `SecurityGroup`, `DirectoryRole`, `ApplicationGroup`, `All` |
-| `manage_redirect_uris` | `bool` | `false` | Whether to create the `azuread_application_redirect_uris` resource at all. Must be a plain bool the caller controls directly - do not derive this from whether `redirect_uris` happens to be non-empty |
-| `redirect_uris` | `list(string)` | `[]` | Redirect URIs to assign to the application. Only used when `manage_redirect_uris = true`; this value itself may safely be unknown until apply |
+| `manage_redirect_uris` | `bool` | `false` | Whether to create the `azuread_application_redirect_uris` resource at all. See Notes above |
+| `redirect_uris` | `list(string)` | `[]` | Redirect URIs to assign to the application. Only used when `manage_redirect_uris = true` |
 | `redirect_uri_type` | `string` | `"Web"` | One of: `PublicClient`, `SPA`, `Web` |
 | `sp_app_role_assignment_required` | `bool` | `false` | Whether the service principal requires an app role assignment to a user or group before Entra ID will issue a token to the application |
 | `sp_password_display_name` | `string` | `null` | Display name for the service principal's rotating password |
@@ -78,14 +94,4 @@ module "argo_sso" {
   sp_password_rotation_months = 6
   group_name_prefix           = "grp-asgardeo-argo"
 }
-```
-
-**Note:** if the RBAC tier groups or app registration already exist (e.g.
-created manually before this module was adopted), import them before the
-first `apply` - a fresh apply against existing display names creates
-duplicate groups with new object IDs, disconnected from any existing user
-memberships or downstream group-ID lookups:
-
-```bash
-terraform import 'module.argo_sso.azuread_group.tier["nonprod-reader"]' <existing-object-id>
 ```

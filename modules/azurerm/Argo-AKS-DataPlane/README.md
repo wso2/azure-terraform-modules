@@ -2,17 +2,19 @@
 
 Provisions an Azure-based Argo data plane: an independent AKS cluster that
 pulls dispatch tasks from the control plane over NATS (mTLS) and runs the
-deploy pipelines. Tier isolation mirrors the AWS `Argo-EKS-DataPlane`
-module exactly - stage is the cluster's default node pool with its own
-subnet, prod is a separate, tainted node pool with its own subnet and NSG
-(which explicitly denies inbound from the stage subnet, the real isolation
-boundary underneath the taint). Cluster admin access is native Azure RBAC
-for Kubernetes, not a unified cross-cloud identity layer.
+deploy pipelines.
+
+Tier isolation mirrors the AWS `Argo-EKS-DataPlane` module exactly. Stage
+is the cluster's default node pool with its own subnet. Prod is a
+separate, tainted node pool with its own subnet and NSG - that NSG
+explicitly denies inbound from the stage subnet, which is the real
+isolation boundary underneath the taint. Cluster admin access is native
+Azure RBAC for Kubernetes, not a unified cross-cloud identity layer.
 
 ## Structure
 
-This directory contains two independently-callable submodules, plus an
-optional composite entrypoint that wires them together for you:
+Two independently-callable submodules, plus an optional composite
+entrypoint that wires them together for you:
 
 - [`cluster/`](./cluster) - the AKS cluster, VNet (stage/prod tiers, each
   with its own NAT Gateway and subnets), Workload Identity Federation
@@ -20,53 +22,54 @@ optional composite entrypoint that wires them together for you:
 - [`apps/`](./apps) - the Kubernetes-level install: Argo Workflows, Argo
   Events, ArgoCD, External Secrets Operator, and caller-supplied
   project-specific manifests.
-- `main.tf`/`variables.tf`/`outputs.tf`/`versions.tf` (this directory's own
-  top level) - a composite root module calling `cluster` and `apps` for
-  you, as an ALTERNATIVE to calling the two submodules separately (see
-  "Composite entrypoint" below).
+- `main.tf`/`variables.tf`/`outputs.tf`/`versions.tf` (this directory) - a
+  composite root module that calls `cluster` and `apps` for you, as an
+  alternative to calling the two submodules separately.
 
 ## Composite entrypoint
 
-Calling this directory itself as a module (instead of `./cluster` and
-`./apps` separately) gets you `module.cluster`/`module.apps` wired
-together in one call: every `cluster` and `apps` variable passed straight
-through, and the `kubernetes`/`helm`/`kubectl` provider blocks
-pre-configured against a `data.azurerm_kubernetes_cluster` lookup of
-`cluster`'s resulting AKS cluster, matching exactly what
-`environments/azure-dataplane`'s own `main.tf` does today.
+Calling this directory itself as a module gets you `module.cluster` and
+`module.apps` wired together in one call. Every `cluster` and `apps`
+variable passes straight through, and the `kubernetes`/`helm`/`kubectl`
+provider blocks are pre-configured against a
+`data.azurerm_kubernetes_cluster` lookup of `cluster`'s resulting AKS
+cluster - matching what `environments/azure-dataplane`'s own `main.tf`
+does today.
 
-Unlike the AWS composite modules, **no `apps` variable is auto-wired from
-a `cluster` output here**: `apps` has no `eso_role_arn`-shaped input at
-all (ESO on AKS authenticates via Workload Identity, not an IRSA-style
-role ARN), and the one place `cluster` outputs genuinely feed into `apps`
-- `federated_service_accounts`' `client_id` fields, sourced from
-`deploy_identity_client_ids` - is a fully caller-composed map in every
-real environment (arbitrary keys, a caller-chosen k8s object name, and
-namespaces that don't mechanically derive from `deploy_identities`' own
-keys). Auto-deriving that map would be guessing at a shape the real
-environment doesn't use uniformly, so `federated_service_accounts` stays a
-plain passthrough variable here - build its value from this module's own
-`deploy_identity_client_ids` output (`outputs.tf`), the same way
-`environments/azure-dataplane/main.tf` builds it from `module.cluster`
-directly today.
+## Notes
+
+- Unlike the AWS composite modules, no `apps` variable is auto-wired from
+  a `cluster` output here. `apps` has no `eso_role_arn`-shaped input at
+  all, since ESO on AKS authenticates via Workload Identity rather than an
+  IRSA-style role ARN.
+- The one place a `cluster` output genuinely feeds into `apps` -
+  `federated_service_accounts`' `client_id` fields, sourced from
+  `deploy_identity_client_ids` - is a fully caller-composed map in every
+  real environment: arbitrary keys, a caller-chosen k8s object name, and
+  namespaces that don't mechanically derive from `deploy_identities`' own
+  keys. Auto-deriving that map would guess at a shape the real environment
+  doesn't use uniformly, so `federated_service_accounts` stays a plain
+  passthrough variable here. Build its value from this module's own
+  `deploy_identity_client_ids` output, the same way
+  `environments/azure-dataplane/main.tf` builds it today.
 
 ## How the two compose
 
-`apps` does not take cluster credentials as an input variable - it
+`apps` does not take cluster credentials as an input variable. It
 inherits the `kubernetes`/`helm`/`kubectl` provider configuration the
 caller sets up against a `data.azurerm_kubernetes_cluster` lookup of
-`cluster`'s resulting AKS cluster (`cluster` deliberately exposes no
+`cluster`'s resulting AKS cluster. (`cluster` deliberately exposes no
 non-admin `kube_config` output of its own, to avoid ever touching AKS's
-local-account admin credential). The caller additionally wires specific
-`cluster` outputs into `apps` inputs directly:
+local-account admin credential.) The caller also wires specific `cluster`
+outputs directly into `apps` inputs:
 `workflow_controller_artifacts_client_id`/`artifact_storage_account_name`
 for Argo Workflows' Blob Storage artifact archiving, and
 `deploy_identity_client_ids` entries into `apps`'
 `federated_service_accounts` for any Workload-Identity-authenticated
 workload (e.g. External Secrets Operator's `ClusterSecretStore`).
 
-Because `cluster`'s AKS cluster must exist before the `kubernetes`/`helm`
-providers used by `apps` can authenticate against it, a root module calling
+`cluster`'s AKS cluster must exist before the `kubernetes`/`helm`
+providers `apps` uses can authenticate against it. A root module calling
 both needs a two-step apply: `terraform apply -target=module.cluster`
 first, then a plain `terraform apply`. See `cloud-sre-common`'s
 `environments/azure-dataplane` for a real, wired-up example.
