@@ -81,18 +81,14 @@ module "cluster" {
 }
 
 # Bridges native-identity (AAD/Azure RBAC) auth into the kubernetes/helm
-# providers below, same as environments/azure-dataplane/main.tf. AKS's own
-# non-admin kube_config output is deliberately not exposed by cluster (no
-# static local-account credential) - this data source is the standard way
-# to get the cluster CA cert for an AAD-integrated cluster after it exists.
-# No depends_on = [module.cluster] here on purpose - see that environment's
-# identical comment on this exact data source: depending on the whole
-# module makes any unrelated new resource inside it (e.g. a new
-# deploy_identities entry) mark this data source "known after apply",
-# cascading into every kubernetes_namespace_v1/etc. plan-time refresh
-# failing with "connect: connection refused" to localhost. The
-# `name = module.cluster.aks_cluster_name` argument below already creates
-# the correct, narrower implicit dependency.
+# providers below. cluster exposes no non-admin kube_config output on
+# purpose, so this lookup is the only way to get the CA cert.
+#
+# No depends_on = [module.cluster]: that makes any unrelated new resource
+# in the module mark this data source "known after apply", cascading into
+# every kubernetes_namespace_v1/etc. failing plan-time refresh. The
+# narrower name = module.cluster.aks_cluster_name reference below already
+# creates the correct dependency.
 data "azurerm_kubernetes_cluster" "this" {
   name                = module.cluster.aks_cluster_name
   resource_group_name = var.resource_group_name
