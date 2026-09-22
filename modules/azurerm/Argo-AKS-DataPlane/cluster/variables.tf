@@ -119,22 +119,26 @@ variable "internal_lb_subnet_address_prefix" {
 }
 
 variable "stage_node_vm_size" {
-  type = string
+  type        = string
+  description = "VM size for the stage tier's default AKS node pool"
 }
 
 variable "stage_availability_zones" {
-  type    = list(number)
-  default = [1, 2, 3]
+  type        = list(number)
+  description = "Availability zones for the stage tier's default AKS node pool"
+  default     = [1, 2, 3]
 }
 
 variable "stage_node_min_count" {
-  type    = number
-  default = 1
+  type        = number
+  description = "Minimum node count for the stage tier's default node pool autoscaler"
+  default     = 1
 }
 
 variable "stage_node_max_count" {
-  type    = number
-  default = 3
+  type        = number
+  description = "Maximum node count for the stage tier's default node pool autoscaler"
+  default     = 3
 }
 
 # --- Prod tier (separate subnet + separate, tainted node pool) ---
@@ -145,22 +149,26 @@ variable "prod_subnet_address_prefix" {
 }
 
 variable "prod_node_vm_size" {
-  type = string
+  type        = string
+  description = "VM size for the prod tier's separate, tainted AKS node pool"
 }
 
 variable "prod_availability_zones" {
-  type    = list(string)
-  default = ["1", "2", "3"]
+  type        = list(string)
+  description = "Availability zones for the prod tier's separate, tainted AKS node pool"
+  default     = ["1", "2", "3"]
 }
 
 variable "prod_node_min_count" {
-  type    = number
-  default = 1
+  type        = number
+  description = "Minimum node count for the prod tier node pool's autoscaler"
+  default     = 1
 }
 
 variable "prod_node_max_count" {
-  type    = number
-  default = 3
+  type        = number
+  description = "Maximum node count for the prod tier node pool's autoscaler"
+  default     = 3
 }
 
 variable "prod_node_taint_value" {
