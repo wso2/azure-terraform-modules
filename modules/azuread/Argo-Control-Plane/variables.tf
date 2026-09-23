@@ -22,7 +22,7 @@ variable "group_membership_claims" {
 }
 
 variable "manage_redirect_uris" {
-  description = "Whether to create the azuread_application_redirect_uris resource at all. Must be a plain bool the caller controls directly - do not derive this from whether redirect_uris happens to be non-empty, since that value can be unknown until apply and count/for_each can't depend on it."
+  description = "Whether to create the azuread_application_redirect_uris resource at all. A plain bool the caller controls directly, not derived from whether redirect_uris is non-empty."
   type        = bool
   default     = false
 }

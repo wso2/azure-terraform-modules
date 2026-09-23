@@ -81,14 +81,10 @@ module "cluster" {
 }
 
 # Bridges native-identity (AAD/Azure RBAC) auth into the kubernetes/helm
-# providers below. cluster exposes no non-admin kube_config output on
-# purpose, so this lookup is the only way to get the CA cert.
-#
-# No depends_on = [module.cluster]: that makes any unrelated new resource
-# in the module mark this data source "known after apply", cascading into
-# every kubernetes_namespace_v1/etc. failing plan-time refresh. The
-# narrower name = module.cluster.aks_cluster_name reference below already
-# creates the correct dependency.
+# providers below - cluster exposes no non-admin kube_config output, so
+# this lookup is the only way to get the CA cert. No depends_on: the
+# narrower name = module.cluster.aks_cluster_name reference already
+# creates the right dependency.
 data "azurerm_kubernetes_cluster" "this" {
   name                = module.cluster.aks_cluster_name
   resource_group_name = var.resource_group_name
@@ -161,12 +157,8 @@ module "apps" {
   eso_namespace            = var.eso_namespace
 
   # Unlike the AWS composites, no cluster output is wired in here
-  # automatically - see variables.tf's own header comment for why
-  # federated_service_accounts stays a plain passthrough. A caller
-  # composing through this module builds its value the same way
-  # environments/azure-dataplane/main.tf does today, just referencing
-  # this module's own deploy_identity_client_ids output (outputs.tf)
-  # instead of module.cluster's directly.
+  # automatically - federated_service_accounts stays a plain passthrough,
+  # built from this module's own deploy_identity_client_ids output.
   federated_service_accounts = var.federated_service_accounts
 
   kubectl_manifest_files  = var.kubectl_manifest_files

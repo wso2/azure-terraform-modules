@@ -30,6 +30,6 @@ output "eso_namespace" {
 }
 
 output "federated_service_account_names" {
-  description = "Kubernetes ServiceAccount name per var.federated_service_accounts entry (map key -> the object's actual metadata.name, which is that entry's own name field if set, else the map key itself) - each one Workload-Identity-authenticated via its client_id annotation, e.g. for a ClusterSecretStore's serviceAccountRef"
+  description = "Kubernetes ServiceAccount name per var.federated_service_accounts entry - each one Workload-Identity-authenticated via its client_id annotation, e.g. for a ClusterSecretStore's serviceAccountRef"
   value       = { for k, sa in kubernetes_service_account_v1.federated : k => sa.metadata[0].name }
 }

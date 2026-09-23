@@ -9,23 +9,16 @@
 #
 # --------------------------------------------------------------------------------------
 #
-# Raw azurerm resource blocks, not wrapped through wso2/azure-terraform-modules
-# - this composite has no dependency on that repo (or any other WSO2 module
-# repo) at all. Same tainted-node-pool + subnet-pinned + NAT-per-tier
-# isolation pattern as before, just expressed directly: stage is the
-# cluster's default node pool + its own subnet; prod is a separate subnet
-# and a separate, tainted node pool. Cluster admin access is native Azure
-# RBAC for Kubernetes (aks_admin_group_object_ids) plus an optional Azure
-# Bastion, matching the native-per-cloud-identity decision (no unified
-# cross-cloud OIDC layer).
+# Raw azurerm resource blocks. Stage is the cluster's default node pool +
+# its own subnet; prod is a separate subnet and a separate, tainted node
+# pool. Cluster admin access is native Azure RBAC plus an optional
+# Bastion.
 #
 # --------------------------------------------------------------------------------------
 
-# Unlike AWS (no equivalent top-level container a VPC must live in), Azure
-# resources can't exist without a resource group first. create_resource_group
-# defaults to true so this module is self-contained; set it to false to
-# instead point resource_group_name at one that's already managed elsewhere
-# (e.g. by a platform team) without this module trying to own its lifecycle.
+# Azure resources can't exist without a resource group first.
+# create_resource_group defaults to true; set false to point
+# resource_group_name at one already managed elsewhere.
 resource "azurerm_resource_group" "this" {
   count    = var.create_resource_group ? 1 : 0
   name     = var.resource_group_name
@@ -36,14 +29,11 @@ resource "azurerm_resource_group" "this" {
 locals {
   resource_group_name = var.create_resource_group ? azurerm_resource_group.this[0].name : var.resource_group_name
 
-  # Storage account names must be <=24 chars, lowercase alphanumeric only.
-  # Reserving exactly enough room for the full suffix keeps it from being
-  # truncated mid-word (previously produced e.g.
-  # "aksargoazuredataplanearg" - "argologs" cut off after "arg" once the
-  # sanitized cluster-name prefix pushed it past 24 chars).
-  cluster_name_sanitized          = lower(replace(var.aks_cluster_name, "-", ""))
-  flow_logs_storage_account_name  = coalesce(var.flow_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("flowlogs"))}flowlogs")
-  argo_logs_storage_account_name  = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
+  # Storage account names must be <=24 chars, lowercase alphanumeric only;
+  # reserve room for the full suffix so it isn't truncated mid-word.
+  cluster_name_sanitized         = lower(replace(var.aks_cluster_name, "-", ""))
+  flow_logs_storage_account_name = coalesce(var.flow_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("flowlogs"))}flowlogs")
+  argo_logs_storage_account_name = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
 }
 
 resource "azurerm_virtual_network" "this" {
@@ -208,14 +198,10 @@ resource "azurerm_kubernetes_cluster" "this" {
     max_pods                     = 110
     only_critical_addons_enabled = false
 
-    # Explicit so the azurerm provider stops reporting drift every plan -
-    # this block is optional/computed, and leaving it unset makes
-    # Terraform plan to null it out on every run. That "no-op" diff still
-    # forces this whole resource into "will be updated in-place", which
-    # makes the cluster's kube_config data source (and therefore the
-    # kubernetes provider's own host/CA config) unknown at plan time -
-    # breaking every kubernetes_namespace_v1 resource's plan-time refresh
-    # with a "connect: connection refused" to localhost.
+    # Explicit, not left as optional/computed - otherwise Terraform plans
+    # to null it out every run, forcing an in-place update that makes
+    # kube_config (and the kubernetes provider's config) unknown at plan
+    # time, breaking every kubernetes_namespace_v1 refresh.
     upgrade_settings {
       max_surge                     = "10%"
       drain_timeout_in_minutes      = 0
@@ -252,13 +238,10 @@ resource "azurerm_kubernetes_cluster" "this" {
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
 
-  # AKS's control-plane identity (this cluster's own SystemAssigned
-  # identity) needs Key Vault access to actually use this key - see
-  # azurerm_role_assignment.kms below, which necessarily depends on this
-  # same cluster resource. Enabling this on the SAME apply that first
-  # creates the cluster will fail (the role grant can't exist before the
-  # identity does); enable_secrets_encryption must be turned on in a
-  # follow-up apply once the cluster already exists.
+  # AKS's control-plane identity needs Key Vault access to use this key
+  # (azurerm_role_assignment.kms below), which can't exist before the
+  # cluster does - enable_secrets_encryption must be a follow-up apply,
+  # not the one that first creates the cluster.
   dynamic "key_management_service" {
     for_each = var.enable_secrets_encryption ? [1] : []
     content {
@@ -288,11 +271,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   mode                  = "User"
   node_taints           = ["env=${var.prod_node_taint_value}:NoSchedule"]
   # Taint alone only keeps other workloads OFF this pool - anything that
-  # self-selects onto it (nodeSelector: env=prod, e.g. the prod
-  # EventBus/EventSource/Sensor) also needs the matching label, or it
-  # stays Pending forever even with the right toleration. Found live
-  # 2026-09-17: this pool had the taint but no label, so
-  # tasks-azure-prod-eventsource/submit-task-sensor never scheduled.
+  # self-selects onto it (nodeSelector: env=prod) also needs the matching
+  # label, or it stays Pending even with the right toleration.
   node_labels = {
     env = var.prod_node_taint_value
   }
@@ -672,11 +652,8 @@ resource "azurerm_bastion_host" "this" {
   depends_on = [azurerm_subnet_network_security_group_association.bastion]
 }
 
-# --- Per-env Workload Identity Federation for pipeline pods. Trust is
-#     scoped to exactly one (namespace, ServiceAccount) subject per entry -
-#     no wildcard, no cross-env reuse possible. Permissions are granted
-#     separately below, since what a pipeline actually needs to reach is
-#     caller-specific, not something this module has an opinion on. ---
+# Per-env Workload Identity Federation for pipeline pods. Trust is scoped
+# to exactly one (namespace, ServiceAccount) subject per entry.
 
 resource "azurerm_user_assigned_identity" "deploy_identity" {
   for_each = var.deploy_identities

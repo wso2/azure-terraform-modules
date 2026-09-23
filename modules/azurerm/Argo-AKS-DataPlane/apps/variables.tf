@@ -9,17 +9,16 @@
 #
 # --------------------------------------------------------------------------------------
 #
-# Mirrors Argo-EKS-DataPlane/apps exactly - same generic Helm/Kubernetes
-# modules from common-terraform-modules, same manifest_files pattern for
-# caller-supplied, project-specific YAML. Assumes the caller has already
-# configured the kubernetes and helm providers against the cluster built by
-# the sibling ../cluster module.
+# Assumes the caller has already configured the kubernetes/helm providers
+# against the sibling ../cluster module - takes no cluster credentials as
+# input. Same manifest_files pattern as Argo-EKS-DataPlane/apps for
+# caller-supplied, project-specific YAML.
 #
 # --------------------------------------------------------------------------------------
 
 variable "namespaces" {
   type        = list(string)
-  description = "Per-tier Kubernetes namespaces (e.g. [\"argo-stage\", \"argo-prod\"]) - created by this module, but Argo Workflows/Events themselves install once, cluster-wide, in system_namespace, not per entry here. RBAC (applied via manifest_files) is what actually isolates tiers, matching the security review doc's stated design."
+  description = "Per-tier Kubernetes namespaces (e.g. [\"argo-stage\", \"argo-prod\"]) created by this module. Argo Workflows/Events install once cluster-wide in system_namespace; RBAC via manifest_files is what isolates tiers."
 }
 
 variable "system_namespace" {
@@ -48,7 +47,7 @@ variable "argo_helm_repo" {
 
 variable "argo_workflows_values" {
   type        = list(string)
-  description = "Helm values overrides (YAML strings, later entries win) for the argo-workflows release. Set controller.workflowNamespaces to var.namespaces (or leave cluster-wide) depending on how narrow you want the watch."
+  description = "Helm values overrides (YAML strings, later entries win) for the argo-workflows release. Set controller.workflowNamespaces to var.namespaces to narrow the watch."
   default     = []
 }
 
@@ -95,7 +94,7 @@ variable "manifest_files" {
     template_map = optional(map(string), {})
     namespace    = optional(string)
   }))
-  description = "Additional Kubernetes manifests to apply after the Helm releases above - e.g. debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects, ExternalSecrets/ClusterSecretStore for Workload Identity. Content and ordering are entirely caller-supplied. Set content directly to pass already-fetched text instead of rendering location as a local file path. namespace, if set, overrides every object's own embedded metadata.namespace via kubectl_manifest's override_namespace - lets one unmodified source file (no hardcoded namespace, or a namespace meant for a different context) be applied into a different namespace per caller, e.g. the same executor/pipeline WorkflowTemplate applied once per (cloud x env) namespace."
+  description = "Additional Kubernetes manifests to apply after the Helm releases above - e.g. debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects. Set content directly to pass already-fetched text instead of a location file path. namespace, if set, overrides each object's own metadata.namespace."
   default     = []
 }
 
@@ -124,15 +123,9 @@ variable "federated_service_accounts" {
   type = map(object({
     namespace = string
     client_id = string
-    # Optional - defaults to the map key when unset. Needed because a
-    # pipeline's own WorkflowTemplate hardcodes a fixed
-    # `serviceAccountName` (e.g. "asgardeo-docs-deploy-sa") that must be
-    # identical across every namespace it runs in, but this map's own
-    # keys must be unique - two entries for the SAME SA name in two
-    # different namespaces (stage vs prod) can't both use that name as
-    # their key. Added 2026-09-17 when azure-prod needed a second
-    # "asgardeo-docs-deploy-sa" (a different namespace, not a different
-    # name) alongside stage's.
+    # Optional - defaults to the map key when unset. Lets two entries
+    # share the same ServiceAccount name in different namespaces, since
+    # this map's own keys must be unique.
     name = optional(string)
   }))
   description = "ServiceAccounts to create, each annotated with azure.workload.identity/client-id - the identity a ClusterSecretStore's serviceAccountRef (or any other Workload-Identity-authenticated workload) presents. client_id should come from the cluster module's deploy_identity_client_ids output for a matching (namespace, name) entry in its deploy_identities. The k8s object's own name is `name` if set, else the map key itself."
@@ -146,7 +139,7 @@ variable "kubectl_manifest_files" {
     template_map = optional(map(string), {})
     namespace    = optional(string)
   }))
-  description = "Manifests applied via the alekc/kubectl provider instead of kubernetes_manifest - required for anything backed by a CRD installed in this same apply (ESO's ClusterSecretStore/ExternalSecret). Set content directly to pre-process a real file's text instead of rendering location as-is. namespace, if set, overrides every object's own embedded metadata.namespace, same as manifest_files' namespace."
+  description = "Manifests applied via the kubectl provider instead of kubernetes_manifest - required for anything backed by a CRD installed in this same apply (e.g. ESO's ClusterSecretStore/ExternalSecret). namespace, if set, overrides each object's own metadata.namespace."
   default     = []
 }
 

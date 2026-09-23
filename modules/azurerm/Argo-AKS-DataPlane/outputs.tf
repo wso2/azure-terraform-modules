@@ -9,10 +9,8 @@
 #
 # --------------------------------------------------------------------------------------
 #
-# A curated merge of cluster/outputs.tf and apps/outputs.tf - only what a
-# caller composing through this module would actually need downstream
-# (e.g. building federated_service_accounts, or an operator reaching
-# Bastion), not every internal output either submodule exposes.
+# Outputs a caller composing through this module actually needs
+# downstream, not every internal cluster/apps output.
 #
 # --------------------------------------------------------------------------------------
 

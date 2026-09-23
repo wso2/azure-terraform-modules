@@ -16,13 +16,13 @@ variable "resource_group_name" {
 
 variable "create_resource_group" {
   type        = bool
-  description = "Whether this module creates resource_group_name itself. Defaults to true so the module is self-contained; set to false to point at a resource group already managed elsewhere (e.g. by a platform team) instead of having this module own its lifecycle."
+  description = "Whether this module creates resource_group_name itself. Defaults to true; set to false to point at a resource group already managed elsewhere."
   default     = true
 }
 
 variable "create_role_assignments" {
   type        = bool
-  description = "Whether to create the azurerm_role_assignment resources this module wires up (workflow artifact storage access, deploy_identity_role_assignments). Requires Microsoft.Authorization/roleAssignments/write at the relevant scope (Owner or User Access Administrator) - a plain Contributor identity gets a 403 on these specifically. Set to false to still create the identities/federated credentials but skip granting them roles, until that permission exists or someone else grants the roles out-of-band."
+  description = "Whether to create the azurerm_role_assignment resources this module wires up. Requires Owner or User Access Administrator at the relevant scope - a plain Contributor gets a 403. Set to false to create the identities/federated credentials without granting roles."
   default     = true
 }
 
@@ -208,7 +208,7 @@ variable "deploy_identities" {
     namespace            = string
     service_account_name = string
   }))
-  description = "Per-env Workload Identity Federation identities for pipeline pods (\"Pipeline pod -> deployment target: Cloud-native Workload Identity Federation / IRSA, scoped per env\" per the security review doc). One User-Assigned Managed Identity + Federated Identity Credential per map entry, trusted via this cluster's own OIDC issuer and scoped to exactly that (namespace, ServiceAccount) subject. This module only creates the identity - actual permissions are granted via deploy_identity_role_assignments below, since what a pipeline needs to reach is caller-specific."
+  description = "Per-env Workload Identity Federation identities for pipeline pods - one User-Assigned Managed Identity + Federated Identity Credential per map entry, trusted via this cluster's own OIDC issuer and scoped to a (namespace, ServiceAccount) subject. This module only creates the identity; permissions come from deploy_identity_role_assignments below."
   default     = {}
 }
 
@@ -224,7 +224,7 @@ variable "deploy_identity_role_assignments" {
 
 variable "enable_secrets_encryption" {
   type        = bool
-  description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption (key_management_service) with it. See the key_management_service block's own comment - this can only be turned on in a follow-up apply after the cluster already exists, never on the same apply that first creates it."
+  description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption with it. Can only be turned on in a follow-up apply after the cluster already exists, never the apply that first creates it."
   default     = false
 }
 
@@ -242,7 +242,7 @@ variable "enable_vpc_flow_logs" {
 
 variable "network_watcher_name" {
   type        = string
-  description = "Name of the region's existing Network Watcher - required when enable_vpc_flow_logs is true. Azure auto-creates one per region by default (e.g. \"NetworkWatcher_<region>\"), but org policy can disable this, so it's caller-supplied rather than assumed."
+  description = "Name of the region's existing Network Watcher - required when enable_vpc_flow_logs is true. Caller-supplied rather than assumed, since org policy can disable Azure's auto-created one."
   default     = null
 }
 
@@ -254,7 +254,7 @@ variable "network_watcher_resource_group_name" {
 
 variable "enable_artifact_archiving" {
   type        = bool
-  description = "Whether to create a Storage Account + container + Workload Identity Federation identity for Argo Workflows to archive workflow logs/artifacts to (workflow_controller_artifacts_client_id/artifact_storage_account_name outputs). The caller still wires these into argo_workflows_values' artifactRepository Helm config."
+  description = "Whether to create a Storage Account + container + Workload Identity Federation identity for Argo Workflows to archive workflow logs/artifacts to. Wire the two outputs into argo_workflows_values' artifactRepository config."
   default     = false
 }
 
@@ -272,7 +272,7 @@ variable "workflow_controller_service_account_name" {
 
 variable "argo_logs_storage_account_name" {
   type        = string
-  description = "Explicit override for the argo_logs Storage Account name. Storage account names are ForceNew (renaming destroys and recreates the real Azure resource, losing any archived logs), so an already-applied environment must pin its current live name here rather than pick up a naming-algorithm change. Leave null for a fresh environment - the default below always reserves exactly enough room for the full \"argologs\" suffix so it's never truncated mid-word."
+  description = "Explicit override for the argo_logs Storage Account name. Storage account names are ForceNew, so an already-applied environment must pin its current live name here rather than pick up a naming-algorithm change. Leave null for a fresh environment."
   default     = null
 }
 

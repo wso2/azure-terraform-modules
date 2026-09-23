@@ -13,21 +13,10 @@
 # module.apps (see main.tf) - same name, type, description and default as
 # that submodule's own variables.tf.
 #
-# Unlike the AWS composites (Argo-Control-Plane, Argo-EKS-DataPlane), there
-# is no apps variable auto-wired from a cluster output here: apps has no
-# eso_role_arn-shaped input at all (ESO on AKS authenticates via Workload
-# Identity, not an IRSA-style role ARN), and the one place cluster outputs
-# genuinely feed into apps - federated_service_accounts' client_id fields,
-# sourced from module.cluster.deploy_identity_client_ids - is a fully
-# caller-composed map in every real environment (arbitrary keys, a
-# caller-chosen k8s object name via `name`, and namespaces that don't
-# mechanically derive from deploy_identities' own keys - see
-# environments/azure-dataplane/main.tf's own federated_service_accounts
-# block). Auto-deriving that map here would be guessing at a shape the
-# real environment doesn't actually use uniformly, so federated_service_accounts
-# stays a plain passthrough - a caller composing through this module can
-# still build its value from this module's own deploy_identity_client_ids
-# output (see outputs.tf).
+# Unlike the AWS composites, no apps variable is auto-wired from a cluster
+# output here: federated_service_accounts stays a plain passthrough: a
+# caller composing through this module builds its value from this
+# module's own deploy_identity_client_ids output (see outputs.tf).
 #
 # --------------------------------------------------------------------------------------
 
@@ -40,13 +29,13 @@ variable "resource_group_name" {
 
 variable "create_resource_group" {
   type        = bool
-  description = "Whether this module creates resource_group_name itself. Defaults to true so the module is self-contained; set to false to point at a resource group already managed elsewhere (e.g. by a platform team) instead of having this module own its lifecycle."
+  description = "Whether this module creates resource_group_name itself. Defaults to true; set to false to point at a resource group already managed elsewhere."
   default     = true
 }
 
 variable "create_role_assignments" {
   type        = bool
-  description = "Whether to create the azurerm_role_assignment resources this module wires up (workflow artifact storage access, deploy_identity_role_assignments). Requires Microsoft.Authorization/roleAssignments/write at the relevant scope (Owner or User Access Administrator) - a plain Contributor identity gets a 403 on these specifically. Set to false to still create the identities/federated credentials but skip granting them roles, until that permission exists or someone else grants the roles out-of-band."
+  description = "Whether to create the azurerm_role_assignment resources this module wires up. Requires Owner or User Access Administrator at the relevant scope - a plain Contributor gets a 403. Set to false to create the identities/federated credentials without granting roles."
   default     = true
 }
 
@@ -226,7 +215,7 @@ variable "deploy_identities" {
     namespace            = string
     service_account_name = string
   }))
-  description = "Per-env Workload Identity Federation identities for pipeline pods (\"Pipeline pod -> deployment target: Cloud-native Workload Identity Federation / IRSA, scoped per env\" per the security review doc). One User-Assigned Managed Identity + Federated Identity Credential per map entry, trusted via this cluster's own OIDC issuer and scoped to exactly that (namespace, ServiceAccount) subject. This module only creates the identity - actual permissions are granted via deploy_identity_role_assignments below, since what a pipeline needs to reach is caller-specific."
+  description = "Per-env Workload Identity Federation identities for pipeline pods - one User-Assigned Managed Identity + Federated Identity Credential per map entry, trusted via this cluster's own OIDC issuer and scoped to a (namespace, ServiceAccount) subject. This module only creates the identity; permissions come from deploy_identity_role_assignments below."
   default     = {}
 }
 
@@ -242,7 +231,7 @@ variable "deploy_identity_role_assignments" {
 
 variable "enable_secrets_encryption" {
   type        = bool
-  description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption (key_management_service) with it. See the key_management_service block's own comment - this can only be turned on in a follow-up apply after the cluster already exists, never on the same apply that first creates it."
+  description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption with it. Can only be turned on in a follow-up apply after the cluster already exists, never the apply that first creates it."
   default     = false
 }
 
@@ -260,7 +249,7 @@ variable "enable_vpc_flow_logs" {
 
 variable "network_watcher_name" {
   type        = string
-  description = "Name of the region's existing Network Watcher - required when enable_vpc_flow_logs is true. Azure auto-creates one per region by default (e.g. \"NetworkWatcher_<region>\"), but org policy can disable this, so it's caller-supplied rather than assumed."
+  description = "Name of the region's existing Network Watcher - required when enable_vpc_flow_logs is true. Caller-supplied rather than assumed, since org policy can disable Azure's auto-created one."
   default     = null
 }
 
@@ -272,7 +261,7 @@ variable "network_watcher_resource_group_name" {
 
 variable "enable_artifact_archiving" {
   type        = bool
-  description = "Whether to create a Storage Account + container + Workload Identity Federation identity for Argo Workflows to archive workflow logs/artifacts to (workflow_controller_artifacts_client_id/artifact_storage_account_name outputs). The caller still wires these into argo_workflows_values' artifactRepository Helm config."
+  description = "Whether to create a Storage Account + container + Workload Identity Federation identity for Argo Workflows to archive workflow logs/artifacts to. Wire the two outputs into argo_workflows_values' artifactRepository config."
   default     = false
 }
 
@@ -290,7 +279,7 @@ variable "workflow_controller_service_account_name" {
 
 variable "argo_logs_storage_account_name" {
   type        = string
-  description = "Explicit override for the argo_logs Storage Account name. Storage account names are ForceNew (renaming destroys and recreates the real Azure resource, losing any archived logs), so an already-applied environment must pin its current live name here rather than pick up a naming-algorithm change. Leave null for a fresh environment - the default below always reserves exactly enough room for the full \"argologs\" suffix so it's never truncated mid-word."
+  description = "Explicit override for the argo_logs Storage Account name. Storage account names are ForceNew, so an already-applied environment must pin its current live name here rather than pick up a naming-algorithm change. Leave null for a fresh environment."
   default     = null
 }
 
@@ -304,7 +293,7 @@ variable "flow_logs_storage_account_name" {
 
 variable "namespaces" {
   type        = list(string)
-  description = "Per-tier Kubernetes namespaces (e.g. [\"argo-stage\", \"argo-prod\"]) - created by this module, but Argo Workflows/Events themselves install once, cluster-wide, in system_namespace, not per entry here. RBAC (applied via manifest_files) is what actually isolates tiers, matching the security review doc's stated design."
+  description = "Per-tier Kubernetes namespaces (e.g. [\"argo-stage\", \"argo-prod\"]) created by this module. Argo Workflows/Events install once cluster-wide in system_namespace; RBAC via manifest_files is what isolates tiers."
 }
 
 variable "system_namespace" {
@@ -333,7 +322,7 @@ variable "argo_helm_repo" {
 
 variable "argo_workflows_values" {
   type        = list(string)
-  description = "Helm values overrides (YAML strings, later entries win) for the argo-workflows release. Set controller.workflowNamespaces to var.namespaces (or leave cluster-wide) depending on how narrow you want the watch."
+  description = "Helm values overrides (YAML strings, later entries win) for the argo-workflows release. Set controller.workflowNamespaces to var.namespaces to narrow the watch."
   default     = []
 }
 
@@ -380,7 +369,7 @@ variable "manifest_files" {
     template_map = optional(map(string), {})
     namespace    = optional(string)
   }))
-  description = "Additional Kubernetes manifests to apply after the Helm releases above - e.g. debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects, ExternalSecrets/ClusterSecretStore for Workload Identity. Content and ordering are entirely caller-supplied. Set content directly to pass already-fetched text instead of rendering location as a local file path. namespace, if set, overrides every object's own embedded metadata.namespace via kubectl_manifest's override_namespace - lets one unmodified source file (no hardcoded namespace, or a namespace meant for a different context) be applied into a different namespace per caller, e.g. the same executor/pipeline WorkflowTemplate applied once per (cloud x env) namespace."
+  description = "Additional Kubernetes manifests to apply after the Helm releases above - e.g. debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects. Set content directly to pass already-fetched text instead of a location file path. namespace, if set, overrides each object's own metadata.namespace."
   default     = []
 }
 
@@ -411,7 +400,7 @@ variable "federated_service_accounts" {
     client_id = string
     name      = optional(string)
   }))
-  description = "ServiceAccounts to create, each annotated with azure.workload.identity/client-id - the identity a ClusterSecretStore's serviceAccountRef (or any other Workload-Identity-authenticated workload) presents. client_id should come from the cluster module's deploy_identity_client_ids output for a matching (namespace, name) entry in its deploy_identities. The k8s object's own name is `name` if set, else the map key itself. NOT auto-derived by this composite module from var.deploy_identities - see this file's own header comment for why."
+  description = "ServiceAccounts to create, each annotated with azure.workload.identity/client-id - the identity a ClusterSecretStore's serviceAccountRef (or other Workload-Identity-authenticated workload) presents. client_id should come from the cluster module's deploy_identity_client_ids output. The k8s object's own name is `name` if set, else the map key."
   default     = {}
 }
 
@@ -422,7 +411,7 @@ variable "kubectl_manifest_files" {
     template_map = optional(map(string), {})
     namespace    = optional(string)
   }))
-  description = "Manifests applied via the alekc/kubectl provider instead of kubernetes_manifest - required for anything backed by a CRD installed in this same apply (ESO's ClusterSecretStore/ExternalSecret). Set content directly to pre-process a real file's text instead of rendering location as-is. namespace, if set, overrides every object's own embedded metadata.namespace, same as manifest_files' namespace."
+  description = "Manifests applied via the kubectl provider instead of kubernetes_manifest - required for anything backed by a CRD installed in this same apply (e.g. ESO's ClusterSecretStore/ExternalSecret). namespace, if set, overrides each object's own metadata.namespace."
   default     = []
 }
 

@@ -12,10 +12,7 @@
 # Everything the Argo control plane's Entra ID SSO needs, self-contained
 # in one module: the app registration, its service principal + rotating
 # password, and the RBAC tier groups credential-injector maps requests
-# against. Raw resource blocks (same convention as Argo-Control-Plane/
-# Argo-EKS-DataPlane/Argo-AKS-DataPlane) instead of composing the generic
-# Application-Registration/Service-Principal/Service-Principal-Password/
-# Group modules - a caller only needs this one module block.
+# against.
 #
 # --------------------------------------------------------------------------------------
 
@@ -28,11 +25,9 @@ resource "azuread_application_registration" "ad_application" {
   }
 }
 
-# count is gated on var.manage_redirect_uris (a plain bool literal), NOT
-# on length(var.redirect_uris) - count/for_each can never depend on a
-# value that's unknown until apply, and redirect_uris' real-world content
-# is often built from something only known post-apply (a LoadBalancer
-# hostname here).
+# Gated on var.manage_redirect_uris (a plain bool), not
+# length(var.redirect_uris) - count/for_each can't depend on a value
+# that's only known after apply, and redirect_uris often is one.
 resource "azuread_application_redirect_uris" "ad_application" {
   count = var.manage_redirect_uris ? 1 : 0
 
