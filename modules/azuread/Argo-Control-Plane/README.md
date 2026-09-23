@@ -48,6 +48,11 @@ module with no sub-directories.
   ```bash
   terraform import 'module.argo_sso.azuread_group.tier["nonprod-reader"]' <existing-object-id>
   ```
+- **No apply-order dependency on the cluster modules.** This module has no
+  Terraform relationship to the AWS `Argo-Control-Plane` cluster or either
+  data plane - it only needs to exist before someone tries to log into the
+  control plane's portal, so it can be applied at any point relative to
+  them, commonly alongside the AWS `Argo-Control-Plane` module.
 
 ## Inputs
 
