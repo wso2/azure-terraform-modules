@@ -22,3 +22,14 @@ variable "sp_object_id" {
   description = "The object ID of the service principal"
   type        = string
 }
+
+variable "account_license_type" {
+  description = "The Azure DevOps account license type to assign to the service principal. Valid values: advanced, earlyAdopter, express (Basic), none, professional, stakeholder."
+  type        = string
+  default     = "express"
+
+  validation {
+    condition     = contains(["advanced", "earlyAdopter", "express", "none", "professional", "stakeholder"], var.account_license_type)
+    error_message = "account_license_type must be one of: advanced, earlyAdopter, express, none, professional, stakeholder."
+  }
+}

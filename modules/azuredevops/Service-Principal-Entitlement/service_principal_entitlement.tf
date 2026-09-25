@@ -19,5 +19,6 @@
 # --------------------------------------------------------------------------------------
 
 resource "azuredevops_service_principal_entitlement" "service_principal_entitlement" {
-  origin_id = var.sp_object_id
+  origin_id            = var.sp_object_id
+  account_license_type = var.account_license_type
 }
