@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_resource_group" "this" {
+resource "azurerm_resource_group" "resource_group" {
   count    = var.create_resource_group ? 1 : 0
   name     = var.resource_group_name
   location = var.location
@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 locals {
-  resource_group_name = var.create_resource_group ? azurerm_resource_group.this[0].name : var.resource_group_name
+  resource_group_name = var.create_resource_group ? azurerm_resource_group.resource_group[0].name : var.resource_group_name
 
   # Storage account names: <=24 lowercase alphanumerics; keep the suffix whole.
   cluster_name_sanitized         = lower(replace(var.aks_cluster_name, "-", ""))
@@ -25,7 +25,7 @@ locals {
   argo_logs_storage_account_name = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
 }
 
-resource "azurerm_virtual_network" "this" {
+resource "azurerm_virtual_network" "virtual_network" {
   name                = var.vnet_name
   address_space       = [var.vnet_address_space]
   location            = var.location
@@ -36,21 +36,21 @@ resource "azurerm_virtual_network" "this" {
 resource "azurerm_subnet" "stage" {
   name                 = "${var.aks_cluster_name}-stage-snet"
   resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.this.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = [var.stage_subnet_address_prefix]
 }
 
 resource "azurerm_subnet" "prod" {
   name                 = "${var.aks_cluster_name}-prod-snet"
   resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.this.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = [var.prod_subnet_address_prefix]
 }
 
 resource "azurerm_subnet" "ilb" {
   name                 = "${var.aks_cluster_name}-ilb-snet"
   resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.this.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = [var.internal_lb_subnet_address_prefix]
 }
 
@@ -165,12 +165,12 @@ resource "azurerm_user_assigned_identity" "cluster" {
 resource "azurerm_role_assignment" "cluster_network" {
   count = var.create_role_assignments ? 1 : 0
 
-  scope                = azurerm_virtual_network.this.id
+  scope                = azurerm_virtual_network.virtual_network.id
   role_definition_name = "Network Contributor"
   principal_id         = azurerm_user_assigned_identity.cluster.principal_id
 }
 
-resource "azurerm_kubernetes_cluster" "this" {
+resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = var.aks_cluster_name
   location            = var.location
   resource_group_name = local.resource_group_name
@@ -258,7 +258,7 @@ resource "azurerm_kubernetes_cluster" "this" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   name                  = "prod"
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.this.id
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks_cluster.id
   vm_size               = var.prod_node_vm_size
   vnet_subnet_id        = azurerm_subnet.prod.id
   zones                 = var.prod_availability_zones
@@ -357,7 +357,7 @@ resource "azurerm_network_watcher_flow_log" "vnet" {
   name                 = "${var.aks_cluster_name}-vnet-flow-log"
   network_watcher_name = var.network_watcher_name
   resource_group_name  = var.network_watcher_resource_group_name
-  target_resource_id   = azurerm_virtual_network.this.id
+  target_resource_id   = azurerm_virtual_network.virtual_network.id
   storage_account_id   = azurerm_storage_account.flow_logs[0].id
   enabled              = true
   retention_policy {
@@ -421,7 +421,7 @@ resource "azurerm_federated_identity_credential" "workflow_controller_artifacts"
   name                      = "${var.aks_cluster_name}-workflow-artifacts"
   user_assigned_identity_id = azurerm_user_assigned_identity.workflow_controller_artifacts[0].id
   audience                  = ["api://AzureADTokenExchange"]
-  issuer                    = azurerm_kubernetes_cluster.this.oidc_issuer_url
+  issuer                    = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
   subject                   = "system:serviceaccount:${var.argo_namespace}:${var.workflow_controller_service_account_name}"
 }
 
@@ -440,7 +440,7 @@ resource "azurerm_subnet" "bastion" {
 
   name                 = "AzureBastionSubnet"
   resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.this.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = [var.bastion_subnet_address_prefix]
 }
 
@@ -600,7 +600,7 @@ resource "azurerm_subnet_network_security_group_association" "bastion" {
   network_security_group_id = azurerm_network_security_group.bastion[0].id
 }
 
-resource "azurerm_bastion_host" "this" {
+resource "azurerm_bastion_host" "bastion_host" {
   count = var.enable_bastion ? 1 : 0
 
   name                = "${var.aks_cluster_name}-bastion"
@@ -638,7 +638,7 @@ resource "azurerm_federated_identity_credential" "deploy_identity" {
   name                      = "${var.aks_cluster_name}-deploy-${each.key}"
   user_assigned_identity_id = azurerm_user_assigned_identity.deploy_identity[each.key].id
   audience                  = ["api://AzureADTokenExchange"]
-  issuer                    = azurerm_kubernetes_cluster.this.oidc_issuer_url
+  issuer                    = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
   subject                   = "system:serviceaccount:${each.value.namespace}:${each.value.service_account_name}"
 }
 

@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "azurerm_resource_group" "this" {
+resource "azurerm_resource_group" "resource_group" {
   count    = var.create_resource_group ? 1 : 0
   name     = var.resource_group_name
   location = var.location
@@ -19,7 +19,7 @@ resource "azurerm_resource_group" "this" {
 data "azurerm_client_config" "current" {}
 
 locals {
-  resource_group_name = var.create_resource_group ? azurerm_resource_group.this[0].name : var.resource_group_name
+  resource_group_name = var.create_resource_group ? azurerm_resource_group.resource_group[0].name : var.resource_group_name
 
   # Storage account names: <=24 chars, lowercase alphanumeric only.
   cluster_name_sanitized         = lower(replace(var.aks_cluster_name, "-", ""))
@@ -31,7 +31,7 @@ locals {
   eso_key_vault_name             = coalesce(var.eso_key_vault_name, "${trimsuffix(substr(var.aks_cluster_name, 0, 24 - length("-secrets")), "-")}-secrets")
 }
 
-resource "azurerm_virtual_network" "this" {
+resource "azurerm_virtual_network" "virtual_network" {
   name                = var.vnet_name
   address_space       = [var.vnet_address_space]
   location            = var.location
@@ -42,7 +42,7 @@ resource "azurerm_virtual_network" "this" {
 resource "azurerm_subnet" "nodes" {
   name                 = "${var.aks_cluster_name}-nodes-snet"
   resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.this.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = [var.node_subnet_address_prefix]
 }
 
@@ -83,7 +83,7 @@ resource "azurerm_public_ip" "nat" {
   tags                = var.tags
 }
 
-resource "azurerm_nat_gateway" "this" {
+resource "azurerm_nat_gateway" "nat_gateway" {
   name                = "${var.aks_cluster_name}-nat"
   location            = var.location
   resource_group_name = local.resource_group_name
@@ -91,14 +91,14 @@ resource "azurerm_nat_gateway" "this" {
   tags                = var.tags
 }
 
-resource "azurerm_nat_gateway_public_ip_association" "this" {
-  nat_gateway_id       = azurerm_nat_gateway.this.id
+resource "azurerm_nat_gateway_public_ip_association" "nat_gateway_public_ip_association" {
+  nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
   public_ip_address_id = azurerm_public_ip.nat.id
 }
 
 resource "azurerm_subnet_nat_gateway_association" "nodes" {
   subnet_id      = azurerm_subnet.nodes.id
-  nat_gateway_id = azurerm_nat_gateway.this.id
+  nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
 }
 
 # AKS KMS doesn't work with a system-assigned identity: the Key Vault grant
@@ -114,12 +114,12 @@ resource "azurerm_user_assigned_identity" "cluster" {
 resource "azurerm_role_assignment" "cluster_network" {
   count = var.create_role_assignments ? 1 : 0
 
-  scope                = azurerm_virtual_network.this.id
+  scope                = azurerm_virtual_network.virtual_network.id
   role_definition_name = "Network Contributor"
   principal_id         = azurerm_user_assigned_identity.cluster.principal_id
 }
 
-resource "azurerm_kubernetes_cluster" "this" {
+resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = var.aks_cluster_name
   location            = var.location
   resource_group_name = local.resource_group_name
@@ -286,7 +286,7 @@ resource "azurerm_federated_identity_credential" "eso" {
   name                      = "${var.aks_cluster_name}-eso"
   user_assigned_identity_id = azurerm_user_assigned_identity.eso.id
   audience                  = ["api://AzureADTokenExchange"]
-  issuer                    = azurerm_kubernetes_cluster.this.oidc_issuer_url
+  issuer                    = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
   subject                   = "system:serviceaccount:${var.eso_namespace}:external-secrets"
 }
 
@@ -317,7 +317,7 @@ resource "azurerm_network_watcher_flow_log" "vnet" {
   name                 = "${var.aks_cluster_name}-vnet-flow-log"
   network_watcher_name = var.network_watcher_name
   resource_group_name  = var.network_watcher_resource_group_name
-  target_resource_id   = azurerm_virtual_network.this.id
+  target_resource_id   = azurerm_virtual_network.virtual_network.id
   storage_account_id   = azurerm_storage_account.flow_logs[0].id
   enabled              = true
   retention_policy {
@@ -381,7 +381,7 @@ resource "azurerm_federated_identity_credential" "workflow_controller_artifacts"
   name                      = "${var.aks_cluster_name}-workflow-artifacts"
   user_assigned_identity_id = azurerm_user_assigned_identity.workflow_controller_artifacts[0].id
   audience                  = ["api://AzureADTokenExchange"]
-  issuer                    = azurerm_kubernetes_cluster.this.oidc_issuer_url
+  issuer                    = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
   subject                   = "system:serviceaccount:${var.argo_namespace}:${var.workflow_controller_service_account_name}"
 }
 
@@ -400,7 +400,7 @@ resource "azurerm_subnet" "bastion" {
 
   name                 = "AzureBastionSubnet"
   resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.this.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = [var.bastion_subnet_address_prefix]
 }
 
@@ -560,7 +560,7 @@ resource "azurerm_subnet_network_security_group_association" "bastion" {
   network_security_group_id = azurerm_network_security_group.bastion[0].id
 }
 
-resource "azurerm_bastion_host" "this" {
+resource "azurerm_bastion_host" "bastion_host" {
   count = var.enable_bastion ? 1 : 0
 
   name                = "${var.aks_cluster_name}-bastion"

@@ -9,7 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-resource "kubernetes_namespace_v1" "this" {
+resource "kubernetes_namespace_v1" "namespace" {
   for_each = toset(concat(var.namespaces, [var.argocd_namespace, var.system_namespace]))
 
   metadata {
@@ -27,7 +27,7 @@ resource "helm_release" "argo_workflows" {
   create_namespace = false
   values           = var.argo_workflows_values
 
-  depends_on = [kubernetes_namespace_v1.this]
+  depends_on = [kubernetes_namespace_v1.namespace]
 }
 
 resource "helm_release" "argo_events" {
@@ -39,7 +39,7 @@ resource "helm_release" "argo_events" {
   create_namespace = false
   values           = var.argo_events_values
 
-  depends_on = [kubernetes_namespace_v1.this]
+  depends_on = [kubernetes_namespace_v1.namespace]
 }
 
 resource "helm_release" "argocd" {
@@ -53,7 +53,7 @@ resource "helm_release" "argocd" {
   create_namespace = false
   values           = var.argocd_values
 
-  depends_on = [kubernetes_namespace_v1.this]
+  depends_on = [kubernetes_namespace_v1.namespace]
 }
 
 # The controller needs no identity: ClusterSecretStores authenticate via serviceAccountRef.
@@ -93,7 +93,7 @@ resource "kubernetes_service_account_v1" "federated" {
     }
   }
 
-  depends_on = [kubernetes_namespace_v1.this]
+  depends_on = [kubernetes_namespace_v1.namespace]
 }
 
 # kubectl_manifest: kubernetes_manifest doesn't work reliably with exec auth.
@@ -112,7 +112,7 @@ locals {
   ])
 }
 
-resource "kubectl_manifest" "this" {
+resource "kubectl_manifest" "kubernetes_object" {
   for_each = { for d in local.manifest_documents : d.key => d }
 
   yaml_body          = each.value.body

@@ -10,23 +10,23 @@
 # --------------------------------------------------------------------------------------
 
 output "aks_cluster_name" {
-  value = azurerm_kubernetes_cluster.this.name
+  value = azurerm_kubernetes_cluster.aks_cluster.name
 }
 
 output "aks_cluster_id" {
-  value = azurerm_kubernetes_cluster.this.id
+  value = azurerm_kubernetes_cluster.aks_cluster.id
 }
 
 output "kubernetes_cluster_fqdn" {
-  value = azurerm_kubernetes_cluster.this.fqdn
+  value = azurerm_kubernetes_cluster.aks_cluster.fqdn
 }
 
 output "kubernetes_cluster_private_fqdn" {
-  value = azurerm_kubernetes_cluster.this.private_fqdn
+  value = azurerm_kubernetes_cluster.aks_cluster.private_fqdn
 }
 
 output "aks_oidc_issuer_url" {
-  value = azurerm_kubernetes_cluster.this.oidc_issuer_url
+  value = azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
 }
 
 output "resource_group_name" {
@@ -34,7 +34,7 @@ output "resource_group_name" {
 }
 
 output "virtual_network_name" {
-  value = azurerm_virtual_network.this.name
+  value = azurerm_virtual_network.virtual_network.name
 }
 
 output "node_subnet_id" {
@@ -47,7 +47,7 @@ output "nat_gateway_public_ip" {
 }
 
 output "bastion_host_id" {
-  value = var.enable_bastion ? azurerm_bastion_host.this[0].id : null
+  value = var.enable_bastion ? azurerm_bastion_host.bastion_host[0].id : null
 }
 
 output "eso_client_id" {
