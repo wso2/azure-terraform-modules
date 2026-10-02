@@ -1,7 +1,7 @@
-# Argo-AKS-DataPlane/apps
+# Argo-Data-Plane/apps
 
 Installs the Kubernetes-level workload an Azure Argo data plane runs.
-Mirrors `Argo-EKS-DataPlane/apps` almost exactly: same generic Helm
+Mirrors `Argo-Data-Plane/apps` almost exactly: same generic Helm
 release set, same `manifest_files`/`kubectl_manifest_files` pattern for
 caller-supplied project-specific YAML. It assumes the caller has already
 configured the `kubernetes`/`helm`/`kubectl` providers against the
@@ -68,7 +68,7 @@ None.
 
 ```hcl
 module "apps" {
-  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-AKS-DataPlane/apps?ref=v1.0.0"
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Data-Plane/apps?ref=v1.0.0"
 
   namespaces = ["argo-azure-stage", "argo-azure-prod"]
 

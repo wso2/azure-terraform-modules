@@ -1,4 +1,4 @@
-# Argo-AKS-DataPlane/cluster
+# Argo-Data-Plane/cluster
 
 Provisions the AKS cluster and tier-isolated networking an Azure Argo
 data plane runs on. Stage is the cluster's default node pool with its own
@@ -26,7 +26,7 @@ repo.
   account.
 - An optional Storage Account + container + Workload Identity Federation
   identity for Argo Workflows' artifact archiving
-  (`enable_artifact_archiving`), same shape as `Argo-EKS-DataPlane/cluster`'s
+  (`enable_artifact_archiving`), same shape as `Argo-Data-Plane/cluster`'s
   S3 bucket + IRSA role.
 - An optional Azure Bastion (`enable_bastion`) with its own subnet, public
   IP, and the full set of NSG rules Azure Bastion requires.
@@ -124,7 +124,7 @@ repo.
 
 ```hcl
 module "cluster" {
-  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-AKS-DataPlane/cluster?ref=v1.0.0"
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Data-Plane/cluster?ref=v1.0.0"
 
   resource_group_name = "rg-asgardeo-argo-azure-dataplane"
   location             = "eastus"

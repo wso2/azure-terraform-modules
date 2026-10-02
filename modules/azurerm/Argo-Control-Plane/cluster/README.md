@@ -7,7 +7,7 @@ runs no deploy workloads; this module only builds the cluster it lives on.
 
 Raw `azurerm_*` resource blocks, no dependency on any other WSO2 module
 repo. Network, KMS, Bastion and Workload Identity shapes are the same as
-`Argo-AKS-DataPlane/cluster`, collapsed to a single shared node pool -
+`Argo-Data-Plane/cluster`, collapsed to a single shared node pool -
 the control plane has no stage/prod tier split.
 
 ## AWS to Azure mapping

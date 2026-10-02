@@ -9,7 +9,7 @@ This is the Azure alternative to the AWS
 [`Argo-Control-Plane`](https://github.com/wso2/aws-terraform-modules/tree/main/modules/aws/Argo-Control-Plane)
 module. Use one or the other - there is only ever one control plane. Its
 outputs use the same names as the AWS module's, so the data planes
-(`Argo-AKS-DataPlane`, `Argo-EKS-DataPlane`) consume it the same way
+(the AWS and Azure `Argo-Data-Plane` modules) consume it the same way
 whichever cloud it runs in.
 
 Portal SSO is not part of this module. `modules/azuread/Argo-Entra-SSO`
@@ -32,7 +32,7 @@ module - call `cluster/` and `apps/` separately from your root module.
 The caller looks up the AKS cluster with a `data.azurerm_kubernetes_cluster`
 on `cluster`'s `aks_cluster_name`/`resource_group_name` outputs and
 configures the `kubernetes`/`helm`/`kubectl` providers against it, using
-`kubelogin` in `azurecli` mode (the same as `Argo-AKS-DataPlane`), so
+`kubelogin` in `azurecli` mode (the same as `Argo-Data-Plane`), so
 `kubelogin` and a logged-in `az` CLI are required wherever this runs.
 `apps` inherits those providers.
 

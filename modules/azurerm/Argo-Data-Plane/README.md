@@ -1,10 +1,10 @@
-# Argo-AKS-DataPlane
+# Argo-Data-Plane
 
 Provisions an Azure-based Argo data plane: an independent AKS cluster that
 pulls dispatch tasks from the control plane over NATS (mTLS) and runs the
 deploy pipelines.
 
-Tier isolation mirrors the AWS `Argo-EKS-DataPlane` module exactly. Stage
+Tier isolation mirrors the AWS `Argo-Data-Plane` module exactly. Stage
 is the cluster's default node pool with its own subnet. Prod is a
 separate, tainted node pool with its own subnet and NSG - that NSG
 explicitly denies inbound from the stage subnet, which is the real
@@ -52,14 +52,14 @@ whichever hosts the control plane), not before.** This data plane's own NATS cli
 certificate in the control plane's output, copied by hand into this
 module's `terraform.tfvars`, before `apps` can dial the control plane
 over NATS. It has no dependency on the AWS data plane
-(`Argo-EKS-DataPlane`) and can be applied before, after, or in parallel
+(`aws/Argo-Data-Plane`) and can be applied before, after, or in parallel
 with it.
 
 ## Example
 
 ```hcl
 module "cluster" {
-  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-AKS-DataPlane/cluster?ref=v1.0.0"
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Data-Plane/cluster?ref=v1.0.0"
 
   resource_group_name = "rg-asgardeo-argo-azure-dataplane"
   location             = "eastus"
@@ -87,7 +87,7 @@ module "cluster" {
 }
 
 module "apps" {
-  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-AKS-DataPlane/apps?ref=v1.0.0"
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Data-Plane/apps?ref=v1.0.0"
 
   namespaces = ["argo-azure-stage", "argo-azure-prod"]
 
