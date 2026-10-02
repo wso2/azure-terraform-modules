@@ -55,8 +55,7 @@ the control plane has no stage/prod tier split.
   existing cluster from system-assigned to user-assigned is an in-place
   update, but plan it carefully on a live cluster.
 - **ESO's federated subject is `<eso_namespace>:external-secrets`.**
-  Keep `eso_namespace` in sync with the `apps` module's (the composite
-  entrypoint does this for you).
+  Keep `eso_namespace` in sync with the `apps` module's.
 - **Role assignments need Owner or User Access Administrator.** With only
   Contributor, set `create_role_assignments = false` and have someone with
   the right access create the grants separately. The cluster identity's

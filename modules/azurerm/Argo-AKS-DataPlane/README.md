@@ -13,8 +13,8 @@ Azure RBAC for Kubernetes, not a unified cross-cloud identity layer.
 
 ## Structure
 
-Two independently-callable submodules, plus an optional composite
-entrypoint that wires them together for you:
+Two independently-callable submodules. This folder itself is not a
+module - call `cluster/` and `apps/` separately from your root module.
 
 - [`cluster/`](./cluster) - the AKS cluster, VNet (stage/prod tiers, each
   with its own NAT Gateway and subnets), Workload Identity Federation
@@ -22,36 +22,6 @@ entrypoint that wires them together for you:
 - [`apps/`](./apps) - the Kubernetes-level install: Argo Workflows, Argo
   Events, ArgoCD, External Secrets Operator, and caller-supplied
   project-specific manifests.
-- `main.tf`/`variables.tf`/`outputs.tf`/`versions.tf` (this directory) - a
-  composite root module that calls `cluster` and `apps` for you, as an
-  alternative to calling the two submodules separately.
-
-## Composite entrypoint
-
-Calling this directory itself as a module gets you `module.cluster` and
-`module.apps` wired together in one call. Every `cluster` and `apps`
-variable passes straight through, and the `kubernetes`/`helm`/`kubectl`
-provider blocks are pre-configured against a
-`data.azurerm_kubernetes_cluster` lookup of `cluster`'s resulting AKS
-cluster - matching what `environments/azure-dataplane`'s own `main.tf`
-does today.
-
-## Notes
-
-- Unlike the AWS composite modules, no `apps` variable is auto-wired from
-  a `cluster` output here. `apps` has no `eso_role_arn`-shaped input at
-  all, since ESO on AKS authenticates via Workload Identity rather than an
-  IRSA-style role ARN.
-- The one place a `cluster` output genuinely feeds into `apps` -
-  `federated_service_accounts`' `client_id` fields, sourced from
-  `deploy_identity_client_ids` - is a fully caller-composed map in every
-  real environment: arbitrary keys, a caller-chosen k8s object name, and
-  namespaces that don't mechanically derive from `deploy_identities`' own
-  keys. Auto-deriving that map would guess at a shape the real environment
-  doesn't use uniformly, so `federated_service_accounts` stays a plain
-  passthrough variable here. Build its value from this module's own
-  `deploy_identity_client_ids` output, the same way
-  `environments/azure-dataplane/main.tf` builds it today.
 
 ## How the two compose
 
@@ -66,7 +36,9 @@ outputs directly into `apps` inputs:
 for Argo Workflows' Blob Storage artifact archiving, and
 `deploy_identity_client_ids` entries into `apps`'
 `federated_service_accounts` for any Workload-Identity-authenticated
-workload (e.g. External Secrets Operator's `ClusterSecretStore`).
+workload (e.g. External Secrets Operator's `ClusterSecretStore`). Build
+`federated_service_accounts` from `cluster`'s `deploy_identity_client_ids`
+output, the same way `environments/azure-dataplane/main.tf` does.
 
 `cluster`'s AKS cluster must exist before the `kubernetes`/`helm`
 providers `apps` uses can authenticate against it. A root module calling

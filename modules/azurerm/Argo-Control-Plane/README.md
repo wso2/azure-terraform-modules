@@ -17,36 +17,28 @@ provides it, and works unchanged in front of either cloud's control plane.
 
 ## Structure
 
-- [`cluster/`](./cluster) - standalone module for the Azure infrastructure:
-  AKS, VNet, NAT Gateway, Key Vaults (KMS and ESO), Workload Identities,
-  optional Bastion. Nothing Kubernetes-level.
-- [`apps/`](./apps) - standalone module for everything inside the cluster:
-  NATS (JetStream, mTLS via cert-manager), Argo Workflows, Argo Events,
-  cert-manager, Traefik, External Secrets Operator, and caller-supplied
-  manifests.
-- The top-level `main.tf`/`variables.tf`/`outputs.tf`/`versions.tf` are a
-  thin composite wrapper: they call `cluster/`, configure the
-  `kubernetes`/`helm`/`kubectl` providers against it, call `apps/`, and
-  wire the two together.
+Two independently-callable submodules. This folder itself is not a
+module - call `cluster/` and `apps/` separately from your root module.
 
-So there are two ways to use this:
+- [`cluster/`](./cluster) - the Azure infrastructure: AKS, VNet, NAT
+  Gateway, Key Vaults (KMS and ESO), Workload Identities, optional
+  Bastion. Nothing Kubernetes-level.
+- [`apps/`](./apps) - everything inside the cluster: NATS (JetStream, mTLS
+  via cert-manager), Argo Workflows, Argo Events, cert-manager, Traefik,
+  External Secrets Operator, and caller-supplied manifests.
 
-1. Call `cluster/` and `apps/` yourself and wire them by hand - more
-   control.
-2. Call this directory directly and get both already wired - less to
-   write.
+## How the two compose
 
-## Composite entrypoint
+The caller looks up the AKS cluster with a `data.azurerm_kubernetes_cluster`
+on `cluster`'s `aks_cluster_name`/`resource_group_name` outputs and
+configures the `kubernetes`/`helm`/`kubectl` providers against it, using
+`kubelogin` in `azurecli` mode (the same as `Argo-AKS-DataPlane`), so
+`kubelogin` and a logged-in `az` CLI are required wherever this runs.
+`apps` inherits those providers.
 
-Every `cluster` and `apps` variable passes straight through, except
-`eso_client_id`, which is wired automatically from
-`module.cluster.eso_client_id`. `eso_namespace` feeds both submodules so
-ESO's federated identity subject can't drift from where ESO is installed.
-
-The providers authenticate with `kubelogin` in `azurecli` mode, the same
-as `Argo-AKS-DataPlane`, so `kubelogin` and a logged-in `az` CLI are
-required wherever this runs. The caller configures the `azurerm` provider
-(including its `features {}` block) as usual.
+Pass `module.cluster.eso_client_id` into `apps`' `eso_client_id`, and give
+both submodules the same `eso_namespace`, so ESO's federated identity
+subject matches where ESO is installed.
 
 ## Notes
 
@@ -77,10 +69,9 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
-module "argo_control_plane" {
-  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Control-Plane?ref=v1.0.0"
+module "cluster" {
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Control-Plane/cluster?ref=v1.0.0"
 
-  # --- cluster ---
   resource_group_name = "rg-argo-controlplane-prod"
   location            = "eastus2"
 
@@ -100,13 +91,38 @@ module "argo_control_plane" {
 
   enable_bastion                = true
   bastion_subnet_address_prefix = "10.4.8.0/26"
+}
 
-  # --- apps ---
+data "azurerm_kubernetes_cluster" "aks_cluster" {
+  name                = module.cluster.aks_cluster_name
+  resource_group_name = module.cluster.resource_group_name
+}
+
+provider "kubernetes" {
+  host                   = data.azurerm_kubernetes_cluster.aks_cluster.kube_config[0].host
+  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.aks_cluster.kube_config[0].cluster_ca_certificate)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "kubelogin"
+    args        = ["get-token", "--login", "azurecli", "--server-id", "6dae42f8-4368-4678-94ff-3960e28e3630"]
+  }
+}
+
+# Configure "helm" and "kubectl" the same way.
+
+module "apps" {
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azurerm/Argo-Control-Plane/apps?ref=v1.0.0"
+
   extra_namespaces = ["oauth2-proxy", "gateway"]
 
   nats_client_identities         = ["control-plane", "azure-stage", "azure-prod", "aws-stage", "aws-prod"]
   tunnel_client_identities       = ["aws", "azure"]
   nats_server_external_dns_names = ["nats.argo.example.com"]
+
+  install_external_secrets = true
+  eso_client_id            = module.cluster.eso_client_id
+
+  depends_on = [module.cluster]
 }
 ```
 
