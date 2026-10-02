@@ -8,17 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Every variable below is a straight passthrough into module.cluster or
-# module.apps (see main.tf) - same name, type, description and default as
-# that submodule's own variables.tf.
-#
-# Unlike the AWS composites, no apps variable is auto-wired from a cluster
-# output here: federated_service_accounts stays a plain passthrough: a
-# caller composing through this module builds its value from this
-# module's own deploy_identity_client_ids output (see outputs.tf).
-#
-# --------------------------------------------------------------------------------------
 
 # --- Passed to module.cluster ---
 

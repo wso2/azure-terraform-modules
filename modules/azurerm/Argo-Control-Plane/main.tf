@@ -8,11 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Composite entrypoint wiring ./cluster to ./apps in one module call, as an
-# ALTERNATIVE to calling the two submodules separately (see README.md).
-#
-# --------------------------------------------------------------------------------------
 
 module "cluster" {
   source = "./cluster"
@@ -48,7 +43,6 @@ module "cluster" {
   enable_secrets_encryption                = var.enable_secrets_encryption
   cluster_secrets_key_vault_name           = var.cluster_secrets_key_vault_name
   eso_namespace                            = var.eso_namespace
-  eso_service_account_name                 = var.eso_service_account_name
   eso_key_vault_name                       = var.eso_key_vault_name
   log_retention_in_days                    = var.log_retention_in_days
   enable_vpc_flow_logs                     = var.enable_vpc_flow_logs
@@ -61,15 +55,13 @@ module "cluster" {
   flow_logs_storage_account_name           = var.flow_logs_storage_account_name
 }
 
-# CA cert comes from this lookup - cluster exposes no non-admin kube_config.
-# The name reference alone orders it after module.cluster.
+# Only source of the CA cert; the cluster module exposes no non-admin kube_config.
 data "azurerm_kubernetes_cluster" "this" {
   name                = module.cluster.aks_cluster_name
   resource_group_name = module.cluster.resource_group_name
 }
 
-# kubelogin azurecli mode; the server-id is AKS's fixed, well-known AAD
-# server app ID, not a project-specific value.
+# 6dae42f8-... is AKS's fixed AAD server app ID, not a project value.
 provider "kubernetes" {
   host                   = data.azurerm_kubernetes_cluster.this.kube_config[0].host
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.this.kube_config[0].cluster_ca_certificate)
@@ -94,8 +86,7 @@ provider "helm" {
   }
 }
 
-# lazy_load stops kubectl_manifest from using whatever kubeconfig context
-# is ambient on the machine.
+# lazy_load stops kubectl from falling back to the ambient kubeconfig context.
 provider "kubectl" {
   host                   = data.azurerm_kubernetes_cluster.this.kube_config[0].host
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.this.kube_config[0].cluster_ca_certificate)
@@ -142,8 +133,6 @@ module "apps" {
   eso_namespace                  = var.eso_namespace
   kubectl_manifest_files         = var.kubectl_manifest_files
 
-  # Only apps input auto-wired from cluster; other cluster outputs get
-  # consumed inside the caller's own Helm values instead.
   eso_client_id = module.cluster.eso_client_id
 
   depends_on = [module.cluster]

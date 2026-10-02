@@ -198,12 +198,6 @@ variable "eso_namespace" {
   default     = "external-secrets"
 }
 
-variable "eso_service_account_name" {
-  type        = string
-  description = "ServiceAccount name the external-secrets Helm chart creates for its controller - scopes ESO's federated identity subject"
-  default     = "external-secrets"
-}
-
 variable "eso_key_vault_name" {
   type        = string
   description = "Override for ESO's Key Vault name (globally unique, <=24 chars). Null derives \"<aks_cluster_name>-secrets\"."

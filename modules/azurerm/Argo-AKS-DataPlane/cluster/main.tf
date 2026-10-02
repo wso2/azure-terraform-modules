@@ -8,17 +8,7 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Raw azurerm resource blocks. Stage is the cluster's default node pool +
-# its own subnet; prod is a separate subnet and a separate, tainted node
-# pool. Cluster admin access is native Azure RBAC plus an optional
-# Bastion.
-#
-# --------------------------------------------------------------------------------------
 
-# Azure resources can't exist without a resource group first.
-# create_resource_group defaults to true; set false to point
-# resource_group_name at one already managed elsewhere.
 resource "azurerm_resource_group" "this" {
   count    = var.create_resource_group ? 1 : 0
   name     = var.resource_group_name
@@ -29,8 +19,7 @@ resource "azurerm_resource_group" "this" {
 locals {
   resource_group_name = var.create_resource_group ? azurerm_resource_group.this[0].name : var.resource_group_name
 
-  # Storage account names must be <=24 chars, lowercase alphanumeric only;
-  # reserve room for the full suffix so it isn't truncated mid-word.
+  # Storage account names: <=24 lowercase alphanumerics; keep the suffix whole.
   cluster_name_sanitized         = lower(replace(var.aks_cluster_name, "-", ""))
   flow_logs_storage_account_name = coalesce(var.flow_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("flowlogs"))}flowlogs")
   argo_logs_storage_account_name = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
@@ -65,8 +54,7 @@ resource "azurerm_subnet" "ilb" {
   address_prefixes     = [var.internal_lb_subnet_address_prefix]
 }
 
-# --- Per-tier NSGs. Prod's own NSG denies inbound from the stage subnet -
-#     the real network isolation boundary underneath the taint. ---
+# --- Per-tier NSGs; prod denies inbound from the stage subnet ---
 
 resource "azurerm_network_security_group" "stage" {
   name                = "${var.aks_cluster_name}-stage-nsg"
@@ -162,8 +150,7 @@ resource "azurerm_subnet_nat_gateway_association" "prod" {
   nat_gateway_id = azurerm_nat_gateway.prod.id
 }
 
-# --- AKS cluster: stage is the default node pool, prod is a separate,
-#     tainted node pool ---
+# --- AKS cluster ---
 
 resource "azurerm_kubernetes_cluster" "this" {
   name                = var.aks_cluster_name
@@ -178,10 +165,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     authorized_ip_ranges = var.api_server_authorized_ip_ranges
   }
 
-  # Required by azurerm >= 5.x's node_provisioning_profile schema addition
-  # (tied to AKS Node Autoprovisioning / Karpenter integration) - "Manual"
-  # since node pools here are explicitly, individually managed below, not
-  # auto-provisioned by AKS itself.
+  # Required by azurerm 5.x; node pools here are managed explicitly.
   node_provisioning_profile {
     mode = "Manual"
   }
@@ -198,10 +182,8 @@ resource "azurerm_kubernetes_cluster" "this" {
     max_pods                     = 110
     only_critical_addons_enabled = false
 
-    # Explicit, not left as optional/computed - otherwise Terraform plans
-    # to null it out every run, forcing an in-place update that makes
-    # kube_config (and the kubernetes provider's config) unknown at plan
-    # time, breaking every kubernetes_namespace_v1 refresh.
+    # Explicit: left computed, it causes a perpetual diff that makes
+    # kube_config unknown at plan time.
     upgrade_settings {
       max_surge                     = "10%"
       drain_timeout_in_minutes      = 0
@@ -238,10 +220,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
 
-  # AKS's control-plane identity needs Key Vault access to use this key
-  # (azurerm_role_assignment.kms below), which can't exist before the
-  # cluster does - enable_secrets_encryption must be a follow-up apply,
-  # not the one that first creates the cluster.
+  # Follow-up apply only: the cluster identity needs Key Vault access first.
   dynamic "key_management_service" {
     for_each = var.enable_secrets_encryption ? [1] : []
     content {
@@ -270,16 +249,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   max_pods              = 110
   mode                  = "User"
   node_taints           = ["env=${var.prod_node_taint_value}:NoSchedule"]
-  # Taint alone only keeps other workloads OFF this pool - anything that
-  # self-selects onto it (nodeSelector: env=prod) also needs the matching
-  # label, or it stays Pending even with the right toleration.
+  # Pods selecting env=prod need this label as well as the toleration.
   node_labels = {
     env = var.prod_node_taint_value
   }
 
-  # See default_node_pool's own upgrade_settings comment above - same
-  # provider-drift fix, needed here too since this pool has its own
-  # independent upgrade_settings block.
   upgrade_settings {
     max_surge                     = "10%"
     drain_timeout_in_minutes      = 0
@@ -294,8 +268,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   ]
 }
 
-# --- etcd secrets encryption (AKS's KMS feature) - see the
-#     key_management_service block above for the two-apply caveat ---
+# --- etcd secrets encryption (KMS) ---
 
 data "azurerm_client_config" "current" {
   count = var.enable_secrets_encryption ? 1 : 0
@@ -328,9 +301,7 @@ resource "azurerm_key_vault_key" "cluster_secrets" {
   depends_on = [azurerm_role_assignment.cluster_secrets_admin]
 }
 
-# The identity running `terraform apply` needs its own grant to create
-# the key above - Key Vault's RBAC model requires this even for the
-# account that just created the vault.
+# Key Vault RBAC requires an explicit grant even for the vault's creator.
 resource "azurerm_role_assignment" "cluster_secrets_admin" {
   count = var.enable_secrets_encryption ? 1 : 0
 
@@ -339,9 +310,6 @@ resource "azurerm_role_assignment" "cluster_secrets_admin" {
   principal_id         = data.azurerm_client_config.current[0].object_id
 }
 
-# The cluster's own control-plane identity - see the key_management_service
-# comment above for why this can't be part of the same apply that creates
-# the cluster.
 resource "azurerm_role_assignment" "kms" {
   count = var.enable_secrets_encryption ? 1 : 0
 
@@ -350,10 +318,7 @@ resource "azurerm_role_assignment" "kms" {
   principal_id         = azurerm_kubernetes_cluster.this.identity[0].principal_id
 }
 
-# --- NSG Flow Logs - duplicates what a VPC-Flow-Log-equivalent module
-#     would do, kept opt-in for the same reason the AWS side is. Requires
-#     Network Watcher already enabled for this region (Azure's default,
-#     but org policy can disable it - hence caller-supplied, not assumed). ---
+# --- NSG Flow Logs (opt-in, needs an existing Network Watcher) ---
 
 resource "azurerm_storage_account" "flow_logs" {
   count = var.enable_vpc_flow_logs ? 1 : 0
@@ -396,9 +361,7 @@ resource "azurerm_network_watcher_flow_log" "prod" {
   }
 }
 
-# --- Argo's own artifact repository - see Argo-EKS-DataPlane's identical
-#     rationale. Workload Identity Federation instead of IRSA, otherwise
-#     the same shape. ---
+# --- Argo Workflows artifact repository (opt-in) ---
 
 resource "azurerm_storage_account" "argo_logs" {
   count = var.enable_artifact_archiving ? 1 : 0
@@ -465,7 +428,7 @@ resource "azurerm_role_assignment" "workflow_controller_artifacts" {
   principal_id         = azurerm_user_assigned_identity.workflow_controller_artifacts[0].principal_id
 }
 
-# --- Bastion: native-identity admin access path (login-flow decision) ---
+# --- Bastion ---
 
 resource "azurerm_subnet" "bastion" {
   count = var.enable_bastion ? 1 : 0
@@ -652,8 +615,8 @@ resource "azurerm_bastion_host" "this" {
   depends_on = [azurerm_subnet_network_security_group_association.bastion]
 }
 
-# Per-env Workload Identity Federation for pipeline pods. Trust is scoped
-# to exactly one (namespace, ServiceAccount) subject per entry.
+# --- Per-env Workload Identities for pipeline pods ---
+
 
 resource "azurerm_user_assigned_identity" "deploy_identity" {
   for_each = var.deploy_identities

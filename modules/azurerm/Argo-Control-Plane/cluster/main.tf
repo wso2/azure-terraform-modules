@@ -8,12 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Raw azurerm resource blocks. One AKS cluster, one shared node pool -
-# the control plane has no stage/prod tier split. Same network, KMS,
-# bastion and Workload Identity shapes as Argo-AKS-DataPlane/cluster.
-#
-# --------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "this" {
   count    = var.create_resource_group ? 1 : 0
@@ -136,8 +130,8 @@ resource "azurerm_kubernetes_cluster" "this" {
     max_pods                     = 110
     only_critical_addons_enabled = false
 
-    # Explicit to stop a perpetual in-place diff that makes kube_config
-    # unknown at plan time and breaks the kubernetes provider.
+    # Explicit: left computed, it causes a perpetual diff that makes
+    # kube_config unknown at plan time.
     upgrade_settings {
       max_surge                     = "10%"
       drain_timeout_in_minutes      = 0
@@ -177,9 +171,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
 
-  # The system-assigned identity needs Key Vault access (azurerm_role_assignment.kms)
-  # before KMS can be enabled, and that identity only exists once the cluster
-  # does - so enable_secrets_encryption must be a follow-up apply.
+  # Follow-up apply only: the cluster identity needs Key Vault access first.
   dynamic "key_management_service" {
     for_each = var.enable_secrets_encryption ? [1] : []
     content {
@@ -240,8 +232,7 @@ resource "azurerm_role_assignment" "kms" {
   principal_id         = azurerm_kubernetes_cluster.this.identity[0].principal_id
 }
 
-# --- External Secrets Operator: this control plane's own secret store,
-#     the Azure equivalent of the AWS module's Secrets Manager prefix ---
+# --- External Secrets Operator Key Vault and identity ---
 
 resource "azurerm_key_vault" "eso" {
   name                       = local.eso_key_vault_name
@@ -276,7 +267,7 @@ resource "azurerm_federated_identity_credential" "eso" {
   user_assigned_identity_id = azurerm_user_assigned_identity.eso.id
   audience                  = ["api://AzureADTokenExchange"]
   issuer                    = azurerm_kubernetes_cluster.this.oidc_issuer_url
-  subject                   = "system:serviceaccount:${var.eso_namespace}:${var.eso_service_account_name}"
+  subject                   = "system:serviceaccount:${var.eso_namespace}:external-secrets"
 }
 
 resource "azurerm_role_assignment" "eso" {

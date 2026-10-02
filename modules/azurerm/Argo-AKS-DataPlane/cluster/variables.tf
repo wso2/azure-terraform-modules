@@ -106,7 +106,7 @@ variable "dns_service_ip" {
   description = "DNS service IP, must be inside service_cidr"
 }
 
-# --- Stage tier (AKS-Generic's own default node pool + its own subnet) ---
+# --- Stage tier ---
 
 variable "stage_subnet_address_prefix" {
   type        = string
@@ -141,7 +141,7 @@ variable "stage_node_max_count" {
   default     = 3
 }
 
-# --- Prod tier (separate subnet + separate, tainted node pool) ---
+# --- Prod tier ---
 
 variable "prod_subnet_address_prefix" {
   type        = string
@@ -177,7 +177,7 @@ variable "prod_node_taint_value" {
   default     = "prod"
 }
 
-# --- Bastion (native-identity admin access path, per the login-flow decision) ---
+# --- Bastion ---
 
 variable "enable_bastion" {
   type        = bool

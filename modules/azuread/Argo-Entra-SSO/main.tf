@@ -8,13 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Everything the Argo control plane's Entra ID SSO needs, self-contained
-# in one module: the app registration, its service principal + rotating
-# password, and the RBAC tier groups credential-injector maps requests
-# against.
-#
-# --------------------------------------------------------------------------------------
 
 resource "azuread_application_registration" "ad_application" {
   display_name            = var.application_name
@@ -25,9 +18,7 @@ resource "azuread_application_registration" "ad_application" {
   }
 }
 
-# Gated on var.manage_redirect_uris (a plain bool), not
-# length(var.redirect_uris) - count/for_each can't depend on a value
-# that's only known after apply, and redirect_uris often is one.
+# A plain bool: count can't depend on redirect_uris, which may be unknown until apply.
 resource "azuread_application_redirect_uris" "ad_application" {
   count = var.manage_redirect_uris ? 1 : 0
 

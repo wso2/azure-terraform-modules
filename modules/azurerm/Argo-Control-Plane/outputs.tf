@@ -8,13 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Outputs a downstream caller (data-plane environments, bastion access)
-# actually needs. The module.apps outputs match the AWS Argo-Control-Plane
-# names exactly, so a data plane consumes either cloud's control plane the
-# same way.
-#
-# --------------------------------------------------------------------------------------
 
 # --- From module.cluster ---
 

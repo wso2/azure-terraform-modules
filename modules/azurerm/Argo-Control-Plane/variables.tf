@@ -8,12 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Straight passthrough into module.cluster or module.apps (see main.tf),
-# except apps' eso_client_id, which is auto-wired instead of exposed here.
-# eso_namespace feeds both, keeping ESO's federated subject in sync.
-#
-# --------------------------------------------------------------------------------------
 
 # --- Passed to module.cluster ---
 
@@ -206,12 +200,6 @@ variable "eso_namespace" {
   default     = "external-secrets"
 }
 
-variable "eso_service_account_name" {
-  type        = string
-  description = "ServiceAccount name the external-secrets Helm chart creates for its controller - scopes ESO's federated identity subject"
-  default     = "external-secrets"
-}
-
 variable "eso_key_vault_name" {
   type        = string
   description = "Override for ESO's Key Vault name (globally unique, <=24 chars). Null derives \"<aks_cluster_name>-secrets\"."
@@ -272,7 +260,7 @@ variable "flow_logs_storage_account_name" {
   default     = null
 }
 
-# --- Passed to module.apps (eso_client_id intentionally NOT here - see main.tf) ---
+# --- Passed to module.apps ---
 
 variable "namespace" {
   type        = string

@@ -12,9 +12,6 @@
 terraform {
   required_version = ">= 1.10"
   required_providers {
-    # No longer pinned to 4.x - that was only needed to work around
-    # deprecated azurerm_subnet arguments in AKS-Generic/Virtual-Network,
-    # which this composite no longer depends on (raw resource blocks now).
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">= 4.0"

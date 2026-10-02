@@ -8,12 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Same install as the AWS Argo-Control-Plane/apps module. Only ESO's
-# identity wiring differs; NATS PVCs use AKS's default managed-csi
-# StorageClass instead of a module-created one.
-#
-# --------------------------------------------------------------------------------------
 
 resource "kubernetes_namespace_v1" "namespace" {
   metadata {
@@ -206,6 +200,15 @@ resource "kubectl_manifest" "nats_client_certificate" {
     }
   })
 
+  # Without this, the secret read below can run before cert-manager has
+  # issued it, leaving the nats_client_* outputs null until a second apply.
+  wait_for {
+    condition {
+      type   = "Ready"
+      status = "True"
+    }
+  }
+
   depends_on = [kubectl_manifest.nats_ca_issuer, kubernetes_namespace_v1.namespace]
 }
 
@@ -290,7 +293,6 @@ resource "helm_release" "external_secrets" {
   depends_on = [kubernetes_namespace_v1.external_secrets]
 }
 
-# create_namespace tolerates traefik_namespace also being in extra_namespaces.
 resource "helm_release" "traefik" {
   count = var.install_traefik ? 1 : 0
 
@@ -319,8 +321,7 @@ locals {
   ])
 }
 
-# kubectl_manifest, not kubernetes_manifest - its REST client doesn't
-# reliably work with exec-based auth (kubelogin).
+# kubectl_manifest: kubernetes_manifest doesn't work reliably with exec auth.
 resource "kubectl_manifest" "this" {
   for_each = { for d in local.manifest_documents : d.key => d }
 

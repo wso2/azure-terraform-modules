@@ -52,7 +52,7 @@ the control plane has no stage/prod tier split.
   identity only exists once the cluster does, and it needs Key Vault
   access before KMS can be switched on. Create the cluster with it
   `false`, then flip it to `true`.
-- **ESO's federated subject is `<eso_namespace>:<eso_service_account_name>`.**
+- **ESO's federated subject is `<eso_namespace>:external-secrets`.**
   Keep `eso_namespace` in sync with the `apps` module's (the composite
   entrypoint does this for you).
 - **Role assignments need Owner or User Access Administrator.** With only
@@ -105,7 +105,6 @@ the control plane has no stage/prod tier split.
 | `enable_secrets_encryption` | `bool` | `false` | Key Vault-backed KMS. Follow-up apply only - see Notes |
 | `cluster_secrets_key_vault_name` | `string` | `null` | Override; null derives `<aks_cluster_name>-kms` |
 | `eso_namespace` | `string` | `"external-secrets"` | |
-| `eso_service_account_name` | `string` | `"external-secrets"` | |
 | `eso_key_vault_name` | `string` | `null` | Override; null derives `<aks_cluster_name>-secrets` |
 | `log_retention_in_days` | `number` | `90` | |
 | `enable_vpc_flow_logs` | `bool` | `false` | |

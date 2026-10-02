@@ -8,11 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Composite entrypoint wiring ./cluster to ./apps in one module call, as an
-# ALTERNATIVE to calling the two submodules separately (see README.md).
-#
-# --------------------------------------------------------------------------------------
 
 module "cluster" {
   source = "./cluster"
@@ -80,19 +75,13 @@ module "cluster" {
   flow_logs_storage_account_name = var.flow_logs_storage_account_name
 }
 
-# Bridges native-identity (AAD/Azure RBAC) auth into the kubernetes/helm
-# providers below - cluster exposes no non-admin kube_config output, so
-# this lookup is the only way to get the CA cert. No depends_on: the
-# narrower name = module.cluster.aks_cluster_name reference already
-# creates the right dependency.
+# Only source of the CA cert; the cluster module exposes no non-admin kube_config.
 data "azurerm_kubernetes_cluster" "this" {
   name                = module.cluster.aks_cluster_name
   resource_group_name = var.resource_group_name
 }
 
-# kubelogin's azurecli mode, same as environments/azure-dataplane/main.tf -
-# "6dae42f8-4368-4678-94ff-3960e28e3630" is AKS's own well-known
-# server-app-id for AAD token exchange, not a project-specific value.
+# 6dae42f8-... is AKS's fixed AAD server app ID, not a project value.
 provider "kubernetes" {
   host                   = data.azurerm_kubernetes_cluster.this.kube_config[0].host
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.this.kube_config[0].cluster_ca_certificate)
@@ -156,9 +145,6 @@ module "apps" {
   eso_helm_repo            = var.eso_helm_repo
   eso_namespace            = var.eso_namespace
 
-  # Unlike the AWS composites, no cluster output is wired in here
-  # automatically - federated_service_accounts stays a plain passthrough,
-  # built from this module's own deploy_identity_client_ids output.
   federated_service_accounts = var.federated_service_accounts
 
   kubectl_manifest_files  = var.kubectl_manifest_files

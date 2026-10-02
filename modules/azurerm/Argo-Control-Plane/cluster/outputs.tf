@@ -51,7 +51,7 @@ output "bastion_host_id" {
 }
 
 output "eso_client_id" {
-  description = "Workload Identity client ID for External Secrets Operator's own controller ServiceAccount (<eso_namespace>/<eso_service_account_name>)"
+  description = "Workload Identity client ID for External Secrets Operator's own controller ServiceAccount (<eso_namespace>/external-secrets)"
   value       = azurerm_user_assigned_identity.eso.client_id
 }
 

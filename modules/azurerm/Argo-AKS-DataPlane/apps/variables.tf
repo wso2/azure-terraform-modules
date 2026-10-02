@@ -8,13 +8,6 @@
 # You may not alter or remove any copyright or other notice from copies of this content.
 #
 # --------------------------------------------------------------------------------------
-#
-# Assumes the caller has already configured the kubernetes/helm providers
-# against the sibling ../cluster module - takes no cluster credentials as
-# input. Same manifest_files pattern as Argo-EKS-DataPlane/apps for
-# caller-supplied, project-specific YAML.
-#
-# --------------------------------------------------------------------------------------
 
 variable "namespaces" {
   type        = list(string)
@@ -123,9 +116,7 @@ variable "federated_service_accounts" {
   type = map(object({
     namespace = string
     client_id = string
-    # Optional - defaults to the map key when unset. Lets two entries
-    # share the same ServiceAccount name in different namespaces, since
-    # this map's own keys must be unique.
+    # Defaults to the map key; set it to reuse a name across namespaces.
     name = optional(string)
   }))
   description = "ServiceAccounts to create, each annotated with azure.workload.identity/client-id - the identity a ClusterSecretStore's serviceAccountRef (or any other Workload-Identity-authenticated workload) presents. client_id should come from the cluster module's deploy_identity_client_ids output for a matching (namespace, name) entry in its deploy_identities. The k8s object's own name is `name` if set, else the map key itself."
