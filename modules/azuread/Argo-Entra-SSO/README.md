@@ -1,4 +1,4 @@
-# Argo-Control-Plane (azuread)
+# Argo-Entra-SSO (azuread)
 
 Provisions everything the Argo control plane's Entra ID SSO needs,
 self-contained in one module: the app registration, its service principal
@@ -87,7 +87,7 @@ provider "azuread" {
 }
 
 module "argo_sso" {
-  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azuread/Argo-Control-Plane?ref=v1.0.0"
+  source = "git::https://github.com/wso2/azure-terraform-modules.git//modules/azuread/Argo-Entra-SSO?ref=v1.0.0"
 
   application_name        = "argo-rnd-portal"
   group_membership_claims = ["SecurityGroup"]
