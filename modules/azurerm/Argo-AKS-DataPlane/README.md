@@ -74,8 +74,8 @@ both needs a two-step apply: `terraform apply -target=module.cluster`
 first, then a plain `terraform apply`. See `cloud-sre-common`'s
 `environments/azure-dataplane` for a real, wired-up example.
 
-**Apply this module after the AWS `Argo-Control-Plane` module, not
-before.** This data plane's own NATS client identity (e.g.
+**Apply this module after the `Argo-Control-Plane` module (AWS or Azure,
+whichever hosts the control plane), not before.** This data plane's own NATS client identity (e.g.
 `azure-stage`/`azure-prod`) has to already exist as a cert-manager-issued
 certificate in the control plane's output, copied by hand into this
 module's `terraform.tfvars`, before `apps` can dial the control plane
