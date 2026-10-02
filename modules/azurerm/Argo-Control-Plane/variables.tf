@@ -24,7 +24,7 @@ variable "create_resource_group" {
 
 variable "create_role_assignments" {
   type        = bool
-  description = "Whether to create the azurerm_role_assignment resources for ESO's Key Vault and the artifact storage account. Requires Owner or User Access Administrator at those scopes - a plain Contributor gets a 403. The KMS role assignments are gated by enable_secrets_encryption instead, since KMS can't work without them."
+  description = "Whether to create the azurerm_role_assignment resources for the cluster identity's Network Contributor on the VNet, ESO's Key Vault and the artifact storage account. If false, the Network Contributor grant must be made out of band before the cluster is created. Requires Owner or User Access Administrator at those scopes - a plain Contributor gets a 403. The KMS role assignments are gated by enable_secrets_encryption instead, since KMS can't work without them."
   default     = true
 }
 
@@ -184,7 +184,7 @@ variable "bastion_public_address_prefixes" {
 
 variable "enable_secrets_encryption" {
   type        = bool
-  description = "Whether to create a Key Vault + key and enable AKS's KMS etcd encryption with it. Can only be turned on in a follow-up apply after the cluster exists, never the apply that first creates it."
+  description = "Whether to create a Key Vault + key and enable AKS's KMS etcd encryption with it."
   default     = false
 }
 
@@ -208,13 +208,13 @@ variable "eso_key_vault_name" {
 
 variable "log_retention_in_days" {
   type        = number
-  description = "Retention for NSG Flow Logs and the artifact storage account's blob expiration, if enabled"
+  description = "Retention for VNet flow logs and the artifact storage account's blob expiration, if enabled"
   default     = 90
 }
 
 variable "enable_vpc_flow_logs" {
   type        = bool
-  description = "Whether to create NSG Flow Logs for the node subnet's NSG, published to a dedicated storage account"
+  description = "Whether to create a VNet flow log for this module's VNet, published to a dedicated storage account"
   default     = false
 }
 

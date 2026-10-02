@@ -22,7 +22,7 @@ repo.
   enabled, optional private-only API endpoint or authorized IP ranges.
 - Optional etcd secrets encryption via a Key Vault + key
   (`enable_secrets_encryption`).
-- Optional NSG Flow Logs (`enable_vpc_flow_logs`) to a dedicated storage
+- An optional VNet flow log (`enable_vpc_flow_logs`) to a dedicated storage
   account.
 - An optional Storage Account + container + Workload Identity Federation
   identity for Argo Workflows' artifact archiving
@@ -37,13 +37,15 @@ repo.
 
 ## Notes
 
-- `enable_secrets_encryption` can only be turned on in a follow-up apply
-  after the cluster already exists. The cluster's own system-assigned
-  identity can't be granted Key Vault access before the cluster exists.
-- Azure retired creation of *new* NSG flow logs as of 2025-06-30 (existing
-  ones keep working until 2027-09-30). This module hasn't yet migrated to
-  VNet flow logs (Network Manager), so `enable_vpc_flow_logs` currently
-  400s on any fresh environment regardless of the setting.
+- **The cluster uses a user-assigned identity** (`<aks_cluster_name>-identity`).
+  AKS KMS doesn't work with a system-assigned one, and this lets the Key
+  Vault and VNet grants exist before the cluster is created, so
+  `enable_secrets_encryption` works on the first apply. Changing an
+  existing cluster from system-assigned to user-assigned is an in-place
+  update, but plan it carefully on a live cluster.
+- Flow logs target the VNet. Azure no longer allows new NSG flow logs, so
+  an environment that still has the old per-NSG flow logs in state will
+  see them destroyed and replaced by one VNet flow log on the next apply.
 - `deploy_identities` only creates the identity. Actual permissions are
   granted separately via `deploy_identity_role_assignments`, gated on
   `create_role_assignments` - granting Azure RBAC roles needs
@@ -92,7 +94,7 @@ repo.
 | `deploy_identity_role_assignments` | `list(object({ identity_key, role_definition_name, scope }))` | `[]` | Azure RBAC role assignments granting each deploy identity access to its real deployment target - a list since one identity may need more than one role/scope |
 | `enable_secrets_encryption` | `bool` | `false` | Enables AKS's etcd secrets encryption via a Key Vault + key. See Notes above |
 | `log_retention_in_days` | `number` | `90` | |
-| `enable_vpc_flow_logs` | `bool` | `false` | Whether to create NSG Flow Logs for the stage/prod NSGs. See Notes above |
+| `enable_vpc_flow_logs` | `bool` | `false` | Whether to create a VNet flow log for this module's VNet |
 | `network_watcher_name` | `string` | `null` | Required when `enable_vpc_flow_logs` is true |
 | `network_watcher_resource_group_name` | `string` | `null` | Required when `enable_vpc_flow_logs` is true |
 | `enable_artifact_archiving` | `bool` | `false` | |

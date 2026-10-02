@@ -101,6 +101,24 @@ resource "azurerm_subnet_nat_gateway_association" "nodes" {
   nat_gateway_id = azurerm_nat_gateway.this.id
 }
 
+# AKS KMS doesn't work with a system-assigned identity: the Key Vault grant
+# has to exist before the cluster does.
+resource "azurerm_user_assigned_identity" "cluster" {
+  name                = "${var.aks_cluster_name}-identity"
+  location            = var.location
+  resource_group_name = local.resource_group_name
+  tags                = var.tags
+}
+
+# Required because the VNet lives outside the AKS-managed node resource group.
+resource "azurerm_role_assignment" "cluster_network" {
+  count = var.create_role_assignments ? 1 : 0
+
+  scope                = azurerm_virtual_network.this.id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_user_assigned_identity.cluster.principal_id
+}
+
 resource "azurerm_kubernetes_cluster" "this" {
   name                = var.aks_cluster_name
   location            = var.location
@@ -140,7 +158,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   identity {
-    type = "SystemAssigned"
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.cluster.id]
   }
 
   linux_profile {
@@ -171,7 +190,6 @@ resource "azurerm_kubernetes_cluster" "this" {
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
 
-  # Follow-up apply only: the cluster identity needs Key Vault access first.
   dynamic "key_management_service" {
     for_each = var.enable_secrets_encryption ? [1] : []
     content {
@@ -184,6 +202,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   depends_on = [
     azurerm_subnet_nat_gateway_association.nodes,
     azurerm_subnet_network_security_group_association.nodes,
+    azurerm_role_assignment.cluster_network,
+    azurerm_role_assignment.kms,
   ]
 }
 
@@ -228,8 +248,8 @@ resource "azurerm_role_assignment" "kms" {
   count = var.enable_secrets_encryption ? 1 : 0
 
   scope                = azurerm_key_vault.cluster_secrets[0].id
-  role_definition_name = "Key Vault Crypto Service Encryption User"
-  principal_id         = azurerm_kubernetes_cluster.this.identity[0].principal_id
+  role_definition_name = "Key Vault Crypto User"
+  principal_id         = azurerm_user_assigned_identity.cluster.principal_id
 }
 
 # --- External Secrets Operator Key Vault and identity ---
@@ -278,7 +298,7 @@ resource "azurerm_role_assignment" "eso" {
   principal_id         = azurerm_user_assigned_identity.eso.principal_id
 }
 
-# --- NSG Flow Logs (opt-in). Requires an existing regional Network Watcher. ---
+# --- VNet flow logs (opt-in, needs an existing Network Watcher) ---
 
 resource "azurerm_storage_account" "flow_logs" {
   count = var.enable_vpc_flow_logs ? 1 : 0
@@ -291,13 +311,13 @@ resource "azurerm_storage_account" "flow_logs" {
   tags                     = var.tags
 }
 
-resource "azurerm_network_watcher_flow_log" "nodes" {
+resource "azurerm_network_watcher_flow_log" "vnet" {
   count = var.enable_vpc_flow_logs ? 1 : 0
 
-  name                 = "${var.aks_cluster_name}-nodes-flow-log"
+  name                 = "${var.aks_cluster_name}-vnet-flow-log"
   network_watcher_name = var.network_watcher_name
   resource_group_name  = var.network_watcher_resource_group_name
-  target_resource_id   = azurerm_network_security_group.nodes.id
+  target_resource_id   = azurerm_virtual_network.this.id
   storage_account_id   = azurerm_storage_account.flow_logs[0].id
   enabled              = true
   retention_policy {

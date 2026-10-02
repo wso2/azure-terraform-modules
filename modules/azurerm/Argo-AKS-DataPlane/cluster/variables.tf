@@ -22,7 +22,7 @@ variable "create_resource_group" {
 
 variable "create_role_assignments" {
   type        = bool
-  description = "Whether to create the azurerm_role_assignment resources this module wires up. Requires Owner or User Access Administrator at the relevant scope - a plain Contributor gets a 403. Set to false to create the identities/federated credentials without granting roles."
+  description = "Whether to create the azurerm_role_assignment resources this module wires up. Requires Owner or User Access Administrator at the relevant scope - a plain Contributor gets a 403. Set to false to create the identities/federated credentials without granting roles; the cluster identity's Network Contributor grant on the VNet must then be made out of band before the cluster is created."
   default     = true
 }
 
@@ -224,19 +224,19 @@ variable "deploy_identity_role_assignments" {
 
 variable "enable_secrets_encryption" {
   type        = bool
-  description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption with it. Can only be turned on in a follow-up apply after the cluster already exists, never the apply that first creates it."
+  description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption with it."
   default     = false
 }
 
 variable "log_retention_in_days" {
   type        = number
-  description = "Retention for NSG Flow Logs and the S3-equivalent artifact storage account's blob expiration, if enabled"
+  description = "Retention for VNet flow logs and the S3-equivalent artifact storage account's blob expiration, if enabled"
   default     = 90
 }
 
 variable "enable_vpc_flow_logs" {
   type        = bool
-  description = "Whether to create NSG Flow Logs for the stage and prod network security groups, published to a dedicated storage account"
+  description = "Whether to create a VNet flow log for this module's VNet, published to a dedicated storage account"
   default     = false
 }
 

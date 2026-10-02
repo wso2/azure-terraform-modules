@@ -22,7 +22,7 @@ the control plane has no stage/prod tier split.
 | OIDC provider + IRSA roles | AKS OIDC issuer + User-Assigned Identity + Federated Credential |
 | ESO role scoped to a Secrets Manager prefix | ESO identity with `Key Vault Secrets User` on a dedicated Key Vault |
 | S3 artifact bucket + IRSA role | Storage Account + container + Workload Identity |
-| VPC Flow Logs | NSG Flow Logs (existing Network Watcher) |
+| VPC Flow Logs | VNet flow logs (existing Network Watcher) |
 | SSM-only bastion instance | Azure Bastion (Standard, tunneling enabled) |
 | EBS CSI addon + IRSA | Nothing - AKS ships the Azure Disk CSI driver |
 
@@ -42,23 +42,26 @@ the control plane has no stage/prod tier split.
   ServiceAccount with `Key Vault Secrets User` on that vault. The identity
   running `terraform apply` gets `Key Vault Secrets Officer` on it so it
   can seed secrets.
-- Optional NSG Flow Logs, Argo Workflows artifact storage (Storage Account
+- An optional VNet flow log, Argo Workflows artifact storage (Storage Account
   + container + federated identity with `Storage Blob Data Contributor`),
   and Azure Bastion.
 
 ## Notes
 
-- **`enable_secrets_encryption` needs two applies.** AKS's system-assigned
-  identity only exists once the cluster does, and it needs Key Vault
-  access before KMS can be switched on. Create the cluster with it
-  `false`, then flip it to `true`.
+- **The cluster uses a user-assigned identity** (`<aks_cluster_name>-identity`).
+  AKS KMS doesn't work with a system-assigned one, and this lets the Key
+  Vault and VNet grants exist before the cluster is created, so
+  `enable_secrets_encryption` works on the first apply. Changing an
+  existing cluster from system-assigned to user-assigned is an in-place
+  update, but plan it carefully on a live cluster.
 - **ESO's federated subject is `<eso_namespace>:external-secrets`.**
   Keep `eso_namespace` in sync with the `apps` module's (the composite
   entrypoint does this for you).
 - **Role assignments need Owner or User Access Administrator.** With only
   Contributor, set `create_role_assignments = false` and have someone with
-  the right access create ESO's and the artifact identity's grants
-  separately. The KMS grants are not gated by this flag, since KMS can't
+  the right access create the grants separately. The cluster identity's
+  `Network Contributor` on the VNet must exist before the cluster is
+  created. The KMS grants are not gated by this flag, since KMS can't
   work without them.
 - Key Vault names are global and purge protection holds a deleted vault's
   name for 90 days. Pin `eso_key_vault_name` /
@@ -76,7 +79,7 @@ the control plane has no stage/prod tier split.
 |---|---|---|---|
 | `resource_group_name` | `string` | required | Resource group for all control-plane resources |
 | `create_resource_group` | `bool` | `true` | Whether this module creates the resource group |
-| `create_role_assignments` | `bool` | `true` | Whether to create ESO and artifact-identity role assignments. See Notes |
+| `create_role_assignments` | `bool` | `true` | Whether to create the cluster-identity network grant and the ESO and artifact-identity role assignments. See Notes |
 | `location` | `string` | required | Azure region |
 | `tags` | `map(string)` | `{}` | |
 | `vnet_name` | `string` | required | |
@@ -102,12 +105,12 @@ the control plane has no stage/prod tier split.
 | `bastion_subnet_address_prefix` | `string` | `null` | `/26` or larger. Required when `enable_bastion` |
 | `bastion_allow_https_internet_inbound` | `bool` | `false` | |
 | `bastion_public_address_prefixes` | `list(string)` | `[]` | |
-| `enable_secrets_encryption` | `bool` | `false` | Key Vault-backed KMS. Follow-up apply only - see Notes |
+| `enable_secrets_encryption` | `bool` | `false` | Key Vault-backed KMS etcd encryption |
 | `cluster_secrets_key_vault_name` | `string` | `null` | Override; null derives `<aks_cluster_name>-kms` |
 | `eso_namespace` | `string` | `"external-secrets"` | |
 | `eso_key_vault_name` | `string` | `null` | Override; null derives `<aks_cluster_name>-secrets` |
 | `log_retention_in_days` | `number` | `90` | |
-| `enable_vpc_flow_logs` | `bool` | `false` | |
+| `enable_vpc_flow_logs` | `bool` | `false` | Creates a VNet flow log for this module's VNet |
 | `network_watcher_name` | `string` | `null` | Required when `enable_vpc_flow_logs` |
 | `network_watcher_resource_group_name` | `string` | `null` | Required when `enable_vpc_flow_logs` |
 | `enable_artifact_archiving` | `bool` | `false` | |

@@ -54,9 +54,6 @@ required wherever this runs. The caller configures the `azurerm` provider
   `kubernetes`/`helm` providers can authenticate:
   `terraform apply -target=module.cluster`, then a plain
   `terraform apply`.
-- **Secrets encryption is a third, follow-up apply.** Set
-  `enable_secrets_encryption = true` only after the cluster exists - see
-  [`cluster/README.md`](./cluster/README.md).
 - **Apply this module before any data plane.** `apps` issues each data
   plane's NATS client certificate (`nats_client_identities`) and,
   optionally, reverse-tunnel SSH keys (`tunnel_client_identities`). Copy
