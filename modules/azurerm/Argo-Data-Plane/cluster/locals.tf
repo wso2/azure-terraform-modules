@@ -18,25 +18,11 @@
 #
 # --------------------------------------------------------------------------------------
 
-terraform {
-  required_version = ">= 1.10"
-  required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = ">= 2.36.0"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.17"
-    }
-    # kubernetes_manifest validates CRD schemas at plan time, before ESO installs them.
-    kubectl = {
-      source  = "alekc/kubectl"
-      version = ">= 2.0"
-    }
-    local = {
-      source  = "hashicorp/local"
-      version = ">= 2.0"
-    }
-  }
+locals {
+  resource_group_name = var.create_resource_group ? azurerm_resource_group.resource_group[0].name : var.resource_group_name
+
+  # Storage account names: <=24 lowercase alphanumerics; keep the suffix whole.
+  cluster_name_sanitized         = lower(replace(var.aks_cluster_name, "-", ""))
+  flow_logs_storage_account_name = coalesce(var.flow_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("flowlogs"))}flowlogs")
+  argo_logs_storage_account_name = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
 }

@@ -1,11 +1,20 @@
 # -------------------------------------------------------------------------------------
 #
-# Copyright (c) 2026, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+# Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
 #
-# This software is the property of WSO2 LLC. and its suppliers, if any.
-# Dissemination of any information or reproduction of any material contained
-# herein in any form is strictly forbidden, unless permitted by WSO2 expressly.
-# You may not alter or remove any copyright or other notice from copies of this content.
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
 #
 # --------------------------------------------------------------------------------------
 
@@ -14,15 +23,6 @@ resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name
   location = var.location
   tags     = var.tags
-}
-
-locals {
-  resource_group_name = var.create_resource_group ? azurerm_resource_group.resource_group[0].name : var.resource_group_name
-
-  # Storage account names: <=24 lowercase alphanumerics; keep the suffix whole.
-  cluster_name_sanitized         = lower(replace(var.aks_cluster_name, "-", ""))
-  flow_logs_storage_account_name = coalesce(var.flow_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("flowlogs"))}flowlogs")
-  argo_logs_storage_account_name = coalesce(var.argo_logs_storage_account_name, "${substr(local.cluster_name_sanitized, 0, 24 - length("argologs"))}argologs")
 }
 
 resource "azurerm_virtual_network" "virtual_network" {
@@ -621,7 +621,6 @@ resource "azurerm_bastion_host" "bastion_host" {
 }
 
 # --- Per-env Workload Identities for pipeline pods ---
-
 
 resource "azurerm_user_assigned_identity" "deploy_identity" {
   for_each = var.deploy_identities
