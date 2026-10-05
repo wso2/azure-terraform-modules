@@ -18,7 +18,7 @@ the control plane has no stage/prod tier split.
 | Node security group + `security_group_rules` | Node subnet NSG + `network_security_rules` |
 | EKS + managed node group | AKS + `system` default node pool (autoscaling) |
 | `admin_principal_arns` access entries | `aks_admin_group_object_ids` (Entra ID + Azure RBAC) |
-| KMS CMK envelope encryption | Key Vault key + AKS KMS (`enable_secrets_encryption`) |
+| EKS default envelope encryption (AWS owned key) | Key Vault key + AKS KMS (`enable_secrets_encryption`) |
 | OIDC provider + IRSA roles | AKS OIDC issuer + User-Assigned Identity + Federated Credential |
 | ESO role scoped to a Secrets Manager prefix | ESO identity with `Key Vault Secrets User` on a dedicated Key Vault |
 | S3 artifact bucket + IRSA role | Storage Account + container + Workload Identity |

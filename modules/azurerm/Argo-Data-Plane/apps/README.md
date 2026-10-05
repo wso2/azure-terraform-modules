@@ -1,9 +1,9 @@
 # Argo-Data-Plane/apps
 
 Installs the Kubernetes-level workload an Azure Argo data plane runs.
-Mirrors `Argo-Data-Plane/apps` almost exactly: same generic Helm
-release set, same `manifest_files`/`kubectl_manifest_files` pattern for
-caller-supplied project-specific YAML. It assumes the caller has already
+Mirrors the AWS `Argo-Data-Plane/apps` module almost exactly: same
+generic Helm release set, same `manifest_files`/`kubectl_manifest_files`
+pattern for caller-supplied project-specific YAML. It assumes the caller has already
 configured the `kubernetes`/`helm`/`kubectl` providers against the
 cluster built by the sibling [`../cluster`](../cluster) module.
 
@@ -62,7 +62,13 @@ ESO's own controller.
 
 ## Outputs
 
-None.
+| Name | Description |
+|---|---|
+| `namespace_names` | Every namespace this module created |
+| `system_namespace` | Same value as the `system_namespace` input |
+| `argocd_namespace` | `null` unless `install_argocd` |
+| `eso_namespace` | `null` unless `install_external_secrets` |
+| `federated_service_account_names` | ServiceAccount name per `federated_service_accounts` entry |
 
 ## Example
 
