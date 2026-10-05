@@ -33,18 +33,13 @@ resource "azurerm_virtual_network" "virtual_network" {
   tags                = var.tags
 }
 
-resource "azurerm_subnet" "stage" {
-  name                 = "${var.aks_cluster_name}-stage-snet"
-  resource_group_name  = local.resource_group_name
-  virtual_network_name = azurerm_virtual_network.virtual_network.name
-  address_prefixes     = [var.stage_subnet_address_prefix]
-}
+resource "azurerm_subnet" "tier" {
+  for_each = local.tiers
 
-resource "azurerm_subnet" "prod" {
-  name                 = "${var.aks_cluster_name}-prod-snet"
+  name                 = "${var.aks_cluster_name}-${each.key}-snet"
   resource_group_name  = local.resource_group_name
   virtual_network_name = azurerm_virtual_network.virtual_network.name
-  address_prefixes     = [var.prod_subnet_address_prefix]
+  address_prefixes     = [each.value.subnet_address_prefix]
 }
 
 resource "azurerm_subnet" "ilb" {
@@ -56,23 +51,20 @@ resource "azurerm_subnet" "ilb" {
 
 # --- Per-tier NSGs; prod denies inbound from the stage subnet ---
 
-resource "azurerm_network_security_group" "stage" {
-  name                = "${var.aks_cluster_name}-stage-nsg"
+resource "azurerm_network_security_group" "tier" {
+  for_each = local.tiers
+
+  name                = "${var.aks_cluster_name}-${each.key}-nsg"
   location            = var.location
   resource_group_name = local.resource_group_name
   tags                = var.tags
 }
 
-resource "azurerm_subnet_network_security_group_association" "stage" {
-  subnet_id                 = azurerm_subnet.stage.id
-  network_security_group_id = azurerm_network_security_group.stage.id
-}
+resource "azurerm_subnet_network_security_group_association" "tier" {
+  for_each = local.tiers
 
-resource "azurerm_network_security_group" "prod" {
-  name                = "${var.aks_cluster_name}-prod-nsg"
-  location            = var.location
-  resource_group_name = local.resource_group_name
-  tags                = var.tags
+  subnet_id                 = azurerm_subnet.tier[each.key].id
+  network_security_group_id = azurerm_network_security_group.tier[each.key].id
 }
 
 resource "azurerm_network_security_rule" "deny_stage_inbound_to_prod" {
@@ -86,18 +78,15 @@ resource "azurerm_network_security_rule" "deny_stage_inbound_to_prod" {
   source_address_prefix       = var.stage_subnet_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.prod.name
-}
-
-resource "azurerm_subnet_network_security_group_association" "prod" {
-  subnet_id                 = azurerm_subnet.prod.id
-  network_security_group_id = azurerm_network_security_group.prod.id
+  network_security_group_name = azurerm_network_security_group.tier["prod"].name
 }
 
 # --- Per-tier NAT Gateways (own outbound IP each) ---
 
-resource "azurerm_public_ip" "stage_nat" {
-  name                = "${var.aks_cluster_name}-stage-nat-pip"
+resource "azurerm_public_ip" "nat" {
+  for_each = local.tiers
+
+  name                = "${var.aks_cluster_name}-${each.key}-nat-pip"
   location            = var.location
   resource_group_name = local.resource_group_name
   allocation_method   = "Static"
@@ -105,49 +94,28 @@ resource "azurerm_public_ip" "stage_nat" {
   tags                = var.tags
 }
 
-resource "azurerm_nat_gateway" "stage" {
-  name                = "${var.aks_cluster_name}-stage-nat"
+resource "azurerm_nat_gateway" "nat_gateway" {
+  for_each = local.tiers
+
+  name                = "${var.aks_cluster_name}-${each.key}-nat"
   location            = var.location
   resource_group_name = local.resource_group_name
   sku_name            = "Standard"
   tags                = var.tags
 }
 
-resource "azurerm_nat_gateway_public_ip_association" "stage" {
-  nat_gateway_id       = azurerm_nat_gateway.stage.id
-  public_ip_address_id = azurerm_public_ip.stage_nat.id
+resource "azurerm_nat_gateway_public_ip_association" "nat_gateway_public_ip_association" {
+  for_each = local.tiers
+
+  nat_gateway_id       = azurerm_nat_gateway.nat_gateway[each.key].id
+  public_ip_address_id = azurerm_public_ip.nat[each.key].id
 }
 
-resource "azurerm_subnet_nat_gateway_association" "stage" {
-  subnet_id      = azurerm_subnet.stage.id
-  nat_gateway_id = azurerm_nat_gateway.stage.id
-}
+resource "azurerm_subnet_nat_gateway_association" "tier" {
+  for_each = local.tiers
 
-resource "azurerm_public_ip" "prod_nat" {
-  name                = "${var.aks_cluster_name}-prod-nat-pip"
-  location            = var.location
-  resource_group_name = local.resource_group_name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-  tags                = var.tags
-}
-
-resource "azurerm_nat_gateway" "prod" {
-  name                = "${var.aks_cluster_name}-prod-nat"
-  location            = var.location
-  resource_group_name = local.resource_group_name
-  sku_name            = "Standard"
-  tags                = var.tags
-}
-
-resource "azurerm_nat_gateway_public_ip_association" "prod" {
-  nat_gateway_id       = azurerm_nat_gateway.prod.id
-  public_ip_address_id = azurerm_public_ip.prod_nat.id
-}
-
-resource "azurerm_subnet_nat_gateway_association" "prod" {
-  subnet_id      = azurerm_subnet.prod.id
-  nat_gateway_id = azurerm_nat_gateway.prod.id
+  subnet_id      = azurerm_subnet.tier[each.key].id
+  nat_gateway_id = azurerm_nat_gateway.nat_gateway[each.key].id
 }
 
 # --- AKS cluster ---
@@ -178,6 +146,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   kubernetes_version  = var.kubernetes_version
 
   private_cluster_enabled = var.private_cluster_enabled
+  local_account_disabled  = var.local_account_disabled
 
   api_server_access_profile {
     authorized_ip_ranges = var.api_server_authorized_ip_ranges
@@ -191,7 +160,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   default_node_pool {
     name                         = "stage"
     vm_size                      = var.stage_node_vm_size
-    vnet_subnet_id               = azurerm_subnet.stage.id
+    vnet_subnet_id               = azurerm_subnet.tier["stage"].id
     zones                        = [for z in var.stage_availability_zones : tostring(z)]
     auto_scaling_enabled         = true
     min_count                    = var.stage_node_min_count
@@ -249,8 +218,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   tags = var.tags
 
   depends_on = [
-    azurerm_subnet_nat_gateway_association.stage,
-    azurerm_subnet_network_security_group_association.stage,
+    azurerm_subnet_nat_gateway_association.tier,
+    azurerm_subnet_network_security_group_association.tier,
     azurerm_role_assignment.cluster_network,
     azurerm_role_assignment.kms,
   ]
@@ -260,7 +229,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   name                  = "prod"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks_cluster.id
   vm_size               = var.prod_node_vm_size
-  vnet_subnet_id        = azurerm_subnet.prod.id
+  vnet_subnet_id        = azurerm_subnet.tier["prod"].id
   zones                 = var.prod_availability_zones
   auto_scaling_enabled  = true
   min_count             = var.prod_node_min_count
@@ -283,8 +252,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "prod" {
   tags = var.tags
 
   depends_on = [
-    azurerm_subnet_nat_gateway_association.prod,
-    azurerm_subnet_network_security_group_association.prod,
+    azurerm_subnet_nat_gateway_association.tier,
+    azurerm_subnet_network_security_group_association.tier,
   ]
 }
 
@@ -464,131 +433,20 @@ resource "azurerm_network_security_group" "bastion" {
   tags                = var.tags
 }
 
-resource "azurerm_network_security_rule" "bastion_allow_https_inbound" {
-  count = var.enable_bastion ? 1 : 0
+resource "azurerm_network_security_rule" "bastion" {
+  for_each = { for name, rule in local.bastion_security_rules : name => rule if var.enable_bastion }
 
-  name                        = "AllowHttpsInBound"
-  priority                    = 200
-  direction                   = "Inbound"
+  name                        = each.key
+  priority                    = each.value.priority
+  direction                   = each.value.direction
   access                      = "Allow"
-  protocol                    = "Tcp"
+  protocol                    = each.value.protocol
   source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = var.bastion_allow_https_internet_inbound ? "Internet" : null
-  source_address_prefixes     = var.bastion_allow_https_internet_inbound ? null : var.bastion_public_address_prefixes
-  destination_address_prefix  = "*"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_gateway_manager_inbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowGatewayManagerInBound"
-  priority                    = 210
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "GatewayManager"
-  destination_address_prefix  = "*"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_azure_lb_inbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowAzureLoadBalancerInBound"
-  priority                    = 220
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "AzureLoadBalancer"
-  destination_address_prefix  = "*"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_host_comm_inbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowBastionHostCommunication"
-  priority                    = 230
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_ranges     = ["8080", "5701"]
-  source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "VirtualNetwork"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_ssh_rdp_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowSshRdpOutBound"
-  priority                    = 200
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "*"
-  source_port_range           = "*"
-  destination_port_ranges     = ["3389", "22"]
-  source_address_prefix       = "*"
-  destination_address_prefix  = "VirtualNetwork"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_azure_cloud_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowAzureCloudOutBound"
-  priority                    = 210
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "AzureCloud"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_comm_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowBastionCommunication"
-  priority                    = 220
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_ranges     = ["8080", "5701"]
-  source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "VirtualNetwork"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_get_session_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowGetSessionInformation"
-  priority                    = 230
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "*"
-  source_port_range           = "*"
-  destination_port_range      = "80"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "Internet"
+  destination_port_range      = each.value.destination_port_range
+  destination_port_ranges     = each.value.destination_port_ranges
+  source_address_prefix       = each.value.source_address_prefix
+  source_address_prefixes     = each.value.source_address_prefixes
+  destination_address_prefix  = each.value.destination_address_prefix
   resource_group_name         = local.resource_group_name
   network_security_group_name = azurerm_network_security_group.bastion[0].name
 }
@@ -598,6 +456,10 @@ resource "azurerm_subnet_network_security_group_association" "bastion" {
 
   subnet_id                 = azurerm_subnet.bastion[0].id
   network_security_group_id = azurerm_network_security_group.bastion[0].id
+
+  # Azure rejects removing these rules while the NSG is still attached to
+  # the Bastion subnet, so on destroy the association has to go first.
+  depends_on = [azurerm_network_security_rule.bastion]
 }
 
 resource "azurerm_bastion_host" "bastion_host" {

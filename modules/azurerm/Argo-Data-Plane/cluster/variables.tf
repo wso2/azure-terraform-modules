@@ -96,8 +96,14 @@ variable "private_cluster_enabled" {
 
 variable "api_server_authorized_ip_ranges" {
   type        = list(string)
-  description = "Authorized IP ranges for the public API server endpoint, if not private"
+  description = "Authorized IP ranges for the public API server endpoint, if not private. Empty means the endpoint accepts connections from any address (Entra ID sign-in is still required); set this or private_cluster_enabled for anything beyond a test cluster. Include the cluster's own NAT gateway addresses, since nodes reach the API server through them."
   default     = []
+}
+
+variable "local_account_disabled" {
+  type        = bool
+  description = "Disable the cluster's local admin account, so every sign-in goes through Entra ID and Azure RBAC. Only enable once aks_admin_group_object_ids (or an Azure RBAC role assignment) gives someone admin access, otherwise the cluster is unreachable."
+  default     = false
 }
 
 variable "service_cidr" {

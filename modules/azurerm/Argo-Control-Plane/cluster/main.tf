@@ -123,6 +123,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   kubernetes_version  = var.kubernetes_version
 
   private_cluster_enabled = var.private_cluster_enabled
+  local_account_disabled  = var.local_account_disabled
 
   api_server_access_profile {
     authorized_ip_ranges = var.api_server_authorized_ip_ranges
@@ -420,131 +421,20 @@ resource "azurerm_network_security_group" "bastion" {
   tags                = var.tags
 }
 
-resource "azurerm_network_security_rule" "bastion_allow_https_inbound" {
-  count = var.enable_bastion ? 1 : 0
+resource "azurerm_network_security_rule" "bastion" {
+  for_each = { for name, rule in local.bastion_security_rules : name => rule if var.enable_bastion }
 
-  name                        = "AllowHttpsInBound"
-  priority                    = 200
-  direction                   = "Inbound"
+  name                        = each.key
+  priority                    = each.value.priority
+  direction                   = each.value.direction
   access                      = "Allow"
-  protocol                    = "Tcp"
+  protocol                    = each.value.protocol
   source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = var.bastion_allow_https_internet_inbound ? "Internet" : null
-  source_address_prefixes     = var.bastion_allow_https_internet_inbound ? null : var.bastion_public_address_prefixes
-  destination_address_prefix  = "*"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_gateway_manager_inbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowGatewayManagerInBound"
-  priority                    = 210
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "GatewayManager"
-  destination_address_prefix  = "*"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_azure_lb_inbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowAzureLoadBalancerInBound"
-  priority                    = 220
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "AzureLoadBalancer"
-  destination_address_prefix  = "*"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_host_comm_inbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowBastionHostCommunication"
-  priority                    = 230
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_ranges     = ["8080", "5701"]
-  source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "VirtualNetwork"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_ssh_rdp_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowSshRdpOutBound"
-  priority                    = 200
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "*"
-  source_port_range           = "*"
-  destination_port_ranges     = ["3389", "22"]
-  source_address_prefix       = "*"
-  destination_address_prefix  = "VirtualNetwork"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_azure_cloud_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowAzureCloudOutBound"
-  priority                    = 210
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "AzureCloud"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_comm_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowBastionCommunication"
-  priority                    = 220
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_ranges     = ["8080", "5701"]
-  source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "VirtualNetwork"
-  resource_group_name         = local.resource_group_name
-  network_security_group_name = azurerm_network_security_group.bastion[0].name
-}
-
-resource "azurerm_network_security_rule" "bastion_allow_get_session_outbound" {
-  count = var.enable_bastion ? 1 : 0
-
-  name                        = "AllowGetSessionInformation"
-  priority                    = 230
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "*"
-  source_port_range           = "*"
-  destination_port_range      = "80"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "Internet"
+  destination_port_range      = each.value.destination_port_range
+  destination_port_ranges     = each.value.destination_port_ranges
+  source_address_prefix       = each.value.source_address_prefix
+  source_address_prefixes     = each.value.source_address_prefixes
+  destination_address_prefix  = each.value.destination_address_prefix
   resource_group_name         = local.resource_group_name
   network_security_group_name = azurerm_network_security_group.bastion[0].name
 }
@@ -554,6 +444,10 @@ resource "azurerm_subnet_network_security_group_association" "bastion" {
 
   subnet_id                 = azurerm_subnet.bastion[0].id
   network_security_group_id = azurerm_network_security_group.bastion[0].id
+
+  # Azure rejects removing these rules while the NSG is still attached to
+  # the Bastion subnet, so on destroy the association has to go first.
+  depends_on = [azurerm_network_security_rule.bastion]
 }
 
 resource "azurerm_bastion_host" "bastion_host" {

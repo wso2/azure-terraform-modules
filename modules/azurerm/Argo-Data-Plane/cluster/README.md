@@ -37,6 +37,18 @@ repo.
 
 ## Notes
 
+- **API server access is open by default.** With `private_cluster_enabled`
+  false and `api_server_authorized_ip_ranges` empty, the API server accepts
+  connections from any address; only Entra ID sign-in protects it. Set one
+  of the two for anything beyond a test cluster. If you set IP ranges,
+  include this cluster's NAT gateway addresses.
+- **The local admin account stays enabled by default**, which leaves a
+  credential that bypasses Azure RBAC. Set `local_account_disabled = true`
+  once an admin group or role assignment exists; doing it earlier locks
+  everyone out.
+- Stage and prod networking (subnet, NSG, NAT gateway) is built from one
+  set of resource blocks that iterate over `local.tiers`. Those resources
+  are addressed by tier, e.g. `azurerm_subnet.tier["prod"]`.
 - **The cluster uses a user-assigned identity** (`<aks_cluster_name>-identity`).
   AKS KMS doesn't work with a system-assigned one, and this lets the Key
   Vault and VNet grants exist before the cluster is created, so
@@ -70,7 +82,8 @@ repo.
 | `aks_public_ssh_key_path` | `string` | required | Path to the public SSH key file for AKS nodes |
 | `aks_admin_group_object_ids` | `list(string)` | `[]` | Entra ID group object IDs granted AKS cluster-admin via native Azure RBAC for Kubernetes |
 | `private_cluster_enabled` | `bool` | `false` | |
-| `api_server_authorized_ip_ranges` | `list(string)` | `[]` | |
+| `api_server_authorized_ip_ranges` | `list(string)` | `[]` | Empty leaves the public endpoint open to any address. See Notes |
+| `local_account_disabled` | `bool` | `false` | Disable the local admin account. See Notes |
 | `service_cidr` | `string` | required | |
 | `log_analytics_workspace_id` | `string` | required | Resource ID of an existing Log Analytics Workspace for AKS's `oms_agent`. This module does not create one |
 | `dns_service_ip` | `string` | required | Must be inside `service_cidr` |

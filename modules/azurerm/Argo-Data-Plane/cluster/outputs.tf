@@ -43,11 +43,11 @@ output "virtual_network_name" {
 }
 
 output "stage_subnet_id" {
-  value = azurerm_subnet.stage.id
+  value = azurerm_subnet.tier["stage"].id
 }
 
 output "prod_subnet_id" {
-  value = azurerm_subnet.prod.id
+  value = azurerm_subnet.tier["prod"].id
 }
 
 output "bastion_host_id" {
