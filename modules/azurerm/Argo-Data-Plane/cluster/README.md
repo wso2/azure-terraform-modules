@@ -26,8 +26,8 @@ repo.
   account.
 - An optional Storage Account + container + Workload Identity Federation
   identity for Argo Workflows' artifact archiving
-  (`enable_artifact_archiving`), same shape as `Argo-Data-Plane/cluster`'s
-  S3 bucket + IRSA role.
+  (`enable_artifact_archiving`), same shape as the AWS
+  `Argo-Data-Plane/cluster` module's S3 bucket + IRSA role.
 - An optional Azure Bastion (`enable_bastion`) with its own subnet, public
   IP, and the full set of NSG rules Azure Bastion requires.
 - Per-env Workload Identity Federation identities for pipeline pods
