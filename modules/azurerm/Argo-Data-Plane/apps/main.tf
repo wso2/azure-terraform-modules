@@ -106,7 +106,7 @@ resource "kubernetes_service_account_v1" "federated" {
 }
 
 resource "kubectl_manifest" "kubernetes_object" {
-  for_each = { for d in local.manifest_documents : d.key => d }
+  for_each = { for d in local.manifest_documents : d.key => d if !d.is_sa_token }
 
   yaml_body          = each.value.body
   override_namespace = each.value.namespace
@@ -118,7 +118,7 @@ resource "kubectl_manifest" "kubernetes_object" {
 }
 
 resource "kubectl_manifest" "extra" {
-  for_each = { for d in local.kubectl_manifest_documents : d.key => d }
+  for_each = { for d in local.kubectl_manifest_documents : d.key => d if !d.is_sa_token }
 
   yaml_body          = each.value.body
   override_namespace = each.value.namespace
@@ -126,6 +126,23 @@ resource "kubectl_manifest" "extra" {
   wait_for_rollout = false
 
   depends_on = [helm_release.external_secrets, kubernetes_service_account_v1.federated, helm_release.argo_workflows, helm_release.argo_events, helm_release.argocd]
+}
+
+# A service-account-token Secret is deleted by Kubernetes if its
+# ServiceAccount does not exist yet, so these are applied after every other
+# caller-supplied manifest instead of in parallel with them.
+resource "kubectl_manifest" "service_account_token" {
+  for_each = merge(
+    { for d in local.manifest_documents : "manifest-${d.key}" => d if d.is_sa_token },
+    { for d in local.kubectl_manifest_documents : "kubectl-${d.key}" => d if d.is_sa_token },
+  )
+
+  yaml_body          = each.value.body
+  override_namespace = try(each.value.namespace, null)
+
+  wait_for_rollout = false
+
+  depends_on = [kubectl_manifest.kubernetes_object, kubectl_manifest.extra]
 }
 
 resource "local_file" "rendered_manifest" {
