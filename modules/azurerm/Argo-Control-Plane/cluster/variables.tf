@@ -98,9 +98,9 @@ variable "aks_admin_username" {
   default     = "azureuser"
 }
 
-variable "aks_public_ssh_key_path" {
+variable "aks_public_ssh_key" {
   type        = string
-  description = "Path to the public SSH key file for AKS nodes"
+  description = "Public SSH key content for AKS nodes (e.g. \"ssh-ed25519 AAAA... user@host\"), not a file path - keeps this module from depending on a key file existing on whatever machine runs terraform apply"
 }
 
 variable "aks_admin_group_object_ids" {

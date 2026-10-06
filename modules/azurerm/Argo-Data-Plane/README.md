@@ -75,7 +75,7 @@ module "cluster" {
   dns_service_ip       = "10.100.0.10"
 
   log_analytics_workspace_id = "/subscriptions/.../resourceGroups/.../providers/Microsoft.OperationalInsights/workspaces/..."
-  aks_public_ssh_key_path     = "~/.ssh/id_rsa.pub"
+  aks_public_ssh_key          = file("~/.ssh/id_rsa.pub")
   aks_admin_group_object_ids  = ["00000000-0000-0000-0000-000000000000"]
 
   stage_subnet_address_prefix       = "10.2.1.0/24"

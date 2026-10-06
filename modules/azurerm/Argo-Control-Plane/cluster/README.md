@@ -98,7 +98,7 @@ the control plane has no stage/prod tier split.
 | `aks_dns_prefix` | `string` | required | |
 | `kubernetes_version` | `string` | required | |
 | `aks_admin_username` | `string` | `"azureuser"` | |
-| `aks_public_ssh_key_path` | `string` | required | Path to the node admin public SSH key |
+| `aks_public_ssh_key` | `string` | required | Public SSH key content for the node admin, not a file path |
 | `aks_admin_group_object_ids` | `list(string)` | `[]` | Entra ID groups granted cluster-admin |
 | `private_cluster_enabled` | `bool` | `false` | |
 | `api_server_authorized_ip_ranges` | `list(string)` | `[]` | Empty leaves the public endpoint open to any address. See Notes |
@@ -164,7 +164,7 @@ module "cluster" {
   aks_cluster_name        = "aks-argo-controlplane-prod"
   aks_dns_prefix          = "argo-cp-prod"
   kubernetes_version      = "1.31"
-  aks_public_ssh_key_path = "~/.ssh/aks.pub"
+  aks_public_ssh_key = file("~/.ssh/aks.pub")
   service_cidr            = "10.100.0.0/16"
   dns_service_ip          = "10.100.0.10"
 

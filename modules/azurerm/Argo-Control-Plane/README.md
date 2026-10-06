@@ -82,7 +82,7 @@ module "cluster" {
   aks_cluster_name        = "aks-argo-controlplane-prod"
   aks_dns_prefix          = "argo-cp-prod"
   kubernetes_version      = "1.31"
-  aks_public_ssh_key_path = "~/.ssh/aks.pub"
+  aks_public_ssh_key = file("~/.ssh/aks.pub")
   service_cidr            = "10.100.0.0/16"
   dns_service_ip          = "10.100.0.10"
 

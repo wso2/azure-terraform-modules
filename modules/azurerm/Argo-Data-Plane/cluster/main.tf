@@ -49,6 +49,54 @@ resource "azurerm_subnet" "ilb" {
   address_prefixes     = [var.internal_lb_subnet_address_prefix]
 }
 
+# Outside both tiers' subnets and NSG rules on purpose - see
+# system_subnet_address_prefix's own description.
+resource "azurerm_subnet" "system" {
+  name                 = "${var.aks_cluster_name}-system-snet"
+  resource_group_name  = local.resource_group_name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
+  address_prefixes     = [var.system_subnet_address_prefix]
+}
+
+resource "azurerm_network_security_group" "system" {
+  name                = "${var.aks_cluster_name}-system-nsg"
+  location            = var.location
+  resource_group_name = local.resource_group_name
+  tags                = var.tags
+}
+
+resource "azurerm_subnet_network_security_group_association" "system" {
+  subnet_id                 = azurerm_subnet.system.id
+  network_security_group_id = azurerm_network_security_group.system.id
+}
+
+resource "azurerm_public_ip" "system_nat" {
+  name                = "${var.aks_cluster_name}-system-nat-pip"
+  location            = var.location
+  resource_group_name = local.resource_group_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  tags                = var.tags
+}
+
+resource "azurerm_nat_gateway" "system_nat" {
+  name                = "${var.aks_cluster_name}-system-nat"
+  location            = var.location
+  resource_group_name = local.resource_group_name
+  sku_name            = "Standard"
+  tags                = var.tags
+}
+
+resource "azurerm_nat_gateway_public_ip_association" "system_nat" {
+  nat_gateway_id       = azurerm_nat_gateway.system_nat.id
+  public_ip_address_id = azurerm_public_ip.system_nat.id
+}
+
+resource "azurerm_subnet_nat_gateway_association" "system" {
+  subnet_id      = azurerm_subnet.system.id
+  nat_gateway_id = azurerm_nat_gateway.system_nat.id
+}
+
 # --- Per-tier NSGs; prod denies inbound from the stage subnet ---
 
 resource "azurerm_network_security_group" "tier" {
@@ -159,17 +207,25 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     mode = "Manual"
   }
 
+  # The AKS-required initial pool: dedicated to system components, not a
+  # workload tier. only_critical_addons_enabled taints it
+  # CriticalAddonsOnly=true:NoSchedule - AKS's own add-ons (coredns,
+  # metrics-server, konnectivity-agent) tolerate that taint by default,
+  # so they land here instead of on stage, where the prod NSG's
+  # deny-from-stage rule would otherwise cut them off from prod nodes.
+  # Stage and prod are both separate azurerm_kubernetes_cluster_node_pool
+  # resources below.
   default_node_pool {
-    name                         = "stage"
-    vm_size                      = var.stage_node_vm_size
-    vnet_subnet_id               = azurerm_subnet.tier["stage"].id
-    zones                        = [for z in var.stage_availability_zones : tostring(z)]
+    name                         = "system"
+    vm_size                      = var.system_node_vm_size
+    vnet_subnet_id               = azurerm_subnet.system.id
+    zones                        = [for z in var.system_availability_zones : tostring(z)]
     auto_scaling_enabled         = true
-    min_count                    = var.stage_node_min_count
-    max_count                    = var.stage_node_max_count
+    min_count                    = var.system_node_min_count
+    max_count                    = var.system_node_max_count
     os_disk_size_gb              = 128
-    max_pods                     = 110
-    only_critical_addons_enabled = false
+    max_pods                     = 30
+    only_critical_addons_enabled = true
 
     # Explicit: left computed, it causes a perpetual diff that makes
     # kube_config unknown at plan time.
@@ -188,14 +244,20 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   linux_profile {
     admin_username = var.aks_admin_username
     ssh_key {
-      key_data = file(var.aks_public_ssh_key_path)
+      key_data = var.aks_public_ssh_key
     }
   }
 
+  # Overlay mode: pod IPs come from pod_cidr and are never routed on the
+  # VNet, so they don't consume subnet space. Without this, each tier's
+  # subnet needs one IP per pod slot across every node in that tier
+  # (max_pods x node count), which exhausts a modestly-sized subnet fast.
   network_profile {
-    network_plugin = "azure"
-    service_cidr   = var.service_cidr
-    dns_service_ip = var.dns_service_ip
+    network_plugin      = "azure"
+    network_plugin_mode = "overlay"
+    pod_cidr            = var.pod_cidr
+    service_cidr        = var.service_cidr
+    dns_service_ip      = var.dns_service_ip
   }
 
   dynamic "oms_agent" {
@@ -225,8 +287,37 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   depends_on = [
     azurerm_subnet_nat_gateway_association.tier,
     azurerm_subnet_network_security_group_association.tier,
+    azurerm_subnet_nat_gateway_association.system,
+    azurerm_subnet_network_security_group_association.system,
     azurerm_role_assignment.cluster_network,
     azurerm_role_assignment.kms,
+  ]
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "stage" {
+  name                  = "stage"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks_cluster.id
+  vm_size               = var.stage_node_vm_size
+  vnet_subnet_id        = azurerm_subnet.tier["stage"].id
+  zones                 = [for z in var.stage_availability_zones : tostring(z)]
+  auto_scaling_enabled  = true
+  min_count             = var.stage_node_min_count
+  max_count             = var.stage_node_max_count
+  os_disk_size_gb       = 128
+  max_pods              = 110
+  mode                  = "User"
+
+  upgrade_settings {
+    max_surge                     = "10%"
+    drain_timeout_in_minutes      = 0
+    node_soak_duration_in_minutes = 0
+  }
+
+  tags = var.tags
+
+  depends_on = [
+    azurerm_subnet_nat_gateway_association.tier,
+    azurerm_subnet_network_security_group_association.tier,
   ]
 }
 

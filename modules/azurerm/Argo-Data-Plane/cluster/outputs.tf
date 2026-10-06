@@ -42,6 +42,10 @@ output "virtual_network_name" {
   value = azurerm_virtual_network.virtual_network.name
 }
 
+output "system_subnet_id" {
+  value = azurerm_subnet.system.id
+}
+
 output "stage_subnet_id" {
   value = azurerm_subnet.tier["stage"].id
 }

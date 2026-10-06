@@ -1,9 +1,10 @@
 # Argo-Data-Plane/cluster
 
 Provisions the AKS cluster and tier-isolated networking an Azure Argo
-data plane runs on. Stage is the cluster's default node pool with its own
-subnet. Prod is a separate, tainted node pool with its own subnet and NSG
-that explicitly denies inbound from the stage subnet.
+data plane runs on. A dedicated, always-on system pool runs AKS's own
+add-ons (CoreDNS, metrics-server, konnectivity-agent); stage and prod are
+each a separate, tainted-where-relevant node pool with their own subnet,
+and prod's NSG explicitly denies inbound from the stage subnet.
 
 Raw `azurerm_*` resource blocks. No dependency on any other WSO2 module
 repo.
@@ -13,11 +14,15 @@ repo.
 - A resource group (opt-in via `create_resource_group`, default true - set
   false to point at one already managed elsewhere without this module
   owning its lifecycle).
-- A VNet with stage, prod, and internal-load-balancer subnets, per-tier
-  NSGs (prod's denies inbound from the stage subnet), and per-tier NAT
-  Gateways (own outbound IP each).
-- The AKS cluster: stage as the default node pool, prod as a separate
-  tainted+labeled node pool, Azure RBAC for Kubernetes cluster-admin
+- A VNet with system, stage, prod, and internal-load-balancer subnets,
+  NSGs (prod's denies inbound from the stage subnet; system has none, so
+  it can always reach either tier), and NAT Gateways (own outbound IP
+  each for system/stage/prod).
+- The AKS cluster: a small system pool as the required default node pool
+  (tainted `CriticalAddonsOnly`, which AKS's own add-ons already
+  tolerate), stage and prod as separate node pools (prod
+  tainted+labeled), Azure CNI Overlay (pod IPs don't consume subnet
+  space - see Notes), Azure RBAC for Kubernetes cluster-admin
   (`aks_admin_group_object_ids`), OIDC issuer and Workload Identity
   enabled, optional private-only API endpoint or authorized IP ranges.
 - Optional etcd secrets encryption via a Key Vault + key
@@ -48,7 +53,24 @@ repo.
   everyone out.
 - Stage and prod networking (subnet, NSG, NAT gateway) is built from one
   set of resource blocks that iterate over `local.tiers`. Those resources
-  are addressed by tier, e.g. `azurerm_subnet.tier["prod"]`.
+  are addressed by tier, e.g. `azurerm_subnet.tier["prod"]`. The system
+  pool's subnet/NSG/NAT gateway are separate, singular resources - it
+  isn't a third tier, just dedicated infrastructure for cluster add-ons.
+- **Azure CNI Overlay, not flat Azure CNI.** Flat CNI assigns every pod a
+  real, routable VNet IP, so a tier's subnet must be sized for `max_pods
+  x node count`, not just node count - a modest subnet exhausts fast.
+  Overlay pod IPs (`pod_cidr`) are never routed on the VNet, so subnet
+  sizing only has to cover node IPs. `pod_cidr` must not overlap
+  `vnet_address_space` or `service_cidr`.
+- **The system pool exists because of a real interaction**: AKS requires
+  exactly one default node pool in System mode, and that pool is where
+  cluster add-ons land unless told otherwise. Making stage that pool (the
+  obvious choice, since it's not tainted) means konnectivity-agent,
+  metrics-server and CoreDNS all run on stage nodes - and then prod's
+  deny-from-stage NSG rule cuts them off from reaching prod node/pod IPs,
+  breaking `kubectl logs`/`exec` and metrics for anything in prod. The
+  system pool sidesteps this by living outside both tiers' subnets, so
+  neither tier's NSG rules apply to it.
 - **The cluster uses a user-assigned identity** (`<aks_cluster_name>-identity`).
   AKS KMS doesn't work with a system-assigned one, and this lets the Key
   Vault and VNet grants exist before the cluster is created, so
@@ -79,14 +101,20 @@ repo.
 | `aks_dns_prefix` | `string` | required | |
 | `kubernetes_version` | `string` | required | |
 | `aks_admin_username` | `string` | `"azureuser"` | |
-| `aks_public_ssh_key_path` | `string` | required | Path to the public SSH key file for AKS nodes |
+| `aks_public_ssh_key` | `string` | required | Public SSH key content for AKS nodes, not a file path |
 | `aks_admin_group_object_ids` | `list(string)` | `[]` | Entra ID group object IDs granted AKS cluster-admin via native Azure RBAC for Kubernetes |
 | `private_cluster_enabled` | `bool` | `false` | |
 | `api_server_authorized_ip_ranges` | `list(string)` | `[]` | Empty leaves the public endpoint open to any address. See Notes |
 | `local_account_disabled` | `bool` | `false` | Disable the local admin account. See Notes |
 | `service_cidr` | `string` | required | |
-| `log_analytics_workspace_id` | `string` | required | Resource ID of an existing Log Analytics Workspace for AKS's `oms_agent`. This module does not create one |
+| `pod_cidr` | `string` | required | CIDR for pod IPs under Azure CNI Overlay. Must not overlap `vnet_address_space` or `service_cidr` |
+| `log_analytics_workspace_id` | `string` | `null` | Resource ID of an existing Log Analytics Workspace for AKS's `oms_agent`. Null disables Container Insights. This module does not create one |
 | `dns_service_ip` | `string` | required | Must be inside `service_cidr` |
+| `system_subnet_address_prefix` | `string` | required | CIDR for the dedicated system pool's subnet - outside both tiers' subnets/NSG rules. Can be small (e.g. `/27`), since overlay mode means it only needs to cover node IPs |
+| `system_node_vm_size` | `string` | required | |
+| `system_availability_zones` | `list(number)` | `[1]` | |
+| `system_node_min_count` | `number` | `1` | |
+| `system_node_max_count` | `number` | `2` | |
 | `stage_subnet_address_prefix` | `string` | required | CIDR for the stage tier's node pool subnet |
 | `internal_lb_subnet_address_prefix` | `string` | required | CIDR for AKS's internal load balancer subnet (shared infra, not tier-specific) |
 | `stage_node_vm_size` | `string` | required | |
@@ -126,6 +154,7 @@ repo.
 | `kubernetes_cluster_private_fqdn` | |
 | `aks_oidc_issuer_url` | |
 | `virtual_network_name` | |
+| `system_subnet_id` | |
 | `stage_subnet_id` | |
 | `prod_subnet_id` | |
 | `bastion_host_id` | `null` unless `enable_bastion` |
@@ -150,11 +179,15 @@ module "cluster" {
 
   kubernetes_version = "1.34"
   service_cidr        = "10.100.0.0/16"
+  pod_cidr              = "10.244.0.0/16"
   dns_service_ip       = "10.100.0.10"
 
   log_analytics_workspace_id = "/subscriptions/.../resourceGroups/.../providers/Microsoft.OperationalInsights/workspaces/..."
-  aks_public_ssh_key_path     = "~/.ssh/id_rsa.pub"
+  aks_public_ssh_key          = file("~/.ssh/id_rsa.pub")
   aks_admin_group_object_ids  = ["00000000-0000-0000-0000-000000000000"]
+
+  system_subnet_address_prefix = "10.2.3.0/27"
+  system_node_vm_size          = "Standard_D2s_v5"
 
   stage_subnet_address_prefix       = "10.2.1.0/24"
   stage_node_vm_size                = "Standard_D2s_v5"

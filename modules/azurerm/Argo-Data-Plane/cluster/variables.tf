@@ -77,9 +77,9 @@ variable "aks_admin_username" {
   default     = "azureuser"
 }
 
-variable "aks_public_ssh_key_path" {
+variable "aks_public_ssh_key" {
   type        = string
-  description = "Path to the public SSH key file for AKS nodes"
+  description = "Public SSH key content for AKS nodes (e.g. \"ssh-ed25519 AAAA... user@host\"), not a file path - keeps this module from depending on a key file existing on whatever machine runs terraform apply"
 }
 
 variable "aks_admin_group_object_ids" {
@@ -111,6 +111,11 @@ variable "service_cidr" {
   description = "CIDR block for Kubernetes Services"
 }
 
+variable "pod_cidr" {
+  type        = string
+  description = "CIDR block for pod IPs under Azure CNI Overlay. Must not overlap vnet_address_space or service_cidr - pod IPs are overlay-only and never routed on the VNet, so this can be sized independently of subnet space"
+}
+
 variable "log_analytics_workspace_id" {
   type        = string
   description = "Resource ID of an existing Log Analytics Workspace for AKS's oms_agent. This module does not create one - pass an existing workspace's ID. Null disables Container Insights."
@@ -120,6 +125,41 @@ variable "log_analytics_workspace_id" {
 variable "dns_service_ip" {
   type        = string
   description = "DNS service IP, must be inside service_cidr"
+}
+
+# --- Dedicated system pool ---
+#
+# A small, always-on System-mode pool outside both tiers' subnets, so
+# kube-system components (konnectivity-agent, metrics-server, CoreDNS)
+# aren't stuck on the stage pool - which the prod NSG's deny rule then
+# cuts off from reaching prod kubelets/pods for logs, exec and metrics.
+
+variable "system_subnet_address_prefix" {
+  type        = string
+  description = "CIDR for the dedicated system pool's subnet - outside both tiers' subnets and their NSG rules, so it isn't affected by the prod tier's deny-from-stage rule. With Azure CNI Overlay this only needs to cover node IPs, not pod IPs, so it can be small (e.g. /27)"
+}
+
+variable "system_node_vm_size" {
+  type        = string
+  description = "VM size for the dedicated system pool"
+}
+
+variable "system_availability_zones" {
+  type        = list(number)
+  description = "Availability zones for the dedicated system pool"
+  default     = [1]
+}
+
+variable "system_node_min_count" {
+  type        = number
+  description = "Minimum node count for the dedicated system pool's autoscaler"
+  default     = 1
+}
+
+variable "system_node_max_count" {
+  type        = number
+  description = "Maximum node count for the dedicated system pool's autoscaler"
+  default     = 2
 }
 
 # --- Stage tier ---
@@ -136,24 +176,24 @@ variable "internal_lb_subnet_address_prefix" {
 
 variable "stage_node_vm_size" {
   type        = string
-  description = "VM size for the stage tier's default AKS node pool"
+  description = "VM size for the stage tier's node pool"
 }
 
 variable "stage_availability_zones" {
   type        = list(number)
-  description = "Availability zones for the stage tier's default AKS node pool"
+  description = "Availability zones for the stage tier's node pool"
   default     = [1, 2, 3]
 }
 
 variable "stage_node_min_count" {
   type        = number
-  description = "Minimum node count for the stage tier's default node pool autoscaler"
+  description = "Minimum node count for the stage tier's node pool autoscaler"
   default     = 1
 }
 
 variable "stage_node_max_count" {
   type        = number
-  description = "Maximum node count for the stage tier's default node pool autoscaler"
+  description = "Maximum node count for the stage tier's node pool autoscaler"
   default     = 3
 }
 
