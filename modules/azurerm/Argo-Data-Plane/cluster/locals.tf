@@ -115,4 +115,7 @@ locals {
       destination_address_prefix = "Internet"
     }
   }
+
+  # Key Vault names: <=24 chars, no trailing hyphen.
+  cluster_secrets_key_vault_name = coalesce(var.cluster_secrets_key_vault_name, "${trimsuffix(substr(var.aks_cluster_name, 0, 24 - length("-kv")), "-")}-kv")
 }

@@ -300,12 +300,14 @@ resource "azurerm_role_assignment" "eso" {
 resource "azurerm_storage_account" "flow_logs" {
   count = var.enable_vpc_flow_logs ? 1 : 0
 
-  name                     = local.flow_logs_storage_account_name
-  resource_group_name      = local.resource_group_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  tags                     = var.tags
+  name                            = local.flow_logs_storage_account_name
+  resource_group_name             = local.resource_group_name
+  location                        = var.location
+  account_tier                    = "Standard"
+  account_replication_type        = "LRS"
+  min_tls_version                 = "TLS1_2"
+  allow_nested_items_to_be_public = false
+  tags                            = var.tags
 }
 
 resource "azurerm_network_watcher_flow_log" "vnet" {
@@ -328,12 +330,14 @@ resource "azurerm_network_watcher_flow_log" "vnet" {
 resource "azurerm_storage_account" "argo_logs" {
   count = var.enable_artifact_archiving ? 1 : 0
 
-  name                     = local.argo_logs_storage_account_name
-  resource_group_name      = local.resource_group_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  tags                     = var.tags
+  name                            = local.argo_logs_storage_account_name
+  resource_group_name             = local.resource_group_name
+  location                        = var.location
+  account_tier                    = "Standard"
+  account_replication_type        = "LRS"
+  min_tls_version                 = "TLS1_2"
+  allow_nested_items_to_be_public = false
+  tags                            = var.tags
 }
 
 resource "azurerm_storage_container" "argo_logs" {

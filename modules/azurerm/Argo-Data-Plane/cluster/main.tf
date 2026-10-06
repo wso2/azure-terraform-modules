@@ -198,8 +198,11 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     dns_service_ip = var.dns_service_ip
   }
 
-  oms_agent {
-    log_analytics_workspace_id = var.log_analytics_workspace_id
+  dynamic "oms_agent" {
+    for_each = var.log_analytics_workspace_id != null ? [1] : []
+    content {
+      log_analytics_workspace_id = var.log_analytics_workspace_id
+    }
   }
 
   azure_active_directory_role_based_access_control {
@@ -268,8 +271,7 @@ data "azurerm_client_config" "current" {
 resource "azurerm_key_vault" "cluster_secrets" {
   count = var.enable_secrets_encryption ? 1 : 0
 
-  # Key Vault names must be <=24 chars.
-  name                       = substr("${var.aks_cluster_name}-kv", 0, 24)
+  name                       = local.cluster_secrets_key_vault_name
   location                   = var.location
   resource_group_name        = local.resource_group_name
   tenant_id                  = data.azurerm_client_config.current[0].tenant_id
@@ -314,12 +316,14 @@ resource "azurerm_role_assignment" "kms" {
 resource "azurerm_storage_account" "flow_logs" {
   count = var.enable_vpc_flow_logs ? 1 : 0
 
-  name                     = local.flow_logs_storage_account_name
-  resource_group_name      = local.resource_group_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  tags                     = var.tags
+  name                            = local.flow_logs_storage_account_name
+  resource_group_name             = local.resource_group_name
+  location                        = var.location
+  account_tier                    = "Standard"
+  account_replication_type        = "LRS"
+  min_tls_version                 = "TLS1_2"
+  allow_nested_items_to_be_public = false
+  tags                            = var.tags
 }
 
 resource "azurerm_network_watcher_flow_log" "vnet" {
@@ -342,12 +346,14 @@ resource "azurerm_network_watcher_flow_log" "vnet" {
 resource "azurerm_storage_account" "argo_logs" {
   count = var.enable_artifact_archiving ? 1 : 0
 
-  name                     = local.argo_logs_storage_account_name
-  resource_group_name      = local.resource_group_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  tags                     = var.tags
+  name                            = local.argo_logs_storage_account_name
+  resource_group_name             = local.resource_group_name
+  location                        = var.location
+  account_tier                    = "Standard"
+  account_replication_type        = "LRS"
+  min_tls_version                 = "TLS1_2"
+  allow_nested_items_to_be_public = false
+  tags                            = var.tags
 }
 
 resource "azurerm_storage_container" "argo_logs" {

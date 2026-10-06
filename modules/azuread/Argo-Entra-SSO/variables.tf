@@ -21,7 +21,6 @@
 variable "application_name" {
   description = "Display name for the Entra ID app registration"
   type        = string
-  default     = "argo-rnd-portal"
 }
 
 variable "group_membership_claims" {
@@ -69,5 +68,4 @@ variable "sp_password_rotation_months" {
 variable "group_name_prefix" {
   description = "Prefix for the 4 RBAC tier group display names (e.g. \"grp-asgardeo-argo\" produces \"grp-asgardeo-argo-nonprod-reader\", etc.)"
   type        = string
-  default     = "grp-asgardeo-argo"
 }

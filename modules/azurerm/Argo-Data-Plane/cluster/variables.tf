@@ -113,7 +113,8 @@ variable "service_cidr" {
 
 variable "log_analytics_workspace_id" {
   type        = string
-  description = "Resource ID of an existing Log Analytics Workspace for AKS's oms_agent. This module does not create one - pass an existing workspace's ID."
+  description = "Resource ID of an existing Log Analytics Workspace for AKS's oms_agent. This module does not create one - pass an existing workspace's ID. Null disables Container Insights."
+  default     = null
 }
 
 variable "dns_service_ip" {
@@ -241,6 +242,12 @@ variable "enable_secrets_encryption" {
   type        = bool
   description = "Whether to create a Key Vault + key and enable AKS's etcd secrets encryption with it."
   default     = false
+}
+
+variable "cluster_secrets_key_vault_name" {
+  type        = string
+  description = "Override for the KMS Key Vault's name (globally unique, <=24 chars). Null derives \"<aks_cluster_name>-kv\"."
+  default     = null
 }
 
 variable "log_retention_in_days" {
