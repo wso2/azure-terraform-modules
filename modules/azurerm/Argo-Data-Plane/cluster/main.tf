@@ -152,7 +152,9 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     authorized_ip_ranges = var.api_server_authorized_ip_ranges
   }
 
-  # Required by azurerm 5.x; node pools here are managed explicitly.
+  # Needs azurerm >= 4.57 (see versions.tf). Explicit, not left at the
+  # provider default, because node pools here are managed by this config,
+  # not AKS auto-provisioning.
   node_provisioning_profile {
     mode = "Manual"
   }

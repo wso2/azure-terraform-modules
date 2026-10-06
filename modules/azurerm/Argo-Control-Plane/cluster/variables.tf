@@ -173,8 +173,8 @@ variable "node_max_count" {
 
 variable "enable_bastion" {
   type        = bool
-  description = "Whether to provision Azure Bastion for admin access"
-  default     = true
+  description = "Whether to provision Azure Bastion for admin access. Default false, since bastion_subnet_address_prefix has no usable default - set both together"
+  default     = false
 }
 
 variable "bastion_subnet_address_prefix" {

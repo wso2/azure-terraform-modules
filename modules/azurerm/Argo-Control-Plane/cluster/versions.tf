@@ -22,8 +22,11 @@ terraform {
   required_version = ">= 1.10"
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 4.0"
+      source = "hashicorp/azurerm"
+      # node_provisioning_profile needs 4.57; rbac_authorization_enabled
+      # needs 4.42. "~> 4.0" alone would allow a caller to resolve down
+      # to an older 4.x that has neither.
+      version = ">= 4.57, < 5.0"
     }
   }
 }

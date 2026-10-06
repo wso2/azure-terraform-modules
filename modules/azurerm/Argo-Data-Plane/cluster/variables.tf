@@ -196,8 +196,8 @@ variable "prod_node_taint_value" {
 
 variable "enable_bastion" {
   type        = bool
-  description = "Whether to provision Azure Bastion for admin access to this data plane"
-  default     = true
+  description = "Whether to provision Azure Bastion for admin access to this data plane. Default false, since bastion_subnet_address_prefix has no usable default - set both together"
+  default     = false
 }
 
 variable "bastion_subnet_address_prefix" {
