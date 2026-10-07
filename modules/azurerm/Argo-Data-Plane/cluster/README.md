@@ -42,11 +42,26 @@ repo.
 
 ## Notes
 
-- **API server access is open by default.** With `private_cluster_enabled`
-  false and `api_server_authorized_ip_ranges` empty, the API server accepts
-  connections from any address; only Entra ID sign-in protects it. Set one
-  of the two for anything beyond a test cluster. If you set IP ranges,
-  include this cluster's NAT gateway addresses.
+- **The API server is private by default**, the same as the AWS modules'
+  private EKS endpoint. Setting `private_cluster_enabled = false` with
+  `api_server_authorized_ip_ranges` empty opens it to any address, with
+  only Entra ID sign-in protecting it. If you set IP ranges, include this
+  cluster's NAT gateway addresses.
+- **A private cluster needs the jump VM.** Bastion only carries SSH and RDP
+  to a VM; it can't forward to the API server's port 443. With
+  `private_cluster_enabled = true`, set `enable_bastion` and
+  `enable_jump_vm` and connect with
+  `az network bastion ssh --name <aks_cluster_name>-bastion --resource-group <rg> --target-resource-id <jump_vm_id> --auth-type ssh-key --username azureuser --ssh-key <private key>`.
+  The VM has `az`, `kubectl` and `kubelogin` installed.
+- **Give groups, not people, the path in.** Each entry in `jump_vm_access`
+  gets Entra SSH login on the jump VM (`--auth-type AAD`), `Reader` on the
+  VM, its NIC and the Bastion host, and the AKS Cluster User role, which is
+  everything needed to get from Bastion to a kubeconfig. It grants no
+  Kubernetes permissions: use `aks_admin_group_object_ids` for
+  cluster-admins and the apps module's `group_role_bindings` for
+  per-namespace access. Once those work, set `local_account_disabled`.
+  `terraform apply` of anything that talks to the Kubernetes API has to
+  reach it through that VM too.
 - **The local admin account stays enabled by default**, which leaves a
   credential that bypasses Azure RBAC. Set `local_account_disabled = true`
   once an admin group or role assignment exists; doing it earlier locks
@@ -103,7 +118,7 @@ repo.
 | `aks_admin_username` | `string` | `"azureuser"` | |
 | `aks_public_ssh_key` | `string` | required | Public SSH key content for AKS nodes, not a file path |
 | `aks_admin_group_object_ids` | `list(string)` | `[]` | Entra ID group object IDs granted AKS cluster-admin via native Azure RBAC for Kubernetes |
-| `private_cluster_enabled` | `bool` | `false` | |
+| `private_cluster_enabled` | `bool` | `true` | Private-only API server. See Notes |
 | `api_server_authorized_ip_ranges` | `list(string)` | `[]` | Empty leaves the public endpoint open to any address. See Notes |
 | `local_account_disabled` | `bool` | `false` | Disable the local admin account. See Notes |
 | `service_cidr` | `string` | required | |
@@ -131,6 +146,10 @@ repo.
 | `bastion_subnet_address_prefix` | `string` | `null` | Must be `/26` or larger per Azure's requirement |
 | `bastion_allow_https_internet_inbound` | `bool` | `false` | Whether Bastion accepts inbound from the public internet vs. only `bastion_public_address_prefixes` |
 | `bastion_public_address_prefixes` | `list(string)` | `[]` | Source CIDRs allowed to reach Bastion when `bastion_allow_https_internet_inbound` is false |
+| `enable_jump_vm` | `bool` | `false` | VM reachable only through Bastion. Requires `enable_bastion`. See Notes |
+| `jump_vm_subnet_address_prefix` | `string` | `null` | `/29` or larger. Required when `enable_jump_vm` |
+| `jump_vm_size` | `string` | `"Standard_B2s"` | |
+| `jump_vm_access` | `map(object)` | `{}` | Entra ID groups allowed through Bastion to the jump VM. See Notes |
 | `deploy_identities` | `map(object({ namespace, service_account_name }))` | `{}` | Per-env Workload Identity Federation identities for pipeline pods. See Notes above |
 | `deploy_identity_role_assignments` | `list(object({ identity_key, role_definition_name, scope }))` | `[]` | Azure RBAC role assignments granting each deploy identity access to its real deployment target - a list since one identity may need more than one role/scope |
 | `enable_secrets_encryption` | `bool` | `false` | Enables AKS's etcd secrets encryption via a Key Vault + key. See Notes above |
@@ -158,6 +177,7 @@ repo.
 | `stage_subnet_id` | |
 | `prod_subnet_id` | |
 | `bastion_host_id` | `null` unless `enable_bastion` |
+| `jump_vm_id` | `--target-resource-id` for `az network bastion ssh`. `null` unless `enable_jump_vm` |
 | `deploy_identity_client_ids` | Client ID per `deploy_identities` entry. Annotate the matching ServiceAccount with `azure.workload.identity/client-id: <this value>` |
 | `workflow_controller_artifacts_client_id` | `null` unless `enable_artifact_archiving`. The pod also needs the `azure.workload.identity/use: "true"` label for AKS's webhook to inject the token |
 | `artifact_storage_account_name` | `null` unless `enable_artifact_archiving` |

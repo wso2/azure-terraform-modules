@@ -118,4 +118,21 @@ locals {
 
   # Key Vault names: <=24 chars, no trailing hyphen.
   cluster_secrets_key_vault_name = coalesce(var.cluster_secrets_key_vault_name, "${trimsuffix(substr(var.aks_cluster_name, 0, 24 - length("-kv")), "-")}-kv")
+
+  jump_vm_access = var.enable_jump_vm && var.create_role_assignments ? var.jump_vm_access : {}
+
+  # Installs az, kubectl and kubelogin on first boot. The lock timeout
+  # matters: the Entra login extension runs apt at the same time, and
+  # without it the az install fails on the dpkg lock.
+  jump_vm_cloud_init = <<-EOT
+    #cloud-config
+    package_update: true
+    write_files:
+      - path: /etc/apt/apt.conf.d/99-lock-timeout
+        content: |
+          DPkg::Lock::Timeout "600";
+    runcmd:
+      - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+      - az aks install-cli
+  EOT
 }

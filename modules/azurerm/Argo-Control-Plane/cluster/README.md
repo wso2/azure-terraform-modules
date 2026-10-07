@@ -31,7 +31,7 @@ the control plane has no stage/prod tier split.
 - A resource group (opt-out via `create_resource_group = false`).
 - A VNet with one node subnet, an NSG with caller-supplied rules, and a
   NAT Gateway giving all egress one static IP (`nat_gateway_public_ip`).
-- The AKS cluster: Azure CNI, Entra ID integration with Azure RBAC, OIDC
+- The AKS cluster: Azure CNI Overlay, Entra ID integration with Azure RBAC, OIDC
   issuer + Workload Identity, optional private API server, optional
   Container Insights, one autoscaling `system` node pool across
   `availability_zones`.
@@ -48,11 +48,11 @@ the control plane has no stage/prod tier split.
 
 ## Notes
 
-- **API server access is open by default.** With `private_cluster_enabled`
-  false and `api_server_authorized_ip_ranges` empty, the API server accepts
-  connections from any address; only Entra ID sign-in protects it. Set one
-  of the two for anything beyond a test cluster. If you set IP ranges,
-  include this cluster's NAT gateway addresses.
+- **The API server is private by default**, the same as the AWS modules'
+  private EKS endpoint. Setting `private_cluster_enabled = false` with
+  `api_server_authorized_ip_ranges` empty opens it to any address, with
+  only Entra ID sign-in protecting it. If you set IP ranges, include this
+  cluster's NAT gateway addresses.
 - **A private cluster needs the jump VM.** Bastion only carries SSH and RDP
   to a VM; it can't forward to the API server's port 443. With
   `private_cluster_enabled = true`, set `enable_bastion` and
@@ -115,10 +115,11 @@ the control plane has no stage/prod tier split.
 | `aks_admin_username` | `string` | `"azureuser"` | |
 | `aks_public_ssh_key` | `string` | required | Public SSH key content for the node admin, not a file path |
 | `aks_admin_group_object_ids` | `list(string)` | `[]` | Entra ID groups granted cluster-admin |
-| `private_cluster_enabled` | `bool` | `false` | |
+| `private_cluster_enabled` | `bool` | `true` | Private-only API server. See Notes |
 | `api_server_authorized_ip_ranges` | `list(string)` | `[]` | Empty leaves the public endpoint open to any address. See Notes |
 | `local_account_disabled` | `bool` | `false` | Disable the local admin account. See Notes |
 | `service_cidr` | `string` | required | Must not overlap the VNet |
+| `pod_cidr` | `string` | required | CIDR for pod IPs under Azure CNI Overlay. Must not overlap `vnet_address_space` or `service_cidr` |
 | `dns_service_ip` | `string` | required | Must be inside `service_cidr` |
 | `log_analytics_workspace_id` | `string` | `null` | Existing workspace for Container Insights. Null disables it |
 | `node_vm_size` | `string` | required | |
@@ -186,6 +187,7 @@ module "cluster" {
   kubernetes_version      = "1.31"
   aks_public_ssh_key = file("~/.ssh/aks.pub")
   service_cidr            = "10.100.0.0/16"
+  pod_cidr                = "10.244.0.0/16"
   dns_service_ip          = "10.100.0.10"
 
   aks_admin_group_object_ids = ["00000000-0000-0000-0000-000000000000"]

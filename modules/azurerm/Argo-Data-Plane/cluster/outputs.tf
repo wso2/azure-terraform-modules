@@ -72,3 +72,8 @@ output "artifact_storage_account_name" {
   description = "Storage account Argo Workflows should archive logs/artifacts to - null unless enable_artifact_archiving is true"
   value       = var.enable_artifact_archiving ? azurerm_storage_account.argo_logs[0].name : null
 }
+
+output "jump_vm_id" {
+  description = "Target for `az network bastion ssh --target-resource-id` - null unless enable_jump_vm is true"
+  value       = var.enable_jump_vm ? azurerm_linux_virtual_machine.jump_vm[0].id : null
+}

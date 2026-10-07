@@ -56,6 +56,7 @@ ESO's own controller.
 | `eso_namespace` | `string` | `"external-secrets"` | |
 | `federated_service_accounts` | `map(object({ namespace, client_id, name = optional(string) }))` | `{}` | ServiceAccounts to create, each annotated with `azure.workload.identity/client-id`. `name` defaults to the map key when unset - needed because a pipeline's own WorkflowTemplate may hardcode a fixed `serviceAccountName` that must be identical across every namespace it runs in, while map keys must stay unique |
 | `kubectl_manifest_files` | `list(object({ location, content, template_map, namespace }))` | `[]` | Manifests applied via the `alekc/kubectl` provider - required for anything backed by a CRD installed in this same apply |
+| `group_role_bindings` | `map(object({ group_object_id, namespace, cluster_role }))` | `{}` | Per-namespace access for Entra ID groups. `cluster_role` is `view`, `edit` (default) or `admin` |
 
 ## Outputs
 

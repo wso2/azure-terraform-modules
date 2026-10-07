@@ -84,6 +84,7 @@ module "cluster" {
   kubernetes_version      = "1.31"
   aks_public_ssh_key = file("~/.ssh/aks.pub")
   service_cidr            = "10.100.0.0/16"
+  pod_cidr                = "10.244.0.0/16"
   dns_service_ip          = "10.100.0.10"
 
   aks_admin_group_object_ids = ["00000000-0000-0000-0000-000000000000"]

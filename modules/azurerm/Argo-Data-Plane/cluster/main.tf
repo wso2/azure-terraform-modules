@@ -196,8 +196,13 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   private_cluster_enabled = var.private_cluster_enabled
   local_account_disabled  = var.local_account_disabled
 
-  api_server_access_profile {
-    authorized_ip_ranges = var.api_server_authorized_ip_ranges
+  # Azure doesn't return this block for a private cluster, so declaring it
+  # unconditionally shows a diff on every plan.
+  dynamic "api_server_access_profile" {
+    for_each = var.private_cluster_enabled ? [] : [1]
+    content {
+      authorized_ip_ranges = var.api_server_authorized_ip_ranges
+    }
   }
 
   # Needs azurerm >= 4.57 (see versions.tf). Explicit, not left at the
@@ -608,4 +613,201 @@ resource "azurerm_role_assignment" "deploy_identity" {
   principal_id         = azurerm_user_assigned_identity.deploy_identity[each.value.identity_key].principal_id
   role_definition_name = each.value.role_definition_name
   scope                = each.value.scope
+}
+
+# --- Jump VM (opt-in, the only way to reach a private API server) ---
+
+# Bastion only carries SSH and RDP to a VM. It can't forward to the API
+# server's port 443, so a private cluster needs a VM inside the VNet to
+# run kubectl from.
+resource "azurerm_subnet" "jump_vm" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                 = "${var.aks_cluster_name}-jump-snet"
+  resource_group_name  = local.resource_group_name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
+  address_prefixes     = [var.jump_vm_subnet_address_prefix]
+
+  lifecycle {
+    precondition {
+      condition     = var.enable_bastion && var.jump_vm_subnet_address_prefix != null
+      error_message = "enable_jump_vm needs enable_bastion = true and jump_vm_subnet_address_prefix set: the VM has no public IP and is only reachable through Bastion."
+    }
+  }
+}
+
+resource "azurerm_network_security_group" "jump_vm" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                = "${var.aks_cluster_name}-jump-nsg"
+  location            = var.location
+  resource_group_name = local.resource_group_name
+  tags                = var.tags
+}
+
+resource "azurerm_network_security_rule" "jump_vm_ssh_from_bastion" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                        = "AllowSshFromBastion"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = var.bastion_subnet_address_prefix
+  destination_address_prefix  = "*"
+  resource_group_name         = local.resource_group_name
+  network_security_group_name = azurerm_network_security_group.jump_vm[0].name
+}
+
+# The default rules allow everything inside the VNet, which would let any
+# pod on the node subnet reach this VM's SSH port.
+resource "azurerm_network_security_rule" "jump_vm_deny_vnet" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                        = "DenyVnetInBound"
+  priority                    = 4000
+  direction                   = "Inbound"
+  access                      = "Deny"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "VirtualNetwork"
+  destination_address_prefix  = "*"
+  resource_group_name         = local.resource_group_name
+  network_security_group_name = azurerm_network_security_group.jump_vm[0].name
+}
+
+resource "azurerm_subnet_network_security_group_association" "jump_vm" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  subnet_id                 = azurerm_subnet.jump_vm[0].id
+  network_security_group_id = azurerm_network_security_group.jump_vm[0].id
+
+  depends_on = [
+    azurerm_network_security_rule.jump_vm_ssh_from_bastion,
+    azurerm_network_security_rule.jump_vm_deny_vnet,
+  ]
+}
+
+resource "azurerm_subnet_nat_gateway_association" "jump_vm" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  subnet_id      = azurerm_subnet.jump_vm[0].id
+  nat_gateway_id = azurerm_nat_gateway.system_nat.id
+}
+
+resource "azurerm_network_interface" "jump_vm" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                = "${var.aks_cluster_name}-jump-nic"
+  location            = var.location
+  resource_group_name = local.resource_group_name
+  tags                = var.tags
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.jump_vm[0].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "jump_vm" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                            = "${var.aks_cluster_name}-jump"
+  location                        = var.location
+  resource_group_name             = local.resource_group_name
+  size                            = var.jump_vm_size
+  admin_username                  = var.aks_admin_username
+  disable_password_authentication = true
+  network_interface_ids           = [azurerm_network_interface.jump_vm[0].id]
+  custom_data                     = base64encode(local.jump_vm_cloud_init)
+  tags                            = var.tags
+
+  admin_ssh_key {
+    username   = var.aks_admin_username
+    public_key = var.aks_public_ssh_key
+  }
+
+  # Entra ID SSH login needs a system-assigned identity on the VM.
+  identity {
+    type = "SystemAssigned"
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "StandardSSD_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server"
+    version   = "latest"
+  }
+
+  # Outbound has to work before cloud-init installs the CLI tools.
+  depends_on = [
+    azurerm_subnet_nat_gateway_association.jump_vm,
+    azurerm_nat_gateway_public_ip_association.system_nat,
+  ]
+}
+
+# Lets `az network bastion ssh --auth-type AAD` work for the groups in
+# jump_vm_access.
+resource "azurerm_virtual_machine_extension" "jump_vm_entra_login" {
+  count = var.enable_jump_vm ? 1 : 0
+
+  name                       = "AADSSHLoginForLinux"
+  virtual_machine_id         = azurerm_linux_virtual_machine.jump_vm[0].id
+  publisher                  = "Microsoft.Azure.ActiveDirectory"
+  type                       = "AADSSHLoginForLinux"
+  type_handler_version       = "1.0"
+  auto_upgrade_minor_version = true
+  tags                       = var.tags
+}
+
+# Everything a group needs to get from Bastion to kubectl: sign in to the
+# VM, see the three resources `az network bastion ssh` reads, and download
+# a kubeconfig. What they can do in the cluster is a separate grant.
+resource "azurerm_role_assignment" "jump_vm_login" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_linux_virtual_machine.jump_vm[0].id
+  role_definition_name = each.value.sudo ? "Virtual Machine Administrator Login" : "Virtual Machine User Login"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_reader" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_linux_virtual_machine.jump_vm[0].id
+  role_definition_name = "Reader"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_nic_reader" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_network_interface.jump_vm[0].id
+  role_definition_name = "Reader"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_bastion_reader" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_bastion_host.bastion_host[0].id
+  role_definition_name = "Reader"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_cluster_user" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_kubernetes_cluster.aks_cluster.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id         = each.value.principal_id
 }

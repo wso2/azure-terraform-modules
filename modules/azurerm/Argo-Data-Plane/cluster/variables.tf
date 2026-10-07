@@ -90,8 +90,8 @@ variable "aks_admin_group_object_ids" {
 
 variable "private_cluster_enabled" {
   type        = bool
-  description = "Whether the AKS API server has a private-only endpoint"
-  default     = false
+  description = "Whether the AKS API server has a private-only endpoint. Default true, matching the AWS modules' private EKS endpoint. A private cluster is reached through enable_bastion + enable_jump_vm; set this false only together with api_server_authorized_ip_ranges."
+  default     = true
 }
 
 variable "api_server_authorized_ip_ranges" {
@@ -342,4 +342,31 @@ variable "flow_logs_storage_account_name" {
   type        = string
   description = "Same override as argo_logs_storage_account_name, for the flow_logs Storage Account."
   default     = null
+}
+
+variable "enable_jump_vm" {
+  type        = bool
+  description = "Whether to provision a small Linux VM with az, kubectl and kubelogin, reachable only through Bastion. Needed to reach the API server when private_cluster_enabled is true, since Bastion itself only forwards SSH and RDP. Requires enable_bastion."
+  default     = false
+}
+
+variable "jump_vm_subnet_address_prefix" {
+  type        = string
+  description = "CIDR for the jump VM's own subnet (/29 or larger) - required when enable_jump_vm is true"
+  default     = null
+}
+
+variable "jump_vm_size" {
+  type        = string
+  description = "VM size for the jump VM"
+  default     = "Standard_B2s"
+}
+
+variable "jump_vm_access" {
+  type = map(object({
+    principal_id = string
+    sudo         = optional(bool, false)
+  }))
+  description = "Entra ID groups (or users) allowed to reach the cluster through Bastion and the jump VM, keyed by any stable label. Each gets Entra SSH login on the VM (with sudo if set), Reader on the VM, its NIC and the Bastion host, and the AKS Cluster User role. Add people to the group rather than to this map. Only created when create_role_assignments is true. This grants the path in, not Kubernetes permissions - pair it with aks_admin_group_object_ids or the apps module's group_role_bindings."
+  default     = {}
 }

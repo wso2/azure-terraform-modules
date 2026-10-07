@@ -172,9 +172,11 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 
   network_profile {
-    network_plugin = "azure"
-    service_cidr   = var.service_cidr
-    dns_service_ip = var.dns_service_ip
+    network_plugin      = "azure"
+    network_plugin_mode = "overlay"
+    pod_cidr            = var.pod_cidr
+    service_cidr        = var.service_cidr
+    dns_service_ip      = var.dns_service_ip
   }
 
   dynamic "oms_agent" {

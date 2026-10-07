@@ -111,8 +111,8 @@ variable "aks_admin_group_object_ids" {
 
 variable "private_cluster_enabled" {
   type        = bool
-  description = "Whether the AKS API server has a private-only endpoint"
-  default     = false
+  description = "Whether the AKS API server has a private-only endpoint. Default true, matching the AWS modules' private EKS endpoint. A private cluster is reached through enable_bastion + enable_jump_vm; set this false only together with api_server_authorized_ip_ranges."
+  default     = true
 }
 
 variable "api_server_authorized_ip_ranges" {
@@ -135,6 +135,11 @@ variable "service_cidr" {
 variable "dns_service_ip" {
   type        = string
   description = "DNS service IP, must be inside service_cidr"
+}
+
+variable "pod_cidr" {
+  type        = string
+  description = "CIDR block for pod IPs under Azure CNI Overlay. Must not overlap vnet_address_space or service_cidr - pod IPs are overlay-only and never routed on the VNet, so this can be sized independently of subnet space"
 }
 
 variable "log_analytics_workspace_id" {
