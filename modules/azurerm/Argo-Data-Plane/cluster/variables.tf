@@ -116,6 +116,12 @@ variable "pod_cidr" {
   description = "CIDR block for pod IPs under Azure CNI Overlay. Must not overlap vnet_address_space or service_cidr - pod IPs are overlay-only and never routed on the VNet, so this can be sized independently of subnet space"
 }
 
+variable "enable_network_policy" {
+  type        = bool
+  description = "Run the cluster on Azure CNI Powered by Cilium so Kubernetes NetworkPolicy objects are enforced. Without an engine they are accepted and silently ignored, and under overlay networking they are the only control that separates pods, because subnet NSGs see pod traffic by pod_cidr address and not by node subnet. Turning this on for an existing cluster is an in-place upgrade that reimages every node."
+  default     = true
+}
+
 variable "log_analytics_workspace_id" {
   type        = string
   description = "Resource ID of an existing Log Analytics Workspace for AKS's oms_agent. This module does not create one - pass an existing workspace's ID. Null disables Container Insights."

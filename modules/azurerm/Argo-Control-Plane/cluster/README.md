@@ -120,6 +120,7 @@ the control plane has no stage/prod tier split.
 | `local_account_disabled` | `bool` | `false` | Disable the local admin account. See Notes |
 | `service_cidr` | `string` | required | Must not overlap the VNet |
 | `pod_cidr` | `string` | required | CIDR for pod IPs under Azure CNI Overlay. Must not overlap `vnet_address_space` or `service_cidr` |
+| `enable_network_policy` | `bool` | `true` | Run on Azure CNI Powered by Cilium so NetworkPolicy objects are enforced. Enabling it on an existing cluster reimages every node |
 | `dns_service_ip` | `string` | required | Must be inside `service_cidr` |
 | `log_analytics_workspace_id` | `string` | `null` | Existing workspace for Container Insights. Null disables it |
 | `node_vm_size` | `string` | required | |

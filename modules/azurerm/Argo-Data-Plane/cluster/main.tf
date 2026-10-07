@@ -98,6 +98,14 @@ resource "azurerm_subnet_nat_gateway_association" "system" {
 }
 
 # --- Per-tier NSGs; prod denies inbound from the stage subnet ---
+#
+# Under overlay networking this rule covers traffic that leaves a stage
+# node with the node's own address: host-network pods, and stage pods
+# calling a prod node IP or NodePort (SNAT to the node). Pod-to-pod traffic
+# keeps its pod_cidr source address, and pod_cidr is carved per node, not
+# per tier, so no subnet rule can tell a stage pod from a prod pod. That
+# half is enforced by NetworkPolicy (enable_network_policy here, and
+# namespace_tiers in the apps module).
 
 resource "azurerm_network_security_group" "tier" {
   for_each = local.tiers
@@ -260,6 +268,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   network_profile {
     network_plugin      = "azure"
     network_plugin_mode = "overlay"
+    network_data_plane  = var.enable_network_policy ? "cilium" : "azure"
+    network_policy      = var.enable_network_policy ? "cilium" : null
     pod_cidr            = var.pod_cidr
     service_cidr        = var.service_cidr
     dns_service_ip      = var.dns_service_ip

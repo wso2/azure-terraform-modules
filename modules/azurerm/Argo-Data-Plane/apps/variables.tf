@@ -155,3 +155,9 @@ variable "group_role_bindings" {
   description = "Per-namespace Kubernetes access for Entra ID groups, keyed by any stable label. Binds the group to a built-in ClusterRole (view, edit or admin) inside one namespace, which must exist already or come from this module's manifests."
   default     = {}
 }
+
+variable "namespace_tiers" {
+  type        = map(list(string))
+  description = "Namespaces grouped by tier, e.g. { stage = [\"argo-stage\"], prod = [\"argo-prod\"] }. Every listed namespace gets a NetworkPolicy that drops traffic from pods in the namespaces of every other tier; namespaces not listed here (system, ingress, monitoring) can still reach all of them. Needs a NetworkPolicy engine on the cluster (enable_network_policy in the cluster module), and the namespaces must exist already or come from this module."
+  default     = {}
+}

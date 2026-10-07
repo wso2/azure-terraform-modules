@@ -57,6 +57,7 @@ ESO's own controller.
 | `federated_service_accounts` | `map(object({ namespace, client_id, name = optional(string) }))` | `{}` | ServiceAccounts to create, each annotated with `azure.workload.identity/client-id`. `name` defaults to the map key when unset - needed because a pipeline's own WorkflowTemplate may hardcode a fixed `serviceAccountName` that must be identical across every namespace it runs in, while map keys must stay unique |
 | `kubectl_manifest_files` | `list(object({ location, content, template_map, namespace }))` | `[]` | Manifests applied via the `alekc/kubectl` provider - required for anything backed by a CRD installed in this same apply |
 | `group_role_bindings` | `map(object({ group_object_id, namespace, cluster_role }))` | `{}` | Per-namespace access for Entra ID groups. `cluster_role` is `view`, `edit` (default) or `admin` |
+| `namespace_tiers` | `map(list(string))` | `{}` | Namespaces grouped by tier. Each one gets a NetworkPolicy that drops traffic from pods in every other tier's namespaces. Needs `enable_network_policy` on the cluster module |
 
 ## Outputs
 

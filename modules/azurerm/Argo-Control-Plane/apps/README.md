@@ -106,6 +106,7 @@ as input.
 | `eso_namespace` | `string` | `"external-secrets"` | Must match the `cluster` module's `eso_namespace` |
 | `kubectl_manifest_files` | `list(object({ location, content, template_map, namespace }))` | `[]` | Manifests backed by a CRD installed in this same apply |
 | `group_role_bindings` | `map(object({ group_object_id, namespace, cluster_role }))` | `{}` | Per-namespace access for Entra ID groups. `cluster_role` is `view`, `edit` (default) or `admin` |
+| `namespace_tiers` | `map(list(string))` | `{}` | Namespaces grouped by tier. Each one gets a NetworkPolicy that drops traffic from pods in every other tier's namespaces. Needs `enable_network_policy` on the cluster module |
 
 ## Outputs
 

@@ -371,3 +371,35 @@ resource "kubernetes_role_binding_v1" "group" {
     kubernetes_namespace_v1.extra,
   ]
 }
+
+# NetworkPolicy has no deny rule, so each tiered namespace allows ingress
+# from every namespace except the other tiers'. Anything that isn't a pod
+# (a load balancer, another VNet/VPC) is dropped as well, which fits the
+# no-inbound design of the tier namespaces.
+resource "kubernetes_network_policy_v1" "tier_isolation" {
+  for_each = local.tier_namespaces
+
+  metadata {
+    name      = "deny-other-tiers"
+    namespace = each.key
+  }
+
+  spec {
+    pod_selector {}
+    policy_types = ["Ingress"]
+
+    ingress {
+      from {
+        namespace_selector {
+          match_expressions {
+            key      = "kubernetes.io/metadata.name"
+            operator = "NotIn"
+            values   = each.value
+          }
+        }
+      }
+    }
+  }
+
+  depends_on = [kubernetes_namespace_v1.namespace, kubernetes_namespace_v1.extra]
+}

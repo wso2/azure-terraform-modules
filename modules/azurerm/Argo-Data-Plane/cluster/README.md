@@ -4,7 +4,8 @@ Provisions the AKS cluster and tier-isolated networking an Azure Argo
 data plane runs on. A dedicated, always-on system pool runs AKS's own
 add-ons (CoreDNS, metrics-server, konnectivity-agent); stage and prod are
 each a separate, tainted-where-relevant node pool with their own subnet,
-and prod's NSG explicitly denies inbound from the stage subnet.
+and prod's NSG explicitly denies inbound from the stage subnet. Pod-to-pod
+separation between the tiers comes from NetworkPolicy (see Notes).
 
 Raw `azurerm_*` resource blocks. No dependency on any other WSO2 module
 repo.
@@ -77,6 +78,14 @@ repo.
   Overlay pod IPs (`pod_cidr`) are never routed on the VNet, so subnet
   sizing only has to cover node IPs. `pod_cidr` must not overlap
   `vnet_address_space` or `service_cidr`.
+- **The stage-to-prod NSG rule is not enough on its own under overlay.**
+  Overlay pod traffic is not encapsulated and keeps its `pod_cidr` source
+  address, and `pod_cidr` is handed out per node, not per tier, so a
+  subnet rule cannot tell a stage pod from a prod pod. The rule still
+  blocks what leaves a stage node with the node's address (host-network
+  pods, and stage pods calling a prod node IP or NodePort). Pod-to-pod
+  traffic between tiers is blocked by `enable_network_policy` together
+  with the `apps` module's `namespace_tiers`; keep both on.
 - **The system pool exists because of a real interaction**: AKS requires
   exactly one default node pool in System mode, and that pool is where
   cluster add-ons land unless told otherwise. Making stage that pool (the
@@ -123,6 +132,7 @@ repo.
 | `local_account_disabled` | `bool` | `false` | Disable the local admin account. See Notes |
 | `service_cidr` | `string` | required | |
 | `pod_cidr` | `string` | required | CIDR for pod IPs under Azure CNI Overlay. Must not overlap `vnet_address_space` or `service_cidr` |
+| `enable_network_policy` | `bool` | `true` | Run on Azure CNI Powered by Cilium so NetworkPolicy objects are enforced. Enabling it on an existing cluster reimages every node |
 | `log_analytics_workspace_id` | `string` | `null` | Resource ID of an existing Log Analytics Workspace for AKS's `oms_agent`. Null disables Container Insights. This module does not create one |
 | `dns_service_ip` | `string` | required | Must be inside `service_cidr` |
 | `system_subnet_address_prefix` | `string` | required | CIDR for the dedicated system pool's subnet - outside both tiers' subnets/NSG rules. Can be small (e.g. `/27`), since overlay mode means it only needs to cover node IPs |
