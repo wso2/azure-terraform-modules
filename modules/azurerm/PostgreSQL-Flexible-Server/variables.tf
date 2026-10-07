@@ -90,6 +90,12 @@ variable "storage_tier" {
   type        = string
 }
 
+variable "auto_grow_enabled" {
+  default     = false
+  description = "Enable storage auto grow on the PostgreSQL Server"
+  type        = bool
+}
+
 variable "sku_name" {
   description = "PostgreSQL Server version"
   type        = string
