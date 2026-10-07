@@ -69,21 +69,3 @@ variable "group_name_prefix" {
   description = "Prefix for the 4 RBAC tier group display names (e.g. \"grp-asgardeo-argo\" produces \"grp-asgardeo-argo-nonprod-reader\", etc.)"
   type        = string
 }
-
-variable "store_client_secret_in_key_vault" {
-  description = "Whether to write the service principal password to client_secret_key_vault_id on every rotation. A plain bool, since the vault ID may be unknown until apply. Without it, a rotation breaks sign-in until someone copies the new sp_password to wherever the gateway reads it."
-  type        = bool
-  default     = false
-}
-
-variable "client_secret_key_vault_id" {
-  description = "Key Vault the gateway's client secret is synced from - required when store_client_secret_in_key_vault is true. The identity running apply needs Key Vault Secrets Officer on it."
-  type        = string
-  default     = null
-}
-
-variable "client_secret_name" {
-  description = "Name of the Key Vault secret holding the service principal password"
-  type        = string
-  default     = "argo-sso-client-secret"
-}

@@ -33,8 +33,6 @@ module with no sub-directories.
   a fixed description.
 - An assignment of each tier group to the application, so only their
   members can sign in (`sp_app_role_assignment_required`, on by default).
-- Optionally, the service principal password written to a Key Vault secret
-  (`store_client_secret_in_key_vault`).
 
 ## Notes
 
@@ -52,14 +50,26 @@ module with no sub-directories.
   ```bash
   terraform import 'module.argo_sso.azuread_group.tier["nonprod-reader"]' <existing-object-id>
   ```
-- **Rotation only happens on an apply.** `time_rotating` marks the
-  password due after `sp_password_rotation_months`, and the next `apply`
-  replaces it. The old password is removed in that same apply, so wherever
-  the gateway reads the secret from must change with it. Set
-  `store_client_secret_in_key_vault` to write it to the Key Vault that
-  External Secrets syncs from; otherwise copy `sp_password` there by hand
-  straight after the apply. Sign-in fails until the gateway picks up the
-  new value.
+- **Write `sp_password` to the gateway's secret store in the same
+  configuration.** `time_rotating` marks the password due after
+  `sp_password_rotation_months`, and the next `apply` replaces it and
+  removes the old one. If the store is updated by a resource fed from
+  this module's `sp_password` output, the two change in one apply and
+  sign-in only pauses until the gateway re-syncs. If the value is copied by
+  hand instead, sign-in stays broken until someone does it. The module
+  doesn't write the secret itself, so it carries no cloud provider beyond
+  `azuread`: the control plane may keep its secrets in Key Vault or in AWS
+  Secrets Manager.
+
+  ```hcl
+  resource "aws_secretsmanager_secret_version" "sso_client_secret" {
+    secret_id = aws_secretsmanager_secret.sso_client_secret.id
+    secret_string = jsonencode({
+      "client-id"     = module.argo_sso.client_id
+      "client-secret" = module.argo_sso.sp_password
+    })
+  }
+  ```
 - **No apply-order dependency on the cluster modules.** This module has no
   Terraform relationship to the `Argo-Control-Plane` cluster (AWS or
   Azure) or either data plane - it only needs to exist before someone
@@ -78,9 +88,6 @@ module with no sub-directories.
 | `sp_app_role_assignment_required` | `bool` | `true` | Only members of the tier groups can sign in. False lets any tenant user sign in |
 | `sp_password_display_name` | `string` | `null` | Display name for the service principal's rotating password |
 | `sp_password_rotation_months` | `number` | `6` | How often the service principal password rotates |
-| `store_client_secret_in_key_vault` | `bool` | `false` | Write the password to Key Vault on every rotation. See Notes |
-| `client_secret_key_vault_id` | `string` | `null` | Required when `store_client_secret_in_key_vault` |
-| `client_secret_name` | `string` | `"argo-sso-client-secret"` | Key Vault secret name |
 | `group_name_prefix` | `string` | `"grp-asgardeo-argo"` | Prefix for the 4 RBAC tier group display names (e.g. produces `grp-asgardeo-argo-nonprod-reader`) |
 
 ## Outputs
