@@ -209,3 +209,13 @@ variable "kubectl_manifest_files" {
   description = "Manifests applied via the kubectl provider instead of kubernetes_manifest - required for anything backed by a CRD installed in this same apply (e.g. ESO's ClusterSecretStore/ExternalSecret). namespace, if set, overrides each object's own metadata.namespace."
   default     = []
 }
+
+variable "group_role_bindings" {
+  type = map(object({
+    group_object_id = string
+    namespace       = string
+    cluster_role    = optional(string, "edit")
+  }))
+  description = "Per-namespace Kubernetes access for Entra ID groups, keyed by any stable label. Binds the group to a built-in ClusterRole (view, edit or admin) inside one namespace, which must be var.namespace or one of extra_namespaces."
+  default     = {}
+}

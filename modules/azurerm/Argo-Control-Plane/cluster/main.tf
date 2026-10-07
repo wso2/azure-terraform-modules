@@ -619,8 +619,8 @@ resource "azurerm_linux_virtual_machine" "jump_vm" {
   ]
 }
 
-# Lets `az network bastion ssh --auth-type AAD` work, for anyone holding a
-# Virtual Machine Administrator/User Login role on this VM.
+# Lets `az network bastion ssh --auth-type AAD` work for the groups in
+# jump_vm_access.
 resource "azurerm_virtual_machine_extension" "jump_vm_entra_login" {
   count = var.enable_jump_vm ? 1 : 0
 
@@ -633,10 +633,45 @@ resource "azurerm_virtual_machine_extension" "jump_vm_entra_login" {
   tags                       = var.tags
 }
 
-resource "azurerm_role_assignment" "jump_vm_admin_login" {
-  for_each = var.enable_jump_vm && var.create_role_assignments ? toset(var.jump_vm_admin_login_principal_ids) : toset([])
+# Everything a group needs to get from Bastion to kubectl: sign in to the
+# VM, see the three resources `az network bastion ssh` reads, and download
+# a kubeconfig. What they can do in the cluster is a separate grant.
+resource "azurerm_role_assignment" "jump_vm_login" {
+  for_each = local.jump_vm_access
 
   scope                = azurerm_linux_virtual_machine.jump_vm[0].id
-  role_definition_name = "Virtual Machine Administrator Login"
-  principal_id         = each.value
+  role_definition_name = each.value.sudo ? "Virtual Machine Administrator Login" : "Virtual Machine User Login"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_reader" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_linux_virtual_machine.jump_vm[0].id
+  role_definition_name = "Reader"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_nic_reader" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_network_interface.jump_vm[0].id
+  role_definition_name = "Reader"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_bastion_reader" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_bastion_host.bastion_host[0].id
+  role_definition_name = "Reader"
+  principal_id         = each.value.principal_id
+}
+
+resource "azurerm_role_assignment" "jump_vm_cluster_user" {
+  for_each = local.jump_vm_access
+
+  scope                = azurerm_kubernetes_cluster.aks_cluster.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id         = each.value.principal_id
 }

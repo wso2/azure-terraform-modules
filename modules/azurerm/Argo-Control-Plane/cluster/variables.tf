@@ -213,10 +213,13 @@ variable "jump_vm_size" {
   default     = "Standard_B2s"
 }
 
-variable "jump_vm_admin_login_principal_ids" {
-  type        = list(string)
-  description = "Entra ID object IDs granted Virtual Machine Administrator Login on the jump VM, for `az network bastion ssh --auth-type AAD`. Only created when create_role_assignments is true. SSH key login as aks_admin_username works without it."
-  default     = []
+variable "jump_vm_access" {
+  type = map(object({
+    principal_id = string
+    sudo         = optional(bool, false)
+  }))
+  description = "Entra ID groups (or users) allowed to reach the cluster through Bastion and the jump VM, keyed by any stable label. Each gets Entra SSH login on the VM (with sudo if set), Reader on the VM, its NIC and the Bastion host, and the AKS Cluster User role. Add people to the group rather than to this map. Only created when create_role_assignments is true. This grants the path in, not Kubernetes permissions - pair it with aks_admin_group_object_ids or the apps module's group_role_bindings."
+  default     = {}
 }
 
 variable "enable_secrets_encryption" {

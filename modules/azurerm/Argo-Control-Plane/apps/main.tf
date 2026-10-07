@@ -345,3 +345,29 @@ resource "kubectl_manifest" "service_account_token" {
 
   depends_on = [kubectl_manifest.kubernetes_object, kubectl_manifest.extra]
 }
+
+resource "kubernetes_role_binding_v1" "group" {
+  for_each = var.group_role_bindings
+
+  metadata {
+    name      = "entra-${each.key}"
+    namespace = each.value.namespace
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = each.value.cluster_role
+  }
+
+  subject {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Group"
+    name      = each.value.group_object_id
+  }
+
+  depends_on = [
+    kubernetes_namespace_v1.namespace,
+    kubernetes_namespace_v1.extra,
+  ]
+}

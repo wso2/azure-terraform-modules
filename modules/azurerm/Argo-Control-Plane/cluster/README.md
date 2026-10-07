@@ -58,8 +58,14 @@ the control plane has no stage/prod tier split.
   `private_cluster_enabled = true`, set `enable_bastion` and
   `enable_jump_vm` and connect with
   `az network bastion ssh --name <aks_cluster_name>-bastion --resource-group <rg> --target-resource-id <jump_vm_id> --auth-type ssh-key --username azureuser --ssh-key <private key>`.
-  The VM has `az`, `kubectl` and `kubelogin` installed. `--auth-type AAD`
-  also works for anyone in `jump_vm_admin_login_principal_ids`.
+  The VM has `az`, `kubectl` and `kubelogin` installed.
+- **Give groups, not people, the path in.** Each entry in `jump_vm_access`
+  gets Entra SSH login on the jump VM (`--auth-type AAD`), `Reader` on the
+  VM, its NIC and the Bastion host, and the AKS Cluster User role, which is
+  everything needed to get from Bastion to a kubeconfig. It grants no
+  Kubernetes permissions: use `aks_admin_group_object_ids` for
+  cluster-admins and the apps module's `group_role_bindings` for
+  per-namespace access. Once those work, set `local_account_disabled`.
   `terraform apply` of anything that talks to the Kubernetes API has to
   reach it through that VM too.
 - **The local admin account stays enabled by default**, which leaves a
@@ -126,7 +132,7 @@ the control plane has no stage/prod tier split.
 | `enable_jump_vm` | `bool` | `false` | VM reachable only through Bastion. Requires `enable_bastion`. See Notes |
 | `jump_vm_subnet_address_prefix` | `string` | `null` | `/29` or larger. Required when `enable_jump_vm` |
 | `jump_vm_size` | `string` | `"Standard_B2s"` | |
-| `jump_vm_admin_login_principal_ids` | `list(string)` | `[]` | Entra ID object IDs granted `Virtual Machine Administrator Login` |
+| `jump_vm_access` | `map(object)` | `{}` | Entra ID groups allowed through Bastion to the jump VM. See Notes |
 | `enable_secrets_encryption` | `bool` | `false` | Key Vault-backed KMS etcd encryption |
 | `cluster_secrets_key_vault_name` | `string` | `null` | Override; null derives `<aks_cluster_name>-kms` |
 | `eso_namespace` | `string` | `"external-secrets"` | |
