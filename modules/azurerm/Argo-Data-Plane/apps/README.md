@@ -32,8 +32,6 @@ ESO's own controller.
   AKS's `kubelogin`-based exec auth) and `kubectl_manifest_files` (for
   anything backed by a CRD installed in the same apply, e.g. ESO's
   `ClusterSecretStore`/`ExternalSecret`).
-- Optional local files under `<module_path>/.rendered/` for inspecting
-  rendered manifest content - never applied to the cluster.
 
 ## Inputs
 
@@ -41,24 +39,23 @@ ESO's own controller.
 |---|---|---|---|
 | `namespaces` | `list(string)` | required | Per-tier Kubernetes namespaces, created by this module. Argo Workflows/Events themselves install once, cluster-wide, in `system_namespace` |
 | `system_namespace` | `string` | `"argo"` | |
-| `argo_workflows_chart_version` | `string` | `null` | |
-| `argo_events_chart_version` | `string` | `null` | |
+| `argo_workflows_chart_version` | `string` | `"2.0.6"` | Pinned; bump deliberately |
+| `argo_events_chart_version` | `string` | `"2.4.27"` | Pinned; bump deliberately |
 | `argo_helm_repo` | `string` | `"https://argoproj.github.io/argo-helm"` | |
 | `argo_workflows_values` | `list(string)` | `[]` | Set `controller.workflowNamespaces` to `namespaces` (or leave cluster-wide) depending on how narrow you want the watch |
 | `argo_events_values` | `list(string)` | `[]` | |
 | `install_argocd` | `bool` | `true` | |
 | `argocd_namespace` | `string` | `"argocd"` | |
-| `argocd_chart_version` | `string` | `null` | |
+| `argocd_chart_version` | `string` | `"10.9.1"` | Pinned; bump deliberately |
 | `argocd_helm_repo` | `string` | `"https://argoproj.github.io/argo-helm"` | |
 | `argocd_values` | `list(string)` | `[]` | |
 | `manifest_files` | `list(object({ location, content, template_map, namespace }))` | `[]` | Additional manifests applied after the Helm releases - debug-access RBAC, EventSource/Sensor definitions, ArgoCD Application/AppProject objects, ExternalSecrets/ClusterSecretStore for Workload Identity |
 | `install_external_secrets` | `bool` | `true` | |
-| `eso_chart_version` | `string` | `null` | |
+| `eso_chart_version` | `string` | `"2.11.0"` | Pinned; bump deliberately |
 | `eso_helm_repo` | `string` | `"https://charts.external-secrets.io"` | |
 | `eso_namespace` | `string` | `"external-secrets"` | |
 | `federated_service_accounts` | `map(object({ namespace, client_id, name = optional(string) }))` | `{}` | ServiceAccounts to create, each annotated with `azure.workload.identity/client-id`. `name` defaults to the map key when unset - needed because a pipeline's own WorkflowTemplate may hardcode a fixed `serviceAccountName` that must be identical across every namespace it runs in, while map keys must stay unique |
 | `kubectl_manifest_files` | `list(object({ location, content, template_map, namespace }))` | `[]` | Manifests applied via the `alekc/kubectl` provider - required for anything backed by a CRD installed in this same apply |
-| `rendered_manifest_files` | `map(object({ file_name, content }))` | `{}` | Writes each entry's content to `<module_path>/.rendered/<file_name>`, for inspection only |
 
 ## Outputs
 

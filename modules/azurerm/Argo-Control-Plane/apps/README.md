@@ -79,20 +79,20 @@ as input.
 | `extra_namespaces` | `list(string)` | `[]` | Additional namespaces to create beyond `namespace` |
 | `config_maps` | `map(object({ namespace, data }))` | `{}` | ConfigMaps created before `manifest_files`/`kubectl_manifest_files`. Map key is the ConfigMap name |
 | `tunnel_client_identities` | `list(string)` | `[]` | One reverse-tunnel SSH keypair per data-plane identity. Private keys come back via `tunnel_client_private_keys` |
-| `argo_workflows_chart_version` | `string` | `null` | |
-| `argo_events_chart_version` | `string` | `null` | |
-| `nats_chart_version` | `string` | `null` | |
+| `argo_workflows_chart_version` | `string` | `"2.0.6"` | Pinned; bump deliberately |
+| `argo_events_chart_version` | `string` | `"2.4.27"` | Pinned; bump deliberately |
+| `nats_chart_version` | `string` | `"2.14.6"` | Pinned; bump deliberately |
 | `argo_helm_repo` | `string` | `"https://argoproj.github.io/argo-helm"` | |
 | `nats_helm_repo` | `string` | `"https://nats-io.github.io/k8s/helm/charts/"` | |
 | `argo_workflows_values` | `list(string)` | `[]` | Helm values overrides (YAML strings, later entries win) |
 | `argo_events_values` | `list(string)` | `[]` | Helm values overrides for argo-events |
 | `nats_values` | `list(string)` | `[]` | Helm values overrides for the nats chart |
 | `install_cert_manager` | `bool` | `true` | Installs cert-manager and bootstraps the NATS mTLS client-CA |
-| `cert_manager_chart_version` | `string` | `null` | |
+| `cert_manager_chart_version` | `string` | `"v1.21.2"` | Pinned; bump deliberately |
 | `cert_manager_helm_repo` | `string` | `"https://charts.jetstack.io"` | |
 | `cert_manager_namespace` | `string` | `"cert-manager"` | |
 | `install_traefik` | `bool` | `true` | Installs the Traefik controller |
-| `traefik_chart_version` | `string` | `null` | |
+| `traefik_chart_version` | `string` | `"41.6.1"` | Pinned; bump deliberately |
 | `traefik_helm_repo` | `string` | `"https://traefik.github.io/charts"` | |
 | `traefik_values` | `list(string)` | `[]` | Helm values overrides for traefik |
 | `traefik_namespace` | `string` | `"gateway"` | |
@@ -101,7 +101,7 @@ as input.
 | `manifest_files` | `list(object({ location, content, template_map }))` | `[]` | Additional manifests - dispatch RBAC, SSO gateway, LoadBalancer Services |
 | `install_external_secrets` | `bool` | `true` | Installs External Secrets Operator |
 | `eso_client_id` | `string` | `null` | Workload Identity client ID for ESO's controller ServiceAccount, from the `cluster` module's `eso_client_id` output. Required when `install_external_secrets` is true |
-| `eso_chart_version` | `string` | `null` | |
+| `eso_chart_version` | `string` | `"2.11.0"` | Pinned; bump deliberately |
 | `eso_helm_repo` | `string` | `"https://charts.external-secrets.io"` | |
 | `eso_namespace` | `string` | `"external-secrets"` | Must match the `cluster` module's `eso_namespace` |
 | `kubectl_manifest_files` | `list(object({ location, content, template_map, namespace }))` | `[]` | Manifests backed by a CRD installed in this same apply |
