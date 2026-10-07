@@ -44,7 +44,7 @@ the control plane has no stage/prod tier split.
   can seed secrets.
 - An optional VNet flow log, Argo Workflows artifact storage (Storage Account
   + container + federated identity with `Storage Blob Data Contributor`),
-  and Azure Bastion.
+  Azure Bastion, and a jump VM behind it.
 
 ## Notes
 
@@ -53,6 +53,15 @@ the control plane has no stage/prod tier split.
   connections from any address; only Entra ID sign-in protects it. Set one
   of the two for anything beyond a test cluster. If you set IP ranges,
   include this cluster's NAT gateway addresses.
+- **A private cluster needs the jump VM.** Bastion only carries SSH and RDP
+  to a VM; it can't forward to the API server's port 443. With
+  `private_cluster_enabled = true`, set `enable_bastion` and
+  `enable_jump_vm` and connect with
+  `az network bastion ssh --name <aks_cluster_name>-bastion --resource-group <rg> --target-resource-id <jump_vm_id> --auth-type ssh-key --username azureuser --ssh-key <private key>`.
+  The VM has `az`, `kubectl` and `kubelogin` installed. `--auth-type AAD`
+  also works for anyone in `jump_vm_admin_login_principal_ids`.
+  `terraform apply` of anything that talks to the Kubernetes API has to
+  reach it through that VM too.
 - **The local admin account stays enabled by default**, which leaves a
   credential that bypasses Azure RBAC. Set `local_account_disabled = true`
   once an admin group or role assignment exists; doing it earlier locks
@@ -110,10 +119,14 @@ the control plane has no stage/prod tier split.
 | `availability_zones` | `list(string)` | `["1", "2", "3"]` | At least 2 |
 | `node_min_count` | `number` | `2` | |
 | `node_max_count` | `number` | `4` | |
-| `enable_bastion` | `bool` | `true` | |
+| `enable_bastion` | `bool` | `false` | Set with `bastion_subnet_address_prefix` |
 | `bastion_subnet_address_prefix` | `string` | `null` | `/26` or larger. Required when `enable_bastion` |
 | `bastion_allow_https_internet_inbound` | `bool` | `false` | |
 | `bastion_public_address_prefixes` | `list(string)` | `[]` | |
+| `enable_jump_vm` | `bool` | `false` | VM reachable only through Bastion. Requires `enable_bastion`. See Notes |
+| `jump_vm_subnet_address_prefix` | `string` | `null` | `/29` or larger. Required when `enable_jump_vm` |
+| `jump_vm_size` | `string` | `"Standard_B2s"` | |
+| `jump_vm_admin_login_principal_ids` | `list(string)` | `[]` | Entra ID object IDs granted `Virtual Machine Administrator Login` |
 | `enable_secrets_encryption` | `bool` | `false` | Key Vault-backed KMS etcd encryption |
 | `cluster_secrets_key_vault_name` | `string` | `null` | Override; null derives `<aks_cluster_name>-kms` |
 | `eso_namespace` | `string` | `"external-secrets"` | |
@@ -142,6 +155,7 @@ the control plane has no stage/prod tier split.
 | `node_subnet_id` | |
 | `nat_gateway_public_ip` | Static egress IP for the whole control plane |
 | `bastion_host_id` | `null` unless `enable_bastion` |
+| `jump_vm_id` | `--target-resource-id` for `az network bastion ssh`. `null` unless `enable_jump_vm` |
 | `eso_client_id` | Workload Identity client ID for ESO's controller ServiceAccount |
 | `eso_key_vault_uri` | `vaultUrl` for the `ClusterSecretStore` |
 | `eso_key_vault_id` | |

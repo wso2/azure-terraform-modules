@@ -30,6 +30,15 @@ locals {
   cluster_secrets_key_vault_name = coalesce(var.cluster_secrets_key_vault_name, "${trimsuffix(substr(var.aks_cluster_name, 0, 24 - length("-kms")), "-")}-kms")
   eso_key_vault_name             = coalesce(var.eso_key_vault_name, "${trimsuffix(substr(var.aks_cluster_name, 0, 24 - length("-secrets")), "-")}-secrets")
 
+  # Installs az, kubectl and kubelogin on first boot.
+  jump_vm_cloud_init = <<-EOT
+    #cloud-config
+    package_update: true
+    runcmd:
+      - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+      - az aks install-cli
+  EOT
+
   # The rule set Azure requires on the AzureBastionSubnet's NSG.
   bastion_security_rules = {
     AllowHttpsInBound = {

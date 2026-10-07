@@ -195,6 +195,30 @@ variable "bastion_public_address_prefixes" {
   default     = []
 }
 
+variable "enable_jump_vm" {
+  type        = bool
+  description = "Whether to provision a small Linux VM with az, kubectl and kubelogin, reachable only through Bastion. Needed to reach the API server when private_cluster_enabled is true, since Bastion itself only forwards SSH and RDP. Requires enable_bastion."
+  default     = false
+}
+
+variable "jump_vm_subnet_address_prefix" {
+  type        = string
+  description = "CIDR for the jump VM's own subnet (/29 or larger) - required when enable_jump_vm is true"
+  default     = null
+}
+
+variable "jump_vm_size" {
+  type        = string
+  description = "VM size for the jump VM"
+  default     = "Standard_B2s"
+}
+
+variable "jump_vm_admin_login_principal_ids" {
+  type        = list(string)
+  description = "Entra ID object IDs granted Virtual Machine Administrator Login on the jump VM, for `az network bastion ssh --auth-type AAD`. Only created when create_role_assignments is true. SSH key login as aks_admin_username works without it."
+  default     = []
+}
+
 variable "enable_secrets_encryption" {
   type        = bool
   description = "Whether to create a Key Vault + key and enable AKS's KMS etcd encryption with it."

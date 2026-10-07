@@ -59,6 +59,11 @@ output "bastion_host_id" {
   value = var.enable_bastion ? azurerm_bastion_host.bastion_host[0].id : null
 }
 
+output "jump_vm_id" {
+  description = "Target for `az network bastion ssh --target-resource-id` - null unless enable_jump_vm is true"
+  value       = var.enable_jump_vm ? azurerm_linux_virtual_machine.jump_vm[0].id : null
+}
+
 output "eso_client_id" {
   description = "Workload Identity client ID for External Secrets Operator's own controller ServiceAccount (<eso_namespace>/external-secrets)"
   value       = azurerm_user_assigned_identity.eso.client_id
