@@ -69,3 +69,25 @@ resource "azuread_group" "tier" {
   description      = each.value
   security_enabled = true
 }
+
+# With app_role_assignment_required, only members of the tier groups can
+# sign in at all. The all-zero ID is Entra's "default access" role, used
+# when the application defines no app roles of its own.
+resource "azuread_app_role_assignment" "tier" {
+  for_each = var.sp_app_role_assignment_required ? local.tier_groups : {}
+
+  app_role_id         = "00000000-0000-0000-0000-000000000000"
+  principal_object_id = azuread_group.tier[each.key].object_id
+  resource_object_id  = azuread_service_principal.service_principal.object_id
+}
+
+# Keeps the secret ESO syncs in step with rotation: the new password and
+# the vault entry change in the same apply.
+resource "azurerm_key_vault_secret" "client_secret" {
+  count = var.store_client_secret_in_key_vault ? 1 : 0
+
+  name         = var.client_secret_name
+  value        = azuread_service_principal_password.service_principal_password.value
+  key_vault_id = var.client_secret_key_vault_id
+}
+
