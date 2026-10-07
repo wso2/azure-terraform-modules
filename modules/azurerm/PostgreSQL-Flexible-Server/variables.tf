@@ -84,6 +84,18 @@ variable "storage_size" {
   type        = string
 }
 
+variable "storage_tier" {
+  default     = null
+  description = "Optional performance tier of the storage (P4 - P80). If not provided Azure uses the default tier for the storage size"
+  type        = string
+}
+
+variable "auto_grow_enabled" {
+  default     = false
+  description = "Enable storage auto grow on the PostgreSQL Server"
+  type        = bool
+}
+
 variable "sku_name" {
   description = "PostgreSQL Server version"
   type        = string
