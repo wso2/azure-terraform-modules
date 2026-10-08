@@ -50,16 +50,26 @@ module with no sub-directories.
   ```bash
   terraform import 'module.argo_sso.azuread_group.tier["nonprod-reader"]' <existing-object-id>
   ```
+- **This is deliberately a service principal password, not an application
+  password.** `azuread_service_principal_password` is a credential on the
+  service principal object, which is what a confidential OIDC client
+  (oauth2-proxy here) authenticates as - the application registration
+  itself carries no secret. An application password
+  (`azuread_application_password`) would be the wrong resource for this.
 - **Write `sp_password` to the gateway's secret store in the same
   configuration.** `time_rotating` marks the password due after
   `sp_password_rotation_months`, and the next `apply` replaces it and
-  removes the old one. If the store is updated by a resource fed from
-  this module's `sp_password` output, the two change in one apply and
-  sign-in only pauses until the gateway re-syncs. If the value is copied by
-  hand instead, sign-in stays broken until someone does it. The module
-  doesn't write the secret itself, so it carries no cloud provider beyond
-  `azuread`: the control plane may keep its secrets in Key Vault or in AWS
-  Secrets Manager.
+  removes the old one. `create_before_destroy` on both resources means the
+  old password stays valid until that same apply's destroy step runs -
+  there is no calendar grace period afterward, so "same configuration"
+  above means literally the same `apply`, not just the same repo. If the
+  store is updated by a resource fed from this module's `sp_password`
+  output, the two change in that one apply and sign-in only pauses until
+  the gateway re-syncs. If the value is copied by hand instead, sign-in
+  stays broken from that apply onward until someone does it - there's no
+  overlap window to catch it in later. The module doesn't write the secret
+  itself, so it carries no cloud provider beyond `azuread`: the control
+  plane may keep its secrets in Key Vault or in AWS Secrets Manager.
 
   ```hcl
   resource "aws_secretsmanager_secret_version" "sso_client_secret" {
