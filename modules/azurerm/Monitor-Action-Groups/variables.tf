@@ -66,3 +66,14 @@ variable "monitor_action_group_abbreviation" {
   type        = string
   default     = "ag"
 }
+
+variable "logic_app_receivers" {
+  default     = []
+  description = "List of logic app receivers for the action group"
+  type = list(object({
+    name                    = string
+    resource_id             = string
+    callback_url            = string
+    use_common_alert_schema = bool
+  }))
+}
