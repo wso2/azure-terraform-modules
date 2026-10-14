@@ -22,4 +22,13 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
   name                = join("-", [var.abbreviation, var.name])
   location            = var.location
   resource_group_name = var.resource_group_name
+
+  dynamic "identity" {
+    for_each = var.identity_type == null ? [] : [var.identity_type]
+
+    content {
+      type         = identity.value
+      identity_ids = var.identity_ids
+    }
+  }
 }
