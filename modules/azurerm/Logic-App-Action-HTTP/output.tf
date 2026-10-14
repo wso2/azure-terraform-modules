@@ -18,7 +18,11 @@
 #
 # --------------------------------------------------------------------------------------
 
+
 output "name" {
-  depends_on = [azurerm_logic_app_action_http.logic_app_action_http]
-  value      = azurerm_logic_app_action_http.logic_app_action_http.name
+  value = one(concat(azurerm_logic_app_action_http.logic_app_action_http[*].name, azurerm_logic_app_action_custom.logic_app_action_http[*].name))
+}
+
+output "id" {
+  value = one(concat(azurerm_logic_app_action_http.logic_app_action_http[*].id, azurerm_logic_app_action_custom.logic_app_action_http[*].id))
 }

@@ -18,7 +18,9 @@
 #
 # --------------------------------------------------------------------------------------
 
+
 resource "azurerm_logic_app_action_http" "logic_app_action_http" {
+  count        = local.use_custom_action ? 0 : 1
   name         = join("-", [var.abbreviation, var.name])
   logic_app_id = var.logic_app_id
   method       = var.method
@@ -26,4 +28,41 @@ resource "azurerm_logic_app_action_http" "logic_app_action_http" {
   body         = var.body
   headers      = var.headers
   queries      = var.queries
+
+  dynamic "run_after" {
+    for_each = var.run_after
+
+    content {
+      action_name   = run_after.value.action_name
+      action_result = run_after.value.action_result
+    }
+  }
+}
+
+resource "azurerm_logic_app_action_custom" "logic_app_action_http" {
+  count        = local.use_custom_action ? 1 : 0
+  name         = join("-", [var.abbreviation, var.name])
+  logic_app_id = var.logic_app_id
+  body = jsonencode(merge(
+    {
+      type     = "Http"
+      runAfter = { for r in var.run_after : r.action_name => [r.action_result] }
+      inputs = merge(
+        {
+          method = var.method
+          uri    = var.uri
+        },
+        var.body == null ? {} : { body = try(jsondecode(var.body), var.body) },
+        var.headers == null ? {} : { headers = var.headers },
+        var.queries == null ? {} : { queries = var.queries },
+        var.authentication == null ? {} : { authentication = var.authentication }
+      )
+    },
+    length(var.secure_data) == 0 ? {} : { runtimeConfiguration = { secureData = { properties = var.secure_data } } }
+  ))
+}
+
+moved {
+  from = azurerm_logic_app_action_http.logic_app_action_http
+  to   = azurerm_logic_app_action_http.logic_app_action_http[0]
 }
