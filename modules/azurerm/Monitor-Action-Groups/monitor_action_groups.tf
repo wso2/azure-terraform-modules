@@ -48,4 +48,15 @@ resource "azurerm_monitor_action_group" "monitor_action_group" {
       use_common_alert_schema = automation_runbook_receiver.value.use_common_alert_schema
     }
   }
+
+  dynamic "logic_app_receiver" {
+    for_each = var.logic_app_receivers
+
+    content {
+      name                    = logic_app_receiver.value.name
+      resource_id             = logic_app_receiver.value.resource_id
+      callback_url            = logic_app_receiver.value.callback_url
+      use_common_alert_schema = logic_app_receiver.value.use_common_alert_schema
+    }
+  }
 }

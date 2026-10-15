@@ -38,3 +38,15 @@ variable "resource_group_name" {
   description = "Name of the resource group in which the Azure Logic App Workflow will be created"
   type        = string
 }
+
+variable "identity_type" {
+  description = "Type of Managed Service Identity for the Logic App Workflow. Possible values are SystemAssigned, UserAssigned. Set to null to disable"
+  type        = string
+  default     = null
+}
+
+variable "identity_ids" {
+  description = "List of User Assigned Managed Identity IDs to be assigned to the Logic App Workflow"
+  type        = list(string)
+  default     = []
+}

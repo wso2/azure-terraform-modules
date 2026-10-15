@@ -47,15 +47,38 @@ variable "uri" {
 variable "body" {
   description = "The HTTP Body that should be sent to the uri when this HTTP Action is triggered"
   type        = string
+  default     = null
 }
 
 variable "headers" {
   description = "A map of Key-Value Pairs that should be sent to the uri when this HTTP Action is triggered"
   type        = map(string)
+  default     = null
 }
 
 variable "queries" {
   description = "Map of Key-Value Pairs that should be sent to the uri when this HTTP Action is triggered"
   type        = map(string)
   default     = null
+}
+
+variable "run_after" {
+  description = "List of actions that must complete before this HTTP Action runs"
+  type = list(object({
+    action_name   = string
+    action_result = string
+  }))
+  default = []
+}
+
+variable "authentication" {
+  description = "Authentication for the HTTP Action, e.g. { type = \"ManagedServiceIdentity\", identity = <user assigned identity id>, audience = \"https://vault.azure.net\" }. Set to null to disable"
+  type        = map(string)
+  default     = null
+}
+
+variable "secure_data" {
+  description = "Properties of the HTTP Action to hide in run history. Possible values are inputs, outputs"
+  type        = list(string)
+  default     = []
 }

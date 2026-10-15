@@ -27,3 +27,8 @@ output "id" {
   depends_on = [azurerm_logic_app_workflow.logic_app_workflow]
   value      = azurerm_logic_app_workflow.logic_app_workflow.id
 }
+
+output "access_endpoint" {
+  depends_on = [azurerm_logic_app_workflow.logic_app_workflow]
+  value      = azurerm_logic_app_workflow.logic_app_workflow.access_endpoint
+}
