@@ -46,7 +46,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_action_http" {
   body = jsonencode(merge(
     {
       type     = "Http"
-      runAfter = { for r in var.run_after : r.action_name => [r.action_result] }
+      runAfter = { for r in var.run_after : r.action_name => r.action_result... }
       inputs = merge(
         {
           method = var.method
