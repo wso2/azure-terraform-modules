@@ -18,7 +18,6 @@
 #
 # --------------------------------------------------------------------------------------
 
-
 locals {
   # Use a custom action when the HTTP action needs features that azurerm_logic_app_action_http does not
   # support, such as managed identity authentication or secure inputs/outputs
