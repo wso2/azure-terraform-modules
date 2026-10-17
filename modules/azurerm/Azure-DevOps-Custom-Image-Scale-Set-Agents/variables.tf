@@ -65,6 +65,12 @@ variable "source_image_id" {
   type        = string
 }
 
+variable "custom_data" {
+  description = "Optional plain-text cloud-init/bash script run once at boot on every instance. The module base64-encodes it; pass raw script content, not already-encoded data."
+  type        = string
+  default     = null
+}
+
 variable "network_interface_is_primary" {
   default     = true
   description = "Is this the Primary IP Configuration for this Network Interface?"

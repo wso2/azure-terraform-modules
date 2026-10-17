@@ -46,6 +46,27 @@ variable "msi_auth_for_monitoring_enabled" {
   default     = false
 }
 
+# Defaults to false (add-on off) to stay backward-compatible with existing callers of
+# this module that don't set it - only clusters that explicitly opt in get the Key
+# Vault Secrets Store CSI driver.
+variable "key_vault_secrets_provider_enabled" {
+  description = "Enable the Key Vault Secrets Store CSI driver add-on"
+  type        = bool
+  default     = false
+}
+
+variable "key_vault_secrets_provider_secret_rotation_enabled" {
+  description = "Enable automatic secret rotation for the Key Vault Secrets Store CSI driver"
+  type        = bool
+  default     = false
+}
+
+variable "key_vault_secrets_provider_secret_rotation_interval" {
+  description = "Interval for automatic secret rotation, e.g. '2m'"
+  type        = string
+  default     = "2m"
+}
+
 # Network details
 variable "virtual_network_resource_group_name" {
   default     = null

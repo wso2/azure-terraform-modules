@@ -22,7 +22,11 @@ resource "azurerm_linux_virtual_machine_scale_set" "scale_set_agent_linux_virtua
   platform_fault_domain_count = 1
   source_image_id             = var.source_image_id
   tags                        = var.tags
-  depends_on                  = [azurerm_subnet.scale_set_agent_subnet]
+  # Optional cloud-init/bash run once at boot on every instance - e.g. installing a
+  # tool the golden image doesn't carry (this image is shared with the Bastion VM, so
+  # it's deliberately minimal). null by default: no behavior change for existing callers.
+  custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
+  depends_on  = [azurerm_subnet.scale_set_agent_subnet]
 
   lifecycle {
     ignore_changes = [
