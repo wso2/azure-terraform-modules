@@ -24,6 +24,17 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
     output_stream = var.data_flow_output_stream
   }
 
+  dynamic "data_flow" {
+    for_each = var.additional_data_flows
+
+    content {
+      destinations  = data_flow.value.destinations
+      streams       = data_flow.value.streams
+      transform_kql = data_flow.value.transform_kql
+      output_stream = data_flow.value.output_stream
+    }
+  }
+
   destinations {
 
     log_analytics {
@@ -72,6 +83,23 @@ resource "azurerm_monitor_data_collection_rule" "data_collection_rule" {
 
       dynamic "column" {
         for_each = var.stream_declaration_columns
+
+        content {
+          name = column.value["name"]
+          type = column.value["type"]
+        }
+      }
+    }
+  }
+
+  dynamic "stream_declaration" {
+    for_each = var.additional_stream_declarations
+
+    content {
+      stream_name = stream_declaration.value.stream_name
+
+      dynamic "column" {
+        for_each = stream_declaration.value.columns
 
         content {
           name = column.value["name"]
