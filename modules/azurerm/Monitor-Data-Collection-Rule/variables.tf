@@ -123,3 +123,26 @@ variable "data_sources_extensions" {
     input_data_sources = list(string)
   }))
 }
+
+variable "additional_data_flows" {
+  default     = []
+  description = "Data flows in addition to the one defined by the data_flow_* variables, e.g. one per custom table fed by the same rule"
+  type = list(object({
+    streams       = list(string)
+    destinations  = list(string)
+    transform_kql = optional(string)
+    output_stream = optional(string)
+  }))
+}
+
+variable "additional_stream_declarations" {
+  default     = []
+  description = "Custom stream declarations in addition to the one defined by the stream_declaration_* variables"
+  type = list(object({
+    stream_name = string
+    columns = list(object({
+      name = string
+      type = string
+    }))
+  }))
+}

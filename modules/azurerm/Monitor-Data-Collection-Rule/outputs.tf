@@ -13,3 +13,8 @@ output "data_collection_rule_id" {
   depends_on = [azurerm_monitor_data_collection_rule.data_collection_rule]
   value      = azurerm_monitor_data_collection_rule.data_collection_rule.id
 }
+
+output "data_collection_rule_immutable_id" {
+  depends_on = [azurerm_monitor_data_collection_rule.data_collection_rule]
+  value      = azurerm_monitor_data_collection_rule.data_collection_rule.immutable_id
+}
